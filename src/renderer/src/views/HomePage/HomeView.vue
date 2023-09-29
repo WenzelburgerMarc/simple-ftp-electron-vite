@@ -18,7 +18,7 @@
             <span class="truncate w-full mr-5 text-gray-800 ">Path: {{ currentDir }}</span>
           </div>
           <icon-button-component ëmitName="newFolderFTP"
-                                 btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 text-base"
+                                 btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
                                  icon="plus" icon-class="mr-2" >New Folder</icon-button-component>
 
 
@@ -51,12 +51,12 @@
                                  v-if="file.type === 'd'"
                                  :icon="['far', 'folder-open']" />
               <span class="hover:underline cursor-pointer">{{ file.name }}</span></td>
-            <td class="px-6 py-4">{{ formatSize(file.size) }}</td>
+            <td class="px-6 py-4">{{ file.type !== 'd' ? formatSize(file.size) : '' }}</td>
             <td class="px-6 py-4">{{ formatType(file.name, file.type) }}</td>
 
             <td class="flex items-center px-6 py-4 space-x-3">
               <a href="#"
-                 class="font-medium ml-auto text-red-600 hover:underline">Delete File</a>
+                 class="font-medium ml-auto text-red-600 hover:text-red-700">Delete File</a>
             </td>
           </tr>
           </tbody>
