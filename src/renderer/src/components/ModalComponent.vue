@@ -20,7 +20,6 @@ const emit = defineEmits(['closeModal']);
 onMounted(() => {
   window.addEventListener("click", (event) => {
     if (event.target.closest(".modal-bg")) {
-      console.log("main container clicked");
       if (props.showModal) {
         emit('closeModal')
       }

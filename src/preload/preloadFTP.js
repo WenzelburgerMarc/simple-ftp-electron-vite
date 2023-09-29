@@ -53,11 +53,11 @@ export const listFiles = async (remoteDir = "/") => {
     const fileObjects = await sftp.list(remoteDir);
     const fileNames = [];
     for (const file of fileObjects) {
-      if (file.type === "d") {
-        console.log(`${new Date(file.modifyTime).toISOString()} PRE ${file.name}`);
-      } else {
-        console.log(`${new Date(file.modifyTime).toISOString()} ${file.size} ${file.name}`);
-      }
+      // if (file.type === "d") {
+      //   console.log(`${new Date(file.modifyTime).toISOString()} PRE ${file.name}`);
+      // } else {
+      //   console.log(`${new Date(file.modifyTime).toISOString()} ${file.size} ${file.name}`);
+      // }
       fileNames.push(file.name);
     }
     setFiles(fileNames);

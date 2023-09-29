@@ -19,7 +19,6 @@ export const connect = (ftpSettings) => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(ftpSettings);
       if (window.ftp.getIsConnected()) {
         await window.ftp.disconnectFTP();
         connected.value = window.ftp.getIsConnected();
