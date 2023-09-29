@@ -1,11 +1,13 @@
 <script setup>
 import TheSidebar from "@/components/SideBar/TheSidebar.vue";
+import Loader from "../components/Loader.vue";
 
 
 </script>
 
 <template>
   <div class="overflow-hidden">
+    <loader />
     <TheSidebar />
 
     <div class="main-content-container w-[calc(100vw-70px)] min-h-screen flex flex-col start start p-5 ml-5">

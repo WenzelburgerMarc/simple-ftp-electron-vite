@@ -33,7 +33,7 @@ import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { displayFlash } from "../../js/flashMessageController";
-
+import { startLoading, stopLoading } from "@/js/loaderManager.js";
 
 // eslint-disable-next-line vue/no-dupe-keys
 let autoUploadInterval = reactive(ref(0));
@@ -82,20 +82,25 @@ watch(props.showModal, async () => {
   await loadSettings();
 });
 const loadSettings = async () => {
+  startLoading();
   enableAutoStart.value = await window.ipcRendererInvoke("get-setting", "enableAutoStart");
   autoUploadInterval.value = await window.ipcRendererInvoke("get-setting", "autoUploadInterval");
   selectedPath.value = await window.ipcRendererInvoke("get-setting", "savePath");
+  stopLoading();
 };
 
 
 // Save Settings
 const saveSettings = async () => {
   try {
+    startLoading();
     await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
     await window.ipcRendererInvoke("set-setting", "autoUploadInterval", autoUploadInterval.value);
     await window.ipcRendererInvoke("set-setting", "savePath", selectedPath.value);
+    stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {
+    stopLoading();
     displayFlash("An Error Occured While Saving Settings", "error");
   }
 };

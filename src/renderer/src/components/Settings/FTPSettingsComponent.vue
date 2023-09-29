@@ -52,13 +52,14 @@ import TitleComponent from "../form/TitleComponent.vue";
 import { defineEmits, onMounted, ref, watch } from "vue";
 import { displayFlash } from "../../js/flashMessageController";
 import { connect } from "../../js/ftpManager";
+import { startLoading, stopLoading } from "@/js/loaderManager.js";
 
 const ftpHost = ref("");
 const ftpPort = ref("");
 const ftpUsername = ref("");
 const ftpPassword = ref("");
 
-const props = defineProps(['showModal']);
+const props = defineProps(["showModal"]);
 const emits = defineEmits(["closeModal", "update:showModal", "connectToFTP"]);
 
 
@@ -76,7 +77,7 @@ const updateFtpPassword = (newValue) => {
 };
 
 const closeModal = () => {
-  emits('closeModal');
+  emits("closeModal");
 };
 
 // On Mounted
@@ -89,10 +90,12 @@ watch(props.showModal, async () => {
   await loadSettings();
 });
 const loadSettings = async () => {
-    ftpHost.value = await window.ipcRendererInvoke("get-setting", "ftpHost");
+  startLoading();
+  ftpHost.value = await window.ipcRendererInvoke("get-setting", "ftpHost");
   ftpPort.value = await window.ipcRendererInvoke("get-setting", "ftpPort");
   ftpUsername.value = await window.ipcRendererInvoke("get-setting", "ftpUsername");
   ftpPassword.value = await window.ipcRendererInvoke("get-setting", "ftpPassword");
+  stopLoading();
 };
 
 
@@ -119,18 +122,21 @@ const testFtpSettings = async () => {
     port: ftpPort.value,
     username: ftpUsername.value,
     password: ftpPassword.value
-  })
+  });
 };
 
 // Save Settings
 const saveSettings = async () => {
   try {
+    startLoading();
     await window.ipcRendererInvoke("set-setting", "ftpHost", ftpHost.value);
     await window.ipcRendererInvoke("set-setting", "ftpPort", ftpPort.value);
     await window.ipcRendererInvoke("set-setting", "ftpUsername", ftpUsername.value);
     await window.ipcRendererInvoke("set-setting", "ftpPassword", ftpPassword.value);
+    stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {
+    stopLoading();
     displayFlash("An Error Occured While Saving Settings", "error");
   }
 };

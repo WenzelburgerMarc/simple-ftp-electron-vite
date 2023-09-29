@@ -1,5 +1,6 @@
 <template>
   <main-layout>
+
     <div class="flex flex-col space-y-3 p-3">
 
       <FtpStatusOverview @listFiles="listFiles" :is-connected="connected"
@@ -27,6 +28,7 @@ import {
   connected, fileList, listFiles,
   // fileList
 } from "@/js/ftpManager.js";
+import Loader from "../../components/Loader.vue";
 
 
 
