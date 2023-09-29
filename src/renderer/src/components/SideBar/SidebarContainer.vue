@@ -2,34 +2,38 @@
   <div class="sidebar w-auto fixed top-0 left-0 bg-blue-600 h-screen z-50"
        :class="isOpen ? 'sidebarOpen' : 'sidebarClosed'">
 
-    <div :class="isModalVisible ? 'pointer-events-none blur-sidebar' : ''" class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
+    <div :class="isModalVisible ? 'pointer-events-none blur-sidebar' : ''"
+         class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
 
       <sidebar-toggler :isOpen="isOpen"
                        v-on:toggleSidebar="toggleSidebar()"
-                       class="absolute left-full m-3"/>
+                       class="absolute left-full m-3" />
 
       <sidebar-item :item="logoItem"
                     :isOpen="isOpen"
-                    class="z-50 mx-auto my-3 w-11/12"/>
-      <sidebar-divider/>
+                    class="z-50 mx-auto my-3 w-11/12"
+                    :active-route="isRouteName('home').value" />
+      <sidebar-divider />
       <SidebarItem :key="item"
                    v-for="item in arrSidebarItemsTop"
                    :item="item"
                    :isOpen="isOpen"
-                   class="mx-auto mt-3 w-11/12"/>
-      <sidebar-divider class="mt-auto"/>
+                   class="mx-auto mt-3 w-11/12"
+                   :active-route="isRouteName(item.activeRouteName).value" />
+      <sidebar-divider class="mt-auto" />
       <SidebarItem :key="item"
                    v-for="item in arrSidebarItemsBottom"
                    :item="item"
                    :isOpen="isOpen"
-                   class="mx-auto mt-3 w-11/12"/>
+                   class="mx-auto mt-3 w-11/12"
+                   :active-route="isRouteName(item.activeRouteName).value" />
     </div>
 
 
   </div>
   <SettingsModal :showModal="isModalVisible"
-                    @connectToFTP="connect"
-                    @update:showModal="updateModalVisibility"/>
+                 @connectToFTP="connect"
+                 @update:showModal="updateModalVisibility" />
 
   <FlashMessage />
 
@@ -42,73 +46,75 @@ import {
   updateModalVisibility,
   connect
 } from "@/js/ftpManager.js";
-import SidebarItem from './SidebarItem.vue';
-import SidebarToggler from './SidebarToggler.vue';
-import SidebarDivider from './SidebarDivider.vue';
-import {useRouter} from "vue-router";
+import SidebarItem from "./SidebarItem.vue";
+import SidebarToggler from "./SidebarToggler.vue";
+import SidebarDivider from "./SidebarDivider.vue";
+import { useRouter } from "vue-router";
 import { defineEmits, onMounted } from "vue";
 import nightwind from "nightwind/helper";
 import FlashMessage from "@/components/FlashMessage.vue";
 import SettingsModal from "@/components/Settings/SettingsModal.vue";
-import {ref, computed} from 'vue';
+import { ref, computed } from "vue";
 
 let isOpen = ref(false);
 
-const emit = defineEmits(['toggledSidebarEvent']);
+const emit = defineEmits(["toggledSidebarEvent"]);
 
 const router = useRouter();
 
 
-const darkModeOn = ref(document.documentElement.classList.contains('dark'));
-const darkModeIcon = computed(() => darkModeOn.value ? 'bx-moon' : 'bx-sun');
+const darkModeOn = ref(document.documentElement.classList.contains("dark"));
+const darkModeIcon = computed(() => darkModeOn.value ? "bx-moon" : "bx-sun");
 const arrSidebarItemsBottom = [
   {
-    iconClass: 'bx-cog',
-    label: 'Settings',
+    iconClass: "bx-cog",
+    label: "Settings",
     actionEvent: () => {
       openModal();
-      if(isOpen.value)
+      if (isOpen.value)
         toggleSidebar();
-    }
+    },
+    activeRouteName: ""
   },
   {
     get iconClass() {
       return darkModeIcon.value;
     },
-    label: 'Toggle Appearance',
+    label: "Toggle Appearance",
     actionEvent: () => toggleDarkMode(),
-  },
+    activeRouteName: ""
+  }
 ];
 
 
 const toggleDarkMode = () => {
-  console.log('toggle dark mode')
   nightwind.toggle();
   darkModeOn.value = !darkModeOn.value;
 };
 
 const arrSidebarItemsTop = [
   {
-    iconClass: 'bx-analyse',
-    label: 'Logs',
+    iconClass: "bx-analyse",
+    label: "Logs",
     actionEvent: () => {
-      console.log('go to logs')
+      console.log("go to logs");
       //router.push({name: 'Logs'});
-      if(isOpen.value)
+      if (isOpen.value)
         toggleSidebar();
     },
-  },
+    activeRouteName: "logs"
+  }
 ];
 
 const logoItem = {
-  iconClass: 'bx-home',
-  label: 'Home',
+  iconClass: "bx-home",
+  label: "Home",
   actionEvent: () => {
     goToHome();
-    if(isOpen.value)
+    if (isOpen.value)
       toggleSidebar();
   },
-  isLogoItem: true,
+  isLogoItem: true
 };
 
 function toggleSidebar() {
@@ -117,21 +123,26 @@ function toggleSidebar() {
 
   isOpen.value = !isOpen.value;
 
-  emit('toggledSidebarEvent');
+  emit("toggledSidebarEvent");
 }
 
 onMounted(() => {
-  const mainContainer = document.querySelector('.main-content-container');
-  if (!mainContainer) return;
-  mainContainer.addEventListener('click', () => {
-    if (isOpen.value) {
-      toggleSidebar();
+  window.addEventListener("click", (event) => {
+    if (event.target.closest(".main-content-container")) {
+      console.log("main container clicked");
+      if (isOpen.value) {
+        toggleSidebar();
+      }
     }
   });
-})
+});
+
+const isRouteName = (name) => {
+  return computed(() => router.currentRoute.value.name === name);
+};
 
 async function animateLabels(reverse) {
-  const labels = document.querySelectorAll('.sidebar-item h1');
+  const labels = document.querySelectorAll(".sidebar-item h1");
   const headingElements = Array.from(labels);
 
 
@@ -142,14 +153,14 @@ async function animateLabels(reverse) {
 
   for (const label of headingElements) {
     await new Promise(resolve => setTimeout(resolve, delay * 25));
-    label.classList.toggle('hide');
+    label.classList.toggle("hide");
     delay += 0.5;
   }
 }
 
 
 function goToHome() {
-  router.push({name: 'home'});
+  router.push({ name: "home" });
 }
 
 </script>

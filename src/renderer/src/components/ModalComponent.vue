@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 left-[70px] h-screen w-screen z-40 transition-all"
+  <div class="fixed modal-bg top-0 left-[70px] h-screen w-screen z-40 transition-all"
        :class="props.showModal ? 'blur-transparent-modal pointer-events-auto' : 'opacity-0 pointer-events-none'"></div>
 
   <transition name="modal-fade">
@@ -18,15 +18,15 @@ import { defineProps, onMounted } from "vue";
 const emit = defineEmits(['closeModal']);
 
 onMounted(() => {
-  const mainContainer = document.querySelector('.blur-transparent-modal');
-  console.log(mainContainer);
-  if (!mainContainer) return;
-  mainContainer.addEventListener('click', () => {
-    if (props.showModal) {
-      emit('closeModal')
+  window.addEventListener("click", (event) => {
+    if (event.target.closest(".modal-bg")) {
+      console.log("main container clicked");
+      if (props.showModal) {
+        emit('closeModal')
+      }
     }
   });
-})
+});
 
 const props = defineProps({
   showModal: {

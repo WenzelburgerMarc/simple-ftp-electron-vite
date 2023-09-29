@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar-item p-2 flex items-center justify-start rounded-xl hover:cursor-pointer overflow-hidden"
-        @click="props.item.actionEvent" :class="props.item.isLogoItem ? '' : 'hover:bg-blue-400'">
+        @click="props.item.actionEvent" :class="[props.item.isLogoItem ? '' : 'hover:bg-blue-400', activeRoute ? 'bg-blue-400' : '']">
         <div class="w-12 h-12  flex-shrink-0 flex items-center justify-center rounded-full">
             <i :class="[props.item.iconClass, props.item.isLogoItem ? 'font-semibold' : 'font-normal']"
                 class='bx text-2xl rounded-md text-white text-center'></i>
@@ -31,6 +31,10 @@ const props = defineProps({
         type: Boolean,
         required: true
     },
+  activeRoute: {
+    type: Boolean,
+    required: true
+  }
 
 });
 

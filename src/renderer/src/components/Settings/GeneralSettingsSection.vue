@@ -34,8 +34,12 @@ import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { displayFlash } from "../../js/flashMessageController";
 
+
+// eslint-disable-next-line vue/no-dupe-keys
 let autoUploadInterval = reactive(ref(0));
+// eslint-disable-next-line vue/no-dupe-keys
 const selectedPath = ref("");
+// eslint-disable-next-line vue/no-dupe-keys
 const enableAutoStart = ref(false);
 
 const props = defineProps(['showModal', 'selectedPath', 'enableAutoStart', 'autoUploadInterval']);
