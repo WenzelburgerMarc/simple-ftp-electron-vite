@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Design&#10;Refactor HomeView.vue">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ServerExplorer.vue" beforeDir="false" />
-    </list>
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Logic in FTP Status Overview" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +103,7 @@
       <workItem from="1695972524009" duration="23000" />
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
-      <workItem from="1695972987788" duration="23541000" />
+      <workItem from="1695972987788" duration="24196000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -254,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695995607775</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Fix - Logic in FTP Status Overview">
+      <option name="closed" value="true" />
+      <created>1695996614172</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1695996614172</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,6 +292,7 @@
     <MESSAGE value="Add - Server Explorer&#10;Fix - Design" />
     <MESSAGE value="Fix - Design" />
     <MESSAGE value="Fix - Design&#10;Refactor HomeView.vue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Design&#10;Refactor HomeView.vue" />
+    <MESSAGE value="Fix - Logic in FTP Status Overview" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Logic in FTP Status Overview" />
   </component>
 </project>
