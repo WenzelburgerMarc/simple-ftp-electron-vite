@@ -7,12 +7,20 @@
     leave-from-class="opacity-100 transform translate-x-0"
     leave-to-class="opacity-0 transform translate-x-full">
     <div v-if="visible"
-         class="fixed bottom-5 right-5 px-6 py-3 rounded-lg shadow-md text-gray-800 no-blur"
-         :class="flashTypeClasses">
-      {{ flashMessage }}
+         class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden md:w-5/12 no-blur"
+         >
+      <div class="flex w-3" :class="gradientClasses"></div>
+      <div class="flex-1 p-3">
+        <h1 class="md:text-xl text-gray-600" v-text="flashTitle"></h1>
+        <p class="text-gray-400 text-xs md:text-sm font-light" v-text="flashMessage"></p>
+      </div>
+      <div @click="closeFlash" class="cursor-pointer border-l hover:bg-gray-50 border-gray-100 px-4 flex place-items-center">
+        <p class="text-gray-400 text-xs">CLOSE</p>
+      </div>
     </div>
   </transition>
 </template>
+
 
 <script setup>
 import {ref, watch, computed} from 'vue';
@@ -32,14 +40,26 @@ watch(showFlash, (newVal) => {
     }, 3000);
   }
 });
-
-const flashTypeClasses = computed(() => {
+const flashTitle = computed(() => {
   switch (flashType.value) {
-    case 'error': return 'bg-red-300';
-    case 'success': return 'bg-green-300';
-    default: return 'bg-blue-300';
+    case 'error': return 'Error';
+    case 'success': return 'Success';
+    default: return 'Warning';
   }
 });
+
+const gradientClasses = computed(() => {
+  switch (flashType.value) {
+    case 'error': return 'bg-gradient-to-t from-red-500 to-red-400';
+    case 'success': return 'bg-gradient-to-t from-green-500 to-green-400';
+    default: return 'bg-gradient-to-t from-yellow-500 to-yellow-300';
+  }
+});
+
+const closeFlash = () => {
+  visible.value = false;
+};
+
 </script>
 
 <style scoped>
