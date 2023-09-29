@@ -1,5 +1,5 @@
 <template>
-  <div class="ftp-status flex justify-between items-center">
+  <panel-component class="ftp-status flex justify-between items-center">
     <div class="w-full flex items-center space-x-2">
       <div :class="statusClass"
            class="w-3 h-3 rounded-full"></div>
@@ -23,13 +23,14 @@
       <icon-button-component emit-name="connectFtpIconBtn" @connectFtpIconBtn="connectToFtp" v-if="!isConnected" iconClass="text-lg text-gray-800" icon="plug"/>
 
     </div>
-  </div>
+  </panel-component>
 </template>
 
 <script setup>
 import {defineProps, computed, ref, defineEmits} from 'vue';
 import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
 import {connect, disconnect} from "@/js/ftpManager";
+import PanelComponent from "../../../components/form/PanelComponent.vue";
 
 const emit = defineEmits(['listFiles'])
 
@@ -80,7 +81,5 @@ const statusClass = computed(() => {
 </script>
 
 <style scoped>
-.ftp-status {
-  @apply p-2 bg-white shadow rounded;
-}
+
 </style>

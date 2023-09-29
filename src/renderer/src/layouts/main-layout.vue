@@ -10,8 +10,11 @@ import Loader from "../components/Loader.vue";
     <loader />
     <TheSidebar />
 
-    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen flex flex-col start start p-5 ml-5">
-      <slot></slot>
+    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-5">
+      <div class="w-full h-full flex flex-col justify-start items-start">
+        <slot></slot>
+      </div>
+
     </div>
 
   </div>
@@ -28,6 +31,14 @@ import Loader from "../components/Loader.vue";
   overflow: hidden;
   transform: translateX(224px) scale(0.8);
   filter: blur(5px);
+}
+
+.main-content-container.translate-blur {
+  pointer-events: auto !important;
+}
+
+.main-content-container.translate-blur * {
+  pointer-events: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

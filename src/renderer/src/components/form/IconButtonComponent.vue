@@ -1,12 +1,12 @@
 <template>
-  <button @click="$emit(emitName)" :class="btnClass">
-    <font-awesome-icon :icon="icon" :class="iconClass" />
+  <button @click="$emit(props.emitName)" :class="props.btnClass" >
+    <font-awesome-icon :icon="props.icon" :class="props.iconClass"  />
     <slot></slot>
   </button>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps } from 'vue';
 
 const props = defineProps({
   icon: {

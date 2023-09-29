@@ -1,10 +1,11 @@
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
 
 export const isModalVisible = ref(false);
 export const connected = ref(false);
-export const fileList = ref([]);
+export const fileList = reactive([]);
+export const currentDir = ref("/");
 
 export const openModal = () => {
   isModalVisible.value = true;
@@ -27,7 +28,7 @@ export const connect = (ftpSettings) => {
       await window.ftp.connectFTP(ftpSettings);
       connected.value = window.ftp.getIsConnected();
       if (connected.value) {
-        await listFiles();
+        await listFilesAndDirectories();
         displayFlash("Connected to FTP Server", "success");
         stopLoading();
         resolve(true);
@@ -58,15 +59,32 @@ export const disconnect = async () => {
   }
 };
 
-export const listFiles = async () => {
+export const setCurrentDir = (dir) => {
+  currentDir.value = dir;
+};
+
+export const getCurrentDir = () => {
+  return currentDir.value;
+};
+
+export const getFileList = () => {
+  return fileList.value;
+}
+export const listFilesAndDirectories = async (remoteDir = "/") => {
+  if (!connected.value) {
+    return;
+  }
   try {
     startLoading();
-    await window.ftp.listFiles();
+    await window.ftp.listFilesAndDirectories(remoteDir);
+
     fileList.value = window.ftp.getFiles();
     stopLoading();
-  } catch (Exception) {
+  } catch (error) {
     stopLoading();
+    console.log(error);
     displayFlash("Failed to list files", "error");
   }
-
 };
+
+

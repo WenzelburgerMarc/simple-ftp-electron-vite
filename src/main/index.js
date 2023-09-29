@@ -11,8 +11,8 @@ function createWindow() {
     height: 720,
     resizable: true,
     maximizable: true,
-    minWidth: 800,
-    minHeight: 600,
+    minWidth: 1280,
+    minHeight: 720,
     show: false,
     autoHideMenuBar: true,
     webPreferences: {

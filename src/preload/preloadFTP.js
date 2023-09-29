@@ -1,4 +1,3 @@
-
 import sftpClient from "ssh2-sftp-client";
 
 let sftp = new sftpClient();
@@ -27,7 +26,7 @@ export const connectFTP = async (ftpSettings) => {
       host: ftpSettings.host,
       port: ftpSettings.port,
       username: ftpSettings.username,
-      password: ftpSettings.password,
+      password: ftpSettings.password
     });
     setConnected(true);
   } catch (error) {
@@ -44,23 +43,27 @@ export const disconnectFTP = async () => {
     setConnected(false);
   }
 };
+let currentDir = "/";
 
-export const listFiles = async (remoteDir = "/") => {
+export const setCurrentDir = (dir) => {
+  currentDir = dir;
+};
+
+export const getCurrentDir = () => {
+  return currentDir;
+};
+
+export const listFilesAndDirectories = async (remoteDir = "/") => {
   if (!isConnected) {
     return;
   }
   try {
     const fileObjects = await sftp.list(remoteDir);
-    const fileNames = [];
+    const files = [];
     for (const file of fileObjects) {
-      // if (file.type === "d") {
-      //   console.log(`${new Date(file.modifyTime).toISOString()} PRE ${file.name}`);
-      // } else {
-      //   console.log(`${new Date(file.modifyTime).toISOString()} ${file.size} ${file.name}`);
-      // }
-      fileNames.push(file.name);
+      files.push(file);
     }
-    setFiles(fileNames);
+    setFiles(files);
   } catch (error) {
     console.log(error);
   }

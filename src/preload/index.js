@@ -1,6 +1,13 @@
 "use strict";
 import { contextBridge, ipcRenderer } from "electron";
-import { connectFTP, disconnectFTP, listFiles, getIsConnected, getFiles } from "./preloadFTP";
+import {
+  connectFTP,
+  disconnectFTP,
+  getIsConnected,
+  getFiles,
+  setCurrentDir,
+  getCurrentDir, listFilesAndDirectories
+} from "./preloadFTP";
 
 // Expose protected methods that allow the renderer process to use
 contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {
@@ -10,9 +17,11 @@ contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {
 contextBridge.exposeInMainWorld("ftp", {
   connectFTP,
   disconnectFTP,
-  listFiles,
   getIsConnected,
-  getFiles
+  getFiles,
+  setCurrentDir,
+  getCurrentDir,
+  listFilesAndDirectories
 });
 
 

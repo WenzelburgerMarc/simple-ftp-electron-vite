@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Flash Message Design">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Loading Anzeige">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/form/PanelComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -112,7 +117,7 @@
       <workItem from="1695972524009" duration="23000" />
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
-      <workItem from="1695972987788" duration="9756000" />
+      <workItem from="1695972987788" duration="21123000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -218,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1695981689815</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add - Loading Anzeige">
+      <option name="closed" value="true" />
+      <created>1695982838643</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1695982838643</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add - Loading Anzeige">
+      <option name="closed" value="true" />
+      <created>1695983078270</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1695983078270</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,6 +270,7 @@
     <MESSAGE value="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg" />
     <MESSAGE value="Add - Flash Message Queue" />
     <MESSAGE value="Fix - Flash Message Design" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Flash Message Design" />
+    <MESSAGE value="Add - Loading Anzeige" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Loading Anzeige" />
   </component>
 </project>
