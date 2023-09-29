@@ -129,7 +129,6 @@ function toggleSidebar() {
 onMounted(() => {
   window.addEventListener("click", (event) => {
     if (event.target.closest(".main-content-container")) {
-      console.log("main container clicked");
       if (isOpen.value) {
         toggleSidebar();
       }
