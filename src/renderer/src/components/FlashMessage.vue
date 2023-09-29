@@ -14,7 +14,7 @@
         <h1 class="md:text-xl text-gray-600" v-text="flashTitle"></h1>
         <p class="text-gray-400 text-xs md:text-sm font-light" v-text="flashMessage"></p>
       </div>
-      <div @click="closeFlash" class="cursor-pointer border-l hover:bg-gray-50 border-gray-100 px-4 flex place-items-center">
+      <div @click="closeFlash" class="cursor-pointer border-l hover:bg-gray-100 border-gray-100 px-4 flex place-items-center">
         <p class="text-gray-400 text-xs">CLOSE</p>
       </div>
     </div>
