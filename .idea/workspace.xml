@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Minimized Auto Start">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" afterDir="false" />
-    </list>
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +97,7 @@
       <workItem from="1695972524009" duration="23000" />
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
-      <workItem from="1695972987788" duration="5140000" />
+      <workItem from="1695972987788" duration="5331000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -169,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695925660060</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg">
+      <option name="closed" value="true" />
+      <created>1695978215104</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1695978215104</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +189,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Refactor - Settings Electron Store" />
     <MESSAGE value="Fix - FTP Connection Close Modal" />
@@ -194,6 +199,7 @@
     <MESSAGE value="Fix - Autostart &#10;Refactor SettingsModal.vue" />
     <MESSAGE value="Finished Refactoring" />
     <MESSAGE value="Add - Minimized Auto Start" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Minimized Auto Start" />
+    <MESSAGE value="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg" />
   </component>
 </project>
