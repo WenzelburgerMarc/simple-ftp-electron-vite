@@ -1,6 +1,6 @@
 <template>
   <panel-component class="ftp-status flex justify-between items-center">
-    <div class="w-full flex items-center space-x-2">
+    <div class="w-full flex items-center space-x-4">
       <div :class="statusClass"
            class="w-3 h-3 rounded-full"></div>
       <div class="text-sm">
@@ -14,8 +14,8 @@
            class="text-gray-400">No host connected</p>
       </div>
     </div>
-    <div class="w-full flex justify-end items-center space-x-4">
-      <icon-button-component emit-name="listFilesIconBtn" @listFilesIconBtn="listFilesAndDirectories" v-if="isConnected" iconClass="text-lg text-gray-800"
+    <div class="w-full flex justify-end items-center space-x-2">
+      <icon-button-component emit-name="listFilesIconBtn" @listFilesIconBtn="listFiles" v-if="isConnected" iconClass="text-lg text-gray-800"
                              icon="rotate-right"/>
       <icon-button-component emit-name="disconnectFtpIconBtn" @disconnectFtpIconBtn="disconnect" v-if="isConnected"  iconClass="text-2xl text-red-500"
                              icon="xmark"/>
@@ -27,11 +27,13 @@
 </template>
 
 <script setup>
-import {defineProps, computed, ref} from 'vue';
+import { defineProps, computed, ref, defineEmits, onMounted, watch } from "vue";
 import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
 import {connect, disconnect} from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
-import {listFilesAndDirectories} from "../../../js/ftpManager";
+import {connected} from "../../../js/ftpManager";
+
+const emit = defineEmits(['listFiles'])
 
 const props = defineProps({
   isConnected: {
@@ -47,7 +49,14 @@ const ftpCredentials = ref({
   password: ''
 });
 
-
+onMounted(() => {
+  watch(connected, async(newValue) => {
+    console.log('new');
+    if (newValue) {
+      ftpCredentials.value.host = await window.ipcRendererInvoke('get-setting', 'ftpHost');
+    }
+  })
+})
 
 const connectToFtp = async() => {
   ftpCredentials.value = {
@@ -65,9 +74,12 @@ const connectToFtp = async() => {
     password: ftpCredentials.value.password
   });
 
-  await listFilesAndDirectories();
+  await listFiles();
 
 
+}
+const listFiles = ()  => {
+   emit('listFiles');
 }
 
 const statusClass = computed(() => {

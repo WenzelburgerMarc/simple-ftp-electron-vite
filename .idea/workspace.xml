@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Design">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ServerExplorer.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Design&#10;Refactor HomeView.vue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ServerExplorer.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +108,7 @@
       <workItem from="1695972524009" duration="23000" />
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
-      <workItem from="1695972987788" duration="22555000" />
+      <workItem from="1695972987788" duration="23541000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -247,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695994698598</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fix - Design&#10;Refactor HomeView.vue">
+      <option name="closed" value="true" />
+      <created>1695995607775</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1695995607775</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,6 +288,7 @@
     <MESSAGE value="Add - Loading Anzeige" />
     <MESSAGE value="Add - Server Explorer&#10;Fix - Design" />
     <MESSAGE value="Fix - Design" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Design" />
+    <MESSAGE value="Fix - Design&#10;Refactor HomeView.vue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Design&#10;Refactor HomeView.vue" />
   </component>
 </project>
