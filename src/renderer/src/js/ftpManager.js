@@ -123,7 +123,7 @@ export const deleteDirectory = async (directory) => {
     .then(async () => {
       await listFilesAndDirectories();
       stopLoading();
-      displayFlash("Deleted directory", "success");
+      displayFlash("Deleted folder", "success");
     })
     .catch((error) => {
       stopLoading();

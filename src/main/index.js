@@ -168,7 +168,6 @@ ipcMain.handle('watch-client-directory', async (event, directoryPath) => {
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
 
     if (filename) {
-      console.log('Event Type:', eventType, 'Filename:', filename);
       event.sender.send('file-changed', { eventType });
     }
   });

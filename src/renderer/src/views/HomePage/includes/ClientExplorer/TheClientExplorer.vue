@@ -53,8 +53,11 @@ const changePath = (path) => {
 const createNewFolderOnClient = async () => {
   const folderName = await window.ipcRendererInvoke("create-new-folder-client", currentDir.value);
   if (folderName) {
-    listFiles();
+    displayFlash("Folder created", "success")
+    await listFiles();
+    return;
   }
+  displayFlash("Error creating folder", "error")
 };
 
 onMounted(async () => {
@@ -122,7 +125,8 @@ const copyFileToCurrentDir = async (sourcePath) => {
   const basename = (p) => p.split(/[\\/]/).pop();
   const destinationPath = currentDir.value + "/" + basename(sourcePath);
   await window.ipcRendererInvoke("copy-file", sourcePath, destinationPath);
-  listFiles();
+  displayFlash("File copied", "success")
+  await listFiles();
 };
 
 const openSelectedClientDirectory = async () => {

@@ -154,7 +154,10 @@ const createNewFolderOnFtp = async(name) => {
     await createNewFolder(path);
     await listFiles();
     updateShowModal(false);
+    displayFlash("Folder created", "success")
+    return;
   }
+  displayFlash("Error creating folder", "error")
 };
 </script>
 
