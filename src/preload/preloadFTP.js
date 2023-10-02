@@ -114,15 +114,16 @@ export const deleteDirectory = async (directory) => {
 };
 const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
   try {
-    const files = fs.readdirSync(clientSyncPath);
-    const serverFiles = await sftp.list(ftpSyncPath);
+    const items = fs.readdirSync(clientSyncPath);
+    const serverItems = await sftp.list(ftpSyncPath);
 
-    for (const file of files) {
-      const filePath = path.join(clientSyncPath, file);
-      const stats = fs.statSync(filePath);
+    for (const item of items) {
+      const localPath = path.join(clientSyncPath, item);
+      const serverPath = path.join(ftpSyncPath, item);
+      const stats = fs.statSync(localPath);
 
       if (stats.isFile()) {
-        const serverFile = serverFiles.find(f => f.name === file);
+        const serverFile = serverItems.find(f => f.name === item);
 
         const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
         const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
@@ -131,17 +132,25 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
 
         if (shouldUpload) {
           try {
-            await sftp.put(filePath, path.join(ftpSyncPath, file));
-            console.log(`Uploaded: ${file}`);
+            await sftp.put(localPath, serverPath);
+            console.log(`Uploaded: ${item}`);
           } catch (error) {
-            console.error(`Failed to upload ${file}:`, error);
+            console.error(`Failed to upload ${item}:`, error);
           }
 
-          lastModifiedTimes[file] = localMtime * 1000;
+          lastModifiedTimes[item] = localMtime * 1000;
         }
+      } else if (stats.isDirectory()) {
+        // create path if it does not exist
+        if (!serverItems.find(f => f.name === item)) {
+          await sftp.mkdir(serverPath, true);
+          console.log(`Created directory: ${serverPath}`)
+        }
+        await uploadFiles(localPath, serverPath, lastModifiedTimes);
       }
     }
     await ipcRenderer.invoke("set-setting", "lastModifiedTimes", lastModifiedTimes);
+    await listFilesAndDirectories()
   } catch (error) {
     console.error('Error in uploadFiles:', error);
   }
@@ -149,10 +158,11 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
 
 
 
+let intervalMethod = null;
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   let interval = await ipcRenderer.invoke("get-setting", "autoUploadInterval");
 
-  setInterval(async () => {
+  intervalMethod = setInterval(async () => {
     if (!isConnected) {
       console.error("Not connected to FTP server");
       return;
@@ -173,9 +183,6 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
 
 export const stopSyncing = async () => {
-  if (!isConnected) {
-    throw new Error("Not connected to FTP server");
-  }
-
-  console.log("Stopping sync");
+  clearInterval(intervalMethod);
+  console.log("Syncing stopped");
 };

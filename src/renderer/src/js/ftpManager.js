@@ -161,3 +161,18 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   }
 
 }
+
+export const stopSyncing = async () => {
+  if (!connected.value) {
+    return;
+  }
+  try {
+    startLoading();
+    await window.ftp.stopSyncing();
+    displayFlash("Syncing stopped", "success");
+    stopLoading();
+  }catch (e) {
+    displayFlash(e.message, "error");
+    stopLoading();
+  }
+}

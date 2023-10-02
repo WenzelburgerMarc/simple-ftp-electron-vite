@@ -16,9 +16,9 @@
 </template>
 
 <script setup>
-import IconButtonComponent from "./IconButtonComponent.vue";
+import IconButtonComponent from "../../../components/form/IconButtonComponent.vue";
 import { ref, computed } from "vue";
-import {startSyncing} from "../../js/ftpManager";
+import {startSyncing, stopSyncing } from "../../../js/ftpManager";
 
 const uploadEnabled = ref(false);
 
@@ -37,6 +37,12 @@ const setSyncUpload = async() => {
 
 const setSyncDownload = () => {
   uploadEnabled.value = false;
+  stopSyncingMethod();
+
+}
+
+const stopSyncingMethod = () => {
+  stopSyncing();
 }
 
 const switchingBackgroundStyle = computed(() => {
@@ -49,5 +55,5 @@ const switchingBackgroundStyle = computed(() => {
 </script>
 
 <style scoped>
-/* You can keep your styles here */
+
 </style>

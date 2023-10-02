@@ -10,7 +10,7 @@ import Loader from "../components/Loader.vue";
     <loader />
     <TheSidebar />
 
-    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-5">
+    <div class="main-content-container w-[calc(100vw-70px)]  min-h-screen p-5 ml-5">
       <div class="w-full h-full flex flex-col justify-start items-start">
         <slot></slot>
       </div>

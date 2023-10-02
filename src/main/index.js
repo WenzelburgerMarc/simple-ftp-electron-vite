@@ -24,6 +24,11 @@ function createWindow() {
       preload: join(__dirname, "../preload/index.js")
     }
   });
+
+  mainWindow.webContents.session.clearCache().then(() => {
+    console.log('Cache cleared');
+  });
+
   mainWindow.on("ready-to-show", () => {
 
     if (process.argv.includes("--hidden")) {      mainWindow.minimize();
