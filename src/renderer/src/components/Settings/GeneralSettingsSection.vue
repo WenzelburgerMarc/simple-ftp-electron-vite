@@ -94,6 +94,11 @@ const loadSettings = async () => {
 const saveSettings = async () => {
   try {
     startLoading();
+    try {
+      window.ipcRendererInvoke("unwatch-client-directory");
+    }catch (e) {
+      console.error(e);
+    }
     await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
     await window.ipcRendererInvoke("set-setting", "autoUploadInterval", autoUploadInterval.value);
     await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);

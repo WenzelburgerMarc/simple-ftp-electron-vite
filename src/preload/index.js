@@ -14,6 +14,13 @@ contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {
   return ipcRenderer.invoke(channel, ...args);
 });
 
+contextBridge.exposeInMainWorld("ipcRendererOn", (channel, callback) => {
+  ipcRenderer.on(channel, (event, ...args) => {
+    callback(event, ...args);
+  });
+});
+
+
 contextBridge.exposeInMainWorld("ftp", {
   connectFTP,
   disconnectFTP,

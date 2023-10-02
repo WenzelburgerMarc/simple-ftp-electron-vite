@@ -70,7 +70,7 @@ export const getCurrentDir = () => {
 export const getFileList = () => {
   return fileList.value;
 }
-export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
+export const listFilesAndDirectories = async (remoteDir = currentDir.value, showLoader=true) => {
   if (!connected.value) {
     return;
   }
@@ -80,7 +80,8 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   }
 
   try {
-    startLoading();
+    if(showLoader)
+      startLoading();
     await window.ftp.listFilesAndDirectories(remoteDir);
 
     fileList.value = window.ftp.getFiles();

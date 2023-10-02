@@ -88,11 +88,12 @@ ipcMain.handle("set-auto-start-item-setting", (event, settings) => {
   return app.getLoginItemSettings();
 });
 
-ipcMain.handle("select-directory", async () => {
+ipcMain.handle("select-directory", async (event) => {
   const result = await dialog.showOpenDialog({
     properties: ["openDirectory"]
   });
   if (!result.canceled && result.filePaths.length > 0) {
+    event.sender.send("client-directory-changed", result.filePaths[0])
     return result.filePaths[0];
   } else {
     return null;
@@ -154,4 +155,25 @@ ipcMain.handle('create-new-folder-client', async (event, selectedDirectory) => {
   } else {
     return null;
   }
+});
+
+ipcMain.handle('copy-file', async (event, sourcePath, destinationPath) => {
+  await fs.promises.copyFile(sourcePath, destinationPath);
+  return destinationPath;
+});
+
+let watcher;
+
+ipcMain.handle('watch-client-directory', async (event, directoryPath) => {
+  watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
+
+    if (filename) {
+      console.log('Event Type:', eventType, 'Filename:', filename);
+      event.sender.send('file-changed', { eventType });
+    }
+  });
+});
+
+ipcMain.handle('unwatch-client-directory', async () => {
+  watcher.close();
 });

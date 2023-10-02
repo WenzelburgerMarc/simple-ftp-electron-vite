@@ -17,6 +17,7 @@ import { displayFlash } from "../../../../js/flashMessageController";
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
 const initialPath = ref("");
+const showTooltip = ref(false);
 
 const handleClick = (file) => {
   if (file.type === "d" && currentDir.value != null) {
@@ -28,6 +29,11 @@ const handleClick = (file) => {
     setCurrentDir(currentDir.value);
     listFiles();
   }
+};
+
+const goToFtpInitialPath = () => {
+  currentDir.value = initialPath.value;
+  listFiles();
 };
 
 const handleBack = () => {
@@ -58,22 +64,17 @@ const changePath = (path) => {
 onMounted(async() => {
   currentDir.value = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
   initialPath.value = '/' + await currentDir.value;
-  console.log("currentDir.value", currentDir.value);
   await listFiles();
-
   watch(getFileList, () => {
     fileList.value = getFileList();
   });
 
-
-
-
 });
 
-const listFiles = async () => {
+const listFiles = async (showLoader=true) => {
   if (currentDir.value) {
     try {
-      await listFilesAndDirectories(currentDir.value);
+      await listFilesAndDirectories(currentDir.value, showLoader);
       fileList.value = getFileList() || [];
 
       fileList.value.sort((a, b) => {
@@ -89,7 +90,8 @@ const listFiles = async () => {
 
 const setFtpSyncDirectory = async() => {
   await window.ipcRendererInvoke('set-setting', 'ftp-sync-directory', currentDir.value);
-  //initialPath.value = '/' + await currentDir.value;
+  setCurrentDir(currentDir.value);
+  initialPath.value = '/'+currentDir.value;
   displayFlash("FTP Sync Directory Set!", "success")
 };
 </script>
@@ -101,7 +103,14 @@ const setFtpSyncDirectory = async() => {
     class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
 
     <div class="w-full flex justify-between items-center">
-      <title-component title-text="Server" />
+      <div class="relative">
+        <button @mouseover="showTooltip = true" @mouseleave="showTooltip = false" type="button">
+          <title-component title-text="Server" @click="goToFtpInitialPath" />
+        </button>
+        <div v-if="showTooltip" class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+          Go To The Root Of Your Sync Directory
+        </div>
+      </div>
       <icon-button-component @SelectFtpSyncDurectory="setFtpSyncDirectory"
                              emitName="SelectFtpSyncDurectory"
                              btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"

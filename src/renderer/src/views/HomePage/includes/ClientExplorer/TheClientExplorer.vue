@@ -8,9 +8,12 @@ import FileList from "../../../../components/form/FileList.vue";
 import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
+import { onBeforeRouteLeave } from "vue-router";
+
 const currentDir = ref("");
 const fileList = ref([]);
 const initialPath = ref("");
+const showTooltip = ref(false);
 
 const handleClick = (file) => {
   if (file.type === "d" && currentDir.value != null) {
@@ -30,16 +33,15 @@ const handleBack = () => {
     if (segments.length > 0) {
       segments.pop();
       const newPath = "/" + segments.join("/");
-        currentDir.value = newPath;
-        listFiles();
+      currentDir.value = newPath;
+      listFiles();
 
     } else {
-      displayFlash("You have reached the Root Directory!", "info")
+      displayFlash("You have reached the Root Directory!", "info");
       listFiles();
     }
   }
 };
-
 
 
 const changePath = (path) => {
@@ -49,23 +51,52 @@ const changePath = (path) => {
 };
 
 const createNewFolderOnClient = async () => {
-  const folderName = await window.ipcRendererInvoke('create-new-folder-client', currentDir.value);
+  const folderName = await window.ipcRendererInvoke("create-new-folder-client", currentDir.value);
   if (folderName) {
     listFiles();
   }
 };
 
-onMounted(async() => {
+onMounted(async () => {
 
-  currentDir.value = await window.ipcRendererInvoke('get-setting', 'clientSyncPath')
+  currentDir.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   initialPath.value = await currentDir.value;
+
+  window.ipcRendererInvoke("watch-client-directory", initialPath.value);
+
+  window.ipcRendererOn("client-directory-changed", async(event, path) => {
+    console.log("client-directory-changed", path)
+    currentDir.value = path;
+    initialPath.value = path;
+    await listFiles();
+  });
+
+  window.ipcRendererOn("file-changed", async() => {
+    await listFiles();
+  });
+
   await listFiles();
+
 });
+
+onBeforeRouteLeave((to, from, next) => {
+  try {
+    window.ipcRendererInvoke("unwatch-client-directory");
+  }catch (e) {
+    console.error(e);
+  }
+  next();
+});
+
+const goToClientInitialPath = () => {
+  currentDir.value = initialPath.value;
+  listFiles();
+};
 
 const listFiles = async () => {
   if (currentDir.value) {
     try {
-      fileList.value = await window.ipcRendererInvoke('list-local-files', currentDir.value) || [];
+      fileList.value = await window.ipcRendererInvoke("list-local-files", currentDir.value) || [];
 
       fileList.value.sort((a, b) => {
         if (a.type === "d" && b.type !== "d") return -1;
@@ -77,20 +108,59 @@ const listFiles = async () => {
     }
   }
 };
+
+const onDrop = async (event) => {
+  const files = event.dataTransfer.files;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files.item(i);
+    await copyFileToCurrentDir(file.path);
+  }
+};
+
+const copyFileToCurrentDir = async (sourcePath) => {
+  const basename = (p) => p.split(/[\\/]/).pop();
+  const destinationPath = currentDir.value + '/' + basename(sourcePath);
+  await window.ipcRendererInvoke('copy-file', sourcePath, destinationPath);
+  listFiles();
+};
+
 </script>
 
 <template>
 
   <panel-component
     v-if="connected"
-    class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
+    class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg"
+    @drop.prevent="onDrop"
+    @dragover.prevent
+    @dragenter.prevent
+  >
+
 
     <div class="w-full flex justify-between items-center">
-      <title-component title-text="Client" />
+
+
+      <div class="relative">
+        <button @mouseover="showTooltip = true"
+                @mouseleave="showTooltip = false"
+                type="button">
+          <title-component title-text="Client"
+                           @click="goToClientInitialPath" />
+        </button>
+        <div v-if="showTooltip"
+             class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+          Go To The Root Of Your Sync Directory
+        </div>
+      </div>
+
+
       <icon-button-component @newFolderClient="createNewFolderOnClient"
                              emitName="newFolderClient"
                              btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon="plus" icon-class="mr-2" >New Folder</icon-button-component>
+                             icon="plus"
+                             icon-class="mr-2">New Folder
+      </icon-button-component>
     </div>
 
 
