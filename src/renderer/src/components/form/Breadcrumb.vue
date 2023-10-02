@@ -4,12 +4,9 @@
     <template
               v-for="(segment, index) in breadcrumb"
               :key="index">
-      <span v-if="isInitialSegment(segment.path)"
-            class="w-full mr-0 text-gray-800">
-        {{ segment.name }}
-      </span>
-      <a v-else
-         class="w-full mr-0 text-gray-800 hover:underline hover:text-blue-600"
+      <a
+         class="w-full mr-0 hover:underline hover:text-blue-600"
+         :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
          @click.prevent="changePath(segment.path)"
          href="#"
          @mouseover="hover(index)"
@@ -33,7 +30,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  initialPath: {
+  initialPathProp: {
     type: String,
     required: false
   }
@@ -69,7 +66,7 @@ const unhover = () => {
 const getCurrentPathBreadcrumb = () => {
   const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
   if(segments.length === 0) {
-    segments.push(props.initialPath);
+    segments.push('');
   }
   return segments.map((segment, index) => {
     return {
@@ -80,12 +77,12 @@ const getCurrentPathBreadcrumb = () => {
   });
 };
 
+const initialPath = computed(() => props.initialPathProp);
+
 onMounted(() => {
 
 
   watch(currentDir, () => {
-    console.log("initialPath", props.initialPath);
-    console.log("currentDir", props.currentDir);
     breadcrumb.value = getCurrentPathBreadcrumb();
   });
 
@@ -102,17 +99,18 @@ onMounted(() => {
   });
 
   isInitialSegment.value = (segmentPath) => {
-    if (!props.initialPath) {
+    if (!initialPath.value) {
       return false;
     }
 
-    const initialSegments = props.initialPath.split("/").filter(segment => segment.trim() !== "");
+    const initialSegments = initialPath.value.split("/").filter(segment => segment.trim() !== "");
     const currentSegments = segmentPath.split("/").filter(segment => segment.trim() !== "");
 
-    // Adjust this condition to allow hovering over the last segment of the initial path
     return currentSegments.every((segment, index) => {
       return index < initialSegments.length && initialSegments[index] === segment;
-    }) && segmentPath !== props.initialPath;
+    }) && segmentPath !== initialPath.value;
   };
+
+
 });
 </script>

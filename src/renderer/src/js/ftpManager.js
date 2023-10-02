@@ -5,7 +5,7 @@ import { startLoading, stopLoading } from "./loaderManager";
 export const isModalVisible = ref(false);
 export const connected = ref(false);
 export const fileList = reactive([]);
-export const currentDir = ref("/");
+export const currentDir = ref(null);
 
 export const openModal = () => {
   isModalVisible.value = true;
@@ -70,10 +70,15 @@ export const getCurrentDir = () => {
 export const getFileList = () => {
   return fileList.value;
 }
-export const listFilesAndDirectories = async (remoteDir = "/") => {
+export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   if (!connected.value) {
     return;
   }
+
+  if(remoteDir === null) {
+    remoteDir = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory") || "/";
+  }
+
   try {
     startLoading();
     await window.ftp.listFilesAndDirectories(remoteDir);

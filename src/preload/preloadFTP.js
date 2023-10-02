@@ -1,5 +1,7 @@
 import sftpClient from "ssh2-sftp-client";
 
+import { ref } from "vue";
+
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
@@ -43,19 +45,22 @@ export const disconnectFTP = async () => {
     setConnected(false);
   }
 };
-let currentDir = "/";
+let currentDir = ref(null);
 
 export const setCurrentDir = (dir) => {
-  currentDir = dir;
+  currentDir.value = dir;
 };
 
 export const getCurrentDir = () => {
   return currentDir;
 };
 
-export const listFilesAndDirectories = async (remoteDir = "/") => {
+export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   if (!isConnected) {
     return;
+  }
+  if(remoteDir === null) {
+    remoteDir = await window.ipcRenderer.invoke("get-setting", "ftp-sync-directory") || "/";
   }
   try {
     const fileObjects = await sftp.list(remoteDir);

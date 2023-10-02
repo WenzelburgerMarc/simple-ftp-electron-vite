@@ -14,7 +14,7 @@
                          :type="'number'"
                          :placeholder="'10000'" />
     <SelectPathInputComponent :prev-selected-path="selectedPath"
-                              :label-text="'Choose a Save Location for Synced Files'"
+                              label-text="Choose Directory to Sync With Server"
                               :btn-text="'Select Save Location'"
                               @updateSelectedPath="handleSelectDirectory" />
     <ButtonComponent :button-text="'Save'"
@@ -85,7 +85,7 @@ const loadSettings = async () => {
   startLoading();
   enableAutoStart.value = await window.ipcRendererInvoke("get-setting", "enableAutoStart");
   autoUploadInterval.value = await window.ipcRendererInvoke("get-setting", "autoUploadInterval");
-  selectedPath.value = await window.ipcRendererInvoke("get-setting", "savePath");
+  selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   stopLoading();
 };
 
@@ -96,7 +96,7 @@ const saveSettings = async () => {
     startLoading();
     await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
     await window.ipcRendererInvoke("set-setting", "autoUploadInterval", autoUploadInterval.value);
-    await window.ipcRendererInvoke("set-setting", "savePath", selectedPath.value);
+    await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
     stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {

@@ -13,8 +13,10 @@ import {
 } from "@/js/ftpManager.js";
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import FileList from "../../../../components/form/FileList.vue";
+import { displayFlash } from "../../../../js/flashMessageController";
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
+const initialPath = ref("");
 
 const handleClick = (file) => {
   if (file.type === "d" && currentDir.value != null) {
@@ -32,17 +34,18 @@ const handleBack = () => {
   if (currentDir.value) {
     const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
 
-    if (segments.length > 1) {
+    if (segments.length > 0) {
       segments.pop();
-      currentDir.value = "/" + segments.join("/");
-    } else {
-      currentDir.value = "/";
-    }
+      const newPath = "/" + segments.join("/");
+      currentDir.value = newPath;
+      listFiles();
 
-    listFiles();
+    } else {
+      displayFlash("You have reached the Root Directory!", "info")
+      listFiles();
+    }
   }
 };
-
 
 const changePath = (path) => {
   currentDir.value = path;
@@ -52,12 +55,17 @@ const changePath = (path) => {
 };
 
 
-onMounted(() => {
-  listFiles();
+onMounted(async() => {
+  currentDir.value = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
+  initialPath.value = '/' + await currentDir.value;
+  console.log("currentDir.value", currentDir.value);
+  await listFiles();
 
   watch(getFileList, () => {
     fileList.value = getFileList();
   });
+
+
 
 
 });
@@ -78,6 +86,12 @@ const listFiles = async () => {
     }
   }
 };
+
+const setFtpSyncDirectory = async() => {
+  await window.ipcRendererInvoke('set-setting', 'ftp-sync-directory', currentDir.value);
+  //initialPath.value = '/' + await currentDir.value;
+  displayFlash("FTP Sync Directory Set!", "success")
+};
 </script>
 
 <template>
@@ -86,7 +100,14 @@ const listFiles = async () => {
     v-if="connected"
     class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
 
-    <title-component title-text="Server" />
+    <div class="w-full flex justify-between items-center">
+      <title-component title-text="Server" />
+      <icon-button-component @SelectFtpSyncDurectory="setFtpSyncDirectory"
+                             emitName="SelectFtpSyncDurectory"
+                             btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+                             icon="rotate" icon-class="mr-2" >Select Current Path As Sync Directory</icon-button-component>
+    </div>
+
 
     <div class="w-full flex space-x-2 justify-between items-start py-3">
 
@@ -96,13 +117,12 @@ const listFiles = async () => {
           emit-name="goBackFTPPath"
           btn-class="flex justify-center items-center text-gray-800 text-lg"
           icon-class="text-gray-800"
-          :class="currentDir === '/' ? 'opacity-0 pointer-events-none' : ''"
           icon="arrow-left"
           @goBackFTPPath="handleBack" />
 
         <Breadcrumb :initial-breadcrumb="breadcrumb"
                     :current-dir="currentDir"
-                    initial-path=""
+                    :initial-path-prop="initialPath"
                     @change-path="changePath" />
 
       </div>

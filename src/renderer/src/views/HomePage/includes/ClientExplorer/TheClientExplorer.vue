@@ -7,6 +7,7 @@ import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import FileList from "../../../../components/form/FileList.vue";
 import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
+import { displayFlash } from "../../../../js/flashMessageController";
 const currentDir = ref("");
 const fileList = ref([]);
 const initialPath = ref("");
@@ -23,18 +24,17 @@ const handleClick = (file) => {
 };
 
 const handleBack = () => {
-  if (currentDir.value && currentDir.value !== initialPath.value) {
+  if (currentDir.value) {
     const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
 
-    if (segments.length > 1) {
+    if (segments.length > 0) {
       segments.pop();
       const newPath = "/" + segments.join("/");
-      if (newPath.startsWith(initialPath.value)) {
         currentDir.value = newPath;
         listFiles();
-      }
+
     } else {
-      currentDir.value = initialPath.value;
+      displayFlash("You have reached the Root Directory!", "info")
       listFiles();
     }
   }
@@ -57,7 +57,7 @@ const createNewFolderOnClient = async () => {
 
 onMounted(async() => {
 
-  currentDir.value = await window.ipcRendererInvoke('get-setting', 'savePath')
+  currentDir.value = await window.ipcRendererInvoke('get-setting', 'clientSyncPath')
   initialPath.value = await currentDir.value;
   await listFiles();
 });
@@ -102,13 +102,12 @@ const listFiles = async () => {
           emit-name="goBackFTPPath"
           btn-class="flex justify-center items-center text-gray-800 text-lg"
           icon-class="text-gray-800"
-          :class="currentDir === '/' || currentDir===initialPath ? 'opacity-0 pointer-events-none' : ''"
           icon="arrow-left"
           @goBackFTPPath="handleBack" />
 
         <Breadcrumb :initial-breadcrumb="breadcrumb"
                     :current-dir="currentDir"
-                    :initial-path="initialPath"
+                    :initial-path-prop="initialPath"
                     @change-path="changePath" />
 
       </div>
