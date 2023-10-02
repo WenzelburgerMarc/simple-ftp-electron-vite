@@ -18,11 +18,22 @@
 <script setup>
 import IconButtonComponent from "./IconButtonComponent.vue";
 import { ref, computed } from "vue";
+import {startSyncing} from "../../js/ftpManager";
+
 const uploadEnabled = ref(false);
 
-const setSyncUpload = () => {
+const setSyncUpload = async() => {
   uploadEnabled.value = true;
+  let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+  let ftpSyncPath = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
+
+  startSyncing('upload', clientSyncPath, ftpSyncPath)
+    .catch(error => {
+      console.error("Error in startSyncing:", error);
+
+    });
 }
+
 
 const setSyncDownload = () => {
   uploadEnabled.value = false;

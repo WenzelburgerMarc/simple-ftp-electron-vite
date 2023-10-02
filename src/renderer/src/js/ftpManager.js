@@ -141,3 +141,23 @@ export const createNewFolder = async (selectedDirectory) => {
     displayFlash("Created new folder", "success");
   }
 }
+
+export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
+
+  if (!connected.value) {
+    return;
+  }
+  try {
+    startLoading();
+    await window.ftp.stopSyncing();
+    await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
+    displayFlash("Syncing started", "success");
+    stopLoading();
+  }catch (e) {
+    displayFlash(e.message, "error");
+    await window.ftp.stopSyncing();
+    stopLoading();
+
+  }
+
+}

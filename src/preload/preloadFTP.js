@@ -1,10 +1,14 @@
 import sftpClient from "ssh2-sftp-client";
 
 import { ref } from "vue";
+import * as path from "path";
+import * as fs from "fs";
+import { ipcRenderer } from "electron";
 
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
+
 
 export const setConnected = (status) => {
   isConnected = status;
@@ -60,7 +64,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
     return;
   }
   if (remoteDir === null) {
-    remoteDir = await window.ipcRenderer.invoke("get-setting", "ftp-sync-directory") || "/";
+    remoteDir = await ipcRenderer.invoke("get-setting", "ftp-sync-directory") || "/";
   }
   try {
     const fileObjects = await sftp.list(remoteDir);
@@ -94,7 +98,7 @@ export const createnewFolder = async (selectedDirectory) => {
     console.error(`Error creating directory at ${selectedDirectory}:`, error);
     throw error;
   }
-}
+};
 
 export const deleteDirectory = async (directory) => {
   if (!isConnected) {
@@ -103,9 +107,75 @@ export const deleteDirectory = async (directory) => {
 
   try {
     await sftp.rmdir(directory, true);
-    console.log(`Directory created at ${directory}`);
   } catch (error) {
     console.error(`Error creating directory at ${directory}:`, error);
     throw error;
   }
-}
+};
+const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
+  try {
+    const files = fs.readdirSync(clientSyncPath);
+    const serverFiles = await sftp.list(ftpSyncPath);
+
+    for (const file of files) {
+      const filePath = path.join(clientSyncPath, file);
+      const stats = fs.statSync(filePath);
+
+      if (stats.isFile()) {
+        const serverFile = serverFiles.find(f => f.name === file);
+
+        const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
+        const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
+
+        const shouldUpload = !serverFile || localMtime > serverMtime;
+
+        if (shouldUpload) {
+          try {
+            await sftp.put(filePath, path.join(ftpSyncPath, file));
+            console.log(`Uploaded: ${file}`);
+          } catch (error) {
+            console.error(`Failed to upload ${file}:`, error);
+          }
+
+          lastModifiedTimes[file] = localMtime * 1000;
+        }
+      }
+    }
+    await ipcRenderer.invoke("set-setting", "lastModifiedTimes", lastModifiedTimes);
+  } catch (error) {
+    console.error('Error in uploadFiles:', error);
+  }
+};
+
+
+
+export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
+  let interval = await ipcRenderer.invoke("get-setting", "autoUploadInterval");
+
+  setInterval(async () => {
+    if (!isConnected) {
+      console.error("Not connected to FTP server");
+      return;
+    }
+
+    if (mode === "upload") {
+      let lastModifiedTimes = await ipcRenderer.invoke("get-setting", "lastModifiedTimes") || {};
+      console.log(lastModifiedTimes);
+      await uploadFiles(clientSyncPath, ftpSyncPath, lastModifiedTimes);
+    } else if (mode === "download") {
+      // Implement download logic...
+      console.log("Download mode is selected");
+    } else {
+      console.error("Invalid mode selected");
+    }
+  }, interval);
+};
+
+
+export const stopSyncing = async () => {
+  if (!isConnected) {
+    throw new Error("Not connected to FTP server");
+  }
+
+  console.log("Stopping sync");
+};
