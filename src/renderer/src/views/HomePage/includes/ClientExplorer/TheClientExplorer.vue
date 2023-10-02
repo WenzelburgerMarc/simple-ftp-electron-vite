@@ -143,6 +143,19 @@ const deleteFile = async (file) => {
 
 
 };
+
+const deleteFolder = async (folder) => {
+  await window.ipcRendererInvoke("delete-client-directory", currentDir.value + '/' + folder.name)
+    .then(response => {
+      if(response.success) {
+        displayFlash("Deleted folder", "success");
+        listFiles();
+      } else {
+        displayFlash(response.message, "error");
+      }
+    })
+    .catch(error => displayFlash(error.message, "error"));
+};
 </script>
 
 <template>
@@ -213,7 +226,8 @@ const deleteFile = async (file) => {
 
     <FileList :initial-file-list="fileList"
               @file-clicked="handleClick"
-              @delete-file="deleteFile"/>
+              @delete-file="deleteFile"
+              @delete-folder="deleteFolder"/>
 
   </panel-component>
 

@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Improve - Flash Message">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Delete File From FTP Or Client">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
@@ -25,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -113,7 +115,7 @@
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
-      <workItem from="1696223824015" duration="19485000" />
+      <workItem from="1696223824015" duration="22037000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -323,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696241964278</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Add - Delete File From FTP Or Client">
+      <option name="closed" value="true" />
+      <created>1696243626008</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1696243626008</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,6 +376,7 @@
     <MESSAGE value="Add - Auto Reload Ftp Interval" />
     <MESSAGE value="Fix - Breadcrumb.vue" />
     <MESSAGE value="Improve - Flash Message" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve - Flash Message" />
+    <MESSAGE value="Add - Delete File From FTP Or Client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Delete File From FTP Or Client" />
   </component>
 </project>

@@ -1,0 +1,63 @@
+<script setup>
+import ModalComponent from "../../../../components/ModalComponent.vue";
+import { defineEmits, defineProps, ref, toRefs } from "vue";
+import IconButtonComponent from "../../../../components/form/IconButtonComponent.vue";
+import TitleComponent from "../../../../components/form/TitleComponent.vue";
+import LabelInputComponent from "../../../../components/form/LabelInputComponent.vue";
+import ButtonComponent from "../../../../components/form/ButtonComponent.vue";
+
+const props = defineProps({
+  showModal: Boolean
+});
+const emits = defineEmits(["update:showModal", 'createFolder']);
+const { showModal } = toRefs(props);
+const closeModal = () => {
+  emits("update:showModal", false);
+};
+
+const newFolderName = ref("");
+
+const updateNewFolderName = (newValue) => {
+  newFolderName.value = newValue;
+};
+
+const createFolder = () => {
+  emits("createFolder", newFolderName.value);
+}
+</script>
+
+<template>
+  <ModalComponent @closeModal="closeModal" :without-left="true"
+                  :show-modal="showModal" class="newFolderModal">
+    <div class="w-full flex flex-col space-y-2 justify-start items-start">
+      <div class="w-full flex justify-between items-start">
+        <TitleComponent :title-text="'Create A New Folder'" :size="'medium'" />
+        <IconButtonComponent v-if="props.showModal"
+                             :emit-name="'closeSettings'"
+                             :icon="['fas', 'xmark']"
+                             :btn-class="'z-20 close text-xl flex justify-center items-center'"
+                             @closeSettings="closeModal" />
+      </div>
+      <LabelInputComponent :model-value="newFolderName" @update:modelValue="updateNewFolderName"
+                           :label="'Folder Name'"
+                           :type="'text'"
+                           :placeholder="'Name'" />
+
+      <ButtonComponent :button-text="'Create'"
+                       :emit-event="'createFolder'"
+                       :class="'mx-auto'"
+                       @createFolder="createFolder" />
+    </div>
+  </ModalComponent>
+</template>
+
+<style scoped>
+.newFolderModal {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  z-index: 999 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+</style>

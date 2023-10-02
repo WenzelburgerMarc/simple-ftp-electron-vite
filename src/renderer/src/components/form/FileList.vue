@@ -20,8 +20,8 @@
     <tr v-for="file in fileList"
         :key="file.name"
         class="bg-white border-b border-gray-200 hover:bg-gray-50"
-        @click="handleClick(file)">
-      <td class="px-6 py-4">
+        >
+      <td class="px-6 py-4" @click="handleClick(file)">
         <font-awesome-icon class="text-base mr-2"
                            v-if="file.type === 'd'"
                            :icon="['far', 'folder-open']" />
@@ -30,9 +30,12 @@
       <td class="px-6 py-4">{{ formatType(file.name, file.type) }}</td>
 
       <td class="flex items-center px-6 py-4 space-x-3">
-        <a href="#"
+
+        <a v-if="file.type !== 'd'" href="#"
            class="font-medium ml-auto text-red-600 hover:text-red-700"
             @click.prevent="$emit('delete-file', file)">Delete File</a>
+        <a v-else href="#" class="font-medium ml-auto text-red-600 hover:text-red-700"
+           @click.prevent="$emit('delete-folder', file)">Delete Folder</a>
       </td>
     </tr>
     </tbody>
@@ -50,7 +53,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['file-clicked', 'delete-file']);
+const emit = defineEmits(['file-clicked', 'delete-file', 'delete-folder']);
 
 const fileList = computed(() => {
   return props.initialFileList;

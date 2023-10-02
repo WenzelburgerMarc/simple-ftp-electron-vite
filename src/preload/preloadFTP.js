@@ -81,3 +81,31 @@ export const deleteFile = async (file) => {
 
   await sftp.delete(file);
 };
+
+export const createnewFolder = async (selectedDirectory) => {
+  if (!isConnected) {
+    throw new Error("Not connected to FTP server");
+  }
+
+  try {
+    await sftp.mkdir(selectedDirectory, true);
+    console.log(`Directory created at ${selectedDirectory}`);
+  } catch (error) {
+    console.error(`Error creating directory at ${selectedDirectory}:`, error);
+    throw error;
+  }
+}
+
+export const deleteDirectory = async (directory) => {
+  if (!isConnected) {
+    throw new Error("Not connected to FTP server");
+  }
+
+  try {
+    await sftp.rmdir(directory, true);
+    console.log(`Directory created at ${directory}`);
+  } catch (error) {
+    console.error(`Error creating directory at ${directory}:`, error);
+    throw error;
+  }
+}

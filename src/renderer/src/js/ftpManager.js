@@ -113,4 +113,31 @@ export const deleteFile = async (file) => {
     });
 }
 
+export const deleteDirectory = async (directory) => {
+  if (!connected.value) {
+    return;
+  }
+  startLoading();
 
+  await window.ftp.deleteDirectory(directory)
+    .then(async () => {
+      await listFilesAndDirectories();
+      stopLoading();
+      displayFlash("Deleted directory", "success");
+    })
+    .catch((error) => {
+      stopLoading();
+      console.log(error);
+      displayFlash(error.message, "error");
+
+    });
+}
+
+
+export const createNewFolder = async (selectedDirectory) => {
+  const result = await window.ftp.createnewFolder(selectedDirectory);
+  if (result) {
+    await listFilesAndDirectories();
+    displayFlash("Created new folder", "success");
+  }
+}

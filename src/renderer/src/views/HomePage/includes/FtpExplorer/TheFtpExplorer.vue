@@ -9,17 +9,26 @@ import {
   getFileList,
   getCurrentDir,
   setCurrentDir,
-  deleteFile
+  deleteFile,
+  createNewFolder,
+  deleteDirectory
 
 } from "@/js/ftpManager.js";
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import FileList from "../../../../components/form/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
+import SetFtpFolderNameModal from "./setFtpFolderNameModal.vue";
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
 const initialPath = ref("");
 const showTooltip = ref(false);
+
+const showModal = ref(false);
+
+const updateShowModal = (newValue) => {
+  showModal.value = newValue;
+};
 
 const handleClick = (file) => {
   if (file.type === "d" && currentDir.value != null) {
@@ -129,10 +138,28 @@ const deleteFtpFile = async(file) => {
   await deleteFile(path);
   await listFiles();
 };
+
+const deleteFtpFolder = async(folder) => {
+  const path = currentDir.value + '/' + folder.name;
+  console.log(path);
+  await deleteDirectory(path);
+  await listFiles();
+};
+
+const createNewFolderOnFtp = async(name) => {
+  const folderName = name;
+
+  if (folderName != null) {
+    const path = currentDir.value + '/' + folderName+'/';
+    await createNewFolder(path);
+    await listFiles();
+    updateShowModal(false);
+  }
+};
 </script>
 
 <template>
-
+  <set-ftp-folder-name-modal :show-modal="showModal" @update:showModal="updateShowModal" @createFolder="createNewFolderOnFtp" />
   <panel-component
     v-if="connected"
     class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
@@ -170,12 +197,19 @@ const deleteFtpFile = async(file) => {
                     @change-path="changePath" />
 
       </div>
+      <icon-button-component @newFolderFtp="showModal = true"
+                             emitName="newFolderFtp"
+                             btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+                             icon="plus"
+                             icon-class="mr-2">New Folder
+      </icon-button-component>
 
     </div>
 
     <FileList :initial-file-list="fileList"
               @file-clicked="handleClick"
-              @delete-file="deleteFtpFile"/>
+              @delete-file="deleteFtpFile"
+    @delete-folder="deleteFtpFolder"/>
 
   </panel-component>
 

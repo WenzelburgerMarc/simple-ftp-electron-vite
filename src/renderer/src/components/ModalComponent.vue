@@ -1,10 +1,10 @@
 <template>
-  <div class="fixed modal-bg top-0 left-[70px] h-screen w-screen z-40 transition-all"
-       :class="props.showModal ? 'blur-transparent-modal pointer-events-auto' : 'opacity-0 pointer-events-none'"></div>
+  <div class="fixed modal-bg top-0 h-screen w-screen z-40 transition-all"
+       :class="[props.showModal ? 'blur-transparent-modal pointer-events-auto' : 'opacity-0 pointer-events-none', withoutLeft ? 'left-0' : 'left-[70px]']"></div>
 
   <transition name="modal-fade">
-    <div v-if="props.showModal"
-         class="z-50 fixed left-[70px] w-[calc(100vw-100px)] max-w-5xl inset-0 flex items-center justify-center mx-auto pointer-events-none">
+    <div v-if="props.showModal" :class="withoutLeft ? 'left-0' : 'left-[70px]'"
+         class="z-50 fixed w-[calc(100vw-100px)] max-w-5xl inset-0 flex items-center justify-center mx-auto pointer-events-none">
       <div class="modal w-full bg-gray-100 shadow-md p-3 rounded-md modal-content pointer-events-auto">
         <slot></slot>
       </div>
@@ -31,6 +31,10 @@ const props = defineProps({
   showModal: {
     type: Boolean,
     required: true
+  },
+  withoutLeft: {
+    type: Boolean,
+    default: false
   }
 });
 </script>

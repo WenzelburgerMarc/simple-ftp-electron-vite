@@ -196,3 +196,13 @@ ipcMain.handle('delete-client-file', async (event, path) => {
   }
 });
 
+
+ipcMain.handle('delete-client-directory', async (event, path) => {
+  try {
+    await fs.promises.rmdir(path);
+    return { success: true, message: 'Folder deleted successfully' };
+  } catch (error) {
+    console.error(`Error deleting folder at path ${path}:`, error);
+    return { success: false, message: error.message };
+  }
+});

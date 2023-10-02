@@ -6,7 +6,7 @@ import {
   getIsConnected,
   getFiles,
   setCurrentDir,
-  getCurrentDir, listFilesAndDirectories, deleteFile
+  getCurrentDir, listFilesAndDirectories, deleteFile, createnewFolder, deleteDirectory
 } from "./preloadFTP";
 
 // Expose protected methods that allow the renderer process to use
@@ -29,9 +29,10 @@ contextBridge.exposeInMainWorld("ftp", {
   setCurrentDir,
   getCurrentDir,
   listFilesAndDirectories,
-  deleteFile
+  deleteFile,
+  createnewFolder,
+  deleteDirectory
 });
-
 
 
 contextBridge.exposeInMainWorld("api", {
