@@ -6,6 +6,9 @@
 
       <the-ftp-explorer />
 
+      <sync-slider-options v-if="connected" />
+
+
       <the-client-explorer />
 
     </div>
@@ -16,7 +19,8 @@
 import MainLayout from "@/layouts/main-layout.vue";
 import FtpStatusOverview from "./includes/FtpStatusOverview.vue";
 import TheFtpExplorer from "./includes/FtpExplorer/TheFtpExplorer.vue";
-import {connected, listFilesAndDirectories} from "../../js/ftpManager";
+import { connected, listFilesAndDirectories } from "../../js/ftpManager";
 import TheClientExplorer from "./includes/ClientExplorer/TheClientExplorer.vue";
+import SyncSliderOptions from "../../components/form/sync-slider-options.vue";
 </script>
 
