@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Drag N Drop Overwrite If Exists">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Upload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
@@ -114,7 +114,7 @@
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
-      <workItem from="1696223824015" duration="30828000" />
+      <workItem from="1696223824015" duration="31454000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -380,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696253668712</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Fix - Upload">
+      <option name="closed" value="true" />
+      <created>1696256114399</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1696256114399</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +409,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Refactor" />
     <MESSAGE value="Fix - Autostart &#10;Refactor SettingsModal.vue" />
     <MESSAGE value="Finished Refactoring" />
     <MESSAGE value="Add - Minimized Auto Start" />
@@ -426,7 +433,8 @@
     <MESSAGE value="-" />
     <MESSAGE value="Upload Sync" />
     <MESSAGE value="Fix - Drag N Drop Overwrite If Exists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Drag N Drop Overwrite If Exists" />
+    <MESSAGE value="Fix - Upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Upload" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
