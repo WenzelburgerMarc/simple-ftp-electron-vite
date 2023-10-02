@@ -64,17 +64,26 @@ const unhover = () => {
 };
 
 const getCurrentPathBreadcrumb = () => {
-  const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
-  if(segments.length === 0) {
-    segments.push('');
-  }
-  return segments.map((segment, index) => {
+  try{
+    const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
+    if(segments.length === 0) {
+      segments.push('');
+    }
+    return segments.map((segment, index) => {
+      return {
+        name: "/" + segment,
+        path: "/" + segments.slice(0, index + 1).join("/"),
+        hover: false
+      };
+    });
+  }catch (e) {
+    console.error(e);
     return {
-      name: "/" + segment,
-      path: "/" + segments.slice(0, index + 1).join("/"),
+      name: "/" + currentDir.value,
+      path: "/" + currentDir.value,
       hover: false
     };
-  });
+  }
 };
 
 const initialPath = computed(() => props.initialPathProp);

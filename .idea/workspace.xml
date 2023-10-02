@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Auto Reload Ftp Interval">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +109,7 @@
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
-      <workItem from="1696223824015" duration="16761000" />
+      <workItem from="1696223824015" duration="17076000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -298,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696238032927</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Add - Auto Reload Ftp Interval">
+      <option name="closed" value="true" />
+      <created>1696240970510</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1696240970510</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +343,7 @@
     <MESSAGE value="Improve - Breadcrumb&#10;Add - Create New Client Folder&#10;Add - Client Explorer" />
     <MESSAGE value="Fix - Breadcrum&#10;Fix - FTP Manager&#10;Add - Set Sync Directory" />
     <MESSAGE value="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating" />
+    <MESSAGE value="Add - Auto Reload Ftp Interval" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Auto Reload Ftp Interval" />
   </component>
 </project>
