@@ -177,3 +177,7 @@ ipcMain.handle('watch-client-directory', async (event, directoryPath) => {
 ipcMain.handle('unwatch-client-directory', async () => {
   watcher.close();
 });
+
+ipcMain.handle('restart-ftp-reload-interval', async (event) => {
+  event.sender.send('restart-ftp-reload-interval');
+});

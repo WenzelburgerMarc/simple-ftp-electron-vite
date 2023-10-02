@@ -3,7 +3,7 @@
     <settings-setting>
       <!-- General Settings Section -->
       <template #showGeneralSettings>
-        <general-settings-section :showModal="showModal" @closeModal="closeModal" />
+        <general-settings-section :show-modal="showModal" @closeModal="closeModal" />
       </template>
 
       <!-- FTP Settings Section -->

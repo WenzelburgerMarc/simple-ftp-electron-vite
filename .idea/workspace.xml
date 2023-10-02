@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Breadcrum&#10;Fix - FTP Manager&#10;Add - Set Sync Directory">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +112,7 @@
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
-      <workItem from="1696223824015" duration="14093000" />
+      <workItem from="1696223824015" duration="16761000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -291,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696234829001</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating">
+      <option name="closed" value="true" />
+      <created>1696238032927</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1696238032927</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,6 +337,7 @@
     <MESSAGE value="Add - Breadcrumb&#10;Refactoring" />
     <MESSAGE value="Improve - Breadcrumb&#10;Add - Create New Client Folder&#10;Add - Client Explorer" />
     <MESSAGE value="Fix - Breadcrum&#10;Fix - FTP Manager&#10;Add - Set Sync Directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Breadcrum&#10;Fix - FTP Manager&#10;Add - Set Sync Directory" />
+    <MESSAGE value="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Breadcrumb&#10;Add - Drag n Drop Client (Overlay missing)&#10;Add - Client Realtime Updating" />
   </component>
 </project>

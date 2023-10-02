@@ -25,9 +25,25 @@ window.addEventListener('DOMContentLoaded', () => {
   getInitialColorMode() == 'light' ? document.documentElement.classList.remove('dark') : document.documentElement.classList.add('dark');
 });
 
-onMounted( () => {
+onMounted( async() => {
   localStorage.removeItem('showGeneralSettings');
   localStorage.removeItem('showFtpSettings');
+
+  // Default Settings
+  try {
+    let autoReloadFtpInterval = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
+    let autoUploadInterval = await window.ipcRendererInvoke("get-setting", "autoUploadInterval");
+
+    if(!autoReloadFtpInterval) {
+      await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", 60000);
+    }
+    if(!autoUploadInterval) {
+      await window.ipcRendererInvoke("set-setting", "autoUploadInterval", 30000);
+    }
+  }catch (e) {
+    console.error(e);
+  }
+
 });
 
 </script>

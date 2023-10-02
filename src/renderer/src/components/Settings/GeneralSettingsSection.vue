@@ -13,6 +13,10 @@
                          :label="'Auto-Upload Interval in ms'"
                          :type="'number'"
                          :placeholder="'10000'" />
+    <LabelInputComponent :model-value="autoReloadFtpInterval" @update:modelValue="updateAutoReloadFtpInterval"
+                         :label="'Auto-Reload FTP Files Interval in ms'"
+                         :type="'number'"
+                         :placeholder="'60000'" />
     <SelectPathInputComponent :prev-selected-path="selectedPath"
                               label-text="Choose Directory to Sync With Server"
                               :btn-text="'Select Save Location'"
@@ -38,11 +42,15 @@ import { startLoading, stopLoading } from "@/js/loaderManager.js";
 // eslint-disable-next-line vue/no-dupe-keys
 let autoUploadInterval = reactive(ref(0));
 // eslint-disable-next-line vue/no-dupe-keys
+let autoReloadFtpInterval = reactive(ref(0));
+// eslint-disable-next-line vue/no-dupe-keys
 const selectedPath = ref("");
 // eslint-disable-next-line vue/no-dupe-keys
 const enableAutoStart = ref(false);
 
-const props = defineProps(['showModal', 'selectedPath', 'enableAutoStart', 'autoUploadInterval']);
+const props = defineProps({
+  showModal: Boolean
+});
 const emit = defineEmits(['closeModal']);
 
 const updateEnableAutoStart = (newValue) => {
@@ -51,6 +59,10 @@ const updateEnableAutoStart = (newValue) => {
 
 const updateAutoUploadInterval = (newValue) => {
   autoUploadInterval.value = newValue;
+};
+
+const updateAutoReloadFtpInterval = (newValue) => {
+  autoReloadFtpInterval.value = newValue;
 };
 
 const handleSelectDirectory = (path) => {
@@ -84,6 +96,7 @@ watch(props.showModal, async () => {
 const loadSettings = async () => {
   startLoading();
   enableAutoStart.value = await window.ipcRendererInvoke("get-setting", "enableAutoStart");
+  autoReloadFtpInterval.value = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
   autoUploadInterval.value = await window.ipcRendererInvoke("get-setting", "autoUploadInterval");
   selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   stopLoading();
@@ -101,7 +114,9 @@ const saveSettings = async () => {
     }
     await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
     await window.ipcRendererInvoke("set-setting", "autoUploadInterval", autoUploadInterval.value);
+    await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", autoReloadFtpInterval.value);
     await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
+    await window.ipcRendererInvoke("restart-ftp-reload-interval");
     stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {

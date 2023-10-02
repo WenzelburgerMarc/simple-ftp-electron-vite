@@ -14,6 +14,7 @@ import {
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import FileList from "../../../../components/form/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
+import { onBeforeRouteLeave } from "vue-router";
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
 const initialPath = ref("");
@@ -61,6 +62,8 @@ const changePath = (path) => {
 };
 
 
+let pollingInterval;
+
 onMounted(async() => {
   currentDir.value = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
   initialPath.value = '/' + await currentDir.value;
@@ -69,6 +72,29 @@ onMounted(async() => {
     fileList.value = getFileList();
   });
 
+  await startPolling();
+
+  window.ipcRendererOn('restart-ftp-reload-interval', async() => {
+    await stopPolling();
+    await startPolling();
+  });
+});
+
+const startPolling = async() => {
+  let timeout = await window.ipcRendererInvoke('get-setting', 'autoReloadFtpInterval');
+  pollingInterval = setInterval(async () => {
+    console.log('polling')
+    await listFiles(false);
+  }, timeout);
+};
+
+const stopPolling = () => {
+  clearInterval(pollingInterval);
+};
+
+onBeforeRouteLeave((to, from, next) => {
+  stopPolling();
+  next();
 });
 
 const listFiles = async (showLoader=true) => {
