@@ -102,6 +102,7 @@ const listFiles = async () => {
 
         <Breadcrumb :initial-breadcrumb="breadcrumb"
                     :current-dir="currentDir"
+                    initial-path=""
                     @change-path="changePath" />
 
       </div>

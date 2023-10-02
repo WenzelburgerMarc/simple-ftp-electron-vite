@@ -3,6 +3,8 @@
 import { app, BrowserWindow, ipcMain, dialog, shell } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { join } from "path";
+import * as path from "path";
+import * as fs from "fs";
 
 // === WINDOW CREATION FUNCTION ===
 function createWindow() {
@@ -107,4 +109,49 @@ ipcMain.handle("set-setting", (event, key, value) => {
 
 ipcMain.handle("get-all-data", () => {
   return store.store;
+});
+
+ipcMain.handle('list-local-files', async (event, dirPath) => {
+  try {
+    const files = fs.readdirSync(dirPath);
+    return files.map(file => {
+      const filePath = path.join(dirPath, file);
+      try {
+        const stats = fs.statSync(filePath);
+        return {
+          name: file,
+          path: filePath,
+          type: stats.isDirectory() ? 'd' : 'f',
+          size: stats.size
+        };
+      } catch (error) {
+        console.error(`Failed to get stats for file: ${filePath}`, error);
+        return null;
+      }
+    }).filter(file => file !== null);
+  } catch (error) {
+    console.error(`Failed to read directory: ${dirPath}`, error);
+    return [];
+  }
+});
+
+ipcMain.handle('create-new-folder-client', async (event, selectedDirectory) => {
+  const result = await dialog.showSaveDialog({
+    defaultPath: selectedDirectory,
+    properties: ["createDirectory"]
+  });
+
+  if (!result.canceled && result.filePath) {
+    try {
+      if (!fs.existsSync(result.filePath)) {
+        fs.mkdirSync(result.filePath, { recursive: true });
+      }
+      return result.filePath;
+    } catch (error) {
+      console.error("Error creating directory:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
 });

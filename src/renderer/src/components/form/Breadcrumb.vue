@@ -1,19 +1,28 @@
 <template>
   <div class="breadcrumb">
-    <a class="w-full mr-0 text-gray-800 hover:underline hover:text-blue-600"
-       v-for="(segment, index) in breadcrumb"
-       :key="index"
-       @click.prevent="changePath(segment.path)"
-       href="#"
-       @mouseover="hover(index)"
-       @mouseout="unhover()">
-      /{{ segment.name }}
-    </a>
+
+    <template
+              v-for="(segment, index) in breadcrumb"
+              :key="index">
+      <span v-if="isInitialSegment(segment.path)"
+            class="w-full mr-0 text-gray-800">
+        {{ segment.name }}
+      </span>
+      <a v-else
+         class="w-full mr-0 text-gray-800 hover:underline hover:text-blue-600"
+         @click.prevent="changePath(segment.path)"
+         href="#"
+         @mouseover="hover(index)"
+         @mouseout="unhover()">
+        {{ segment.name }}
+      </a>
+    </template>
   </div>
 </template>
 
+
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 
 const props = defineProps({
   initialBreadcrumb: {
@@ -23,19 +32,26 @@ const props = defineProps({
   currentDir: {
     type: String,
     required: true
+  },
+  initialPath: {
+    type: String,
+    required: false
   }
+
 });
 
-const emit = defineEmits(['change-path']);
+const emit = defineEmits(["change-path"]);
+
+const isInitialSegment = reactive(ref(() => false));
 
 const currentDir = computed(() => {
   return props.currentDir;
-})
+});
 const breadcrumb = ref(props.initialBreadcrumb);
 const breadcrumbContainerWidth = ref(0);
 
 const changePath = (path) => {
-  emit('change-path', path);
+  emit("change-path", path);
 };
 
 const hover = (index) => {
@@ -52,17 +68,24 @@ const unhover = () => {
 
 const getCurrentPathBreadcrumb = () => {
   const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
+  if(segments.length === 0) {
+    segments.push(props.initialPath);
+  }
   return segments.map((segment, index) => {
     return {
-      name: segment,
-      path: '/' + segments.slice(0, index + 1).join('/'),
+      name: "/" + segment,
+      path: "/" + segments.slice(0, index + 1).join("/"),
       hover: false
     };
   });
 };
 
 onMounted(() => {
+
+
   watch(currentDir, () => {
+    console.log("initialPath", props.initialPath);
+    console.log("currentDir", props.currentDir);
     breadcrumb.value = getCurrentPathBreadcrumb();
   });
 
@@ -73,9 +96,23 @@ onMounted(() => {
     const adjustedBreadcrumb = getCurrentPathBreadcrumb();
     if (breadcrumbContainerWidth.value < 300) {
       const middleIndex = Math.floor(adjustedBreadcrumb.length / 2);
-      adjustedBreadcrumb.splice(middleIndex, 0, { name: '...', path: '', hover: false });
+      adjustedBreadcrumb.splice(middleIndex, 0, { name: "...", path: "", hover: false });
     }
     breadcrumb.value = adjustedBreadcrumb;
   });
+
+  isInitialSegment.value = (segmentPath) => {
+    if (!props.initialPath) {
+      return false;
+    }
+
+    const initialSegments = props.initialPath.split("/").filter(segment => segment.trim() !== "");
+    const currentSegments = segmentPath.split("/").filter(segment => segment.trim() !== "");
+
+    // Adjust this condition to allow hovering over the last segment of the initial path
+    return currentSegments.every((segment, index) => {
+      return index < initialSegments.length && initialSegments[index] === segment;
+    }) && segmentPath !== props.initialPath;
+  };
 });
 </script>

@@ -17,7 +17,7 @@ import MainLayout from "@/layouts/main-layout.vue";
 import FtpStatusOverview from "./includes/FtpStatusOverview.vue";
 import TheFtpExplorer from "./includes/FtpExplorer/TheFtpExplorer.vue";
 import {connected, listFilesAndDirectories} from "../../js/ftpManager";
-
-
+import { ref, onMounted } from "vue";
+import TheClientExplorer from "./includes/ClientExplorer/TheClientExplorer.vue";
 </script>
 
