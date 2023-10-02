@@ -31,7 +31,8 @@
 
       <td class="flex items-center px-6 py-4 space-x-3">
         <a href="#"
-           class="font-medium ml-auto text-red-600 hover:text-red-700">Delete File</a>
+           class="font-medium ml-auto text-red-600 hover:text-red-700"
+            @click.prevent="$emit('delete-file', file)">Delete File</a>
       </td>
     </tr>
     </tbody>
@@ -49,7 +50,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['file-clicked']);
+const emit = defineEmits(['file-clicked', 'delete-file']);
 
 const fileList = computed(() => {
   return props.initialFileList;

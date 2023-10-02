@@ -93,4 +93,24 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
   }
 };
 
+export const deleteFile = async (file) => {
+  if (!connected.value) {
+    return;
+  }
+  startLoading();
+
+  await window.ftp.deleteFile(file)
+    .then(async () => {
+      await listFilesAndDirectories();
+      stopLoading();
+      displayFlash("Deleted file", "success");
+    })
+    .catch((error) => {
+      stopLoading();
+      console.log(error);
+      displayFlash(error.message, "error");
+
+    });
+}
+
 

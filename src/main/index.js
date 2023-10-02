@@ -185,3 +185,14 @@ ipcMain.handle('restart-ftp-reload-interval', async (event) => {
 ipcMain.handle('open-selected-client-directory', async (event, path) => {
   await shell.openPath(path);
 });
+
+ipcMain.handle('delete-client-file', async (event, path) => {
+  try {
+    await fs.promises.unlink(path);
+    return { success: true, message: 'File deleted successfully' };
+  } catch (error) {
+    console.error(`Error deleting file at path ${path}:`, error);
+    return { success: false, message: error.message };
+  }
+});
+

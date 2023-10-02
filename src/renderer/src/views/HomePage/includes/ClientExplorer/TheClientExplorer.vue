@@ -129,6 +129,20 @@ const openSelectedClientDirectory = async () => {
   await window.ipcRendererInvoke("open-selected-client-directory", currentDir.value);
 };
 
+const deleteFile = async (file) => {
+  await window.ipcRendererInvoke("delete-client-file", currentDir.value + '/' + file.name)
+    .then(response => {
+      if(response.success) {
+        displayFlash("Deleted file", "success");
+        listFiles();
+      } else {
+        displayFlash(response.message, "error");
+      }
+    })
+    .catch(error => displayFlash(error.message, "error"));
+
+
+};
 </script>
 
 <template>
@@ -198,7 +212,8 @@ const openSelectedClientDirectory = async () => {
     </div>
 
     <FileList :initial-file-list="fileList"
-              @file-clicked="handleClick" />
+              @file-clicked="handleClick"
+              @delete-file="deleteFile"/>
 
   </panel-component>
 

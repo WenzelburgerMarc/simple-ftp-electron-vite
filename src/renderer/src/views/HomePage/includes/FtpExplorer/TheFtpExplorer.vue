@@ -8,7 +8,8 @@ import {
   listFilesAndDirectories,
   getFileList,
   getCurrentDir,
-  setCurrentDir
+  setCurrentDir,
+  deleteFile
 
 } from "@/js/ftpManager.js";
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
@@ -34,6 +35,7 @@ const handleClick = (file) => {
 
 const goToFtpInitialPath = () => {
   currentDir.value = initialPath.value;
+  setCurrentDir(currentDir.value);
   listFiles();
 };
 
@@ -45,10 +47,12 @@ const handleBack = () => {
       segments.pop();
       const newPath = "/" + segments.join("/");
       currentDir.value = newPath;
+      setCurrentDir(currentDir.value);
       listFiles();
 
     } else {
       displayFlash("You have reached the Root Directory!", "info")
+      setCurrentDir(currentDir.value);
       listFiles();
     }
   }
@@ -99,7 +103,7 @@ onBeforeRouteLeave((to, from, next) => {
 const listFiles = async (showLoader=true) => {
   if (currentDir.value) {
     try {
-      await listFilesAndDirectories(currentDir.value, showLoader);
+      await listFilesAndDirectories(getCurrentDir(), showLoader);
       fileList.value = getFileList() || [];
 
       fileList.value.sort((a, b) => {
@@ -118,6 +122,12 @@ const setFtpSyncDirectory = async() => {
   setCurrentDir(currentDir.value);
   initialPath.value = '/'+currentDir.value;
   displayFlash("FTP Sync Directory Set!", "success")
+};
+
+const deleteFtpFile = async(file) => {
+  const path = currentDir.value + '/' + file.name;
+  await deleteFile(path);
+  await listFiles();
 };
 </script>
 
@@ -164,7 +174,8 @@ const setFtpSyncDirectory = async() => {
     </div>
 
     <FileList :initial-file-list="fileList"
-              @file-clicked="handleClick" />
+              @file-clicked="handleClick"
+              @delete-file="deleteFtpFile"/>
 
   </panel-component>
 

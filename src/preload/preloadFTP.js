@@ -59,7 +59,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   if (!isConnected) {
     return;
   }
-  if(remoteDir === null) {
+  if (remoteDir === null) {
     remoteDir = await window.ipcRenderer.invoke("get-setting", "ftp-sync-directory") || "/";
   }
   try {
@@ -72,4 +72,12 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const deleteFile = async (file) => {
+  if (!isConnected) {
+    return;
+  }
+
+  await sftp.delete(file);
 };
