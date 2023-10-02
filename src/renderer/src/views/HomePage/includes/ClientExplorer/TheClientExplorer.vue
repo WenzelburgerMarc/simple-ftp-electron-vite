@@ -64,14 +64,14 @@ onMounted(async () => {
 
   window.ipcRendererInvoke("watch-client-directory", initialPath.value);
 
-  window.ipcRendererOn("client-directory-changed", async(event, path) => {
-    console.log("client-directory-changed", path)
+  window.ipcRendererOn("client-directory-changed", async (event, path) => {
+    console.log("client-directory-changed", path);
     currentDir.value = path;
     initialPath.value = path;
     await listFiles();
   });
 
-  window.ipcRendererOn("file-changed", async() => {
+  window.ipcRendererOn("file-changed", async () => {
     await listFiles();
   });
 
@@ -82,7 +82,7 @@ onMounted(async () => {
 onBeforeRouteLeave((to, from, next) => {
   try {
     window.ipcRendererInvoke("unwatch-client-directory");
-  }catch (e) {
+  } catch (e) {
     console.error(e);
   }
   next();
@@ -120,9 +120,13 @@ const onDrop = async (event) => {
 
 const copyFileToCurrentDir = async (sourcePath) => {
   const basename = (p) => p.split(/[\\/]/).pop();
-  const destinationPath = currentDir.value + '/' + basename(sourcePath);
-  await window.ipcRendererInvoke('copy-file', sourcePath, destinationPath);
+  const destinationPath = currentDir.value + "/" + basename(sourcePath);
+  await window.ipcRendererInvoke("copy-file", sourcePath, destinationPath);
   listFiles();
+};
+
+const openSelectedClientDirectory = async () => {
+  await window.ipcRendererInvoke("open-selected-client-directory", currentDir.value);
 };
 
 </script>
@@ -155,30 +159,39 @@ const copyFileToCurrentDir = async (sourcePath) => {
       </div>
 
 
-      <icon-button-component @newFolderClient="createNewFolderOnClient"
-                             emitName="newFolderClient"
+      <icon-button-component :icon="['far', 'folder-open']"
+                             emit-name="openClientFolder"
+                             @click="openSelectedClientDirectory"
                              btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon="plus"
-                             icon-class="mr-2">New Folder
+                             icon-class="mr-2">Open Folder
       </icon-button-component>
     </div>
 
 
     <div class="w-full flex space-x-2 justify-between items-start py-3">
 
-      <div class="w-full flex space-x-2 justify-start items-center ">
+      <div class="w-full flex space-x-5 justify-between items-center ">
 
-        <icon-button-component
-          emit-name="goBackFTPPath"
-          btn-class="flex justify-center items-center text-gray-800 text-lg"
-          icon-class="text-gray-800"
-          icon="arrow-left"
-          @goBackFTPPath="handleBack" />
+        <div class="w-full flex space-x-2 justify-start items-center ">
+          <icon-button-component
+            emit-name="goBackFTPPath"
+            btn-class="flex justify-center items-center text-gray-800 text-lg"
+            icon-class="text-gray-800"
+            icon="arrow-left"
+            @goBackFTPPath="handleBack" />
 
-        <Breadcrumb :initial-breadcrumb="breadcrumb"
-                    :current-dir="currentDir"
-                    :initial-path-prop="'/' + initialPath"
-                    @change-path="changePath" />
+          <Breadcrumb :initial-breadcrumb="breadcrumb"
+                      :current-dir="currentDir"
+                      :initial-path-prop="'/' + initialPath"
+                      @change-path="changePath" />
+        </div>
+
+        <icon-button-component @newFolderClient="createNewFolderOnClient"
+                               emitName="newFolderClient"
+                               btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+                               icon="plus"
+                               icon-class="mr-2">New Folder
+        </icon-button-component>
 
       </div>
 

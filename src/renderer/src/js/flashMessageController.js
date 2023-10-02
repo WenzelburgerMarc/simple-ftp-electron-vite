@@ -8,6 +8,16 @@ const messageQueue = ref([]);
 
 export const displayFlash = (message, type = "info") => {
   messageQueue.value.push({ message, type });
+
+
+  if (messageQueue.value.length > 1) {
+    const nextMessage = messageQueue.value[messageQueue.value.length - 2];
+    if (nextMessage.message === message && nextMessage.type === type) {
+      messageQueue.value.pop();
+    }
+  }
+
+
   if (!showFlash.value) {
     showNextFlash();
   }
