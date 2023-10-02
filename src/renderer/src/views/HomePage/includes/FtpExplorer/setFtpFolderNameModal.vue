@@ -52,12 +52,5 @@ const createFolder = () => {
 </template>
 
 <style scoped>
-.newFolderModal {
-  position: fixed !important;
-  left: 0 !important;
-  top: 0 !important;
-  z-index: 999 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-}
+
 </style>

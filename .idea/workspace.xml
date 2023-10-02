@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Delete Folder From FTP Or Client">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/form/sync-slider-options.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Sync Switch Button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,7 @@
       <workItem from="1695972865888" duration="39000" />
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
-      <workItem from="1696223824015" duration="24249000" />
+      <workItem from="1696223824015" duration="24363000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -342,7 +341,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696246658181</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Add - Sync Switch Button">
+      <option name="closed" value="true" />
+      <created>1696248415336</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1696248415336</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,6 +394,7 @@
     <MESSAGE value="Improve - Flash Message" />
     <MESSAGE value="Add - Delete File From FTP Or Client" />
     <MESSAGE value="Add - Delete Folder From FTP Or Client" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Delete Folder From FTP Or Client" />
+    <MESSAGE value="Add - Sync Switch Button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Sync Switch Button" />
   </component>
 </project>
