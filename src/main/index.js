@@ -158,8 +158,14 @@ ipcMain.handle('create-new-folder-client', async (event, selectedDirectory) => {
 });
 
 ipcMain.handle('copy-file', async (event, sourcePath, destinationPath) => {
-  await fs.promises.copyFile(sourcePath, destinationPath);
-  return destinationPath;
+  try {
+    await fs.promises.copyFile(sourcePath, destinationPath);
+    console.log(`File copied from ${sourcePath} to ${destinationPath}`);
+    return destinationPath;
+  } catch (error) {
+    console.error(`Failed to copy file from ${sourcePath} to ${destinationPath}:`, error);
+    throw error;
+  }
 });
 
 let watcher;
