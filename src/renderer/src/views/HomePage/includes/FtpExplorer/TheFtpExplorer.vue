@@ -127,9 +127,10 @@ const listFiles = async (showLoader=true) => {
 };
 
 const setFtpSyncDirectory = async() => {
+  console.log("setFtpSyncDirectory");
   await window.ipcRendererInvoke('set-setting', 'ftp-sync-directory', currentDir.value);
   setCurrentDir(currentDir.value);
-  initialPath.value = '/'+currentDir.value;
+  initialPath.value = currentDir.value;
   displayFlash("FTP Sync Directory Set!", "success")
 };
 
