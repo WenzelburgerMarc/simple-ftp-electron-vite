@@ -5,22 +5,22 @@
     <icon-button-component :icon="['fas', 'upload']"
                            emit-name="setSyncUpload"
                            @setSyncUpload="setSyncUpload"
-                           :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+                           :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
       Upload
     </icon-button-component>
     <icon-button-component :icon="['fas', 'download']"
                            emit-name="setSyncDownload"
                            @setSyncDownload="setSyncDownload"
-                           :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+                           :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
       Download
     </icon-button-component>
     <icon-button-component :icon="['fas', 'pause']"
                            emit-name="setStopSyncingMethod"
                            @setStopSyncingMethod="setStopSyncingMethod"
-                           :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+                           :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
       Pause
     </icon-button-component>
 
@@ -90,13 +90,13 @@ const switchingBackgroundStyle = computed(() => {
     return {
       width: "120px",
       transform: `translateX(120px)`,
-      transition: "transform 0.3s ease-in-out"
+      transition: "transform 0.15s ease-in-out"
     };
   } else {
     return {
       width: "120px",
       transform: `translateX(${uploadEnabled.value ? -120 : 0}px)`,
-      transition: "transform 0.3s ease-in-out"
+      transition: "transform 0.15s ease-in-out"
     };
   }
 
