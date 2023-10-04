@@ -213,7 +213,7 @@ const deleteFolder = async (folder) => {
 
           <Breadcrumb :initial-breadcrumb="breadcrumb"
                       :current-dir="currentDir"
-                      :initial-path-prop="'/' + initialPath"
+                      :initial-path-prop="initialPath"
                       @change-path="changePath" />
         </div>
 

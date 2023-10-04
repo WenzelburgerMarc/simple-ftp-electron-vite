@@ -79,7 +79,7 @@ let pollingInterval;
 
 onMounted(async() => {
   currentDir.value = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
-  initialPath.value = '/' + await currentDir.value;
+  initialPath.value = await currentDir.value;
   await listFiles();
   watch(getFileList, () => {
     fileList.value = getFileList();

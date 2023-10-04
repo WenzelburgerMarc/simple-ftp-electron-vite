@@ -107,17 +107,25 @@ onMounted(() => {
     breadcrumb.value = adjustedBreadcrumb;
   });
 
-  isInitialSegment.value = (segmentPath) => {
+  isInitialSegment.value = () => { //segmentPath
     if (!initialPath.value) {
       return false;
     }
+    console.log(initialPath.value, currentDir.value);
 
-    const initialSegments = initialPath.value.split("/").filter(segment => segment.trim() !== "");
-    const currentSegments = segmentPath.split("/").filter(segment => segment.trim() !== "");
+    if(initialPath.value === currentDir.value) {
+      return true;
+    }
+    return false;
 
-    return currentSegments.every((segment, index) => {
-      return index < initialSegments.length && initialSegments[index] === segment;
-    }) && segmentPath !== initialPath.value;
+
+    //
+    // const initialSegments = initialPath.value.split("/").filter(segment => segment.trim() !== "");
+    // const currentSegments = segmentPath.split("/").filter(segment => segment.trim() !== "");
+    //
+    // return currentSegments.every((segment, index) => {
+    //   return index < initialSegments.length && initialSegments[index] === segment;
+    // }) && segmentPath !== initialPath.value;
   };
 
 
