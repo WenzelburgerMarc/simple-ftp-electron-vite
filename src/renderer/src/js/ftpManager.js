@@ -11,7 +11,7 @@ export const connected = ref(false);
 export const fileList = reactive([]);
 export const currentDir = ref(null);
 
-export const currentSyncMode = ref(null);
+export const currentSyncMode = ref();
 
 export const openModal = () => {
   isModalVisible.value = true;
@@ -35,6 +35,10 @@ export const connect = (ftpSettings) => {
       connected.value = window.ftp.getIsConnected();
       if (connected.value) {
         await listFilesAndDirectories();
+        await startSyncing(
+          await window.ipcRendererInvoke("get-setting", "ftp-sync-mode"),
+          await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
+          await window.ipcRendererInvoke("get-setting", "ftp-sync-directory"));
         displayFlash("Connected to FTP Server", "success");
         stopLoading();
         resolve(true);

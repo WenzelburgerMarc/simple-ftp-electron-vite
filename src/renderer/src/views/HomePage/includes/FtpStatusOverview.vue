@@ -29,7 +29,7 @@
                                iconClass="text-lg text-gray-800"
                                icon="rotate-right" />
         <icon-button-component emit-name="disconnectFtpIconBtn"
-                               @disconnectFtpIconBtn="disconnect"
+                               @disconnectFtpIconBtn="disconnectFtp"
                                v-if="isConnected"
                                iconClass="text-2xl text-red-500"
                                icon="xmark" />
@@ -48,7 +48,7 @@
 <script setup>
 import { defineProps, computed, ref, defineEmits, onMounted, watch, reactive } from "vue";
 import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
-import { connect, disconnect } from "@/js/ftpManager";
+import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
 import { connected, currentSync, currentSyncMode } from "../../../js/ftpManager";
 
@@ -64,6 +64,8 @@ const props = defineProps({
     required: true
   }
 });
+
+
 
 const ftpCredentials = ref({
   host: "",
@@ -160,6 +162,11 @@ const statusClass = computed(() => {
 //   const mode = currentSyncMode.value;
 //   return mode.charAt(0).toUpperCase() + mode.slice(1) + "ing";
 // });
+
+const disconnectFtp = async () => {
+  await stopSyncing();
+  await disconnect();
+};
 
 </script>
 

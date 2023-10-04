@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Upload Progress Bar + Fixed Uploading">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Sync Slider options Transition Duration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/clientExplorerManager.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +112,7 @@
       <workItem from="1695972906052" duration="64000" />
       <workItem from="1695972987788" duration="24204000" />
       <workItem from="1696223824015" duration="31777000" />
-      <workItem from="1696399167063" duration="26799000" />
+      <workItem from="1696399167063" duration="27810000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -439,7 +442,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696426293457</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Fix - Sync Slider options Transition Duration">
+      <option name="closed" value="true" />
+      <created>1696426596033</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1696426596033</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,7 +471,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Flash Message Design" />
     <MESSAGE value="Add - Loading Anzeige" />
     <MESSAGE value="Add - Server Explorer&#10;Fix - Design" />
     <MESSAGE value="Fix - Design" />
@@ -485,6 +495,7 @@
     <MESSAGE value="Add - Pause Button To sync-slider-options.vue" />
     <MESSAGE value="Fix - Breadcrumb, set Sync Directory" />
     <MESSAGE value="Add - Upload Progress Bar + Fixed Uploading" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Upload Progress Bar + Fixed Uploading" />
+    <MESSAGE value="Fix - Sync Slider options Transition Duration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Sync Slider options Transition Duration" />
   </component>
 </project>
