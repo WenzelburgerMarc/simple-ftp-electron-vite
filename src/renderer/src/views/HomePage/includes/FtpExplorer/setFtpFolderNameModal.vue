@@ -27,7 +27,7 @@ const createFolder = () => {
 </script>
 
 <template>
-  <ModalComponent @closeModal="closeModal" :without-left="true"
+  <ModalComponent @closeModal="closeModal"
                   :show-modal="showModal" class="newFolderModal">
     <div class="w-full flex flex-col space-y-2 justify-start items-start">
       <div class="w-full flex justify-between items-start">

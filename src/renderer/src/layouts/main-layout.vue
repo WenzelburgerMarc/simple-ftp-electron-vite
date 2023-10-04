@@ -1,17 +1,25 @@
 <script setup>
 import TheSidebar from "@/components/SideBar/TheSidebar.vue";
 import Loader from "../components/Loader.vue";
+import SettingsModal from "../components/Settings/SettingsModal.vue";
+import { isModalVisible, updateModalVisibility, connect, openModal } from "@/js/ftpManager.js";
 
-
+const toggleSettingsModal = () => {
+  openModal();
+};
 </script>
 
 <template>
   <div class="overflow-hidden">
     <loader />
-    <TheSidebar />
+    <TheSidebar @settings-clicked="toggleSettingsModal" />
 
     <div class="main-content-container w-[calc(100vw-70px)]  min-h-screen p-5 ml-5">
       <div class="w-full h-full flex flex-col justify-start items-start">
+        <SettingsModal :showModal="isModalVisible"
+                       @connectToFTP="connect"
+                       @update:showModal="updateModalVisibility"
+        />
         <slot></slot>
       </div>
 

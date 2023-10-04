@@ -2,8 +2,7 @@
   <div class="sidebar w-auto fixed top-0 left-0 bg-blue-600 h-screen z-50"
        :class="isOpen ? 'sidebarOpen' : 'sidebarClosed'">
 
-    <div :class="isModalVisible ? 'pointer-events-none blur-sidebar' : ''"
-         class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
+    <div class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
 
       <sidebar-toggler :isOpen="isOpen"
                        v-on:toggleSidebar="toggleSidebar()"
@@ -31,21 +30,14 @@
 
 
   </div>
-  <SettingsModal :showModal="isModalVisible"
-                 @connectToFTP="connect"
-                 @update:showModal="updateModalVisibility" />
+
+
 
   <FlashMessage />
 
 </template>
 
 <script setup>
-import {
-  isModalVisible,
-  openModal,
-  updateModalVisibility,
-  connect
-} from "@/js/ftpManager.js";
 import SidebarItem from "./SidebarItem.vue";
 import SidebarToggler from "./SidebarToggler.vue";
 import SidebarDivider from "./SidebarDivider.vue";
@@ -53,12 +45,11 @@ import { useRouter } from "vue-router";
 import { defineEmits, onMounted } from "vue";
 import nightwind from "nightwind/helper";
 import FlashMessage from "@/components/FlashMessage.vue";
-import SettingsModal from "@/components/Settings/SettingsModal.vue";
 import { ref, computed } from "vue";
 
 let isOpen = ref(false);
 
-const emit = defineEmits(["toggledSidebarEvent"]);
+const emit = defineEmits(["toggledSidebarEvent", "settingsClicked"]);
 
 const router = useRouter();
 
@@ -70,7 +61,7 @@ const arrSidebarItemsBottom = [
     iconClass: "bx-cog",
     label: "Settings",
     actionEvent: () => {
-      openModal();
+      emit("settingsClicked")
       if (isOpen.value)
         toggleSidebar();
     },
@@ -181,7 +172,5 @@ function goToHome() {
   width: 70px !important;
 }
 
-.blur-sidebar {
-  filter: blur(5px);
-}
+
 </style>

@@ -3,6 +3,12 @@ import SidebarContainer from './SidebarContainer.vue';
 import { ref, watch } from 'vue';
 let toggledSidebar = ref(false);
 
+const emits = defineEmits(['settingsClicked']);
+
+const settingsClicked = () => {
+  emits('settingsClicked');
+};
+
 watch(() => toggledSidebar.value, () => {
   const mainContentContainer = document.querySelector('.main-content-container');
   if (!mainContentContainer) return;
@@ -14,7 +20,7 @@ watch(() => toggledSidebar.value, () => {
 
 <template>
     <div>
-        <SidebarContainer @toggledSidebarEvent="toggledSidebar = !toggledSidebar" class="z-50" />
+        <SidebarContainer @settings-clicked="settingsClicked" @toggledSidebarEvent="toggledSidebar = !toggledSidebar" class="z-30" />
     </div>
 </template>
 
