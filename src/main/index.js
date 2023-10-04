@@ -216,3 +216,15 @@ ipcMain.handle('delete-client-directory', async (event, path) => {
     return { success: false, message: error.message };
   }
 });
+
+ipcMain.handle('sync-file-start', async (event, fileName) => {
+  event.sender.send('sync-file-start', fileName);
+});
+
+ipcMain.handle('sync-file-end', async (event) => {
+  event.sender.send('sync-file-end');
+});
+
+ipcMain.handle('sync-progress-start', async (event) => {
+  event.sender.send('sync-progress-start');
+});

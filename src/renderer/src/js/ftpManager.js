@@ -2,10 +2,16 @@ import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
 
+export const currentSync = ref({
+  fileName: null
+});
+
 export const isModalVisible = ref(false);
 export const connected = ref(false);
 export const fileList = reactive([]);
 export const currentDir = ref(null);
+
+export const currentSyncMode = ref(null);
 
 export const openModal = () => {
   isModalVisible.value = true;
@@ -67,31 +73,40 @@ export const getCurrentDir = () => {
   return currentDir.value;
 };
 
+export const getCurrentSyncMode = () => {
+  return currentSyncMode.value;
+}
 export const getFileList = () => {
   return fileList.value;
 }
 export const listFilesAndDirectories = async (remoteDir = currentDir.value, showLoader=true) => {
-  if (!connected.value) {
-    return;
-  }
+    if (!connected.value) {
+      console.log("Not connected to the server");
+      return;
+    }
 
-  if(remoteDir === null) {
-    remoteDir = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory") || "/";
-  }
+    if(remoteDir === null) {
+      remoteDir = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory") || "/";
+    }
 
-  try {
-    if(showLoader)
-      startLoading();
-    await window.ftp.listFilesAndDirectories(remoteDir);
+    try {
+      if(showLoader)
+        startLoading();
 
-    fileList.value = window.ftp.getFiles();
-    stopLoading();
-  } catch (error) {
-    stopLoading();
-    console.log(error);
-    displayFlash("Failed to list files", "error");
-  }
+      await window.ftp.listFilesAndDirectories(remoteDir);
+      fileList.value = window.ftp.getFiles();
+      console.log(fileList.value);
+
+      stopLoading();
+
+    } catch (error) {
+      stopLoading();
+      console.log(error);
+      displayFlash("Failed to list files", "error");
+
+    }
 };
+
 
 export const deleteFile = async (file) => {
   if (!connected.value) {
@@ -150,7 +165,9 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   try {
     startLoading();
     await window.ftp.stopSyncing();
+    await window.ftp.setSyncMode(mode);
     await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
+    currentSyncMode.value = window.ftp.getSyncMode();
     displayFlash("Syncing started", "success");
     stopLoading();
   }catch (e) {
@@ -168,9 +185,11 @@ export const stopSyncing = async () => {
   }
   try {
     startLoading();
+    await window.ftp.setSyncMode('');
     await window.ftp.stopSyncing();
     displayFlash("Syncing stopped", "success");
     stopLoading();
+    currentSyncMode.value = window.ftp.getSyncMode();
   }catch (e) {
     displayFlash(e.message, "error");
     stopLoading();

@@ -6,78 +6,97 @@
                            emit-name="setSyncUpload"
                            @setSyncUpload="setSyncUpload"
                            :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']" >Upload</icon-button-component>
+                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+      Upload
+    </icon-button-component>
     <icon-button-component :icon="['fas', 'download']"
                            emit-name="setSyncDownload"
                            @setSyncDownload="setSyncDownload"
                            :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']" >Download</icon-button-component>
+                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+      Download
+    </icon-button-component>
     <icon-button-component :icon="['fas', 'pause']"
                            emit-name="setStopSyncingMethod"
                            @setStopSyncingMethod="setStopSyncingMethod"
                            :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition flex justify-center items-center p-3']"
-                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']" >Pause</icon-button-component>
+                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition']">
+      Pause
+    </icon-button-component>
 
   </div>
 </template>
 
 <script setup>
 import IconButtonComponent from "../../../components/form/IconButtonComponent.vue";
-import { ref, computed } from "vue";
-import {startSyncing, stopSyncing } from "../../../js/ftpManager";
+import { ref, computed, onMounted } from "vue";
+import { startSyncing, stopSyncing, getCurrentSyncMode } from "../../../js/ftpManager";
 
 const uploadEnabled = ref(false);
 
-const setSyncUpload = async() => {
+onMounted(() => {
+  let mode = getCurrentSyncMode();
+
+  if (mode === "upload") {
+    setSyncUpload();
+  } else if (mode === "download") {
+    setSyncDownload();
+  } else {
+    setStopSyncingMethod();
+  }
+
+});
+
+const setSyncUpload = async () => {
   uploadEnabled.value = true;
   let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  let ftpSyncPath = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
+  let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
 
-  startSyncing('upload', clientSyncPath, ftpSyncPath)
+  startSyncing("upload", clientSyncPath, ftpSyncPath)
     .catch(error => {
       console.error("Error in startSyncing:", error);
 
     });
-}
+};
 
 
-const setSyncDownload = async() => {
+const setSyncDownload = async () => {
   uploadEnabled.value = false;
   let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  let ftpSyncPath = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
+  let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
 
-  startSyncing('upload', clientSyncPath, ftpSyncPath)
+  startSyncing("download", clientSyncPath, ftpSyncPath)
     .catch(error => {
       console.error("Error in startSyncing:", error);
 
     });
 
-}
+};
 
 const setStopSyncingMethod = () => {
   uploadEnabled.value = null;
   stopSyncing();
-}
+};
 
 const isActive = (button) => {
-  if (button === 'upload') return uploadEnabled.value === true;
-  if (button === 'download') return uploadEnabled.value === false;
-  if (button === 'pause') return uploadEnabled.value === null;
+  if (button === "upload") return uploadEnabled.value === true;
+  if (button === "download") return uploadEnabled.value === false;
+  if (button === "pause") return uploadEnabled.value === null;
   return false;
-}
+};
 
 const switchingBackgroundStyle = computed(() => {
-  if(uploadEnabled.value === null) {
+  if (uploadEnabled.value === null) {
     return {
-      width: '120px',
+      width: "120px",
       transform: `translateX(120px)`,
-      transition: 'transform 0.3s ease-in-out'
+      transition: "transform 0.3s ease-in-out"
     };
-  }else {
+  } else {
     return {
-      width: '120px',
+      width: "120px",
       transform: `translateX(${uploadEnabled.value ? -120 : 0}px)`,
-      transition: 'transform 0.3s ease-in-out'
+      transition: "transform 0.3s ease-in-out"
     };
   }
 

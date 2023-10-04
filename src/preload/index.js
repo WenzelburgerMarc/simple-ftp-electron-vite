@@ -6,7 +6,17 @@ import {
   getIsConnected,
   getFiles,
   setCurrentDir,
-  getCurrentDir, listFilesAndDirectories, deleteFile, createnewFolder, deleteDirectory, startSyncing, stopSyncing
+  getCurrentDir,
+  listFilesAndDirectories,
+  deleteFile,
+  createnewFolder,
+  deleteDirectory,
+  startSyncing,
+  stopSyncing,
+  getSyncMode,
+  setSyncMode,
+  calculateAndCompareSize,
+  calculateFtpDirectorySize
 } from "./preloadFTP";
 
 // Expose protected methods that allow the renderer process to use
@@ -33,7 +43,11 @@ contextBridge.exposeInMainWorld("ftp", {
   createnewFolder,
   deleteDirectory,
   startSyncing,
-  stopSyncing
+  stopSyncing,
+  getSyncMode,
+  setSyncMode,
+  calculateFtpDirectorySize,
+  calculateAndCompareSize
 });
 
 
