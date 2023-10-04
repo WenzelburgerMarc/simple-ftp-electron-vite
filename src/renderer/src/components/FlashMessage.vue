@@ -7,7 +7,7 @@
     leave-from-class="opacity-100 transform translate-x-0"
     leave-to-class="opacity-0 transform translate-x-full">
     <div v-if="visible"
-         class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden md:w-5/12 no-blur"
+         class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden no-blur"
          >
       <div class="flex w-3" :class="gradientClasses"></div>
       <div class="flex-1 p-3">
