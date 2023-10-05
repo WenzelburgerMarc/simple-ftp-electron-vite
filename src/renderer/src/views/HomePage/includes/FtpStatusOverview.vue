@@ -88,16 +88,17 @@ onMounted(() => {
 });
 
 const checkFtpProgress = async () => {
-  if (currentSyncMode.value === "upload") {
+  if (currentSyncMode.value === "upload" || currentSyncMode.value === "download") {
     while (connected.value && currentSync.value.fileName !== "") {
-      console.log("uploading");
+
 
       try {
         let progress = await window.ftp.calculateAndCompareSize(
+          currentSyncMode.value,
           await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
-          await window.ipcRendererInvoke("get-setting", "ftp-sync-directory"),
-          true
+          await window.ipcRendererInvoke("get-setting", "ftp-sync-directory")
         );
+        console.log(progress);
         syncProgress.value = progress;
       } catch (error) {
         console.error('Error calculating and comparing size:', error);
@@ -109,7 +110,8 @@ const checkFtpProgress = async () => {
 };
 
 
-window.ipcRendererOn("sync-progress-start", () => {
+window.ipcRendererOn("sync-progress-start",  () => {
+  console.log("sync-progress-start");
   checkFtpProgress();
 });
 

@@ -75,6 +75,7 @@ onMounted(async () => {
   });
 
   window.ipcRendererOn("file-changed", async () => {
+    console.log("file-changed");
     await listFiles();
   });
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed modal-bg top-0 left-0 h-screen w-screen z-40 transition-all left-0"
+  <div class="fixed modal-bg top-0 left-0 h-full w-full z-40 transition-all left-0"
        :class="[props.showModal ? 'blur-transparent-modal pointer-events-auto' : 'opacity-0 pointer-events-none']"></div>
 
   <transition name="modal-fade">

@@ -16,7 +16,7 @@ import {
   getSyncMode,
   setSyncMode,
   calculateAndCompareSize,
-  calculateFtpDirectorySize
+
 } from "./preloadFTP";
 
 // Expose protected methods that allow the renderer process to use
