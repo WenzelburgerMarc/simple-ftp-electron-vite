@@ -32,13 +32,13 @@ onMounted( async() => {
   // Default Settings
   try {
     let autoReloadFtpInterval = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
-    let autoUploadInterval = await window.ipcRendererInvoke("get-setting", "autoUploadInterval");
+    let autoSyncInterval = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
 
     if(!autoReloadFtpInterval) {
       await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", 60000);
     }
-    if(!autoUploadInterval) {
-      await window.ipcRendererInvoke("set-setting", "autoUploadInterval", 30000);
+    if(!autoSyncInterval) {
+      await window.ipcRendererInvoke("set-setting", "autoSyncInterval", 30000);
     }
   }catch (e) {
     console.error(e);

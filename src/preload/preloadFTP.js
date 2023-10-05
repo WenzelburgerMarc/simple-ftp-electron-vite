@@ -423,7 +423,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
 let intervalMethod = null;
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
-  let interval = await ipcRenderer.invoke("get-setting", "autoUploadInterval");
+  let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
 
   if (intervalMethod) {
     clearInterval(intervalMethod);
