@@ -46,7 +46,7 @@ contextBridge.exposeInMainWorld("ftp", {
   stopSyncing,
   getSyncMode,
   setSyncMode,
-  calculateFtpDirectorySize,
+  //calculateFtpDirectorySize,
   calculateAndCompareSize
 });
 

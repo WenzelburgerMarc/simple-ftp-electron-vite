@@ -121,76 +121,104 @@ export const deleteDirectory = async (directory) => {
   }
 };
 
-const getAllFilePaths = async (dirPath, isLocal) => {
-  let filePaths = [];
-  const items = isLocal ? fs.readdirSync(dirPath) : await sftp.list(dirPath);
 
-  for (const item of items) {
-    const itemPath = isLocal ? path.join(dirPath, item) : path.join(dirPath, item.name);
-    const isFile = isLocal ? fs.statSync(itemPath).isFile() : item.type === '-';
-    const isDirectory = isLocal ? fs.statSync(itemPath).isDirectory() : item.type === 'd';
+export const calculateDirectorySize = async (dirPath, isLocal, filesToUpload) => {
+  // calculate client size with files to upload
+  if (isLocal) {
+    let size = 0;
+    for (const file of filesToUpload) {
+      const filePath = path.join(dirPath, file);
+      const stats = fs.statSync(filePath);
+      size += stats.size;
+    }
+    return size;
+  }else {
 
-    if (isFile) {
-      filePaths.push(itemPath);
-    } else if (isDirectory) {
-      filePaths = filePaths.concat(await getAllFilePaths(itemPath, isLocal));
+    try {
+      const fileObjects = await sftp.list(dirPath);
+      let size = 0;
+      for (const file of fileObjects) {
+        if (filesToUpload.includes(file.name)) {
+          size += file.size;
+        }
+      }
+      return size;
+    }catch (error) {
+      console.error('Error calculating ftp directory size:', error);
     }
   }
-
-  return filePaths;
-}
-
-export const calculateFtpDirectorySize = async (dirPath, isLocal, filterPaths = []) => {
-  const items = isLocal ? fs.readdirSync(dirPath) : await sftp.list(dirPath);
-  let dirSize = 0;
-
-  for (const item of items) {
-    const itemPath = isLocal ? path.join(dirPath, item) : path.join(dirPath, item.name);
-    if (filterPaths.length > 0 && !filterPaths.includes(itemPath)) {
-      continue;
-    }
-
-    const isFile = isLocal ? fs.statSync(itemPath).isFile() : item.type === '-';
-    const isDirectory = isLocal ? fs.statSync(itemPath).isDirectory() : item.type === 'd';
-
-    if (isFile) {
-      dirSize += isLocal ? fs.statSync(itemPath).size : item.size;
-    } else if (isDirectory) {
-      dirSize += await calculateFtpDirectorySize(itemPath, isLocal, filterPaths);
-    }
-  }
-
-  return dirSize;
 };
 
-
-export const calculateAndCompareSize = async (clientPath, ftpPath, clientToServer) => {
+export const calculateAndCompareSize = async (clientPath, ftpPath) => {
   try {
-    const clientFilePaths = getAllFilePaths(clientPath, true);
-    const serverFilePaths = getAllFilePaths(ftpPath, false);
-    const filterPaths = clientToServer ? clientFilePaths : serverFilePaths;
 
-    const clientSize = await calculateFtpDirectorySize(clientPath, true, filterPaths);
-    const serverSize = await calculateFtpDirectorySize(ftpPath, false, filterPaths);
+    const filesToUpload = currentFilesToUpload;
+    const clientSize = await calculateDirectorySize(clientPath, true, filesToUpload);
+    const serverSize = await calculateDirectorySize(ftpPath, false, filesToUpload);
 
-    let progress;
-    if (clientToServer) {
-      progress = (serverSize / clientSize) * 100;
+    if (clientSize === 0 && serverSize === 0) {
+      console.log('Nothing to synchronize. Both directories are empty or synchronized.');
+      return '100';
+    } else if (clientSize === 0) {
+      console.error('No files to upload from the client directory.');
+      return '0';
     } else {
-      progress = (clientSize / serverSize) * 100;
+      const progress = (serverSize / clientSize) * 100;
+      console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
+      return progress.toFixed(2);
     }
-
-    console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
-    return progress.toFixed(2);
   } catch (error) {
     console.error('Error calculating sizes:', error);
   }
 };
 
+
+const getFilesToUpload = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
+  try {
+    const items = fs.readdirSync(clientSyncPath);
+    const serverItems = await sftp.list(ftpSyncPath);
+    const filesToUpload = [];
+
+    for (const item of items) {
+      const localPath = path.join(clientSyncPath, item);
+      const serverPath = path.join(ftpSyncPath, item);
+      const stats = fs.statSync(localPath);
+
+      if (stats.isFile()) {
+        const serverFile = serverItems.find(f => f.name === item);
+        const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
+        const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
+        const shouldUpload = !serverFile || localMtime > serverMtime;
+
+        if (shouldUpload) {
+          filesToUpload.push(item);
+        }
+      } else if (stats.isDirectory()) {
+        if (!serverItems.find(f => f.name === item)) {
+          await sftp.mkdir(serverPath, true);
+          console.log(`Created directory: ${serverPath}`);
+        }
+        const subFiles = await getFilesToUpload(localPath, serverPath, lastModifiedTimes);
+        filesToUpload.push(...subFiles.map(subFile => path.join(item, subFile)));
+      }
+    }
+
+    return filesToUpload;
+  } catch (error) {
+    console.error('Error in getFilesToUpload:', error);
+    return [];
+  }
+};
+
+let currentFilesToUpload = [];
 const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
 
   try {
-    const items = fs.readdirSync(clientSyncPath);
+    const newFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath, lastModifiedTimes);
+    currentFilesToUpload = [...currentFilesToUpload, ...newFilesToUpload];
+    currentFilesToUpload = [...new Set(currentFilesToUpload)];
+    const items = currentFilesToUpload;
+    console.log('upload items', items);
     const serverItems = await sftp.list(ftpSyncPath);
     await ipcRenderer.invoke("sync-progress-start");
     for (const item of items) {
@@ -227,18 +255,19 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
       }
     }
 
-    let clientSize = await calculateFtpDirectorySize(clientSyncPath, true);
-    let serverSize = await calculateFtpDirectorySize(ftpSyncPath, false);
+    let clientSize = await calculateDirectorySize(clientSyncPath, true, currentFilesToUpload);
+    let serverSize = await calculateDirectorySize(ftpSyncPath, false, currentFilesToUpload);
 
     const intervalId = setInterval(async () => {
       try {
-        clientSize = await calculateFtpDirectorySize(clientSyncPath, true);
-        serverSize = await calculateFtpDirectorySize(ftpSyncPath, false);
+        clientSize = await calculateDirectorySize(clientSyncPath, true, currentFilesToUpload);
+        serverSize = await calculateDirectorySize(ftpSyncPath, false, currentFilesToUpload);
 
         if(clientSize === serverSize){
           await ipcRenderer.invoke("set-setting", "lastModifiedTimes", lastModifiedTimes);
           await listFilesAndDirectories();
           await ipcRenderer.invoke("sync-file-end");
+          currentFilesToUpload = [];
           clearInterval(intervalId);
         }
       } catch (error) {
@@ -249,6 +278,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
 
   } catch (error) {
     console.error('Error in uploadFiles:', error);
+    currentFilesToUpload = currentFilesToUpload.filter(file => file !== error.path);
   }
 };
 
