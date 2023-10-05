@@ -101,7 +101,6 @@ export const createnewFolder = async (selectedDirectory) => {
 
   try {
     await sftp.mkdir(selectedDirectory, true);
-    console.log(`Directory created at ${selectedDirectory}`);
   } catch (error) {
     console.error(`Error creating directory at ${selectedDirectory}:`, error);
     throw error;
@@ -188,7 +187,12 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) 
         const serverFile = serverItems.find(f => f.name === item);
         const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
         const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
-        const shouldUpload = !serverFile || localMtime > serverMtime;
+
+        const localSize = stats.size;
+        const serverSize = serverFile ? serverFile.size : null;
+        const sizeMismatch = serverSize !== null && localSize !== serverSize;
+
+        const shouldUpload = !serverFile || localMtime > serverMtime || sizeMismatch;
 
         if (shouldUpload) {
           filesToUpload.push(item);
@@ -196,7 +200,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) 
       } else if (stats.isDirectory()) {
         if (!serverItems.find(f => f.name === item)) {
           await sftp.mkdir(serverPath, true);
-          console.log(`Created directory: ${serverPath}`);
+
         }
         const subFiles = await getFilesToUpload(localPath, serverPath, lastModifiedTimes);
         filesToUpload.push(...subFiles.map(subFile => path.join(item, subFile)));
@@ -218,7 +222,6 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
     currentFilesToUpload = [...currentFilesToUpload, ...newFilesToUpload];
     currentFilesToUpload = [...new Set(currentFilesToUpload)];
     const items = currentFilesToUpload;
-    console.log('upload items', items);
     const serverItems = await sftp.list(ftpSyncPath);
     await ipcRenderer.invoke("sync-progress-start");
     for (const item of items) {
@@ -232,13 +235,17 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
         const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
         const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
 
-        const shouldUpload = !serverFile || localMtime > serverMtime;
+        const localSize = stats.size;
+        const serverSize = serverFile ? serverFile.size : null;
+        const sizeMismatch = serverSize !== null && localSize !== serverSize;
+
+        const shouldUpload = !serverFile || localMtime > serverMtime || sizeMismatch;
+
 
         if (shouldUpload) {
           try {
             await ipcRenderer.invoke("sync-file-start", item);
             await sftp.put(localPath, serverPath);
-            console.log(`Uploaded: ${item}`);
           } catch (error) {
             console.error(`Failed to upload ${item}:`, error);
           }
@@ -249,7 +256,6 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
         // create path if it does not exist
         if (!serverItems.find(f => f.name === item)) {
           await sftp.mkdir(serverPath, true);
-          console.log(`Created directory: ${serverPath}`)
         }
         await uploadFiles(localPath, serverPath, lastModifiedTimes);
       }
@@ -268,6 +274,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
           await listFilesAndDirectories();
           await ipcRenderer.invoke("sync-file-end");
           currentFilesToUpload = [];
+          taskFinishedOnceBefore = true;
           clearInterval(intervalId);
         }
       } catch (error) {
@@ -282,6 +289,52 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
   }
 };
 
+const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
+  try {
+    const serverItems = await sftp.list(ftpSyncPath);
+    await ipcRenderer.invoke("sync-progress-start");
+
+    for (const item of serverItems) {
+      const localPath = path.join(clientSyncPath, item.name);
+      const serverPath = path.join(ftpSyncPath, item.name);
+
+
+      if (item.type === '-' || item.type === 'f') {
+        const fileExistsLocally = fs.existsSync(localPath);
+        let shouldDownload = !fileExistsLocally;
+
+        if (fileExistsLocally) {
+          const localStats = fs.statSync(localPath);
+          const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
+          const serverMtime = Math.floor(new Date(item.modifyTime).getTime() / 1000);
+
+          const localSize = localStats.size;
+          const serverSize = item.size;
+          const sizeMismatch = localSize !== serverSize;
+          console.log(sizeMismatch);
+          // add size mismatch if first time is done
+          shouldDownload = serverMtime > localMtime;
+        }
+
+        if (shouldDownload) {
+          try {
+            await sftp.fastGet(serverPath, localPath);
+            console.log(`Downloaded: ${item.name}`);
+          } catch (error) {
+            console.error(`Failed to download ${item.name}:`, error);
+          }
+        }
+      } else if (item.type === 'd') {
+        if (!fs.existsSync(localPath)) {
+          fs.mkdirSync(localPath, { recursive: true });
+        }
+        await downloadFiles(localPath, serverPath);
+      }
+    }
+  } catch (error) {
+    console.error('Error in downloadFiles:', error);
+  }
+};
 
 
 let intervalMethod = null;
@@ -299,12 +352,15 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     }
 
     if (mode === "upload") {
+
       let lastModifiedTimes = await ipcRenderer.invoke("get-setting", "lastModifiedTimes") || {};
       console.log(lastModifiedTimes);
+      taskFinishedOnceBefore = false;
       await uploadFiles(clientSyncPath, ftpSyncPath, lastModifiedTimes);
     } else if (mode === "download") {
-      // Implement download logic...
+      await downloadFiles(clientSyncPath, ftpSyncPath);
       console.log("Download mode is selected");
+
     } else {
       console.error("Invalid mode selected");
     }
