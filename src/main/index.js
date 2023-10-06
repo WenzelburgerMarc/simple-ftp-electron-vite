@@ -217,13 +217,14 @@ ipcMain.handle('delete-client-directory', async (event, path) => {
   }
 });
 
-ipcMain.handle('sync-file-start', async (event, fileName) => {
-  event.sender.send('sync-file-start', fileName);
+ipcMain.handle('sync-progress-end', async (event) => {
+  event.sender.send('sync-progress-end');
 });
 
-ipcMain.handle('sync-file-end', async (event) => {
-  event.sender.send('sync-file-end');
+ipcMain.handle('sync-progress-pause', async (event) => {
+  event.sender.send('sync-progress-pause');
 });
+
 
 ipcMain.handle('sync-progress-start', async (event) => {
   event.sender.send('sync-progress-start');

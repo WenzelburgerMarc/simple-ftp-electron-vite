@@ -5,6 +5,10 @@ import * as path from "path";
 import * as fs from "fs";
 import { ipcRenderer } from "electron";
 
+
+let uploadInProgress = ref(false);
+let downloadInProgress = ref(false);
+
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
@@ -120,119 +124,120 @@ export const deleteDirectory = async (directory) => {
   }
 };
 
+export const calculateDirectorySize = async (isLocal, files) => {
+  let size = 0;
 
-export const calculateDirectorySize = async (dirPath, isLocal, files) => {
-  if (isLocal) {
+  if (!Array.isArray(files)) {
+    return size;
+  }
 
-    let size = 0;
+  if (files.length === 0) {
+    await ipcRenderer.invoke("sync-progress-end");
+  }
 
-    for (const file of files) {
-      console.log("calculateDirectorySize: " + file);
-      const filePath = path.join(dirPath, file.name);
-      try {
+  const calculateSizeRecursively = async (isLocal, currentFile) => {
+    try {
+      if (isLocal) {
+        const filePath = currentFile.localPath;
         if (fs.existsSync(filePath)) {
           const stats = await fs.promises.stat(filePath);
-          size += stats.size;
-        } else {
-          console.log(`File does not exist yet: ${filePath}`);
-          console.log(file);
+          return typeof stats.size === "number" ? stats.size : 0;
         }
-      } catch (error) {
-        console.error(`Error accessing ${filePath}:`, error);
+      } else {
+        const fileFromFtp = await sftp.stat(currentFile.serverPath);
+        return typeof fileFromFtp.size === "number" ? fileFromFtp.size : 0;
       }
+    } catch {
+      return 0;
     }
+    return 0;
+  };
 
+  const sizes = await Promise.all(files.map(file => calculateSizeRecursively(isLocal, file)));
+  return sizes.reduce((acc, currSize) => acc + currSize, 0);
 
-    return size;
-  } else {
-
-    try {
-      const fileObjects = await sftp.list(dirPath);
-      let size = 0;
-      for (const file of fileObjects) {
-        try {
-          if (files.find(f => f.name === file.name)) {
-            size += file.size;
-          }
-        } catch (error) {
-          console.error(`Error accessing ${file.name}:`, error);
-        }
-      }
-      return size;
-    } catch (error) {
-      console.error("Error calculating ftp directory size:", error);
-    }
-  }
 };
 
+
 let progress = 0;
-export const calculateAndCompareSize = async (mode, clientPath, ftpPath) => {
-  try {
+export const calculateAndCompareSize = async (mode) => {
 
-    console.log('calculate progress: ',mode, clientPath, ftpPath);
-    let files = null;
-    if (mode === "upload") {
-      files = currentFilesToUpload;
-    } else if (mode === "download") {
-      files = currentDownloadFiles;
-    }
+    if (mode === "upload" || mode === "download") {
+      let files = null;
+      if (mode === "upload") {
+        files = currentFilesToUpload;
+      } else if (mode === "download") {
+        files = currentDownloadFiles;
+      }
+
+      const clientSize = await calculateDirectorySize(true, files);
+      const serverSize = await calculateDirectorySize(false, files);
 
 
-    const clientSize = await calculateDirectorySize(clientPath, true, files);
-    const serverSize = await calculateDirectorySize(ftpPath, false, files);
-
-    if (clientSize === 0 && serverSize === 0) {
-      console.log("Nothing to synchronize. Both directories are empty or synchronized.");
-      return "100";
-    } else if (clientSize === 0) {
-      console.error("No files to sync from the client directory.");
-      return progress.toFixed(2);
-    } else {
 
       if (mode === "upload") {
         progress = (serverSize / clientSize) * 100;
       } else {
         progress = (clientSize / serverSize) * 100;
       }
+      if (progress > 100) {
+        progress = 100;
+      }
       console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
       return progress.toFixed(2);
     }
-  } catch (error) {
-    console.error("Error calculating sizes:", error);
-  }
+
 };
-
-const getFilesToUpload = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
+const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   try {
-    const items = fs.readdirSync(clientSyncPath);
-    const serverItems = await sftp.list(ftpSyncPath);
-    const filesToUpload = [];
+    const itemNames = fs.readdirSync(clientSyncPath);
+    let filesToUpload = [];
 
-    for (const item of items) {
-      const localPath = path.join(clientSyncPath, item);
-      const serverPath = path.join(ftpSyncPath, item);
-      const stats = fs.statSync(localPath);
+    for (const itemName of itemNames) {
+      const localPath = path.join(clientSyncPath, itemName);
+      const serverPath = path.join(ftpSyncPath, itemName);
+      const localStats = fs.statSync(localPath);
 
-      if (stats.isFile()) {
-        const serverFile = serverItems.find(f => f.name === item);
-        const localMtime = Math.floor(new Date(stats.mtime).getTime() / 1000);
-        const serverMtime = serverFile ? Math.floor(new Date(serverFile.modifyTime).getTime() / 1000) : null;
+      let shouldUpload = false;
 
-        const localSize = stats.size;
-        const serverSize = serverFile ? serverFile.size : null;
-        const sizeMismatch = serverSize !== null && localSize !== serverSize;
+      if (localStats.isFile()) {
+        const serverExists = await sftp.exists(serverPath);
+        if (!serverExists) {
 
-        const shouldUpload = !serverFile || localMtime > serverMtime || sizeMismatch;
+          shouldUpload = true;
+          console.log(`File ${localPath} does not exist on server. Preparing to upload.`);
+        } else {
+
+          const serverStats = await sftp.stat(serverPath);
+          const serverSize = serverStats.size;
+          const localSize = localStats.size;
+
+
+          if (localSize > serverSize) {
+            shouldUpload = true;
+            console.log(`File ${localPath} is partially uploaded. Preparing to resume upload.`);
+          } else {
+
+            const serverMtime = Math.floor(new Date(serverStats.mtime).getTime() / 1000);
+            const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
+
+
+            shouldUpload = localMtime > serverMtime;
+            if (shouldUpload) {
+              console.log(`File ${localPath} is newer than server. Preparing to upload.`);
+            }
+          }
+        }
+
 
         if (shouldUpload) {
-          filesToUpload.push({ name: item, path: localPath, size: localSize, mtime: localMtime });
+          filesToUpload.push({ name: itemName, localPath, serverPath, type: "f", size: localStats.size });
         }
-      } else if (stats.isDirectory()) {
-        if (!serverItems.find(f => f.name === item)) {
-          await sftp.mkdir(serverPath, true);
-        }
-        const subFiles = await getFilesToUpload(localPath, serverPath, lastModifiedTimes);
-        filesToUpload.push(...subFiles);
+      } else if (localStats.isDirectory()) {
+
+        if (!await sftp.exists(serverPath)) await sftp.mkdir(serverPath, true);
+        const subFilesToUpload = await getFilesToUpload(localPath, serverPath);
+        filesToUpload = filesToUpload.concat(subFilesToUpload);
       }
     }
 
@@ -243,95 +248,91 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) 
   }
 };
 
+
 let currentFilesToUpload = [];
-let currentlyUploading = false;
-const uploadFiles = async (clientSyncPath, ftpSyncPath, lastModifiedTimes) => {
-  if (!currentlyUploading) {
-    currentlyUploading = true;
-    try {
+const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
+  try {
+    if (!uploadInProgress.value) {
+      uploadInProgress.value = true;
 
-      const newFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath, lastModifiedTimes);
-      currentFilesToUpload = [...new Set([...currentFilesToUpload, ...newFilesToUpload])];
-
+      currentFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath);
       await ipcRenderer.invoke("sync-progress-start");
 
-      for (const file of currentFilesToUpload) {
-        const localPath = file.path;
-        const serverPath = path.join(ftpSyncPath, file.name);
+      for (const { name, localPath, serverPath, type } of currentFilesToUpload) {
+        console.log("uploading file: ", name, localPath, serverPath, type);
 
-        try {
-          await ipcRenderer.invoke("sync-file-start", file.name);
-          await sftp.put(localPath, serverPath);
-          lastModifiedTimes[file.name] = file.mtime * 1000;
-        } catch (error) {
-          console.error(`Failed to upload ${file.name}:`, error);
+        if (type === "f") {
+          try {
+            await sftp.fastPut(localPath, serverPath);
+            console.log(`Uploaded: ${name}`);
+          } catch (error) {
+            console.error(`Failed to upload ${name}:`, error);
+          }
         }
       }
 
-      let clientSize = await calculateDirectorySize(clientSyncPath, true, currentFilesToUpload);
-      let serverSize = await calculateDirectorySize(ftpSyncPath, false, currentFilesToUpload);
+      let clientSize = await calculateDirectorySize(true, currentFilesToUpload);
+      let serverSize = await calculateDirectorySize(false, currentFilesToUpload);
 
-      const intervalId = setInterval(async () => {
-        try {
-          clientSize = await calculateDirectorySize(clientSyncPath, true, currentFilesToUpload);
-          serverSize = await calculateDirectorySize(ftpSyncPath, false, currentFilesToUpload);
+      try {
+        clientSize = await calculateDirectorySize(true, currentFilesToUpload);
+        serverSize = await calculateDirectorySize(false, currentFilesToUpload);
 
-          if (clientSize === serverSize) {
-            await ipcRenderer.invoke("set-setting", "lastModifiedTimes", lastModifiedTimes);
-            await listFilesAndDirectories();
-            await ipcRenderer.invoke("sync-file-end");
-            currentFilesToUpload = [];
-          currentlyUploading = false;
-            clearInterval(intervalId);
-          }
-        } catch (error) {
-          currentlyUploading = false;
-          console.error("Error in size comparison interval:", error);
-          clearInterval(intervalId);
+        if (clientSize === serverSize) {
+          await listFilesAndDirectories();
+          currentFilesToUpload = [];
+          uploadInProgress.value = false;
+          await ipcRenderer.invoke("sync-progress-end");
         }
-      }, 1000);
-
-    } catch (error) {
-      console.error("Error in uploadFiles:", error);
-      currentFilesToUpload = currentFilesToUpload.filter(file => file.path !== error.path);
+      } catch (error) {
+        console.error("Error in size comparison interval:", error);
+      }
     }
+  } catch (error) {
+    console.error("Error in uploadFiles:", error);
   }
 };
-
-
 const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
   try {
     const items = await sftp.list(ftpSyncPath);
-    const filesToDownload = [];
+    let filesToDownload = [];
 
     for (const item of items) {
       const localPath = path.join(clientSyncPath, item.name);
       const serverPath = path.join(ftpSyncPath, item.name);
+      console.log("download item: ", item);
+      let shouldDownload = false;
 
-      if (item.type === "-" || item.type === "f") {  // Checking if it's a file
-        const fileExistsLocally = fs.existsSync(localPath);
-        let shouldDownload = true;
-
-        if (fileExistsLocally) {
+      if (item.type === "-" || item.type === "f") {
+        shouldDownload = !fs.existsSync(localPath);
+        if (!shouldDownload) {
           const localStats = fs.statSync(localPath);
-          const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
-          const serverMtime = Math.floor(new Date(item.modifyTime).getTime() / 1000);
-
           const localSize = localStats.size;
           const serverSize = item.size;
-          const sizeMismatch = localSize !== serverSize;
-          shouldDownload = serverMtime > localMtime || sizeMismatch;
-        }
 
-        if (shouldDownload) {
-          filesToDownload.push(item);
+          if (serverSize > localSize) {
+            shouldDownload = true;
+            console.log(`File ${serverPath} is partially downloaded. Preparing to resume download.`);
+          } else {
+            const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
+            const serverMtime = Math.floor(new Date(item.modifyTime).getTime() / 1000);
+
+            shouldDownload = serverMtime > localMtime;
+            if (shouldDownload) {
+              console.log(`File ${serverPath} is newer than local. Preparing to download.`);
+            }
+          }
         }
-      } else if (item.type === "d") {  // Checking if it's a directory
+        if (shouldDownload) {
+          console.log("should download: ", item);
+          filesToDownload.push({ name: item.name, localPath, serverPath, type: item.type, size: item.size });
+        }
+      } else if (item.type === "d") {
         if (!fs.existsSync(localPath)) {
           fs.mkdirSync(localPath, { recursive: true });
         }
-        const subFiles = await getFilesToDownload(localPath, serverPath);
-        filesToDownload.push(...subFiles.map(subFile => path.join(item, subFile)));
+        const subFilesToDownload = await getFilesToDownload(localPath, serverPath);
+        filesToDownload = filesToDownload.concat(subFilesToDownload);
       }
     }
 
@@ -344,104 +345,76 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
 
 
 let currentDownloadFiles = [];
-let currentlyDownloading = false;
 const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
-  if(!currentlyDownloading) {
-    currentlyDownloading = true;
-
   try {
-    currentDownloadFiles = await getFilesToDownload(clientSyncPath, ftpSyncPath);
+    if (!downloadInProgress.value) {
+      downloadInProgress.value = true;
 
-    const serverItems = currentDownloadFiles;
-    await ipcRenderer.invoke("sync-progress-start");
-    for (const item of serverItems) {
+      currentDownloadFiles = await getFilesToDownload(clientSyncPath, ftpSyncPath);
+      await ipcRenderer.invoke("sync-progress-start");
 
-      const localPath = path.join(clientSyncPath, item.name);
-      const serverPath = path.join(ftpSyncPath, item.name);
+      for (const { item, localPath, serverPath, type } of currentDownloadFiles) {
+        console.log("downloading file: ", item, localPath, serverPath);
 
-
-      if (item.type === "-" || item.type === "f") {
-        const fileExistsLocally = fs.existsSync(localPath);
-        let shouldDownload = true;
-
-        if (fileExistsLocally) {
-          const localStats = fs.statSync(localPath);
-          const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
-          const serverMtime = Math.floor(new Date(item.modifyTime).getTime() / 1000);
-
-          const localSize = localStats.size;
-          const serverSize = item.size;
-          const sizeMismatch = localSize !== serverSize;
-          shouldDownload = serverMtime > localMtime || sizeMismatch;
-        }
-
-        if (shouldDownload) {
+        if (type === "-" || type === "f") {
           try {
-
             await sftp.fastGet(serverPath, localPath);
-            console.log(`Downloaded: ${item.name}`);
+            console.log(`Downloaded: ${name}`);
           } catch (error) {
-            console.error(`Failed to download ${item.name}:`, error);
+            console.error(`Failed to download ${name}:`, error);
           }
         }
-      } else if (item.type === "d") {
-        if (!fs.existsSync(localPath)) {
-          fs.mkdirSync(localPath, { recursive: true });
-        }
-        await downloadFiles(localPath, serverPath);
       }
-    }
-    let clientSize = await calculateDirectorySize(clientSyncPath, true, currentDownloadFiles);
-    let serverSize = await calculateDirectorySize(ftpSyncPath, false, currentDownloadFiles);
 
-    const intervalId = setInterval(async () => {
+      let clientSize = await calculateDirectorySize(true, currentDownloadFiles);
+      let serverSize = await calculateDirectorySize(false, currentDownloadFiles);
+
       try {
-        clientSize = await calculateDirectorySize(clientSyncPath, true, currentDownloadFiles);
-        serverSize = await calculateDirectorySize(ftpSyncPath, false, currentDownloadFiles);
+        clientSize = await calculateDirectorySize(true, currentDownloadFiles);
+        serverSize = await calculateDirectorySize(false, currentDownloadFiles);
 
         if (clientSize === serverSize) {
           await listFilesAndDirectories();
-          currentlyDownloading = false;
-          await ipcRenderer.invoke("sync-file-end");
-          clearInterval(intervalId);
+          currentDownloadFiles = [];
+          downloadInProgress.value = false;
+          await ipcRenderer.invoke("sync-progress-end");
         }
       } catch (error) {
-        currentlyDownloading = false;
-
         console.error("Error in size comparison interval:", error);
-        clearInterval(intervalId);
       }
-    }, 1000);
-
+    }
   } catch (error) {
     console.error("Error in downloadFiles:", error);
   }
-  }
 };
 
-
-let intervalMethod = null;
+let intervalId = null;
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
+
+  if (!isConnected) {
+    console.error("Not connected to FTP server");
+    return;
+  }
 
   let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
 
-  if (intervalMethod) {
-    clearInterval(intervalMethod);
-  }
-  intervalMethod = setInterval(async () => {
-    if (!isConnected) {
-      console.error("Not connected to FTP server");
-      return;
-    }
+  intervalId = setInterval(async () => {
+
 
     if (mode === "upload") {
-
-      let lastModifiedTimes = await ipcRenderer.invoke("get-setting", "lastModifiedTimes") || {};
-      await uploadFiles(clientSyncPath, ftpSyncPath, lastModifiedTimes);
+      console.log("upload mode is selected");
+      setSyncMode("upload");
+      await uploadFiles(clientSyncPath, ftpSyncPath);
     } else if (mode === "download") {
-      await downloadFiles(clientSyncPath, ftpSyncPath);
       console.log("Download mode is selected");
-
+      setSyncMode("download");
+      await downloadFiles(clientSyncPath, ftpSyncPath);
+    } else if (mode === "") {
+      setSyncMode("");
+      console.log("Syncing paused");
+      await stopSyncing();
+      await ipcRenderer.invoke("sync-progress-pause");
+      await clearFilesAfterModeSwitch();
     } else {
       console.error("Invalid mode selected");
     }
@@ -450,8 +423,53 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
 
 export const stopSyncing = async () => {
-  clearInterval(intervalMethod);
-  currentlyUploading = false;
-  currentlyDownloading = false;
+  clearInterval(intervalId);
+  await ipcRenderer.invoke("sync-progress-end");
+
+  uploadInProgress.value = false;
+  downloadInProgress.value = false;
   console.log("Syncing stopped");
 };
+export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
+  try {
+
+    if (deleteOnlyClient) {
+      for (const file of currentFilesToUpload) {
+        try {
+          if (file.type === "f") {
+            await sftp.delete(file.serverPath);
+            console.log(`Deleted ${file.name} on server`);
+          } else {
+            await sftp.rmdir(file.serverPath, true);
+            console.log(`Deleted directory ${file.name} on server`);
+          }
+        } catch (error) {
+          console.error(`Failed to delete ${file.name} on server:`, error);
+        }
+      }
+      currentFilesToUpload = [];
+
+    }
+    if (deleteOnlyServer) {
+      for (const file of currentDownloadFiles) {
+        try {
+          if (file.type === "-" || file.type === "f") {
+            fs.unlinkSync(file.localPath);
+            console.log(`Deleted ${file.name} on client`);
+          } else {
+            fs.rmdirSync(file.localPath, { recursive: true });
+            console.log(`Deleted directory ${file.name} on client`);
+          }
+        } catch (error) {
+          console.error(`Failed to delete ${file.name} on client:`, error);
+        }
+      }
+      currentDownloadFiles = [];
+
+    }
+  } catch (error) {
+    console.error("Error in clearFilesAfterModeSwitch:", error);
+  }
+
+};
+

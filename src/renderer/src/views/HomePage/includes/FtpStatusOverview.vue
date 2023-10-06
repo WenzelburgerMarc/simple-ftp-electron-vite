@@ -1,6 +1,8 @@
 <template>
   <panel-component class="relative z-0 ftp-status flex flex-col justify-between items-center overflow-hidden">
-    <div :class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'" :style="{width: syncProgress + '%'}" class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
+    <div :class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
+         :style="{width: syncProgress + '%'}"
+         class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
     <div class="w-full flex justify-between items-center z-10 pointer-events-auto">
       <div class="w-full flex items-center space-x-4">
         <div :class="statusClass"
@@ -50,7 +52,7 @@ import { defineProps, computed, ref, defineEmits, onMounted, watch, reactive } f
 import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
 import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
-import { connected, currentSync, currentSyncMode } from "../../../js/ftpManager";
+import { connected, currentSyncMode } from "../../../js/ftpManager";
 
 const syncProgress = reactive(ref(0));
 
@@ -64,7 +66,6 @@ const props = defineProps({
     required: true
   }
 });
-
 
 
 const ftpCredentials = ref({
@@ -84,50 +85,63 @@ onMounted(() => {
   });
 
 
-
 });
-
+let progress = 0;
+let intervalID = null;
 const checkFtpProgress = async () => {
-  if (currentSyncMode.value === "upload" || currentSyncMode.value === "download") {
-    while (connected.value && currentSync.value.fileName !== "") {
 
+  intervalID = setInterval(async () => {
 
-      try {
-        let progress = await window.ftp.calculateAndCompareSize(
-          currentSyncMode.value,
-          await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
-          await window.ipcRendererInvoke("get-setting", "ftp-sync-directory")
-        );
-        console.log(progress);
-        syncProgress.value = progress;
-      } catch (error) {
-        console.error('Error calculating and comparing size:', error);
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      progress = await window.ftp.calculateAndCompareSize(
+        await window.ipcRendererInvoke("get-setting", "ftp-sync-mode")
+      );
+      console.log("progress: " + progress);
+      syncProgress.value = progress;
+    } catch (error) {
+      console.error("Error calculating and comparing size:", error);
     }
-  }
+
+  }, 50);
 };
 
-
-window.ipcRendererOn("sync-progress-start",  () => {
+let shortlyStarted = ref(false);
+let showProgress = reactive(ref(false));
+window.ipcRendererOn("sync-progress-start", () => {
+  shortlyStarted.value = true;
   console.log("sync-progress-start");
+  finishedSyncing.value = false;
+  if (intervalID)
+    clearInterval(intervalID);
+  showProgress.value = true;
   checkFtpProgress();
-});
-
-window.ipcRendererOn("sync-file-start", (event, fileName) => {
-  console.log("sync-file-start", fileName);
-  currentSync.value.fileName = fileName;
 
 });
 
-window.ipcRendererOn("sync-file-end", () => {
-  currentSync.value.fileName = "";
-  finishedSyncing.value = true;
+window.ipcRendererOn("sync-progress-pause",async () => {
+
+  syncProgress.value = 0;
+  finishedSyncing.value = false;
+  console.log("sync-progress-pause");
+  if (intervalID)
+    clearInterval(intervalID);
+
   setTimeout(() => {
-    syncProgress.value = 0;
-    finishedSyncing.value = false;
-  }, 1000);
+    showProgress.value = false;
+  }, 500);
+
+});
+
+window.ipcRendererOn("sync-progress-end", async() => {
+  console.log("sync-progress-end");
+
+  if (syncProgress.value >= 100){
+    finishedSyncing.value = true;
+          setTimeout(() => {
+            showProgress.value = false;
+            syncProgress.value = 0;
+          }, 500);
+  }
 
 });
 

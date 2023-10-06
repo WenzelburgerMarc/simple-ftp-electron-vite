@@ -2,10 +2,6 @@ import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
 
-export const currentSync = ref({
-  fileName: null
-});
-
 export const isModalVisible = ref(false);
 export const connected = ref(false);
 export const fileList = reactive([]);
@@ -167,13 +163,14 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     return;
   }
   try {
-    startLoading();
+
     await window.ftp.stopSyncing();
     await window.ftp.setSyncMode(mode);
     await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
+    console.log(mode);
     currentSyncMode.value = window.ftp.getSyncMode();
     displayFlash("Syncing started", "success");
-    stopLoading();
+
   }catch (e) {
     displayFlash(e.message, "error");
     await window.ftp.stopSyncing();
@@ -188,11 +185,11 @@ export const stopSyncing = async () => {
     return;
   }
   try {
-    startLoading();
+
     await window.ftp.setSyncMode('');
     await window.ftp.stopSyncing();
     displayFlash("Syncing stopped", "success");
-    stopLoading();
+
     currentSyncMode.value = window.ftp.getSyncMode();
   }catch (e) {
     displayFlash(e.message, "error");
