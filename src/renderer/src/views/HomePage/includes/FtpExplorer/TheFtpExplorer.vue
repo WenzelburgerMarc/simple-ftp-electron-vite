@@ -63,7 +63,7 @@ const handleBack = () => {
       listFiles();
 
     } else {
-      displayFlash("You have reached the Root Directory!", "info");
+      displayFlash("You have reached the Root Directory!", "warning");
       setCurrentDir(currentDir.value);
       listFiles();
     }

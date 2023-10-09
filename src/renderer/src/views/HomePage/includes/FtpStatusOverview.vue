@@ -53,6 +53,7 @@ import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
 import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
 import { connected, currentSyncMode, setIsConnected } from "../../../js/ftpManager";
+import { displayFlash } from "../../../js/flashMessageController";
 
 const online = ref(false);
 
@@ -86,11 +87,14 @@ onMounted(async() => {
     startIsOnlineInterval = setInterval(async () => {
       online.value = await window.api.isOnline();
       if(!online.value) {
+        if(!onlineStatusChanged){
+          await displayFlash('No Internet Connection available!', 'error');
+        }
         onlineStatusChanged = true;
         await setIsConnected(false);
       }
       if(online.value && onlineStatusChanged){
-
+        await displayFlash('Automatically Re-Connected to the Internet!', 'info');
         onlineStatusChanged = false;
         await disconnectFtp();
         await connectToFtp();

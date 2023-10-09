@@ -44,7 +44,9 @@ const flashTitle = computed(() => {
   switch (flashType.value) {
     case 'error': return 'Error';
     case 'success': return 'Success';
-    default: return 'Warning';
+    case 'info': return 'Info';
+    case 'warning': return 'Warning';
+    default: return 'Info';
   }
 });
 
@@ -52,7 +54,9 @@ const gradientClasses = computed(() => {
   switch (flashType.value) {
     case 'error': return 'bg-gradient-to-t from-red-500 to-red-400';
     case 'success': return 'bg-gradient-to-t from-green-500 to-green-400';
-    default: return 'bg-gradient-to-t from-yellow-500 to-yellow-300';
+    case 'info': return 'bg-gradient-to-t from-blue-500 to-blue-400';
+    case 'warning': return 'bg-gradient-to-t from-yellow-500 to-yellow-300';
+    default: return 'bg-gradient-to-t from-blue-500 to-blue-400';
   }
 });
 
