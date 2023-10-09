@@ -404,6 +404,14 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
   intervalId = setInterval(async () => {
 
+    const newInterval = parseInt(await ipcRenderer.invoke("get-setting", "autoSyncInterval")) + 250;
+    if (newInterval !== interval) {
+      console.log("Interval has changed. Updating...");
+      clearInterval(intervalId);
+      interval = newInterval;
+      await startSyncing(mode, clientSyncPath, ftpSyncPath);
+
+    }
 
     if (mode === "upload") {
       console.log("upload mode is selected");
