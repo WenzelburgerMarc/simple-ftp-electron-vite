@@ -18,7 +18,7 @@ import {
   calculateAndCompareSize,
 
 } from "./preloadFTP";
-
+import {online} from "./isOnline";
 // Expose protected methods that allow the renderer process to use
 contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {
   return ipcRenderer.invoke(channel, ...args);
@@ -53,6 +53,7 @@ contextBridge.exposeInMainWorld("ftp", {
 
 contextBridge.exposeInMainWorld("api", {
   baseUrl: process.env.BASE_URL,
+  isOnline: online,
   selectDirectory: async () => {
     return await ipcRenderer.invoke("select-directory");
   },

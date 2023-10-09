@@ -17,13 +17,17 @@ export const updateModalVisibility = (newVisibility) => {
   isModalVisible.value = newVisibility;
 };
 
+export const setIsConnected = (value) => {
+  connected.value = value;
+};
+
 export const connect = (ftpSettings, justTest = false) => {
   startLoading();
 
   /* eslint-disable */
   return new Promise(async (resolve, reject) => {
     const handleConnectionError = (message) => {
-      displayFlash(message, 'error');
+      displayFlash(message, "error");
       stopLoading();
       reject(new Error(message));
     };
@@ -38,11 +42,11 @@ export const connect = (ftpSettings, justTest = false) => {
       connected.value = window.ftp.getIsConnected();
 
       if (!connected.value) {
-        return handleConnectionError('Failed to connect to FTP Server');
+        return handleConnectionError("Failed to connect to FTP Server");
       }
 
       if (justTest) {
-        displayFlash('FTP-Connection Settings are valid', 'success');
+        displayFlash("FTP-Connection Settings are valid", "success");
         await disconnect(false, true);
         stopLoading();
         return resolve(true);
@@ -50,19 +54,18 @@ export const connect = (ftpSettings, justTest = false) => {
 
       await listFilesAndDirectories();
       await startSyncing(
-        await window.ipcRendererInvoke('get-setting', 'ftp-sync-mode'),
-        await window.ipcRendererInvoke('get-setting', 'clientSyncPath'),
-        await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory')
+        await window.ipcRendererInvoke("get-setting", "ftp-sync-mode"),
+        await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
+        await window.ipcRendererInvoke("get-setting", "ftp-sync-directory")
       );
-      displayFlash('Connected to FTP Server', 'success');
+      displayFlash("Connected to FTP Server", "success");
       stopLoading();
       return resolve(true);
     } catch (error) {
-      handleConnectionError('Failed to connect to FTP Server due to an error: ' + error.message);
+      handleConnectionError("Failed to connect to FTP Server due to an error: " + error.message);
     }
   });
 };
-
 
 
 export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage = false) => {
@@ -74,10 +77,11 @@ export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage
       await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
     }
     stopLoading();
-    if(hideFlashMessage) return;
+    if (hideFlashMessage) return;
     displayFlash("Disconnected from FTP Server", "success");
   } catch (Exception) {
     stopLoading();
+    if (hideFlashMessage) return;
     displayFlash("Failed to disconnect from FTP Server", "error");
   }
 };
@@ -186,7 +190,8 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
     console.log(mode);
     currentSyncMode.value = window.ftp.getSyncMode();
-    displayFlash("Syncing started", "success");
+    if (mode !== "")
+      displayFlash("Syncing started", "success");
 
   } catch (e) {
     displayFlash(e.message, "error");

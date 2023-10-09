@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Change Interval applies in Realtime to the sync">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash">
+      <change afterPath="$PROJECT_DIR$/src/preload/isOnline.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
@@ -21,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -114,15 +115,7 @@
       <workItem from="1696399167063" duration="28341000" />
       <workItem from="1696487049196" duration="25141000" />
       <workItem from="1696573033216" duration="29403000" />
-      <workItem from="1696834697569" duration="6989000" />
-    </task>
-    <task id="LOCAL-00007" summary="Finished Refactoring">
-      <option name="closed" value="true" />
-      <created>1695924891235</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1695924891235</updated>
+      <workItem from="1696834697569" duration="9251000" />
     </task>
     <task id="LOCAL-00008" summary="Finished Refactoring">
       <option name="closed" value="true" />
@@ -508,7 +501,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696839934058</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash">
+      <option name="closed" value="true" />
+      <created>1696842420101</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1696842420101</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +530,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Delete Folder From FTP Or Client" />
     <MESSAGE value="Add - Sync Switch Button" />
     <MESSAGE value="-" />
     <MESSAGE value="Upload Sync" />
@@ -554,6 +554,7 @@
     <MESSAGE value="Fix - Test Ftp Connection Action" />
     <MESSAGE value="Refactor - Connect Method in ftpManager.js" />
     <MESSAGE value="Fix - Change Interval applies in Realtime to the sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Change Interval applies in Realtime to the sync" />
+    <MESSAGE value="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash" />
   </component>
 </project>

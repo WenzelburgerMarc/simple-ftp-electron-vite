@@ -52,7 +52,9 @@ import { defineProps, computed, ref, defineEmits, onMounted, watch, reactive } f
 import IconButtonComponent from "@/components/form/IconButtonComponent.vue";
 import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
-import { connected, currentSyncMode } from "../../../js/ftpManager";
+import { connected, currentSyncMode, setIsConnected } from "../../../js/ftpManager";
+
+const online = ref(false);
 
 const syncProgress = reactive(ref(0));
 
@@ -75,8 +77,29 @@ const ftpCredentials = ref({
   password: ""
 });
 
+let startIsOnlineInterval = null;
+let onlineStatusChanged = false;
 
-onMounted(() => {
+onMounted(async() => {
+
+  if(!startIsOnlineInterval){
+    startIsOnlineInterval = setInterval(async () => {
+      online.value = await window.api.isOnline();
+      if(!online.value) {
+        onlineStatusChanged = true;
+        await setIsConnected(false);
+      }
+      if(online.value && onlineStatusChanged){
+
+        onlineStatusChanged = false;
+        await disconnectFtp();
+        await connectToFtp();
+
+      }
+    }, 1000);
+  }
+
+
   watch(connected, async (newValue) => {
     console.log("new");
     if (newValue) {
@@ -182,7 +205,7 @@ const statusClass = computed(() => {
 
 const disconnectFtp = async () => {
   await stopSyncing();
-  await disconnect();
+  await disconnect(false, true);
 };
 
 </script>
