@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Reset Sync Mode if new Client Path is selected">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Test Ftp Connection Action">
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,15 +111,7 @@
       <workItem from="1696399167063" duration="28341000" />
       <workItem from="1696487049196" duration="25141000" />
       <workItem from="1696573033216" duration="29403000" />
-      <workItem from="1696834697569" duration="3910000" />
-    </task>
-    <task id="LOCAL-00004" summary="Fix - FTP Connection Close Modal">
-      <option name="closed" value="true" />
-      <created>1695920918327</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1695920918327</updated>
+      <workItem from="1696834697569" duration="4126000" />
     </task>
     <task id="LOCAL-00005" summary="Refactor">
       <option name="closed" value="true" />
@@ -507,7 +497,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696838173243</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Fix - Test Ftp Connection Action">
+      <option name="closed" value="true" />
+      <created>1696838646722</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1696838646722</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +526,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Auto Reload Ftp Interval" />
     <MESSAGE value="Improve - Flash Message" />
     <MESSAGE value="Add - Delete File From FTP Or Client" />
     <MESSAGE value="Add - Delete Folder From FTP Or Client" />
@@ -553,6 +550,7 @@
     <MESSAGE value="Fix - Sync + Reload Interval + Client Reload" />
     <MESSAGE value="Fix - Only Allow to set new Ftp Sync Path if Pause Mode is enabled -&gt; TheFtpExplorer.vue" />
     <MESSAGE value="Fix - Reset Sync Mode if new Client Path is selected" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Reset Sync Mode if new Client Path is selected" />
+    <MESSAGE value="Fix - Test Ftp Connection Action" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Test Ftp Connection Action" />
   </component>
 </project>
