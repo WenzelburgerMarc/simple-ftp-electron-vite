@@ -106,6 +106,16 @@ const startAutoReconnect = async () => {
       console.log("ftpAutoReconnect: ", ftpAutoReconnect);
 
       if (ftpAutoReconnect && !connected.value && !currentlyReConnecting) {
+        ftpCredentials.value.host = await window.ipcRendererInvoke("get-setting", "ftpHost");
+        ftpCredentials.value.port = await window.ipcRendererInvoke("get-setting", "ftpPort");
+        ftpCredentials.value.user = await window.ipcRendererInvoke("get-setting", "ftpUsername");
+        ftpCredentials.value.password = await window.ipcRendererInvoke("get-setting", "ftpPassword");
+
+        if(ftpCredentials.value.host === "" || ftpCredentials.value.port === "" || ftpCredentials.value.user === "" || ftpCredentials.value.password === "") {
+          await displayFlash("Please set FTP Credentials in Settings!", "error");
+          clearInterval(startIsOnlineInterval);
+          return;
+        }
         currentlyReConnecting = true;
         await connectToFtp();
         currentlyReConnecting = false;
@@ -224,6 +234,7 @@ const statusClass = computed(() => {
 
 const disconnectFtp = async () => {
   await stopSyncing();
+  await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
   await disconnect(false, true);
 };
 

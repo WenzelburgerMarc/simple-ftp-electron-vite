@@ -116,7 +116,6 @@ const loadSettings = async () => {
 };
 
 const validateSettings = () => {
-  //check if auto sync interval is a number and auto reload ftp interval is a number
 
   if(isNaN(autoSyncInterval.value) && typeof autoSyncInterval.value !== "number"){
     displayFlash("Auto-Sync Interval must be numbers", "error");

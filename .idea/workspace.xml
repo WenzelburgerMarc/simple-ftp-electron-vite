@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
@@ -113,15 +113,7 @@
       <workItem from="1696399167063" duration="28341000" />
       <workItem from="1696487049196" duration="25141000" />
       <workItem from="1696573033216" duration="29403000" />
-      <workItem from="1696834697569" duration="12512000" />
-    </task>
-    <task id="LOCAL-00010" summary="Add - Minimized Auto Start&#10;Add - Show Active Route&#10;Fix - Close Modal/Sidebar on click on bg">
-      <option name="closed" value="true" />
-      <created>1695978337859</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1695978337859</updated>
+      <workItem from="1696834697569" duration="12791000" />
     </task>
     <task id="LOCAL-00011" summary="Add - Flash Message Queue">
       <option name="closed" value="true" />
@@ -507,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696845867148</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue">
+      <option name="closed" value="true" />
+      <created>1696855733873</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1696855733873</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +528,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Upload Sync" />
     <MESSAGE value="Fix - Drag N Drop Overwrite If Exists" />
     <MESSAGE value="Fix - Breadcrumb.vue" />
     <MESSAGE value="Fix - FlashMessage.vue" />
@@ -553,6 +552,7 @@
     <MESSAGE value="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash" />
     <MESSAGE value="Add - Reconnect on Internet Connection Failure" />
     <MESSAGE value="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type" />
+    <MESSAGE value="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue" />
   </component>
 </project>
