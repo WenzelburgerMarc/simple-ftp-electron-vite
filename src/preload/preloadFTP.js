@@ -12,13 +12,13 @@ let downloadInProgress = ref(false);
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
-let syncMode = null;
+let syncMode = ref('');
 export const setSyncMode = (mode) => {
-  syncMode = mode;
+  syncMode.value = mode;
 };
 
 export const getSyncMode = () => {
-  return syncMode;
+  return syncMode.value;
 };
 
 export const setConnected = (status) => {

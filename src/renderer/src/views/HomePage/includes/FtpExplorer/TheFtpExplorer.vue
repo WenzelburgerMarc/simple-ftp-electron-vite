@@ -25,7 +25,7 @@ const fileList = ref([]);
 const initialPath = ref("");
 const showTooltip = ref(false);
 
-const showChangeSyncFolderBtn = ref(false);
+const pauseModeEnabled = ref(false);
 
 const showModal = ref(false);
 
@@ -79,7 +79,8 @@ const changePath = (path) => {
 
 
 let pollingInterval;
-
+let syncModeInterval = null;
+const currentSyncMode = ref(null);
 onMounted(async () => {
   currentDir.value = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
   initialPath.value = await currentDir.value;
@@ -95,13 +96,20 @@ onMounted(async () => {
     await startPolling();
   });
 
-  window.ipcRendererOn("sync-progress-pause", async () => {
-    showChangeSyncFolderBtn.value = true;
-  });
 
-  window.ipcRendererOn("sync-progress-start", async () => {
-    showChangeSyncFolderBtn.value = false;
-  });
+
+  if(syncModeInterval) {
+    clearInterval(syncModeInterval);
+  }
+  syncModeInterval = setInterval(async () => {
+    currentSyncMode.value = await window.ftp.getSyncMode();
+    if(currentSyncMode.value === "") {
+      pauseModeEnabled.value = true;
+    } else {
+      pauseModeEnabled.value = false;
+    }
+  }, 250);
+
 });
 
 const startPolling = async () => {
@@ -197,7 +205,7 @@ const createNewFolderOnFtp = async (name) => {
           Go To The Root Of Your Sync Directory
         </div>
       </div>
-        <icon-button-component :class="[showChangeSyncFolderBtn ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
+        <icon-button-component :class="[pauseModeEnabled ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
                                @SelectFtpSyncDurectory="setFtpSyncDirectory"
                                emitName="SelectFtpSyncDurectory"
                                btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
@@ -233,7 +241,8 @@ const createNewFolderOnFtp = async (name) => {
 
     </div>
 
-    <FileList :initial-file-list="fileList"
+    <FileList :pause-mode-enabled="pauseModeEnabled.value"
+              :initial-file-list="fileList"
               @file-clicked="handleClick"
               @delete-file="deleteFtpFile"
               @delete-folder="deleteFtpFolder" />

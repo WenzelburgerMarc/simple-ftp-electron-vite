@@ -29,7 +29,7 @@
       <td class="px-6 py-4">{{ file.type !== 'd' ? formatSize(file.size) : '' }}</td>
       <td class="px-6 py-4">{{ formatType(file.name, file.type) }}</td>
 
-      <td class="flex items-center px-6 py-4 space-x-3">
+      <td class="flex items-center px-6 py-4 space-x-3" :class="[showDeleteButtons ? 'active-delete-buttons' : 'inactive-delete-buttons', 'transition-all duration-300']">
 
         <a v-if="file.type !== 'd'" href="#"
            class="font-medium ml-auto text-red-600 hover:text-red-700"
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, watch } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const props = defineProps({
@@ -52,6 +52,10 @@ const props = defineProps({
     required: true
   }
 });
+
+const showDeleteButtons = ref(false);
+
+const currentSyncMode = ref(null);
 
 const emit = defineEmits(['file-clicked', 'delete-file', 'delete-folder']);
 
@@ -80,12 +84,35 @@ const formatType = (name, type) => {
   const extension = name.split(".").pop();
   return extension ? extension.toUpperCase() : "Unknown";
 };
-
-onMounted(() => {
+let interval = null;
+onMounted(async() => {
   console.log("FileList mounted")
-  watch(props.initialFileList, () => {
-    console.log("FileList changed");
-    fileList.value = props.initialFileList;
-  });
+
+  if(interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(async () => {
+    currentSyncMode.value = await window.ftp.getSyncMode();
+    if(currentSyncMode.value === "") {
+      showDeleteButtons.value = true;
+    } else {
+      showDeleteButtons.value = false;
+    }
+  }, 250);
+
+
+
 });
 </script>
+
+<style scoped>
+.active-delete-buttons {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inactive-delete-buttons {
+  opacity: 0;
+  pointer-events: none;
+}
+</style>
