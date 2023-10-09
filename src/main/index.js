@@ -26,13 +26,14 @@ function createWindow() {
   });
 
   mainWindow.webContents.session.clearCache().then(() => {
-    console.log('Cache cleared');
+    console.log("Cache cleared");
   });
 
   mainWindow.on("ready-to-show", () => {
 
-    if (process.argv.includes("--hidden")) {      mainWindow.minimize();
-    }else{
+    if (process.argv.includes("--hidden")) {
+      mainWindow.minimize();
+    } else {
       mainWindow.show();
     }
 
@@ -98,7 +99,7 @@ ipcMain.handle("select-directory", async (event) => {
     properties: ["openDirectory"]
   });
   if (!result.canceled && result.filePaths.length > 0) {
-    event.sender.send("client-directory-changed", result.filePaths[0])
+    event.sender.send("client-directory-changed", result.filePaths[0]);
     return result.filePaths[0];
   } else {
     return null;
@@ -117,7 +118,7 @@ ipcMain.handle("get-all-data", () => {
   return store.store;
 });
 
-ipcMain.handle('list-local-files', async (event, dirPath) => {
+ipcMain.handle("list-local-files", async (event, dirPath) => {
   try {
     const files = fs.readdirSync(dirPath);
     return files.map(file => {
@@ -127,7 +128,7 @@ ipcMain.handle('list-local-files', async (event, dirPath) => {
         return {
           name: file,
           path: filePath,
-          type: stats.isDirectory() ? 'd' : 'f',
+          type: stats.isDirectory() ? "d" : "f",
           size: stats.size
         };
       } catch (error) {
@@ -141,7 +142,7 @@ ipcMain.handle('list-local-files', async (event, dirPath) => {
   }
 });
 
-ipcMain.handle('create-new-folder-client', async (event, selectedDirectory) => {
+ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
   const result = await dialog.showSaveDialog({
     defaultPath: selectedDirectory,
     properties: ["createDirectory"]
@@ -162,7 +163,7 @@ ipcMain.handle('create-new-folder-client', async (event, selectedDirectory) => {
   }
 });
 
-ipcMain.handle('copy-file', async (event, sourcePath, destinationPath) => {
+ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
   try {
     await fs.promises.copyFile(sourcePath, destinationPath);
     console.log(`File copied from ${sourcePath} to ${destinationPath}`);
@@ -174,32 +175,38 @@ ipcMain.handle('copy-file', async (event, sourcePath, destinationPath) => {
 });
 
 let watcher;
-
-ipcMain.handle('watch-client-directory', async (event, directoryPath) => {
+let intervalId = null;
+ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
 
     if (filename) {
-      event.sender.send('file-changed', { eventType });
+      event.sender.send("file-changed", { eventType });
     }
   });
+
+  if (intervalId) clearInterval(intervalId);
+
+  intervalId = setInterval(() => {
+    event.sender.send("file-changed", { eventType: "change" });
+  }, 1000);
 });
 
-ipcMain.handle('unwatch-client-directory', async () => {
+ipcMain.handle("unwatch-client-directory", async () => {
   watcher.close();
 });
 
-ipcMain.handle('restart-ftp-reload-interval', async (event) => {
-  event.sender.send('restart-ftp-reload-interval');
+ipcMain.handle("restart-ftp-reload-interval", async (event) => {
+  event.sender.send("restart-ftp-reload-interval");
 });
 
-ipcMain.handle('open-selected-client-directory', async (event, path) => {
+ipcMain.handle("open-selected-client-directory", async (event, path) => {
   await shell.openPath(path);
 });
 
-ipcMain.handle('delete-client-file', async (event, path) => {
+ipcMain.handle("delete-client-file", async (event, path) => {
   try {
     await fs.promises.unlink(path);
-    return { success: true, message: 'File deleted successfully' };
+    return { success: true, message: "File deleted successfully" };
   } catch (error) {
     console.error(`Error deleting file at path ${path}:`, error);
     return { success: false, message: error.message };
@@ -207,25 +214,25 @@ ipcMain.handle('delete-client-file', async (event, path) => {
 });
 
 
-ipcMain.handle('delete-client-directory', async (event, path) => {
+ipcMain.handle("delete-client-directory", async (event, path) => {
   try {
     await fs.promises.rmdir(path);
-    return { success: true, message: 'Folder deleted successfully' };
+    return { success: true, message: "Folder deleted successfully" };
   } catch (error) {
     console.error(`Error deleting folder at path ${path}:`, error);
     return { success: false, message: error.message };
   }
 });
 
-ipcMain.handle('sync-progress-end', async (event) => {
-  event.sender.send('sync-progress-end');
+ipcMain.handle("sync-progress-end", async (event) => {
+  event.sender.send("sync-progress-end");
 });
 
-ipcMain.handle('sync-progress-pause', async (event) => {
-  event.sender.send('sync-progress-pause');
+ipcMain.handle("sync-progress-pause", async (event) => {
+  event.sender.send("sync-progress-pause");
 });
 
 
-ipcMain.handle('sync-progress-start', async (event) => {
-  event.sender.send('sync-progress-start');
+ipcMain.handle("sync-progress-start", async (event) => {
+  event.sender.send("sync-progress-start");
 });
