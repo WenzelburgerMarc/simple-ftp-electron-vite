@@ -43,7 +43,7 @@ export const connect = (ftpSettings, justTest = false) => {
 
       if (justTest) {
         displayFlash('FTP-Connection Settings are valid', 'success');
-        await disconnect();
+        await disconnect(false, true);
         stopLoading();
         return resolve(true);
       }
@@ -65,7 +65,7 @@ export const connect = (ftpSettings, justTest = false) => {
 
 
 
-export const disconnect = async (deleteSyncModeInStore = false) => {
+export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage = false) => {
   try {
     startLoading();
     await window.ftp.disconnectFTP();
@@ -74,6 +74,7 @@ export const disconnect = async (deleteSyncModeInStore = false) => {
       await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
     }
     stopLoading();
+    if(hideFlashMessage) return;
     displayFlash("Disconnected from FTP Server", "success");
   } catch (Exception) {
     stopLoading();

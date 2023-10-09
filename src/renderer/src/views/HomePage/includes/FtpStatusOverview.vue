@@ -121,12 +121,13 @@ window.ipcRendererOn("sync-progress-start", () => {
 window.ipcRendererOn("sync-progress-pause",async () => {
 
   syncProgress.value = 0;
-  finishedSyncing.value = false;
+
   console.log("sync-progress-pause");
   if (intervalID)
     clearInterval(intervalID);
 
   setTimeout(() => {
+    finishedSyncing.value = false;
     showProgress.value = false;
   }, 500);
 

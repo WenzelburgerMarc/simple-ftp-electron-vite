@@ -56,6 +56,7 @@ const emit = defineEmits(['closeModal']);
 
 const updateEnableAutoStart = (newValue) => {
   enableAutoStart.value = newValue;
+  saveSettings();
 };
 
 const updateSyncInterval = (newValue) => {
@@ -69,6 +70,7 @@ const updateAutoReloadFtpInterval = (newValue) => {
 const handleSelectDirectory = (path) => {
   disconnect(true);
   selectedPath.value = path;
+  saveSettings();
 };
 
 
@@ -104,6 +106,23 @@ const loadSettings = async () => {
   stopLoading();
 };
 
+const validateSettings = () => {
+  //check if auto sync interval is a number and auto reload ftp interval is a number
+
+  if(isNaN(autoSyncInterval.value) && typeof autoSyncInterval.value !== "number"){
+    displayFlash("Auto-Sync Interval must be numbers", "error");
+    return false;
+  }
+
+  if(isNaN(autoReloadFtpInterval.value) && typeof autoReloadFtpInterval.value !== "number"){
+    displayFlash("Auto-Reload FTP Files Interval must be numbers", "error");
+    return false;
+  }
+
+  return true;
+
+};
+
 
 // Save Settings
 const saveSettings = async () => {
@@ -114,6 +133,12 @@ const saveSettings = async () => {
     }catch (e) {
       console.error(e);
     }
+
+    if(!validateSettings()){
+      stopLoading();
+      return;
+    }
+
     await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
     await window.ipcRendererInvoke("set-setting", "autoSyncInterval", autoSyncInterval.value);
     await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", autoReloadFtpInterval.value);
