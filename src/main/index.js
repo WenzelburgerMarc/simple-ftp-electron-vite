@@ -235,4 +235,13 @@ ipcMain.handle("sync-progress-pause", async (event) => {
 
 ipcMain.handle("sync-progress-start", async (event) => {
   event.sender.send("sync-progress-start");
+
+});
+
+ipcMain.handle("sync-progress-start-loading", async (event) => {
+  event.sender.send("sync-progress-start-loading");
+});
+
+ipcMain.handle("sync-progress-stop-loading", async (event) => {
+  event.sender.send("sync-progress-stop-loading");
 });

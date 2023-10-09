@@ -32,6 +32,7 @@ import IconButtonComponent from "../../../components/form/IconButtonComponent.vu
 import { ref, computed, onMounted } from "vue";
 import { startSyncing } from "../../../js/ftpManager";
 
+
 const uploadEnabled = ref(false);
 
 onMounted(async() => {
@@ -48,12 +49,13 @@ onMounted(async() => {
 });
 
 const setSyncUpload = async () => {
+  await window.ipcRendererInvoke("sync-progress-start-loading");
   await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "upload");
   uploadEnabled.value = true;
   let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
 
-  startSyncing("upload", clientSyncPath, ftpSyncPath)
+  await startSyncing("upload", clientSyncPath, ftpSyncPath)
     .catch(error => {
       console.error("Error in startSyncing:", error);
 
@@ -62,12 +64,13 @@ const setSyncUpload = async () => {
 
 
 const setSyncDownload = async () => {
+  await window.ipcRendererInvoke("sync-progress-start-loading");
   await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "download");
   uploadEnabled.value = false;
   let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
 
-  startSyncing("download", clientSyncPath, ftpSyncPath)
+  await startSyncing("download", clientSyncPath, ftpSyncPath)
     .catch(error => {
       console.error("Error in startSyncing:", error);
 
@@ -76,9 +79,11 @@ const setSyncDownload = async () => {
 };
 
 const setStopSyncingMethod = async() => {
+  await window.ipcRendererInvoke("sync-progress-start-loading");
   await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
   uploadEnabled.value = null;
   await startSyncing('', '', '');
+
 };
 
 const isActive = (button) => {

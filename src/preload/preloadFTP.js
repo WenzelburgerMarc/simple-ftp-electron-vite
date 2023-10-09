@@ -1,5 +1,4 @@
 import sftpClient from "ssh2-sftp-client";
-
 import { ref } from "vue";
 import * as path from "path";
 import * as fs from "fs";
@@ -12,8 +11,10 @@ let downloadInProgress = ref(false);
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
-let syncMode = ref('');
+let syncMode = ref("");
 export const setSyncMode = (mode) => {
+  if (mode !== syncMode.value) firstRun = true;
+
   syncMode.value = mode;
 };
 
@@ -162,30 +163,29 @@ export const calculateDirectorySize = async (isLocal, files) => {
 let progress = 0;
 export const calculateAndCompareSize = async (mode) => {
 
-    if (mode === "upload" || mode === "download") {
-      let files = null;
-      if (mode === "upload") {
-        files = currentFilesToUpload;
-      } else if (mode === "download") {
-        files = currentDownloadFiles;
-      }
-
-      const clientSize = await calculateDirectorySize(true, files);
-      const serverSize = await calculateDirectorySize(false, files);
-
-
-
-      if (mode === "upload") {
-        progress = (serverSize / clientSize) * 100;
-      } else {
-        progress = (clientSize / serverSize) * 100;
-      }
-      if (progress > 100) {
-        progress = 100;
-      }
-      console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
-      return progress.toFixed(2);
+  if (mode === "upload" || mode === "download") {
+    let files = null;
+    if (mode === "upload") {
+      files = currentFilesToUpload;
+    } else if (mode === "download") {
+      files = currentDownloadFiles;
     }
+
+    const clientSize = await calculateDirectorySize(true, files);
+    const serverSize = await calculateDirectorySize(false, files);
+
+
+    if (mode === "upload") {
+      progress = (serverSize / clientSize) * 100;
+    } else {
+      progress = (clientSize / serverSize) * 100;
+    }
+    if (progress > 100) {
+      progress = 100;
+    }
+    console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
+    return progress.toFixed(2);
+  }
 
 };
 const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
@@ -389,8 +389,8 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
 };
 
 let intervalId = null;
+let firstRun = true;
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
-
   if (!isConnected) {
     console.error("Not connected to FTP server");
     return;
@@ -403,7 +403,10 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   console.log("interval: ", interval);
 
   intervalId = setInterval(async () => {
+    if (firstRun) {
+      firstRun = false;
 
+    }
     const newInterval = parseInt(await ipcRenderer.invoke("get-setting", "autoSyncInterval")) + 250;
     if (newInterval !== interval) {
       console.log("Interval has changed. Updating...");
@@ -413,24 +416,36 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
     }
 
+
+
     if (mode === "upload") {
       console.log("upload mode is selected");
+
       setSyncMode("upload");
       await uploadFiles(clientSyncPath, ftpSyncPath);
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
     } else if (mode === "download") {
       console.log("Download mode is selected");
       setSyncMode("download");
       await downloadFiles(clientSyncPath, ftpSyncPath);
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
     } else if (mode === "") {
       setSyncMode("");
       console.log("Syncing paused");
       await stopSyncing();
       await ipcRenderer.invoke("sync-progress-pause");
       await clearFilesAfterModeSwitch();
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
     } else {
       console.error("Invalid mode selected");
+      await ipcRenderer.invoke("sync-progress-stop-loading");
     }
+
   }, interval);
+
 };
 
 

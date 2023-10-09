@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Label Of enable auto reconnect checkbox">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Do not Show delete File/Folder Buttons on Sync">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,15 +116,7 @@
       <workItem from="1696399167063" duration="28341000" />
       <workItem from="1696487049196" duration="25141000" />
       <workItem from="1696573033216" duration="29403000" />
-      <workItem from="1696834697569" duration="15905000" />
-    </task>
-    <task id="LOCAL-00013" summary="Fix - Flash Message Design">
-      <option name="closed" value="true" />
-      <created>1695981689815</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1695981689815</updated>
+      <workItem from="1696834697569" duration="17505000" />
     </task>
     <task id="LOCAL-00014" summary="Add - Loading Anzeige">
       <option name="closed" value="true" />
@@ -509,7 +502,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696856169944</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Fix - Do not Show delete File/Folder Buttons on Sync">
+      <option name="closed" value="true" />
+      <created>1696859578611</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1696859578611</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,7 +531,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - FlashMessage.vue" />
     <MESSAGE value="Fix - SettingsModal Design" />
     <MESSAGE value="Add - Pause Button To sync-slider-options.vue" />
     <MESSAGE value="Fix - Breadcrumb, set Sync Directory" />
@@ -555,6 +555,7 @@
     <MESSAGE value="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue" />
     <MESSAGE value="Fix - On Manual Disconnect -&gt; Set Auto Reconnect Setting to False" />
     <MESSAGE value="Fix - Label Of enable auto reconnect checkbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Label Of enable auto reconnect checkbox" />
+    <MESSAGE value="Fix - Do not Show delete File/Folder Buttons on Sync" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Do not Show delete File/Folder Buttons on Sync" />
   </component>
 </project>

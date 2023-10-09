@@ -1,7 +1,18 @@
 <script setup>
 import {loading} from "@/js/loaderManager.js";
+import { onMounted } from "vue";
 
+onMounted(() => {
+  window.ipcRendererOn("sync-progress-start-loading", () => {
+    console.log("sabcd");
+    loading.value = true
+  });
 
+  window.ipcRendererOn("sync-progress-stop-loading", () => {
+    console.log("eabcd");
+    loading.value = false
+  });
+});
 </script>
 
 <template>
