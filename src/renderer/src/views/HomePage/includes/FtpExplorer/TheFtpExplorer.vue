@@ -19,10 +19,13 @@ import FileList from "../../../../components/form/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
 import SetFtpFolderNameModal from "./setFtpFolderNameModal.vue";
+
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
 const initialPath = ref("");
 const showTooltip = ref(false);
+
+const showChangeSyncFolderBtn = ref(false);
 
 const showModal = ref(false);
 
@@ -60,7 +63,7 @@ const handleBack = () => {
       listFiles();
 
     } else {
-      displayFlash("You have reached the Root Directory!", "info")
+      displayFlash("You have reached the Root Directory!", "info");
       setCurrentDir(currentDir.value);
       listFiles();
     }
@@ -77,8 +80,8 @@ const changePath = (path) => {
 
 let pollingInterval;
 
-onMounted(async() => {
-  currentDir.value = await window.ipcRendererInvoke('get-setting', 'ftp-sync-directory');
+onMounted(async () => {
+  currentDir.value = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
   initialPath.value = await currentDir.value;
   await listFiles();
   watch(getFileList, () => {
@@ -87,14 +90,22 @@ onMounted(async() => {
 
   await startPolling();
 
-  window.ipcRendererOn('restart-ftp-reload-interval', async() => {
+  window.ipcRendererOn("restart-ftp-reload-interval", async () => {
     await stopPolling();
     await startPolling();
   });
+
+  window.ipcRendererOn("sync-progress-pause", async () => {
+    showChangeSyncFolderBtn.value = true;
+  });
+
+  window.ipcRendererOn("sync-progress-start", async () => {
+    showChangeSyncFolderBtn.value = false;
+  });
 });
 
-const startPolling = async() => {
-  let timeout = await window.ipcRendererInvoke('get-setting', 'autoReloadFtpInterval');
+const startPolling = async () => {
+  let timeout = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
   timeout = parseInt(timeout);
   timeout += 250;
   pollingInterval = setInterval(async () => {
@@ -112,7 +123,7 @@ onBeforeRouteLeave((to, from, next) => {
   next();
 });
 
-const listFiles = async (showLoader=true) => {
+const listFiles = async (showLoader = true) => {
   if (currentDir.value) {
     try {
       await listFilesAndDirectories(getCurrentDir(), showLoader);
@@ -129,61 +140,70 @@ const listFiles = async (showLoader=true) => {
   }
 };
 
-const setFtpSyncDirectory = async() => {
+const setFtpSyncDirectory = async () => {
   console.log("setFtpSyncDirectory");
-  await window.ipcRendererInvoke('set-setting', 'ftp-sync-directory', currentDir.value);
+  await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", currentDir.value);
   setCurrentDir(currentDir.value);
   initialPath.value = currentDir.value;
-  displayFlash("FTP Sync Directory Set!", "success")
+  displayFlash("FTP Sync Directory Set!", "success");
 };
 
-const deleteFtpFile = async(file) => {
-  const path = currentDir.value + '/' + file.name;
+const deleteFtpFile = async (file) => {
+  const path = currentDir.value + "/" + file.name;
   await deleteFile(path);
   await listFiles();
 };
 
-const deleteFtpFolder = async(folder) => {
-  const path = currentDir.value + '/' + folder.name;
+const deleteFtpFolder = async (folder) => {
+  const path = currentDir.value + "/" + folder.name;
   console.log(path);
   await deleteDirectory(path);
   await listFiles();
 };
 
-const createNewFolderOnFtp = async(name) => {
+const createNewFolderOnFtp = async (name) => {
   const folderName = name;
 
   if (folderName != null) {
-    const path = currentDir.value + '/' + folderName+'/';
+    const path = currentDir.value + "/" + folderName + "/";
     await createNewFolder(path);
     await listFiles();
     updateShowModal(false);
-    displayFlash("Folder created", "success")
+    displayFlash("Folder created", "success");
     return;
   }
-  displayFlash("Error creating folder", "error")
+  displayFlash("Error creating folder", "error");
 };
 </script>
 
 <template>
-  <set-ftp-folder-name-modal :show-modal="showModal" @update:showModal="updateShowModal" @createFolder="createNewFolderOnFtp" />
+  <set-ftp-folder-name-modal :show-modal="showModal"
+                             @update:showModal="updateShowModal"
+                             @createFolder="createNewFolderOnFtp" />
   <panel-component
     v-if="connected"
     class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
 
     <div class="w-full flex justify-between items-center">
       <div class="relative">
-        <button @mouseover="showTooltip = true" @mouseleave="showTooltip = false" type="button">
-          <title-component title-text="Server" @click="goToFtpInitialPath" />
+        <button @mouseover="showTooltip = true"
+                @mouseleave="showTooltip = false"
+                type="button">
+          <title-component title-text="Server"
+                           @click="goToFtpInitialPath" />
         </button>
-        <div v-if="showTooltip" class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+        <div v-if="showTooltip"
+             class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
           Go To The Root Of Your Sync Directory
         </div>
       </div>
-      <icon-button-component @SelectFtpSyncDurectory="setFtpSyncDirectory"
-                             emitName="SelectFtpSyncDurectory"
-                             btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon="rotate" icon-class="mr-2" >Select Current Path As Sync Directory</icon-button-component>
+        <icon-button-component :class="[showChangeSyncFolderBtn ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
+                               @SelectFtpSyncDurectory="setFtpSyncDirectory"
+                               emitName="SelectFtpSyncDurectory"
+                               btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+                               icon="rotate"
+                               icon-class="mr-2">Select Current Path As Sync Directory
+        </icon-button-component>
     </div>
 
 
@@ -216,12 +236,20 @@ const createNewFolderOnFtp = async(name) => {
     <FileList :initial-file-list="fileList"
               @file-clicked="handleClick"
               @delete-file="deleteFtpFile"
-    @delete-folder="deleteFtpFolder"/>
+              @delete-folder="deleteFtpFolder" />
 
   </panel-component>
 
 </template>
 
 <style scoped>
+.active-setsyncpath-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
 
+.inactive-setsyncpath-btn {
+  opacity: 0;
+  pointer-events: none;
+}
 </style>
