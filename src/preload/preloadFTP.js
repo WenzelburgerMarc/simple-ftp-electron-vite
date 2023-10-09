@@ -396,7 +396,11 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     return;
   }
 
-  let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
+  let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval") || 10000;
+  // get interval as number
+  interval = parseInt(interval);
+  interval += 250;
+  console.log("interval: ", interval);
 
   intervalId = setInterval(async () => {
 

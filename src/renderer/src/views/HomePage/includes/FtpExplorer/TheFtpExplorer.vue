@@ -95,10 +95,12 @@ onMounted(async() => {
 
 const startPolling = async() => {
   let timeout = await window.ipcRendererInvoke('get-setting', 'autoReloadFtpInterval');
+  timeout = parseInt(timeout);
+  timeout += 250;
   pollingInterval = setInterval(async () => {
     await listFiles(false);
     console.log("polling");
-  }, timeout+250);
+  }, timeout);
 };
 
 const stopPolling = () => {
