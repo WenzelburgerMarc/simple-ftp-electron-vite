@@ -122,7 +122,7 @@ const testFtpSettings = async () => {
     port: ftpPort.value,
     username: ftpUsername.value,
     password: ftpPassword.value
-  });
+  }, true);
 };
 
 // Save Settings
