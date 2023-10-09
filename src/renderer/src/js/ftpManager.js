@@ -52,11 +52,14 @@ export const connect = (ftpSettings) => {
 };
 
 
-export const disconnect = async () => {
+export const disconnect = async (deleteSyncModeInStore = false) => {
   try {
     startLoading()
     await window.ftp.disconnectFTP();
     connected.value = window.ftp.getIsConnected();
+    if(deleteSyncModeInStore) {
+      await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
+    }
     stopLoading();
     displayFlash("Disconnected from FTP Server", "success");
   } catch (Exception) {

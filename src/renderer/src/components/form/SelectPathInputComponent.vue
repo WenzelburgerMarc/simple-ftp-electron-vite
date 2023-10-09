@@ -17,7 +17,6 @@
 <script setup>
 import {ref, defineProps, defineEmits, watchEffect} from 'vue';
 import LabelComponent from "@/components/form/LabelComponent.vue";
-import {disconnect} from "../../js/ftpManager";
 
 const props = defineProps({
   labelText: String,
@@ -35,7 +34,7 @@ const selectDirectory = async () => {
   const path = await window.api.selectDirectory();
   if (path) {
     selectedPath.value = path;
-    disconnect();
+
     emits('updateSelectedPath', path);
   }
 };

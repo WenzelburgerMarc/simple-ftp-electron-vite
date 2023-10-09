@@ -38,6 +38,7 @@ import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { displayFlash } from "../../js/flashMessageController";
 import { startLoading, stopLoading } from "@/js/loaderManager.js";
+import { disconnect } from "../../js/ftpManager";
 
 // eslint-disable-next-line vue/no-dupe-keys
 let autoSyncInterval = reactive(ref(0));
@@ -66,6 +67,7 @@ const updateAutoReloadFtpInterval = (newValue) => {
 };
 
 const handleSelectDirectory = (path) => {
+  disconnect(true);
   selectedPath.value = path;
 };
 
