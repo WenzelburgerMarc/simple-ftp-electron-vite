@@ -9,7 +9,7 @@
                            @closeSettings="closeModal" />
     </div>
     <CheckboxComponent :id="'enableAutoUpload'" :model-value="enableAutoStart" @update:modelValue="updateEnableAutoStart" :label="'Enable Auto-Start'" />
-    <CheckboxComponent :id="'enableAutoReconnect'" :model-value="enableAutoReconnect" @update:modelValue="updateEnableAutoReconnect" :label="'Enable Auto Re-Connect'" />
+    <CheckboxComponent :id="'enableAutoReconnect'" :model-value="enableAutoReconnect" @update:modelValue="updateEnableAutoReconnect" :label="'Enable Auto-Reconnect on Start & Connection Loss'" />
     <LabelInputComponent :model-value="autoSyncInterval" @update:modelValue="updateSyncInterval"
                          :label="'Auto-Sync Interval in ms'"
                          :type="'number'"
