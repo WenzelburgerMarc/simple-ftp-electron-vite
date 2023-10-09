@@ -9,6 +9,7 @@
                            @closeSettings="closeModal" />
     </div>
     <CheckboxComponent :id="'enableAutoUpload'" :model-value="enableAutoStart" @update:modelValue="updateEnableAutoStart" :label="'Enable Auto-Start'" />
+    <CheckboxComponent :id="'enableAutoReconnect'" :model-value="enableAutoReconnect" @update:modelValue="updateEnableAutoReconnect" :label="'Enable Auto Re-Connect'" />
     <LabelInputComponent :model-value="autoSyncInterval" @update:modelValue="updateSyncInterval"
                          :label="'Auto-Sync Interval in ms'"
                          :type="'number'"
@@ -48,6 +49,8 @@ let autoReloadFtpInterval = reactive(ref(0));
 const selectedPath = ref("");
 // eslint-disable-next-line vue/no-dupe-keys
 const enableAutoStart = ref(false);
+// eslint-disable-next-line vue/no-dupe-keys
+const enableAutoReconnect = ref(false);
 
 const props = defineProps({
   showModal: Boolean
@@ -56,6 +59,11 @@ const emit = defineEmits(['closeModal']);
 
 const updateEnableAutoStart = (newValue) => {
   enableAutoStart.value = newValue;
+  saveSettings();
+};
+
+const updateEnableAutoReconnect = (newValue) => {
+  enableAutoReconnect.value = newValue;
   saveSettings();
 };
 
@@ -103,6 +111,7 @@ const loadSettings = async () => {
   autoReloadFtpInterval.value = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
   autoSyncInterval.value = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
   selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+  enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
   stopLoading();
 };
 
@@ -144,6 +153,7 @@ const saveSettings = async () => {
     await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", autoReloadFtpInterval.value);
     await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
     await window.ipcRendererInvoke("restart-ftp-reload-interval");
+    await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", enableAutoReconnect.value);
     stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {

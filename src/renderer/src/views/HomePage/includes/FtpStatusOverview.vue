@@ -77,32 +77,47 @@ const ftpCredentials = ref({
   user: "",
   password: ""
 });
-
 let startIsOnlineInterval = null;
 let onlineStatusChanged = false;
+let currentlyReConnecting = false;
 
-onMounted(async() => {
+const startAutoReconnect = async () => {
+  console.log("startAutoReconnect");
 
-  if(!startIsOnlineInterval){
+  if (!startIsOnlineInterval && !currentlyReConnecting) {
     startIsOnlineInterval = setInterval(async () => {
       online.value = await window.api.isOnline();
-      if(!online.value) {
-        if(!onlineStatusChanged){
-          await displayFlash('No Internet Connection available!', 'error');
-        }
-        onlineStatusChanged = true;
-        await setIsConnected(false);
-      }
-      if(online.value && onlineStatusChanged){
-        await displayFlash('Automatically Re-Connected to the Internet!', 'info');
-        onlineStatusChanged = false;
-        await disconnectFtp();
-        await connectToFtp();
 
+      if (!online.value) {
+        if (!onlineStatusChanged) {
+          await displayFlash("No Internet Connection available!", "error");
+          onlineStatusChanged = true;
+          await setIsConnected(false);
+        }
+        return;
+      }
+
+      if (onlineStatusChanged) {
+        onlineStatusChanged = false;
+        await displayFlash("Automatically Re-Connected to the Internet!", "info");
+      }
+
+      const ftpAutoReconnect = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+      console.log("ftpAutoReconnect: ", ftpAutoReconnect);
+
+      if (ftpAutoReconnect && !connected.value && !currentlyReConnecting) {
+        currentlyReConnecting = true;
+        await connectToFtp();
+        currentlyReConnecting = false;
       }
     }, 1000);
   }
+};
 
+
+onMounted(async () => {
+
+    await startAutoReconnect();
 
   watch(connected, async (newValue) => {
     console.log("new");
@@ -145,7 +160,7 @@ window.ipcRendererOn("sync-progress-start", () => {
 
 });
 
-window.ipcRendererOn("sync-progress-pause",async () => {
+window.ipcRendererOn("sync-progress-pause", async () => {
 
   syncProgress.value = 0;
 
@@ -160,15 +175,15 @@ window.ipcRendererOn("sync-progress-pause",async () => {
 
 });
 
-window.ipcRendererOn("sync-progress-end", async() => {
+window.ipcRendererOn("sync-progress-end", async () => {
   console.log("sync-progress-end");
 
-  if (syncProgress.value >= 100){
+  if (syncProgress.value >= 100) {
     finishedSyncing.value = true;
-          setTimeout(() => {
-            showProgress.value = false;
-            syncProgress.value = 0;
-          }, 500);
+    setTimeout(() => {
+      showProgress.value = false;
+      syncProgress.value = 0;
+    }, 500);
   }
 
 });
