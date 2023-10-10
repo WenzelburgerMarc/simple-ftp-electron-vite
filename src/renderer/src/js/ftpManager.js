@@ -47,8 +47,9 @@ export const connect = (ftpSettings, justTest = false) => {
 
       if (justTest) {
         displayFlash("FTP-Connection Settings are valid", "success");
-        await disconnect(false, true);
+        await disconnect(true, true);
         stopLoading();
+        console.log("justTest");
         return resolve(true);
       }
       displayFlash("Connected to FTP Server", "success");

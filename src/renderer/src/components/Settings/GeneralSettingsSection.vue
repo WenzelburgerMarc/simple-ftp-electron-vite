@@ -87,6 +87,7 @@ const updateEnableDeletingFilesAfterUpload = (newValue) => {
 
 const updateEnableAutoReconnect = (newValue) => {
   enableAutoReconnect.value = newValue;
+  window.ipcRendererInvoke("autoReconnectChanged");
   saveSettings();
 };
 
@@ -112,6 +113,11 @@ const closeModal = () => {
 
 // On Mounted
 onMounted(async () => {
+  window.ipcRendererOn("disableAutoReconnectChanged", async() => {
+    enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+    console.log("enableAutoReconnectChanged", enableAutoReconnect.value);
+  });
+
   window.api.getAutoStartItemSetting().then(settings => {
     enableAutoStart.value = settings.openAtLogin;
   });

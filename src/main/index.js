@@ -259,6 +259,17 @@ ipcMain.handle("sync-progress-stop-loading", async (event) => {
     event.sender.send("sync-progress-stop-loading");
 });
 
+ipcMain.handle("disableAutoReconnectChanged", async (event) => {
+  if (!mainWindow.isDestroyed())
+    event.sender.send("disableAutoReconnectChanged");
+});
+
+ipcMain.handle("autoReconnectChanged", async (event) => {
+  if (!mainWindow.isDestroyed())
+    event.sender.send("autoReconnectChanged");
+});
+
+
 ipcMain.handle("exit", async () => {
   app.exit();
 });
