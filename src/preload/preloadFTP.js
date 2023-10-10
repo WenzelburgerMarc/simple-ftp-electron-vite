@@ -189,6 +189,7 @@ export const calculateAndCompareSize = async (mode) => {
   }
 
 };
+let foldersToDelete = [];
 const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   try {
     const itemNames = fs.readdirSync(clientSyncPath);
@@ -232,6 +233,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
 
 
         if (shouldUpload) {
+          foldersToDelete.push({ name: itemName, localPath, serverPath, type: "d", size: localStats.size });
           filesToUpload.push({ name: itemName, localPath, serverPath, type: "f", size: localStats.size });
         }
       } else if (localStats.isDirectory()) {
@@ -249,38 +251,40 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   }
 };
 
-const getFoldersToDelete = async (clientSyncPath, ftpSyncPath) => {
-  try {
-    const itemNames = fs.readdirSync(clientSyncPath);
-    let foldersToDelete = [];
+const deleteFolders = async (clientSyncPath) => {
 
-    for (const itemName of itemNames) {
-      const localPath = path.join(clientSyncPath, itemName);
-      const serverPath = path.join(ftpSyncPath, itemName);
-      const localStats = fs.statSync(localPath);
+  // delete everything after the last /
+  foldersToDelete = foldersToDelete.map((folder) => {
+    const splitPath = folder.localPath.split("/");
+    splitPath.pop();
+    folder.localPath = splitPath.join("/");
+    return folder;
+  });
 
-      let shouldDelete = false;
+  foldersToDelete = foldersToDelete.filter((folder, index, self) =>
+    index === self.findIndex((t) => (
+      t.localPath === folder.localPath
+    ))
+  );
 
-      if (localStats.isDirectory()) {
-        const serverExists = await sftp.exists(serverPath);
-        if (serverExists) {
 
-          const subFilesToUpload = await getFilesToUpload(localPath, serverPath);
-          if (subFilesToUpload.length === 0) {
-            shouldDelete = true;
-          }
-        }
-        if (shouldDelete) {
-          foldersToDelete.push({ name: itemName, localPath, serverPath, type: "d", size: localStats.size });
-        }
+  console.log("foldersToDelete: ", foldersToDelete);
+
+  for (const folder of foldersToDelete) {
+
+
+    if (fs.existsSync(folder.localPath) && folder.type === "d") {
+      const items = fs.readdirSync(folder.localPath);
+      if (items.length > 0) {
+        foldersToDelete = foldersToDelete.filter((f) => f.name !== folder.name);
+      }else{
+        if(folder.localPath !== clientSyncPath)
+        fs.rmdirSync(folder.localPath, { recursive: true });
       }
     }
-
-    return foldersToDelete;
-  } catch (error) {
-    console.error("Error in getFoldersToDelete:", error);
-    return [];
   }
+
+
 }
 
 let currentFilesToUpload = [];
@@ -320,11 +324,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
                 fs.unlinkSync(file.localPath);
               }
             }
-            let foldersToDelete = await getFoldersToDelete(clientSyncPath, ftpSyncPath);
-            console.log("foldersToDelete: ", foldersToDelete);
-            for(const folder of foldersToDelete){
-              fs.rmdirSync(folder.localPath, { recursive: true });
-            }
+            await deleteFolders(clientSyncPath);
             await displayFlash("Files deleted on client after upload", "success")
           }
           await listFilesAndDirectories();
