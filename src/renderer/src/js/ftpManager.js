@@ -33,6 +33,26 @@ export const connect = (ftpSettings, justTest = false) => {
     };
 
     try {
+      let host = await window.ipcRendererInvoke("get-setting", "ftpHost");
+      let port = await window.ipcRendererInvoke("get-setting", "ftpPort");
+      let username = await window.ipcRendererInvoke("get-setting", "ftpUsername");
+      let password = await window.ipcRendererInvoke("get-setting", "ftpPassword");
+      let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+      let ftpSyncDirectory = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+
+      if (!host || !port || !username || !password) {
+        return handleConnectionError("Please set FTP-Connection Settings");
+      }
+
+      if (!clientSyncPath) {
+        return handleConnectionError("Please set Client Sync Path");
+      }
+
+      if (!ftpSyncDirectory) {
+        await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
+        await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", "/");
+      }
+
       if (window.ftp.getIsConnected()) {
         await window.ftp.disconnectFTP();
         connected.value = false;
