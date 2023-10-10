@@ -51,14 +51,13 @@ export const connect = (ftpSettings, justTest = false) => {
         stopLoading();
         return resolve(true);
       }
-
+      displayFlash("Connected to FTP Server", "success");
       await listFilesAndDirectories();
       await startSyncing(
         await window.ipcRendererInvoke("get-setting", "ftp-sync-mode"),
         await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
         await window.ipcRendererInvoke("get-setting", "ftp-sync-directory")
       );
-      displayFlash("Connected to FTP Server", "success");
       stopLoading();
       return resolve(true);
     } catch (error) {
@@ -190,7 +189,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
     console.log(mode);
     currentSyncMode.value = window.ftp.getSyncMode();
-    if (mode !== "")
+    if (mode === "download" || mode === "upload")
       displayFlash("Syncing started", "success");
 
   } catch (e) {

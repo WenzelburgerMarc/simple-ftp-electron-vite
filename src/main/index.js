@@ -26,32 +26,32 @@ function createWindow() {
   });
 
   mainWindow.webContents.session.clearCache().then(() => {
-    console.log("Cache cleared");
-  });
+    mainWindow.on("ready-to-show", () => {
 
-  mainWindow.on("ready-to-show", () => {
+      if (process.argv.includes("--hidden")) {
+        mainWindow.minimize();
+      } else {
+        mainWindow.show();
+      }
 
-    if (process.argv.includes("--hidden")) {
-      mainWindow.minimize();
+      if (is.dev) {
+        mainWindow.webContents.openDevTools();
+      }
+    });
+
+    mainWindow.webContents.setWindowOpenHandler((details) => {
+      shell.openExternal(details.url);
+      return { action: "deny" };
+    });
+
+    if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
+      mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
     } else {
-      mainWindow.show();
-    }
-
-    if (is.dev) {
-      mainWindow.webContents.openDevTools();
+      mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
     }
   });
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url);
-    return { action: "deny" };
-  });
 
-  if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
-  } else {
-    mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
-  }
 }
 
 app.whenReady().then(() => {

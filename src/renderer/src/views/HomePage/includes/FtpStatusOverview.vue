@@ -235,7 +235,9 @@ const statusClass = computed(() => {
 const disconnectFtp = async () => {
   await stopSyncing();
   await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
+  await displayFlash("Auto Re-Connect disabled in Settings!", "info");
   await disconnect(false, true);
+
 };
 
 </script>
@@ -243,3 +245,4 @@ const disconnectFtp = async () => {
 <style scoped>
 
 </style>
+z
