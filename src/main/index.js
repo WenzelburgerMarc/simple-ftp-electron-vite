@@ -15,6 +15,8 @@ function createWindow() {
     height: 720,
     resizable: true,
     maximizable: true,
+    title: "FTP Synchronizer",
+    frame: true,
     minWidth: 1280,
     minHeight: 720,
     show: false,
@@ -255,4 +257,8 @@ ipcMain.handle("sync-progress-start-loading", async (event) => {
 ipcMain.handle("sync-progress-stop-loading", async (event) => {
   if (!mainWindow.isDestroyed())
     event.sender.send("sync-progress-stop-loading");
+});
+
+ipcMain.handle("exit", async () => {
+  app.exit();
 });

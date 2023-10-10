@@ -19,6 +19,7 @@
                    :isOpen="isOpen"
                    class="mx-auto mt-3 w-11/12"
                    :active-route="isRouteName(item.activeRouteName).value" />
+
       <sidebar-divider class="mt-auto" />
       <SidebarItem :key="item"
                    v-for="item in arrSidebarItemsBottom"
@@ -30,7 +31,6 @@
 
 
   </div>
-
 
 
   <FlashMessage />
@@ -57,16 +57,7 @@ const router = useRouter();
 const darkModeOn = ref(document.documentElement.classList.contains("dark"));
 const darkModeIcon = computed(() => darkModeOn.value ? "bx-moon" : "bx-sun");
 const arrSidebarItemsBottom = [
-  {
-    iconClass: "bx-cog",
-    label: "Settings",
-    actionEvent: () => {
-      emit("settingsClicked")
-      if (isOpen.value)
-        toggleSidebar();
-    },
-    activeRouteName: ""
-  },
+
   {
     get iconClass() {
       return darkModeIcon.value;
@@ -74,7 +65,17 @@ const arrSidebarItemsBottom = [
     label: "Toggle Appearance",
     actionEvent: () => toggleDarkMode(),
     activeRouteName: ""
-  }
+  },
+  {
+    iconClass: "bx-log-out",
+    label: "Exit",
+    actionEvent: () => {
+      window.ipcRendererInvoke("exit");
+      if (isOpen.value)
+        toggleSidebar();
+    },
+    activeRouteName: ""
+  },
 ];
 
 
@@ -94,7 +95,17 @@ const arrSidebarItemsTop = [
         toggleSidebar();
     },
     activeRouteName: "logs"
-  }
+  },
+  {
+    iconClass: "bx-cog",
+    label: "Settings",
+    actionEvent: () => {
+      emit("settingsClicked");
+      if (isOpen.value)
+        toggleSidebar();
+    },
+    activeRouteName: ""
+  },
 ];
 
 const logoItem = {
