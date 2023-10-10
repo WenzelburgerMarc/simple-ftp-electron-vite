@@ -234,8 +234,12 @@ const statusClass = computed(() => {
 
 const disconnectFtp = async () => {
   await stopSyncing();
-  await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
-  await displayFlash("Auto Re-Connect disabled in Settings!", "info");
+  let autoReconnectValue = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+  if(autoReconnectValue){
+    await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
+    await displayFlash("Auto Re-Connect disabled in Settings!", "info");
+  }
+
   await disconnect(false, true);
 
 };
