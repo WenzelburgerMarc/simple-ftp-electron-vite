@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Checkbox Color">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/logsModalController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/settingsModalController.js" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Logs Modal&#10;Fix - Modal Controlling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,14 +114,6 @@
       <workItem from="1696573033216" duration="29403000" />
       <workItem from="1696834697569" duration="17561000" />
       <workItem from="1696922256180" duration="13154000" />
-    </task>
-    <task id="LOCAL-00025" summary="Fix - Breadcrumb.vue">
-      <option name="closed" value="true" />
-      <created>1696241231494</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1696241231494</updated>
     </task>
     <task id="LOCAL-00026" summary="Improve - Flash Message">
       <option name="closed" value="true" />
@@ -514,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696939497943</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Add - Logs Modal&#10;Fix - Modal Controlling">
+      <option name="closed" value="true" />
+      <created>1696942996584</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1696942996584</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +528,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - upload + download + sub directories&#10;Add - delete non finished upload/download if pause mode is selected&#10;Minor Bug Fixes" />
     <MESSAGE value="Fix - Sync + Reload Interval" />
     <MESSAGE value="Fix - Sync + Reload Interval + Client Reload" />
     <MESSAGE value="Fix - Only Allow to set new Ftp Sync Path if Pause Mode is enabled -&gt; TheFtpExplorer.vue" />
@@ -560,6 +552,7 @@
     <MESSAGE value="Fix - Check if ftp settings are set before connecting" />
     <MESSAGE value="Fix - Check if ftp settings are set before re-connecting&#10;Fix - Check if client path, ftp sync path, ftp credentials are set before connecting" />
     <MESSAGE value="Fix - Checkbox Color" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Checkbox Color" />
+    <MESSAGE value="Add - Logs Modal&#10;Fix - Modal Controlling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Logs Modal&#10;Fix - Modal Controlling" />
   </component>
 </project>
