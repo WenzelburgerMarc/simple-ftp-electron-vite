@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Flash Message Order on Connect">
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Auto Re-Connect disabled Info">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,15 +115,7 @@
       <workItem from="1696487049196" duration="25141000" />
       <workItem from="1696573033216" duration="29403000" />
       <workItem from="1696834697569" duration="17561000" />
-      <workItem from="1696922256180" duration="638000" />
-    </task>
-    <task id="LOCAL-00016" summary="Add - Server Explorer&#10;Fix - Design">
-      <option name="closed" value="true" />
-      <created>1695994184885</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1695994184885</updated>
+      <workItem from="1696922256180" duration="4407000" />
     </task>
     <task id="LOCAL-00017" summary="Fix - Design">
       <option name="closed" value="true" />
@@ -506,7 +501,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696922827385</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Add - Auto Re-Connect disabled Info">
+      <option name="closed" value="true" />
+      <created>1696922999111</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1696922999111</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +530,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Breadcrumb, set Sync Directory" />
     <MESSAGE value="Add - Upload Progress Bar + Fixed Uploading" />
     <MESSAGE value="Fix - Sync Slider options Transition Duration" />
     <MESSAGE value="Add - Start Syncing on Start up&#10;Add - Save Sync State after closing application" />
@@ -552,6 +554,7 @@
     <MESSAGE value="Fix - Do not Show delete File/Folder Buttons on Sync" />
     <MESSAGE value="Add - Loading Between Mode Switches" />
     <MESSAGE value="Fix - Flash Message Order on Connect" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Flash Message Order on Connect" />
+    <MESSAGE value="Add - Auto Re-Connect disabled Info" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Auto Re-Connect disabled Info" />
   </component>
 </project>

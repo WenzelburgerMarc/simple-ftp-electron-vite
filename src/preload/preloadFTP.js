@@ -3,6 +3,7 @@ import { ref } from "vue";
 import * as path from "path";
 import * as fs from "fs";
 import { ipcRenderer } from "electron";
+import { displayFlash } from "../renderer/src/js/flashMessageController";
 
 
 let uploadInProgress = ref(false);
@@ -248,6 +249,39 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   }
 };
 
+const getFoldersToDelete = async (clientSyncPath, ftpSyncPath) => {
+  try {
+    const itemNames = fs.readdirSync(clientSyncPath);
+    let foldersToDelete = [];
+
+    for (const itemName of itemNames) {
+      const localPath = path.join(clientSyncPath, itemName);
+      const serverPath = path.join(ftpSyncPath, itemName);
+      const localStats = fs.statSync(localPath);
+
+      let shouldDelete = false;
+
+      if (localStats.isDirectory()) {
+        const serverExists = await sftp.exists(serverPath);
+        if (serverExists) {
+
+          const subFilesToUpload = await getFilesToUpload(localPath, serverPath);
+          if (subFilesToUpload.length === 0) {
+            shouldDelete = true;
+          }
+        }
+        if (shouldDelete) {
+          foldersToDelete.push({ name: itemName, localPath, serverPath, type: "d", size: localStats.size });
+        }
+      }
+    }
+
+    return foldersToDelete;
+  } catch (error) {
+    console.error("Error in getFoldersToDelete:", error);
+    return [];
+  }
+}
 
 let currentFilesToUpload = [];
 const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
@@ -279,6 +313,20 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
         serverSize = await calculateDirectorySize(false, currentFilesToUpload);
 
         if (clientSize === serverSize) {
+          let deleteUploadedFilesOnCLient = await ipcRenderer.invoke("get-setting", "enableDeletingFilesAfterUpload");
+          if(deleteUploadedFilesOnCLient){
+            for(const file of currentFilesToUpload){
+              if(file.type === "f") {
+                fs.unlinkSync(file.localPath);
+              }
+            }
+            let foldersToDelete = await getFoldersToDelete(clientSyncPath, ftpSyncPath);
+            console.log("foldersToDelete: ", foldersToDelete);
+            for(const folder of foldersToDelete){
+              fs.rmdirSync(folder.localPath, { recursive: true });
+            }
+            await displayFlash("Files deleted on client after upload", "success")
+          }
           await listFilesAndDirectories();
           currentFilesToUpload = [];
           uploadInProgress.value = false;
@@ -397,7 +445,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   }
 
   let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval") || 10000;
-  // get interval as number
+
   interval = parseInt(interval);
   interval += 250;
   console.log("interval: ", interval);

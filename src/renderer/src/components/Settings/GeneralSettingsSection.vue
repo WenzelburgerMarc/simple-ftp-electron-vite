@@ -1,20 +1,34 @@
 <template>
   <div class="w-full flex flex-col space-y-2 justify-start items-start">
     <div class="w-full flex justify-between items-start">
-      <TitleComponent :title-text="'General Settings'" :size="'medium'" />
+      <TitleComponent :title-text="'General Settings'"
+                      :size="'medium'" />
       <IconButtonComponent v-if="props.showModal"
                            :emit-name="'closeSettings'"
                            :icon="['fas', 'xmark']"
                            :btn-class="'z-20 close text-xl flex justify-center items-center'"
                            @closeSettings="closeModal" />
     </div>
-    <CheckboxComponent :id="'enableAutoUpload'" :model-value="enableAutoStart" @update:modelValue="updateEnableAutoStart" :label="'Enable Auto-Start'" />
-    <CheckboxComponent :id="'enableAutoReconnect'" :model-value="enableAutoReconnect" @update:modelValue="updateEnableAutoReconnect" :label="'Enable Auto-Reconnect on Start & Connection Loss'" />
-    <LabelInputComponent :model-value="autoSyncInterval" @update:modelValue="updateSyncInterval"
+    <CheckboxComponent :id="'enableAutoUpload'"
+                       :model-value="enableAutoStart"
+                       @update:modelValue="updateEnableAutoStart"
+                       :label="'Enable Auto-Start'" />
+    <CheckboxComponent :id="'enableAutoReconnect'"
+                       :model-value="enableAutoReconnect"
+                       @update:modelValue="updateEnableAutoReconnect"
+                       :label="'Enable Auto-Reconnect on Start-Up & Connection Loss'" />
+    <CheckboxComponent :id="'enableDeletingFilesAfterUpload'"
+                       :model-value="enableDeletingFilesAfterUpload"
+                       @update:modelValue="updateEnableDeletingFilesAfterUpload"
+                       :label="'Enable deleting Files on Client after Upload'" />
+
+    <LabelInputComponent :model-value="autoSyncInterval"
+                         @update:modelValue="updateSyncInterval"
                          :label="'Auto-Sync Interval in ms'"
                          :type="'number'"
                          :placeholder="'10000'" />
-    <LabelInputComponent :model-value="autoReloadFtpInterval" @update:modelValue="updateAutoReloadFtpInterval"
+    <LabelInputComponent :model-value="autoReloadFtpInterval"
+                         @update:modelValue="updateAutoReloadFtpInterval"
                          :label="'Auto-Reload FTP Files Interval in ms'"
                          :type="'number'"
                          :placeholder="'60000'" />
@@ -51,14 +65,23 @@ const selectedPath = ref("");
 const enableAutoStart = ref(false);
 // eslint-disable-next-line vue/no-dupe-keys
 const enableAutoReconnect = ref(false);
+// eslint-disable-next-line vue/no-dupe-keys
+const enableDeletingFilesAfterUpload = ref(false);
+
 
 const props = defineProps({
   showModal: Boolean
 });
-const emit = defineEmits(['closeModal']);
+const emit = defineEmits(["closeModal"]);
 
 const updateEnableAutoStart = (newValue) => {
   enableAutoStart.value = newValue;
+  saveSettings();
+};
+
+const updateEnableDeletingFilesAfterUpload = (newValue) => {
+  disconnect(true);
+  enableDeletingFilesAfterUpload.value = newValue;
   saveSettings();
 };
 
@@ -82,9 +105,8 @@ const handleSelectDirectory = (path) => {
 };
 
 
-
 const closeModal = () => {
-  emit('closeModal');
+  emit("closeModal");
 };
 
 
@@ -112,17 +134,18 @@ const loadSettings = async () => {
   autoSyncInterval.value = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
   selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
   enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+  enableDeletingFilesAfterUpload.value = await window.ipcRendererInvoke("get-setting", "enableDeletingFilesAfterUpload");
   stopLoading();
 };
 
 const validateSettings = () => {
 
-  if(isNaN(autoSyncInterval.value) && typeof autoSyncInterval.value !== "number"){
+  if (isNaN(autoSyncInterval.value) && typeof autoSyncInterval.value !== "number") {
     displayFlash("Auto-Sync Interval must be numbers", "error");
     return false;
   }
 
-  if(isNaN(autoReloadFtpInterval.value) && typeof autoReloadFtpInterval.value !== "number"){
+  if (isNaN(autoReloadFtpInterval.value) && typeof autoReloadFtpInterval.value !== "number") {
     displayFlash("Auto-Reload FTP Files Interval must be numbers", "error");
     return false;
   }
@@ -138,11 +161,11 @@ const saveSettings = async () => {
     startLoading();
     try {
       window.ipcRendererInvoke("unwatch-client-directory");
-    }catch (e) {
+    } catch (e) {
       console.error(e);
     }
 
-    if(!validateSettings()){
+    if (!validateSettings()) {
       stopLoading();
       return;
     }
@@ -153,6 +176,7 @@ const saveSettings = async () => {
     await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
     await window.ipcRendererInvoke("restart-ftp-reload-interval");
     await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", enableAutoReconnect.value);
+    await window.ipcRendererInvoke("set-setting", "enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
     stopLoading();
     displayFlash("Settings Saved", "success");
   } catch (e) {

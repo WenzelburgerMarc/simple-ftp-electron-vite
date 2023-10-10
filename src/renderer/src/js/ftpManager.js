@@ -70,6 +70,8 @@ export const connect = (ftpSettings, justTest = false) => {
 export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage = false) => {
   try {
     startLoading();
+    let previousConnectionStatus = connected.value;
+
     await window.ftp.disconnectFTP();
     connected.value = window.ftp.getIsConnected();
     if (deleteSyncModeInStore) {
@@ -77,7 +79,10 @@ export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage
     }
     stopLoading();
     if (hideFlashMessage) return;
-    displayFlash("Disconnected from FTP Server", "success");
+    if(previousConnectionStatus) {
+      displayFlash("Disconnected from FTP Server", "success");
+    }
+
   } catch (Exception) {
     stopLoading();
     if (hideFlashMessage) return;
