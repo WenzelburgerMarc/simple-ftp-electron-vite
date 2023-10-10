@@ -90,7 +90,7 @@ const arrSidebarItemsTop = [
     label: "Logs",
     actionEvent: () => {
       console.log("go to logs");
-      //router.push({name: 'Logs'});
+      // open modal
       if (isOpen.value)
         toggleSidebar();
     },
