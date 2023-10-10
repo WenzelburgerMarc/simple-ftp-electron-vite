@@ -3,10 +3,14 @@ import SidebarContainer from './SidebarContainer.vue';
 import { ref, watch } from 'vue';
 let toggledSidebar = ref(false);
 
-const emits = defineEmits(['settingsClicked']);
+const emits = defineEmits(['settingsClicked', 'logsClicked']);
 
 const settingsClicked = () => {
   emits('settingsClicked');
+};
+
+const logsClicked = () => {
+  emits('logsClicked');
 };
 
 watch(() => toggledSidebar.value, () => {
@@ -20,7 +24,7 @@ watch(() => toggledSidebar.value, () => {
 
 <template>
     <div>
-        <SidebarContainer @settings-clicked="settingsClicked" @toggledSidebarEvent="toggledSidebar = !toggledSidebar" class="z-30" />
+        <SidebarContainer @logs-clicked="logsClicked" @settings-clicked="settingsClicked" @toggledSidebarEvent="toggledSidebar = !toggledSidebar" class="z-30" />
     </div>
 </template>
 

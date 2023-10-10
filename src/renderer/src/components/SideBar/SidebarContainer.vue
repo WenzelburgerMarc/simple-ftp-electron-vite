@@ -49,7 +49,7 @@ import { ref, computed } from "vue";
 
 let isOpen = ref(false);
 
-const emit = defineEmits(["toggledSidebarEvent", "settingsClicked"]);
+const emit = defineEmits(["toggledSidebarEvent", "settingsClicked", "logsClicked"]);
 
 const router = useRouter();
 
@@ -90,7 +90,7 @@ const arrSidebarItemsTop = [
     label: "Logs",
     actionEvent: () => {
       console.log("go to logs");
-      // open modal
+      emit("logsClicked");
       if (isOpen.value)
         toggleSidebar();
     },

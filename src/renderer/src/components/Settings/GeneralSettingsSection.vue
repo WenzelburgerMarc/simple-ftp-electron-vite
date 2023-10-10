@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col space-y-2 justify-start items-start">
-    <div class="w-full flex justify-between items-start">
+    <div class="w-full flex justify-between items-center">
       <TitleComponent :title-text="'General Settings'"
                       :size="'medium'" />
       <IconButtonComponent v-if="props.showModal"

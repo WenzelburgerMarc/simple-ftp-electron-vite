@@ -2,24 +2,36 @@
 import TheSidebar from "@/components/SideBar/TheSidebar.vue";
 import Loader from "../components/Loader.vue";
 import SettingsModal from "../components/Settings/SettingsModal.vue";
-import { isModalVisible, updateModalVisibility, connect, openModal } from "@/js/ftpManager.js";
+import { connect } from "@/js/ftpManager.js";
+import LogsModal from "../components/Logs/LogsModal.vue";
+import {isSettingsModalVisible, openSettingsModal, updateSettingsModalVisibility } from "../js/settingsModalController";
+import {isLogsModalVisible, openLogsModal, updateLogsModalVisibility} from "../js/logsModalController";
 
 const toggleSettingsModal = () => {
-  openModal();
+  updateLogsModalVisibility(false);
+  openSettingsModal();
 };
+
+const toggleLogsModal = () => {
+  updateSettingsModalVisibility(false);
+  openLogsModal();
+};
+
 </script>
 
 <template>
   <div class="overflow-hidden">
     <loader />
-    <TheSidebar @settings-clicked="toggleSettingsModal" />
+    <TheSidebar @settings-clicked="toggleSettingsModal" @logs-clicked="toggleLogsModal" />
 
     <div class="main-content-container w-[calc(100vw-70px)]  min-h-screen p-5 ml-5">
       <div class="w-full h-full flex flex-col justify-start items-start">
-        <SettingsModal :showModal="isModalVisible"
+        <SettingsModal :showModal="isSettingsModalVisible"
                        @connectToFTP="connect"
-                       @update:showModal="updateModalVisibility"
+                       @update:showModal="updateSettingsModalVisibility"
         />
+        <logs-modal :showModal="isLogsModalVisible"
+                    @update:showModal="updateLogsModalVisibility" />
         <slot></slot>
       </div>
 

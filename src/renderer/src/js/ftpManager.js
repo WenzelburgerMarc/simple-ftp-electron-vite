@@ -2,20 +2,12 @@ import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
 
-export const isModalVisible = ref(false);
+
 export const connected = ref(false);
 export const fileList = reactive([]);
 export const currentDir = ref(null);
 
 export const currentSyncMode = ref();
-
-export const openModal = () => {
-  isModalVisible.value = true;
-};
-
-export const updateModalVisibility = (newVisibility) => {
-  isModalVisible.value = newVisibility;
-};
 
 export const setIsConnected = (value) => {
   connected.value = value;
