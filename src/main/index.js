@@ -6,9 +6,11 @@ import { join } from "path";
 import * as path from "path";
 import * as fs from "fs";
 
+let mainWindow = null;
+
 // === WINDOW CREATION FUNCTION ===
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     resizable: true,
@@ -79,6 +81,7 @@ app.on("window-all-closed", () => {
 // === ELECTRON STORE ===
 const Store = require("electron-store");
 const store = new Store();
+
 
 // === IPC COMMUNICATION: GENERAL ===
 ipcMain.handle("get-auto-start-item-setting", () => {
@@ -179,7 +182,8 @@ let intervalId = null;
 ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
 
-    if (filename) {
+
+    if (filename && !mainWindow.isDestroyed()) {
       event.sender.send("file-changed", { eventType });
     }
   });
@@ -187,7 +191,8 @@ ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
   if (intervalId) clearInterval(intervalId);
 
   intervalId = setInterval(() => {
-    event.sender.send("file-changed", { eventType: "change" });
+    if (!mainWindow.isDestroyed())
+      event.sender.send("file-changed", { eventType: "change" });
   }, 1000);
 });
 
@@ -196,7 +201,8 @@ ipcMain.handle("unwatch-client-directory", async () => {
 });
 
 ipcMain.handle("restart-ftp-reload-interval", async (event) => {
-  event.sender.send("restart-ftp-reload-interval");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("restart-ftp-reload-interval");
 });
 
 ipcMain.handle("open-selected-client-directory", async (event, path) => {
@@ -225,23 +231,28 @@ ipcMain.handle("delete-client-directory", async (event, path) => {
 });
 
 ipcMain.handle("sync-progress-end", async (event) => {
-  event.sender.send("sync-progress-end");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("sync-progress-end");
 });
 
 ipcMain.handle("sync-progress-pause", async (event) => {
-  event.sender.send("sync-progress-pause");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("sync-progress-pause");
 });
 
 
 ipcMain.handle("sync-progress-start", async (event) => {
-  event.sender.send("sync-progress-start");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("sync-progress-start");
 
 });
 
 ipcMain.handle("sync-progress-start-loading", async (event) => {
-  event.sender.send("sync-progress-start-loading");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("sync-progress-start-loading");
 });
 
 ipcMain.handle("sync-progress-stop-loading", async (event) => {
-  event.sender.send("sync-progress-stop-loading");
+  if (!mainWindow.isDestroyed())
+    event.sender.send("sync-progress-stop-loading");
 });
