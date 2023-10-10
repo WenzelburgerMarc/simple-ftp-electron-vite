@@ -32,9 +32,9 @@
       <td class="flex items-center px-6 py-4 space-x-3" :class="[showDeleteButtons ? 'active-delete-buttons' : 'inactive-delete-buttons', 'transition-all duration-300']">
 
         <a v-if="file.type !== 'd'" href="#"
-           class="font-medium ml-auto text-red-600 hover:text-red-700"
+           class="font-medium flex-grow text-red-600 truncate hover:text-red-700"
             @click.prevent="$emit('delete-file', file)">Delete File</a>
-        <a v-else href="#" class="font-medium ml-auto text-red-600 hover:text-red-700"
+        <a v-else href="#" class="font-medium flex-grow truncate text-red-600 hover:text-red-700"
            @click.prevent="$emit('delete-folder', file)">Delete Folder</a>
       </td>
     </tr>
