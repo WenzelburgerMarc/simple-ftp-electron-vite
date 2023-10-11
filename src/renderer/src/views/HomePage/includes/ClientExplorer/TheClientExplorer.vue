@@ -136,19 +136,41 @@ const openSelectedClientDirectory = async () => {
 };
 
 const deleteFile = async (file) => {
-  await window.ipcRendererInvoke("delete-client-file", currentDir.value + '/' + file.name)
-    .then(response => {
-      if(response.success) {
-        displayFlash("Deleted file", "success");
-        listFiles();
-      } else {
-        displayFlash(response.message, "error");
+  const filePath = currentDir.value + '/' + file.name;
+
+  try {
+    const response = await window.ipcRendererInvoke("delete-client-file", filePath);
+    if (response.success) {
+      displayFlash("Deleted file", "success");
+      await listFiles();
+
+
+      let log = {
+        id: window.api.getUUID(),
+        type: file.name + " Deleted",
+        open: false,
+        totalFiles: 1,
+
+        totalSize: file.size,
+        destination: currentDir.value + "/",
+        progress: "-",
+        files: null
+      };
+
+      try {
+        await window.ipcRendererInvoke("add-log", log);
+      } catch (error) {
+        console.error("Error in deleteFile log:", error);
       }
-    })
-    .catch(error => displayFlash(error.message, "error"));
 
-
+    } else {
+      displayFlash(response.message, "error");
+    }
+  } catch (error) {
+    displayFlash(error.message, "error");
+  }
 };
+
 
 const deleteFolder = async (folder) => {
   await window.ipcRendererInvoke("delete-client-directory", currentDir.value + '/' + folder.name)

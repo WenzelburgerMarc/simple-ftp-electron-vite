@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Cancel Action Log">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,15 +116,7 @@
       <workItem from="1696922256180" duration="13154000" />
       <workItem from="1697008735202" duration="103000" />
       <workItem from="1697008848360" duration="18021000" />
-      <workItem from="1697027403581" duration="5224000" />
-    </task>
-    <task id="LOCAL-00033" summary="Fix - Drag N Drop Overwrite If Exists">
-      <option name="closed" value="true" />
-      <created>1696253668712</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1696253668712</updated>
+      <workItem from="1697027403581" duration="5592000" />
     </task>
     <task id="LOCAL-00034" summary="Fix - Upload">
       <option name="closed" value="true" />
@@ -514,7 +502,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697031147240</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions">
+      <option name="closed" value="true" />
+      <created>1697032675607</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1697032675607</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +531,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Change Interval applies in Realtime to the sync" />
     <MESSAGE value="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash" />
     <MESSAGE value="Add - Reconnect on Internet Connection Failure" />
     <MESSAGE value="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type" />
@@ -560,6 +555,7 @@
     <MESSAGE value="Fix - Logs Order" />
     <MESSAGE value="Add - Pagination" />
     <MESSAGE value="Add - Cancel Action Log" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Cancel Action Log" />
+    <MESSAGE value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
   </component>
 </project>
