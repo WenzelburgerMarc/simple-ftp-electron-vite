@@ -5,7 +5,7 @@
   <transition name="modal-fade">
     <div v-if="props.showModal"
          class="z-50 fixed w-[calc(100vw-100px)] left-0 max-w-5xl inset-0 flex items-center justify-center mx-auto pointer-events-none">
-      <div class="modal w-full bg-gray-100 shadow-md p-3 rounded-md modal-content pointer-events-auto">
+      <div class="modal relative w-full bg-gray-100 shadow-md p-3 rounded-md modal-content pointer-events-auto">
         <slot></slot>
       </div>
     </div>

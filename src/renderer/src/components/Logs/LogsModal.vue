@@ -1,10 +1,14 @@
 <template>
   <ModalComponent @closeModal="closeModal"
                   :show-modal="showModal">
-    <div class="w-full flex flex-col space-y-4 justify-start items-center ">
+    <div class="w-full flex flex-col space-y-4 justify-start items-center relative">
       <div class="w-full flex justify-between items-center">
-        <TitleComponent :title-text="'Logs'"
-                        :size="'medium'" />
+
+          <TitleComponent :title-text="'Logs'"
+                          :size="'medium'" />
+
+
+
         <IconButtonComponent
           v-if="props.showModal"
           :emit-name="'closeSettings'"
@@ -13,7 +17,7 @@
           @closeSettings="closeModal"
         />
       </div>
-      <div class="grid grid-cols-6 gap-0 w-full text-sm text-left text-gray-500 rounded-lg overflow-hidden ">
+      <div class="grid grid-cols-6 gap-0 w-full text-sm text-left text-gray-500 rounded-lg overflow-hidden pb-10">
 
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Type</div>
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Total Files</div>
@@ -23,14 +27,14 @@
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200"></div>
 
 
-        <template v-for="log in logList"
+        <template v-for="log in paginatedLogs"
                   :key="log.id">
           <div
             @click="toggleLogDetails(log.id)"
             :class="[
                 'col-span-8 grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300',
                 !log.open ? '' : 'bg-gray-50', allowExpand ? 'cursor-pointer' : 'cursor-default',
-                logList[logList.length - 1] !== log ? 'border-b border-gray-400' : ''
+                paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''
               ]"
           >
 
@@ -82,8 +86,18 @@
             </div>
           </div>
         </template>
+
       </div>
     </div>
+    <div class="w-full flex justify-center items-center space-x-2" v-if="logList.length > itemsPerPage">
+      <button @click="prevPage" :disabled="currentPage <= 1" class="px-1 text-white bg-blue-600 rounded"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
+
+      <!-- Nächste Seite Button -->
+      <button @click="nextPage" :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
+              class="px-1 text-white bg-blue-600 rounded"><font-awesome-icon :icon="['fas', 'chevron-right']" /></button>
+    </div>
+    <LabelComponent class="absolute bottom-3 right-3" :label-text="'Page ' + currentPage + ' of ' + (Math.ceil(logList.length / itemsPerPage))"
+    />
   </ModalComponent>
 </template>
 <script setup>
@@ -92,12 +106,26 @@ import { toRefs, defineProps, defineEmits, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
-import { nextTick, onMounted, onUnmounted } from "vue";
+import { nextTick, onMounted, onUnmounted, computed } from "vue";
+import LabelComponent from "../form/LabelComponent.vue";
 
 // Setup
 const props = defineProps({
   showModal: Boolean
 });
+
+const nextPage = () => {
+  if (currentPage.value * itemsPerPage.value < logList.value.length) {
+    currentPage.value += 1;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value -= 1;
+  }
+};
+
 
 const emits = defineEmits(["update:showModal"]);
 
@@ -106,6 +134,16 @@ const { showModal } = toRefs(props);
 const closeModal = () => {
   emits("update:showModal", false);
 };
+
+const currentPage = ref(1);
+const itemsPerPage = ref(10);
+
+const paginatedLogs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return logList.value.slice(start, end);
+});
+
 
 const logList = ref([]);
 const allowExpand = ref(true);
@@ -150,23 +188,6 @@ const deleteLog = async (id) => {
 onUnmounted(() => {
   window.ipcRendererOff("log-changed");
 });
-
-// const uploadList = ref([
-//   {
-//     id: 1,
-//     type: "Upload",
-//     open: false,
-//     status: "Completed",
-//     totalFiles: 10,
-//     totalSize: 1000000,
-//     destination: "/path/to/destination",
-//     progress: "100%",
-//     files: [
-//       { path: "test/path", name: "file1.txt", size: 100000, type: "txt" },
-//       { path: "test/path2", name: "file2.jpg", size: 200000, type: "jpg" }
-//     ]
-//   }
-// ]);
 
 const toggleLogDetails = (id) => {
   if (!allowExpand.value) return;

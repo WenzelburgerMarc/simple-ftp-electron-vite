@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Delete Logs">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Logs Order">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,15 +116,8 @@
       <workItem from="1696834697569" duration="17561000" />
       <workItem from="1696922256180" duration="13154000" />
       <workItem from="1697008735202" duration="103000" />
-      <workItem from="1697008848360" duration="16183000" />
-    </task>
-    <task id="LOCAL-00030" summary="Add - Sync Switch Button">
-      <option name="closed" value="true" />
-      <created>1696248415336</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1696248415336</updated>
+      <workItem from="1697008848360" duration="18021000" />
+      <workItem from="1697027403581" duration="256000" />
     </task>
     <task id="LOCAL-00031" summary="-">
       <option name="closed" value="true" />
@@ -508,7 +503,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697025324060</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Fix - Logs Order">
+      <option name="closed" value="true" />
+      <created>1697025628250</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1697025628250</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +532,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Reset Sync Mode if new Client Path is selected" />
     <MESSAGE value="Fix - Test Ftp Connection Action" />
     <MESSAGE value="Refactor - Connect Method in ftpManager.js" />
     <MESSAGE value="Fix - Change Interval applies in Realtime to the sync" />
@@ -554,6 +556,7 @@
     <MESSAGE value="Add - Logs Design" />
     <MESSAGE value="Fix - logs design&#10;Add - Logs Functionality" />
     <MESSAGE value="Add - Delete Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Delete Logs" />
+    <MESSAGE value="Fix - Logs Order" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Logs Order" />
   </component>
 </project>
