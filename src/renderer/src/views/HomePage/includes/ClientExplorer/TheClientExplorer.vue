@@ -4,7 +4,7 @@ import TitleComponent from "../../../../components/form/TitleComponent.vue";
 import PanelComponent from "../../../../components/form/PanelComponent.vue";
 import { onMounted, ref } from "vue";
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
-import FileList from "../../../../components/form/FileList.vue";
+import FileList from "../../../../components/FileList.vue";
 import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";

@@ -91,13 +91,44 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   }
 };
 
+import { v4 as uuidv4 } from "uuid";
 
-export const deleteFile = async (file) => {
+export const deleteFile = async (filePath) => {
   if (!isConnected) {
     return;
   }
 
-  await sftp.delete(file);
+  let destPathArr = filePath.split("/");
+  destPathArr.pop();
+  let destPath = destPathArr.join("/");
+
+  try {
+    const fileStats = await sftp.stat(filePath);
+
+    console.log("Attempting to delete file:", filePath);
+    await sftp.delete(filePath);
+
+    let log = {
+      id: uuidv4(),
+      type: filePath.split("/").pop() + " Deleted",
+      open: false,
+      totalFiles: 1,
+      totalSize: fileStats.size,
+      destination: destPath + "/",
+      progress: "-",
+      files: null
+    };
+
+    try {
+      await ipcRenderer.invoke("add-log", log);
+    } catch (error) {
+      console.error("Error in deleteFile log:", error);
+    }
+
+  } catch (error) {
+    console.error("An error occurred while trying to delete the file:", error);
+
+  }
 };
 
 export const createnewFolder = async (selectedDirectory) => {
@@ -140,7 +171,6 @@ export const calculateDirectorySize = async (isLocal, files) => {
   const calculateSizeRecursively = async (isLocal, currentFile) => {
     try {
       if (isLocal) {
-
 
 
         const filePath = currentFile.localPath;
@@ -265,9 +295,9 @@ const deleteFolders = async (clientSyncPath) => {
   });
 
   foldersToDelete = foldersToDelete.filter((folder, index, self) =>
-    index === self.findIndex((t) => (
-      t.localPath === folder.localPath
-    ))
+      index === self.findIndex((t) => (
+        t.localPath === folder.localPath
+      ))
   );
 
 
@@ -280,15 +310,15 @@ const deleteFolders = async (clientSyncPath) => {
       const items = fs.readdirSync(folder.localPath);
       if (items.length > 0) {
         foldersToDelete = foldersToDelete.filter((f) => f.name !== folder.name);
-      }else{
-        if(folder.localPath !== clientSyncPath)
-        fs.rmdirSync(folder.localPath, { recursive: true });
+      } else {
+        if (folder.localPath !== clientSyncPath)
+          fs.rmdirSync(folder.localPath, { recursive: true });
       }
     }
   }
 
 
-}
+};
 
 let currentFilesToUpload = [];
 const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
@@ -322,14 +352,14 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
 
         if (clientSize === serverSize) {
           let deleteUploadedFilesOnCLient = await ipcRenderer.invoke("get-setting", "enableDeletingFilesAfterUpload");
-          if(deleteUploadedFilesOnCLient){
-            for(const file of currentFilesToUpload){
-              if(file.type === "f") {
+          if (deleteUploadedFilesOnCLient) {
+            for (const file of currentFilesToUpload) {
+              if (file.type === "f") {
                 fs.unlinkSync(file.localPath);
               }
             }
             await deleteFolders(clientSyncPath);
-            await displayFlash("Files deleted on client after upload", "success")
+            await displayFlash("Files deleted on client after upload", "success");
           }
           await listFilesAndDirectories();
           currentFilesToUpload = [];
@@ -467,7 +497,6 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
       await startSyncing(mode, clientSyncPath, ftpSyncPath);
 
     }
-
 
 
     if (mode === "upload") {

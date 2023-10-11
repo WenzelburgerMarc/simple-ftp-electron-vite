@@ -32,7 +32,7 @@
           <div
             :class="[
                 'col-span-8 grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300',
-                !log.open ? '' : 'bg-gray-50', allowExpand ? 'cursor-pointer' : 'cursor-default',
+                !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default',
                 paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''
               ]"
           >
@@ -50,7 +50,7 @@
                                        icon-class="text-red-500"
                                        :btn-class="'z-50 close text-xl flex justify-center items-center'"
                 />
-                <icon-button-component @click="toggleLogDetails(log.id)" v-if="allowExpand"
+                <icon-button-component @click="toggleLogDetails(log.id)" v-if="allowExpand && log.files"
                                        :icon="['fas', 'chevron-down']"
                                        :icon-class="[
                     log.open ? 'rotate-180' : '',
@@ -194,7 +194,7 @@ onUnmounted(() => {
 const toggleLogDetails = (id) => {
   if (!allowExpand.value) return;
   logList.value.forEach(async (log) => {
-    if (log.id === id) {
+    if (log.id === id && log.files) {
       log.open = !log.open;
       await nextTick();
       const element = document.querySelector(`.accordion-content[data-id="${id}"]`);

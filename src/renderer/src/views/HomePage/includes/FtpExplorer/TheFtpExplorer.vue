@@ -15,7 +15,7 @@ import {
 
 } from "@/js/ftpManager.js";
 import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
-import FileList from "../../../../components/form/FileList.vue";
+import FileList from "../../../../components/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
 import SetFtpFolderNameModal from "./setFtpFolderNameModal.vue";
