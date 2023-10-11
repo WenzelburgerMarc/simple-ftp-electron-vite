@@ -185,12 +185,12 @@ const checkFtpProgress = async () => {
 
       let log = {
         id: logID.value,
-        type: currentType.value,
+        type: progressPaused.value ? currentType.value+' Canceled' : currentType.value,
         open: false,
         totalFiles: currentProcessingFiles.value.length,
         totalSize: size,
         destination: currentType.value === "Upload" ? ftpSyncPath : clientSyncPath,
-        progress: isNaN(progress) ? "100%" : progress + "%" || "0%",
+        progress: progressPaused.value ? '-' : isNaN(progress) ? "100%" : progress + "%" || "0%",
         files: files
       };
 
@@ -201,6 +201,10 @@ const checkFtpProgress = async () => {
       }
 
 
+    }
+
+    if(progressPaused.value){
+      clearInterval(intervalID)
     }
 
   }, 50);
@@ -216,6 +220,7 @@ window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) =>
     logID.value = await window.api.getUUID();
     idAlreadySet = true;
   }
+  progressPaused.value = false;
   shortlyStarted.value = true;
   currentProcessingFiles.value = currentFiles;
   currentType.value = type;
@@ -228,25 +233,33 @@ window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) =>
 
 });
 
+let progressPaused = ref(false);
 window.ipcRendererOn("sync-progress-pause", async () => {
 
   syncProgress.value = 0;
   idAlreadySet = false;
-
+ progressPaused.value = true;
   console.log("sync-progress-pause");
-  if (intervalID)
-    clearInterval(intervalID);
+  if (intervalID){
+    setTimeout(() => {
+      clearInterval(intervalID);
+    }, 500);
+  }
+
 
   setTimeout(() => {
     finishedSyncing.value = false;
     showProgress.value = false;
+
   }, 500);
 
 });
 
 window.ipcRendererOn("sync-progress-end", async () => {
   console.log("sync-progress-end");
-
+  if(progressPaused.value){
+    return;
+  }
   if (syncProgress.value >= 100) {
     idAlreadySet = false;
     finishedSyncing.value = true;

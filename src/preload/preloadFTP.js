@@ -486,9 +486,11 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     } else if (mode === "") {
       setSyncMode("");
       console.log("Syncing paused");
-      await stopSyncing();
       await ipcRenderer.invoke("sync-progress-pause");
+      await stopSyncing();
+
       await clearFilesAfterModeSwitch();
+
       if (!firstRun)
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else {
@@ -512,7 +514,7 @@ export const stopSyncing = async () => {
 export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
   try {
 
-    if (deleteOnlyClient) {
+    if (deleteOnlyClient || (!deleteOnlyClient && !deleteOnlyServer)) {
       for (const file of currentFilesToUpload) {
         try {
           if (file.type === "f") {
@@ -529,7 +531,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
       currentFilesToUpload = [];
 
     }
-    if (deleteOnlyServer) {
+    if (deleteOnlyServer || (!deleteOnlyClient && !deleteOnlyServer)) {
       for (const file of currentDownloadFiles) {
         try {
           if (file.type === "-" || file.type === "f") {

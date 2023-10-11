@@ -30,7 +30,6 @@
         <template v-for="log in paginatedLogs"
                   :key="log.id">
           <div
-            @click="toggleLogDetails(log.id)"
             :class="[
                 'col-span-8 grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300',
                 !log.open ? '' : 'bg-gray-50', allowExpand ? 'cursor-pointer' : 'cursor-default',
@@ -38,20 +37,20 @@
               ]"
           >
 
-            <div class="col-span-1 p-1 truncate">{{ log.type }}</div>
-            <div class="col-span-1 p-1 truncate">{{ log.totalFiles }}</div>
-            <div class="col-span-1 p-1 truncate">{{ formatSize(log.totalSize) }}</div>
-            <div class="col-span-1 p-1 truncate">{{ log.destination }}</div>
-            <div class="col-span-1 p-1 truncate">{{ log.progress }}</div>
-            <div class="col-span-1 p-1 truncate">
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.type }}</div>
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.totalFiles }}</div>
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ formatSize(log.totalSize) }}</div>
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.destination }}</div>
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.progress }}</div>
+            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">
               <div class="flex justify-center items-center space-x-2">
                 <icon-button-component :icon="['fas', 'trash-alt']"
                                        emit-name="deleteLog"
                                        @deleteLog="deleteLog(log.id)"
                                        icon-class="text-red-500"
-                                       :btn-class="'z-20 close text-xl flex justify-center items-center'"
+                                       :btn-class="'z-50 close text-xl flex justify-center items-center'"
                 />
-                <icon-button-component v-if="allowExpand"
+                <icon-button-component @click="toggleLogDetails(log.id)" v-if="allowExpand"
                                        :icon="['fas', 'chevron-down']"
                                        :icon-class="[
                     log.open ? 'rotate-180' : '',
@@ -96,7 +95,7 @@
       <button @click="nextPage" :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
               class="px-1 text-white bg-blue-600 rounded"><font-awesome-icon :icon="['fas', 'chevron-right']" /></button>
     </div>
-    <LabelComponent class="absolute bottom-3 right-3" :label-text="'Page ' + currentPage + ' of ' + (Math.ceil(logList.length / itemsPerPage))"
+    <LabelComponent class="absolute bottom-3 right-3" :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
   </ModalComponent>
 </template>
@@ -170,6 +169,9 @@ onMounted(async() => {
 
   window.ipcRendererOn("sync-progress-pause", async () => {
     allowExpand.value = true;
+
+
+
   });
 
   window.ipcRendererOn("sync-progress-start", async () => {

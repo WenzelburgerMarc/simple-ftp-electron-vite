@@ -19,7 +19,7 @@
     <tbody>
     <tr v-for="file in fileList"
         :key="file.name"
-        class="bg-white border-b border-gray-200 hover:bg-gray-50"
+        class="bg-white w-full  border-b border-gray-200 hover:bg-gray-50"
         >
       <td class="px-6 py-4" @click="handleClick(file)">
         <font-awesome-icon class="text-base mr-2"

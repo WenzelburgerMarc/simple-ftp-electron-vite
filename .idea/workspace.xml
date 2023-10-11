@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Logs Order">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Pagination">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/FileList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,15 +119,7 @@
       <workItem from="1696922256180" duration="13154000" />
       <workItem from="1697008735202" duration="103000" />
       <workItem from="1697008848360" duration="18021000" />
-      <workItem from="1697027403581" duration="256000" />
-    </task>
-    <task id="LOCAL-00031" summary="-">
-      <option name="closed" value="true" />
-      <created>1696248539342</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1696248539342</updated>
+      <workItem from="1697027403581" duration="3718000" />
     </task>
     <task id="LOCAL-00032" summary="Upload Sync">
       <option name="closed" value="true" />
@@ -511,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697025628250</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Add - Pagination">
+      <option name="closed" value="true" />
+      <created>1697027683106</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1697027683107</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +534,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Test Ftp Connection Action" />
     <MESSAGE value="Refactor - Connect Method in ftpManager.js" />
     <MESSAGE value="Fix - Change Interval applies in Realtime to the sync" />
     <MESSAGE value="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash" />
@@ -557,6 +558,7 @@
     <MESSAGE value="Fix - logs design&#10;Add - Logs Functionality" />
     <MESSAGE value="Add - Delete Logs" />
     <MESSAGE value="Fix - Logs Order" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Logs Order" />
+    <MESSAGE value="Add - Pagination" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Pagination" />
   </component>
 </project>
