@@ -111,7 +111,7 @@ const logList = ref([]);
 const allowExpand = ref(true);
 
 const updateLogs = (updatedLogs) => {
-  logList.value = updatedLogs;
+  logList.value = updatedLogs.reverse();
 };
 
 onMounted(async() => {
