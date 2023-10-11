@@ -40,14 +40,24 @@
             <div class="col-span-1 p-1 truncate">{{ log.destination }}</div>
             <div class="col-span-1 p-1 truncate">{{ log.progress }}</div>
             <div class="col-span-1 p-1 truncate">
-              <icon-button-component v-if="allowExpand"
-                :icon="['fas', 'chevron-down']"
-                :icon-class="[
+              <div class="flex justify-center items-center space-x-2">
+                <icon-button-component :icon="['fas', 'trash-alt']"
+                                       emit-name="deleteLog"
+                                       @deleteLog="deleteLog(log.id)"
+                                       icon-class="text-red-500"
+                                       :btn-class="'z-20 close text-xl flex justify-center items-center'"
+                />
+                <icon-button-component v-if="allowExpand"
+                                       :icon="['fas', 'chevron-down']"
+                                       :icon-class="[
                     log.open ? 'rotate-180' : '',
                     'transition-transform duration-300 text-gray-700'
                   ]"
-                :btn-class="'z-20 close text-xl flex justify-center items-center ml-auto'"
-              />
+                                       :btn-class="'z-20 close text-xl flex justify-center items-center ml-auto'"
+                />
+              </div>
+
+
             </div>
           </div>
 
@@ -98,7 +108,7 @@ const closeModal = () => {
 };
 
 const logList = ref([]);
-const allowExpand = ref(false);
+const allowExpand = ref(true);
 
 const updateLogs = (updatedLogs) => {
   logList.value = updatedLogs;
@@ -130,6 +140,12 @@ onMounted(async() => {
 
 
 });
+
+const deleteLog = async (id) => {
+  await window.ipcRendererInvoke("delete-log", id);
+  const logs = await window.ipcRendererInvoke("get-logs");
+  await updateLogs(logs);
+};
 
 onUnmounted(() => {
   window.ipcRendererOff("log-changed");

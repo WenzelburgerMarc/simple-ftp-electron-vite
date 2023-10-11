@@ -274,11 +274,6 @@ ipcMain.handle("exit", async () => {
   app.exit();
 });
 
-
-
-
-
-
 ipcMain.handle("add-log", (event, log) => {
   const logs = store.get("logs", []);
   let index = 0;
@@ -310,7 +305,7 @@ ipcMain.handle("update-log", (event, index, updatedUpload) => {
   event.sender.send("log-changed");
 });
 
-// delete log
+
 ipcMain.handle("delete-log", (event, index) => {
   const logs = store.get("logs", []);
   logs.splice(index, 1);
@@ -318,10 +313,6 @@ ipcMain.handle("delete-log", (event, index) => {
   event.sender.send("log-changed");
 });
 
-
-
-
-// delete all logs
 ipcMain.handle("delete-all-logs", (event) => {
   store.set("logs", []);
   event.sender.send("log-changed");
