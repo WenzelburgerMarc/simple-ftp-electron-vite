@@ -243,9 +243,9 @@ ipcMain.handle("sync-progress-pause", async (event) => {
 });
 
 
-ipcMain.handle("sync-progress-start", async (event) => {
+ipcMain.handle("sync-progress-start", async (event, currentFiles, type) => {
   if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-start");
+    event.sender.send("sync-progress-start", currentFiles, type);
 
 });
 
@@ -272,4 +272,57 @@ ipcMain.handle("autoReconnectChanged", async (event) => {
 
 ipcMain.handle("exit", async () => {
   app.exit();
+});
+
+
+
+
+
+
+ipcMain.handle("add-log", (event, log) => {
+  const logs = store.get("logs", []);
+  let index = 0;
+  try{
+    index = logs.findIndex((l) => l.id === log.id);
+  }catch(e){
+    index = -1;
+  }
+
+  if (index !== -1) {
+    logs[index] = log;
+    store.set("logs", logs);
+    event.sender.send("log-changed");
+  } else {
+    logs.push(log);
+    store.set("logs", logs);
+    event.sender.send("log-changed");
+  }
+});
+
+ipcMain.handle("get-logs", () => {
+  return store.get("logs", []);
+});
+
+ipcMain.handle("update-log", (event, index, updatedUpload) => {
+  const logs = store.get("logs", []);
+  logs[index] = updatedUpload;
+  store.set("logs", logs);
+  event.sender.send("log-changed");
+});
+
+// delete log
+ipcMain.handle("delete-log", (event, index) => {
+  const logs = store.get("logs", []);
+  logs.splice(index, 1);
+  store.set("logs", logs);
+  event.sender.send("log-changed");
+});
+
+
+
+
+// delete all logs
+ipcMain.handle("delete-all-logs", (event) => {
+  store.set("logs", []);
+  event.sender.send("log-changed");
 });

@@ -140,6 +140,9 @@ export const calculateDirectorySize = async (isLocal, files) => {
   const calculateSizeRecursively = async (isLocal, currentFile) => {
     try {
       if (isLocal) {
+
+
+
         const filePath = currentFile.localPath;
         if (fs.existsSync(filePath)) {
           const stats = await fs.promises.stat(filePath);
@@ -294,7 +297,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       uploadInProgress.value = true;
 
       currentFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath);
-      await ipcRenderer.invoke("sync-progress-start");
+      await ipcRenderer.invoke("sync-progress-start", currentFilesToUpload, "Upload");
 
       for (const { name, localPath, serverPath, type } of currentFilesToUpload) {
         console.log("uploading file: ", name, localPath, serverPath, type);
@@ -315,6 +318,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       try {
         clientSize = await calculateDirectorySize(true, currentFilesToUpload);
         serverSize = await calculateDirectorySize(false, currentFilesToUpload);
+
 
         if (clientSize === serverSize) {
           let deleteUploadedFilesOnCLient = await ipcRenderer.invoke("get-setting", "enableDeletingFilesAfterUpload");
@@ -399,7 +403,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       downloadInProgress.value = true;
 
       currentDownloadFiles = await getFilesToDownload(clientSyncPath, ftpSyncPath);
-      await ipcRenderer.invoke("sync-progress-start");
+      await ipcRenderer.invoke("sync-progress-start", currentDownloadFiles, "Download");
 
       for (const { item, localPath, serverPath, type } of currentDownloadFiles) {
         console.log("downloading file: ", item, localPath, serverPath);

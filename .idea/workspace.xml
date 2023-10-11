@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Logs Design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,15 +121,7 @@
       <workItem from="1696834697569" duration="17561000" />
       <workItem from="1696922256180" duration="13154000" />
       <workItem from="1697008735202" duration="103000" />
-      <workItem from="1697008848360" duration="5603000" />
-    </task>
-    <task id="LOCAL-00027" summary="Add - Delete File From FTP Or Client">
-      <option name="closed" value="true" />
-      <created>1696243626008</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1696243626008</updated>
+      <workItem from="1697008848360" duration="14383000" />
     </task>
     <task id="LOCAL-00028" summary="Add - Delete Folder From FTP Or Client">
       <option name="closed" value="true" />
@@ -509,7 +507,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696947353473</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Add - Logs Design">
+      <option name="closed" value="true" />
+      <created>1697014526397</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1697014526398</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

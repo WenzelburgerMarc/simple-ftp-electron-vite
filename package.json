@@ -29,6 +29,7 @@
     "electron-store": "^8.1.0",
     "nightwind": "^1.1.13",
     "ssh2-sftp-client": "^9.1.0",
+    "uuid": "^9.0.1",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

@@ -111,7 +111,7 @@ const startAutoReconnect = async () => {
         ftpCredentials.value.user = await window.ipcRendererInvoke("get-setting", "ftpUsername");
         ftpCredentials.value.password = await window.ipcRendererInvoke("get-setting", "ftpPassword");
 
-        if(ftpCredentials.value.host === "" || ftpCredentials.value.port === "" || ftpCredentials.value.user === "" || ftpCredentials.value.password === "") {
+        if (ftpCredentials.value.host === "" || ftpCredentials.value.port === "" || ftpCredentials.value.user === "" || ftpCredentials.value.password === "") {
           await displayFlash("Please set FTP Credentials in Settings!", "error");
           await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
           await window.ipcRendererInvoke("disableAutoReconnectChanged");
@@ -128,7 +128,7 @@ const startAutoReconnect = async () => {
 
 
 onMounted(async () => {
-
+  //window.ipcRendererInvoke("delete-all-logs");
   window.ipcRendererOn("autoReconnectChanged", async () => {
     console.log("autoReconnectChanged");
     startIsOnlineInterval = false;
@@ -137,7 +137,7 @@ onMounted(async () => {
 
   });
 
-    await startAutoReconnect();
+  await startAutoReconnect();
 
   watch(connected, async (newValue) => {
     console.log("new");
@@ -150,6 +150,9 @@ onMounted(async () => {
 });
 let progress = 0;
 let intervalID = null;
+let currentProcessingFiles = ref([]);
+let currentType = ref("");
+let logID = ref(null);
 const checkFtpProgress = async () => {
 
   intervalID = setInterval(async () => {
@@ -164,25 +167,71 @@ const checkFtpProgress = async () => {
       console.error("Error calculating and comparing size:", error);
     }
 
+    let files = [];
+    let size = 0;
+
+    console.log(currentProcessingFiles.value);
+    currentProcessingFiles.value = currentProcessingFiles.value || [];
+    if (Array.isArray(currentProcessingFiles.value) && currentProcessingFiles.value.length > 0) {
+
+      for (const file of currentProcessingFiles.value) {
+
+        const fileType = file.name.split(".").pop();
+        files.push({ path: file.localPath, name: file.name, size: file.size, type: fileType });
+        size += file.size;
+      }
+      let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+      let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+
+      let log = {
+        id: logID.value,
+        type: currentType.value,
+        open: false,
+        totalFiles: currentProcessingFiles.value.length,
+        totalSize: size,
+        destination: currentType.value === "Upload" ? ftpSyncPath : clientSyncPath,
+        progress: isNaN(progress) ? "100%" : progress + "%" || "0%",
+        files: files
+      };
+
+      try {
+        await window.ipcRendererInvoke("add-log", log);
+      } catch (error) {
+        console.error("Error invoking add-log:", error);
+      }
+
+
+    }
+
   }, 50);
+
 };
 
 let shortlyStarted = ref(false);
 let showProgress = reactive(ref(false));
-window.ipcRendererOn("sync-progress-start", () => {
+let idAlreadySet = false;
+window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) => {
+
+  if (!idAlreadySet) {
+    logID.value = await window.api.getUUID();
+    idAlreadySet = true;
+  }
   shortlyStarted.value = true;
+  currentProcessingFiles.value = currentFiles;
+  currentType.value = type;
   console.log("sync-progress-start");
   finishedSyncing.value = false;
   if (intervalID)
     clearInterval(intervalID);
   showProgress.value = true;
-  checkFtpProgress();
+  await checkFtpProgress();
 
 });
 
 window.ipcRendererOn("sync-progress-pause", async () => {
 
   syncProgress.value = 0;
+  idAlreadySet = false;
 
   console.log("sync-progress-pause");
   if (intervalID)
@@ -199,6 +248,7 @@ window.ipcRendererOn("sync-progress-end", async () => {
   console.log("sync-progress-end");
 
   if (syncProgress.value >= 100) {
+    idAlreadySet = false;
     finishedSyncing.value = true;
     setTimeout(() => {
       showProgress.value = false;
@@ -245,7 +295,7 @@ const statusClass = computed(() => {
 const disconnectFtp = async () => {
   await stopSyncing();
   let autoReconnectValue = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
-  if(autoReconnectValue){
+  if (autoReconnectValue) {
     await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
     await displayFlash("Auto Re-Connect disabled in Settings!", "info");
   }
