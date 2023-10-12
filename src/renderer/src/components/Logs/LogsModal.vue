@@ -51,6 +51,12 @@
                            :prop-allow-expand="false"
                            @deleteLog="deleteLog"
         />
+        <error-log v-else-if="log.logType === 'Error'"
+                   :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                   :prop-log="log"
+                   :prop-allow-expand="false"
+                   @deleteLog="deleteLog"
+        />
       </template>
 
     </div>
@@ -89,6 +95,7 @@ import DeleteFileLog from "./DeleteFileLog.vue";
 import CreateFolderLog from "./CreateFolderLog.vue";
 import SetSyncPathLog from "./SetSyncPathLog.vue";
 import DeleteFolderLog from "./DeleteFolderLog.vue";
+import ErrorLog from "./ErrorLog.vue";
 // Setup
 const props = defineProps({
   showModal: Boolean

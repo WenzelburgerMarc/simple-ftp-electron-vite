@@ -19,7 +19,7 @@ const props = defineProps({
   }
 });
 
-const emits = defineEmits(["deleteLog"]);
+const emits = defineEmits(["toggleLogDetails", "deleteLog"]);
 
 const deleteLog = (id) => {
   emits("deleteLog", id);
@@ -33,7 +33,7 @@ const deleteLog = (id) => {
                 ]">
     <div class="col-span-2 p-1  truncate-no-hover">{{ log.type }}
     </div>
-    <div class="col-span-3 p-1  truncate-no-hover">{{ log.destination }}
+    <div class="col-span-3 p-1  truncate-no-hover">{{ log.description }}
     </div>
     <div class="col-span-1 p-1  truncate-no-hover">
       <div class="flex justify-end items-center space-x-2">

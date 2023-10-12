@@ -3,37 +3,23 @@ import { defineProps, defineEmits, ref, watch, onBeforeMount } from "vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
 
 const log = ref(null);
-const allowExpand = ref(false);
 
 onBeforeMount(() => {
-  watch(props.propLog, (newValue) => {
-    log.value = newValue;
-  }, {deep: true});
-
-  watch(props.propAllowExpand, (newValue) => {
-    allowExpand.value = newValue;
-  }, {deep: true});
+  watch(props, (newValue) => {
+    log.value = newValue.propLog;
+  }, {deep: true, immediate: true});
 
   log.value = props.propLog;
-  allowExpand.value = props.propAllowExpand;
-
-  console.log("log", log.value);
-  console.log("allowExpand", allowExpand.value);
 });
 
 const props = defineProps({
   propLog: {
     type: Object,
     required: true
-  },
-  propAllowExpand: {
-    type: Boolean,
-    required: false,
-    default: false
   }
 });
 
-const emits = defineEmits(["toggleLogDetails", "deleteLog"]);
+const emits = defineEmits(["deleteLog"]);
 
 const deleteLog = (id) => {
   emits("deleteLog", id);
@@ -43,8 +29,7 @@ const deleteLog = (id) => {
 <template>
   <div
     :class="[
-                'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
-                !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default'
+                'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800 cursor-default'
                 ]">
     <div class="col-span-2 p-1 truncate-no-hover">{{ log.type }}
     </div>

@@ -22,7 +22,7 @@ onMounted(() => {
   checkIfCanceled();
 });
 const checkIfCanceled = () => {
-  if (log.value.type.toString().includes("Canceled")) {
+  if(log.value.type.toString().includes("Canceled")) {
     isCanceled.value = true;
   }else{
     isCanceled.value = false;
