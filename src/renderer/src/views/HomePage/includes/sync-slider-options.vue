@@ -57,7 +57,14 @@ const setSyncUpload = async () => {
 
   await startSyncing("upload", clientSyncPath, ftpSyncPath)
     .catch(error => {
-      console.error("Error in startSyncing:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To Start Upload Syncing",
+        open: false,
+        description: error,
+      };
+      window.ipcRendererInvoke("add-log", log);
 
     });
 };
@@ -72,7 +79,14 @@ const setSyncDownload = async () => {
 
   await startSyncing("download", clientSyncPath, ftpSyncPath)
     .catch(error => {
-      console.error("Error in startSyncing:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To Start Download Syncing",
+        open: false,
+        description: error,
+      };
+      window.ipcRendererInvoke("add-log", log);
 
     });
 

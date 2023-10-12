@@ -137,12 +137,27 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
           size: stats.size
         };
       } catch (error) {
-        console.error(`Failed to get stats for file: ${filePath}`, error);
+        let log = {
+          logType: "Error",
+          id: window.api.getUUID(),
+          type: "Error - List Client Files",
+          open: false,
+          description: error,
+        };
+
+        addLog(event, log);
         return null;
       }
     }).filter(file => file !== null);
   } catch (error) {
-    console.error(`Failed to read directory: ${dirPath}`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - List Client Files",
+      open: false,
+      description: error,
+    };
+    addLog(event, log);
     return [];
   }
 });
@@ -160,7 +175,15 @@ ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
       }
       return result.filePath;
     } catch (error) {
-      console.error("Error creating directory:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Creating Client Folder",
+        open: false,
+        description: error,
+      };
+
+      addLog(event, log);
       return null;
     }
   } else {
@@ -174,7 +197,15 @@ ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
     console.log(`File copied from ${sourcePath} to ${destinationPath}`);
     return destinationPath;
   } catch (error) {
-    console.error(`Failed to copy file from ${sourcePath} to ${destinationPath}:`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Copy Client Files",
+      open: false,
+      description: error,
+    };
+
+    addLog(event, log);
     throw error;
   }
 });
@@ -216,7 +247,14 @@ ipcMain.handle("delete-client-file", async (event, path) => {
     await fs.promises.unlink(path);
     return { success: true, message: "File deleted successfully" };
   } catch (error) {
-    console.error(`Error deleting file at path ${path}:`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Client Files",
+      open: false,
+      description: error,
+    };
+    addLog(event, log);
     return { success: false, message: error.message };
   }
 });
@@ -227,7 +265,14 @@ ipcMain.handle("delete-client-directory", async (event, path) => {
     await fs.promises.rmdir(path);
     return { success: true, message: "Folder deleted successfully" };
   } catch (error) {
-    console.error(`Error deleting folder at path ${path}:`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Client Directory",
+      open: false,
+      description: error,
+    };
+    addLog(event, log);
     return { success: false, message: error.message };
   }
 });
@@ -275,23 +320,7 @@ ipcMain.handle("exit", async () => {
 });
 
 ipcMain.handle("add-log", (event, log) => {
-  const logs = store.get("logs", []);
-  let index = 0;
-  try{
-    index = logs.findIndex((l) => l.id === log.id);
-  }catch(e){
-    index = -1;
-  }
-
-  if (index !== -1) {
-    logs[index] = log;
-    store.set("logs", logs);
-    event.sender.send("log-changed");
-  } else {
-    logs.push(log);
-    store.set("logs", logs);
-    event.sender.send("log-changed");
-  }
+  addLog(event, log);
 });
 
 ipcMain.handle("get-logs", () => {
@@ -317,3 +346,23 @@ ipcMain.handle("delete-all-logs", (event) => {
   store.set("logs", []);
   event.sender.send("log-changed");
 });
+
+const addLog = (event, log) => {
+  const logs = store.get("logs", []);
+  let index = 0;
+  try{
+    index = logs.findIndex((l) => l.id === log.id);
+  }catch(e){
+    index = -1;
+  }
+
+  if (index !== -1) {
+    logs[index] = log;
+    store.set("logs", logs);
+    event.sender.send("log-changed");
+  } else {
+    logs.push(log);
+    store.set("logs", logs);
+    event.sender.send("log-changed");
+  }
+}

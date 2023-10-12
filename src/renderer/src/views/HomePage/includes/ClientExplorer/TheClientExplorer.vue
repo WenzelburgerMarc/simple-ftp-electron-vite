@@ -9,7 +9,6 @@ import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
-import { v4 as uuidv4 } from "uuid";
 
 const currentDir = ref("");
 const fileList = ref([]);
@@ -70,11 +69,7 @@ const createNewFolderOnClient = async () => {
       destination: currentDir.value + "/"
     };
 
-    try {
-      await window.ipcRendererInvoke("add-log", log);
-    } catch (error) {
-      console.error("Error in deleteFile log:", error);
-    }
+    await window.ipcRendererInvoke("add-log", log);
 
     await listFiles();
     return;
@@ -107,11 +102,7 @@ onMounted(async () => {
 });
 
 onBeforeRouteLeave((to, from, next) => {
-  try {
-    window.ipcRendererInvoke("unwatch-client-directory");
-  } catch (e) {
-    console.error(e);
-  }
+  window.ipcRendererInvoke("unwatch-client-directory");
   next();
 });
 
@@ -131,7 +122,14 @@ const listFiles = async () => {
         return a.name.localeCompare(b.name);
       });
     } catch (error) {
-      console.error("Error listing files:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To List Client Files",
+        open: false,
+        description: error,
+      };
+      await window.ipcRendererInvoke("add-log", log);
     }
   }
 };
@@ -169,7 +167,7 @@ const deleteFile = async (file) => {
 
       let log = {
         logType: "Delete-File",
-        id: uuidv4(),
+        id: window.api.getUUID(),
         type: "Deleted Server File",
         open: false,
         totalSize: file.size,
@@ -177,11 +175,7 @@ const deleteFile = async (file) => {
         name: file.name
       };
 
-      try {
         await window.ipcRendererInvoke("add-log", log);
-      } catch (error) {
-        console.error("Error in deleteFile log:", error);
-      }
 
     } else {
       displayFlash(response.message, "error");
@@ -207,11 +201,7 @@ const deleteFolder = async (folder) => {
           destination: currentDir.value + "/" + folder.name
         };
 
-        try {
-          window.ipcRendererInvoke("add-log", log);
-        } catch (error) {
-          console.error("Error in deleteFile log:", error);
-        }
+        window.ipcRendererInvoke("add-log", log);
 
         listFiles();
       } else {

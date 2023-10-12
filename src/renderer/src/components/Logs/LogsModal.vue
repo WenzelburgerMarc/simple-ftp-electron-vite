@@ -7,7 +7,6 @@
         <TitleComponent :title-text="'Logs'"
                         :size="'medium'" />
 
-
         <IconButtonComponent
           v-if="props.showModal"
           :emit-name="'closeSettings'"
@@ -57,6 +56,12 @@
                    :prop-allow-expand="false"
                    @deleteLog="deleteLog"
         />
+<!--   make a test error log     -->
+        <error-log v-else-if="log.logType === 'Test-Error'"
+                   :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                   :prop-log="log"
+                   :prop-allow-expand="false"
+                   @deleteLog="deleteLog" />
       </template>
 
     </div>

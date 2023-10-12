@@ -41,7 +41,14 @@ onMounted( async() => {
       await window.ipcRendererInvoke("set-setting", "autoSyncInterval", 30000);
     }
   }catch (e) {
-    console.error(e);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Default Settings",
+      open: false,
+      description: e,
+    };
+    window.ipcRendererInvoke("add-log", log);
   }
 
 });

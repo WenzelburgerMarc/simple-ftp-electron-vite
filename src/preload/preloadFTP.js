@@ -123,14 +123,19 @@ export const deleteFile = async (filePath) => {
     };
 
     console.log(log);
-    try {
-      await ipcRenderer.invoke("add-log", log);
-    } catch (error) {
-      console.error("Error in deleteFile log:", error);
-    }
+
+    await ipcRenderer.invoke("add-log", log);
 
   } catch (error) {
-    console.error("An error occurred while trying to delete the file:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Server File",
+      open: false,
+      description: error,
+    };
+
+    await ipcRenderer.invoke("add-log", log);
 
   }
 };
@@ -143,7 +148,16 @@ export const createNewFolder = async (selectedDirectory) => {
   try {
     await sftp.mkdir(selectedDirectory, true);
   } catch (error) {
-    console.error(`Error creating directory at ${selectedDirectory}:`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Creating Server Folder",
+      open: false,
+      description: error,
+    };
+
+    await ipcRenderer.invoke("add-log", log);
+
     throw error;
   }
 };
@@ -164,13 +178,18 @@ export const deleteDirectory = async (directory) => {
       destination: directory + "/",
     };
 
-    try {
-      await ipcRenderer.invoke("add-log", log);
-    } catch (error) {
-      console.error("Error in deleteFile log:", error);
-    }
+    await ipcRenderer.invoke("add-log", log);
+
   } catch (error) {
-    console.error(`Error creating directory at ${directory}:`, error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Server Folder",
+      open: false,
+      description: error,
+    };
+
+    await ipcRenderer.invoke("add-log", log);
     throw error;
   }
 };
@@ -297,14 +316,20 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
 
     return filesToUpload;
   } catch (error) {
-    console.error("Error in getFilesToUpload:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Get Files to Upload",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
     return [];
   }
 };
 
 const deleteFolders = async (clientSyncPath) => {
 
-  // delete everything after the last /
   foldersToDelete = foldersToDelete.map((folder) => {
     const splitPath = folder.localPath.split("/");
     splitPath.pop();
@@ -353,9 +378,15 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
         if (type === "f") {
           try {
             await sftp.fastPut(localPath, serverPath);
-            console.log(`Uploaded: ${name}`);
           } catch (error) {
-            console.error(`Failed to upload ${name}:`, error);
+            let log = {
+              logType: "Error",
+              id: window.api.getUUID(),
+              type: "Error - Upload File",
+              open: false,
+              description: error,
+            };
+            await ipcRenderer.invoke("add-log", log);
           }
         }
       }
@@ -385,11 +416,25 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
           await ipcRenderer.invoke("sync-progress-end");
         }
       } catch (error) {
-        console.error("Error in size comparison interval:", error);
+        let log = {
+          logType: "Error",
+          id: window.api.getUUID(),
+          type: "Error - Upload File",
+          open: false,
+          description: error,
+        };
+        await ipcRenderer.invoke("add-log", log);
       }
     }
   } catch (error) {
-    console.error("Error in uploadFiles:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Upload File",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
   }
 };
 const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
@@ -400,7 +445,6 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
     for (const item of items) {
       const localPath = path.join(clientSyncPath, item.name);
       const serverPath = path.join(ftpSyncPath, item.name);
-      console.log("download item: ", item);
       let shouldDownload = false;
 
       if (item.type === "-" || item.type === "f") {
@@ -412,15 +456,11 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
 
           if (serverSize > localSize) {
             shouldDownload = true;
-            console.log(`File ${serverPath} is partially downloaded. Preparing to resume download.`);
           } else {
             const localMtime = Math.floor(new Date(localStats.mtime).getTime() / 1000);
             const serverMtime = Math.floor(new Date(item.modifyTime).getTime() / 1000);
 
             shouldDownload = serverMtime > localMtime;
-            if (shouldDownload) {
-              console.log(`File ${serverPath} is newer than local. Preparing to download.`);
-            }
           }
         }
         if (shouldDownload) {
@@ -438,7 +478,14 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
 
     return filesToDownload;
   } catch (error) {
-    console.error("Error in getFilesToDownload:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Get Files to Download",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
     return [];
   }
 };
@@ -461,7 +508,14 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
             await sftp.fastGet(serverPath, localPath);
             console.log(`Downloaded: ${name}`);
           } catch (error) {
-            console.error(`Failed to download ${name}:`, error);
+            let log = {
+              logType: "Error",
+              id: window.api.getUUID(),
+              type: "Error - Download File",
+              open: false,
+              description: error,
+            };
+            await ipcRenderer.invoke("add-log", log);
           }
         }
       }
@@ -480,11 +534,25 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
           await ipcRenderer.invoke("sync-progress-end");
         }
       } catch (error) {
-        console.error("Error in size comparison interval:", error);
+        let log = {
+          logType: "Error",
+          id: window.api.getUUID(),
+          type: "Error - Download File",
+          open: false,
+          description: error,
+        };
+        await ipcRenderer.invoke("add-log", log);
       }
     }
   } catch (error) {
-    console.error("Error in downloadFiles:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Download File",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
   }
 };
 
@@ -492,7 +560,14 @@ let intervalId = null;
 let firstRun = true;
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   if (!isConnected) {
-    console.error("Not connected to FTP server");
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Start Syncing",
+      open: false,
+      description: 'Not Connected to FTP Server',
+    };
+    await ipcRenderer.invoke("add-log", log);
     return;
   }
 
@@ -541,7 +616,14 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
       if (!firstRun)
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else {
-      console.error("Invalid mode selected");
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Invalid Syncing Mode",
+        open: false,
+        description: 'This Sync Mode does not exist.',
+      };
+      await ipcRenderer.invoke("add-log", log);
       await ipcRenderer.invoke("sync-progress-stop-loading");
     }
 
@@ -572,7 +654,14 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             console.log(`Deleted directory ${file.name} on server`);
           }
         } catch (error) {
-          console.error(`Failed to delete ${file.name} on server:`, error);
+          let log = {
+            logType: "Error",
+            id: window.api.getUUID(),
+            type: "Error - Delete Server File On Mode Switch",
+            open: false,
+            description: error,
+          };
+          await ipcRenderer.invoke("add-log", log);
         }
       }
       currentFilesToUpload = [];
@@ -586,17 +675,31 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             console.log(`Deleted ${file.name} on client`);
           } else {
             fs.rmdirSync(file.localPath, { recursive: true });
-            console.log(`Deleted directory ${file.name} on client`);
+
           }
         } catch (error) {
-          console.error(`Failed to delete ${file.name} on client:`, error);
+          let log = {
+            logType: "Error",
+            id: window.api.getUUID(),
+            type: "Error - Delete Server File On Mode Switch",
+            open: false,
+            description: error,
+          };
+          await ipcRenderer.invoke("add-log", log);
         }
       }
       currentDownloadFiles = [];
 
     }
   } catch (error) {
-    console.error("Error in clearFilesAfterModeSwitch:", error);
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Client File On Mode Switch",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
   }
 
 };

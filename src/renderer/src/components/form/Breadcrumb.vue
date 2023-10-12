@@ -77,7 +77,6 @@ const getCurrentPathBreadcrumb = () => {
       };
     });
   }catch (e) {
-    console.error(e);
     return {
       name: "/" + currentDir.value,
       path: "/" + currentDir.value,
@@ -107,7 +106,7 @@ onMounted(() => {
     breadcrumb.value = adjustedBreadcrumb;
   });
 
-  isInitialSegment.value = () => { //segmentPath
+  isInitialSegment.value = () => {
     if (!initialPath.value) {
       return false;
     }
@@ -118,14 +117,6 @@ onMounted(() => {
     }
     return false;
 
-
-    //
-    // const initialSegments = initialPath.value.split("/").filter(segment => segment.trim() !== "");
-    // const currentSegments = segmentPath.split("/").filter(segment => segment.trim() !== "");
-    //
-    // return currentSegments.every((segment, index) => {
-    //   return index < initialSegments.length && initialSegments[index] === segment;
-    // }) && segmentPath !== initialPath.value;
   };
 
 

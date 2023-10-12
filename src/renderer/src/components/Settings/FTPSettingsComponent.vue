@@ -112,7 +112,14 @@ const connectFtpSettings = async () => {
       closeModal();
     })
     .catch((error) => {
-      console.error("Failed to connect to FTP:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To Connect To FTP Server",
+        open: false,
+        description: error,
+      };
+      window.ipcRendererInvoke("add-log", log);
     });
 };
 

@@ -143,7 +143,14 @@ const listFiles = async (showLoader = true) => {
         return a.name.localeCompare(b.name);
       });
     } catch (error) {
-      console.error("Error listing files:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To List Files",
+        open: false,
+        description: error,
+      };
+      await window.ipcRendererInvoke("add-log", log);
     }
   }
 };
@@ -166,11 +173,7 @@ const setFtpSyncDirectory = async () => {
     progress: "-",
   };
 
-  try {
-    await window.ipcRendererInvoke("add-log", log);
-  } catch (error) {
-    console.error("Error in deleteFile log:", error);
-  }
+  await window.ipcRendererInvoke("add-log", log);
 
   displayFlash("FTP Sync Directory Set!", "success");
 };
@@ -209,12 +212,7 @@ const createNewFolderOnFtp = async (name) => {
       destination: currentDir.value + "/",
     };
 
-    try {
-      await window.ipcRendererInvoke("add-log", log);
-    } catch (error) {
-      console.error("Error in deleteFile log:", error);
-    }
-
+    await window.ipcRendererInvoke("add-log", log);
     await listFiles();
     updateShowModal(false);
     displayFlash("Folder created", "success");

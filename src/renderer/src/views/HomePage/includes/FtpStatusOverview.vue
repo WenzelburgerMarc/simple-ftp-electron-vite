@@ -129,6 +129,14 @@ const startAutoReconnect = async () => {
 
 onMounted(async () => {
   //window.ipcRendererInvoke("delete-all-logs");
+  // let log = {
+  //   logType: "Error",
+  //   id: window.api.getUUID(),
+  //   type: "Error - Test",
+  //   open: false,
+  //   description: 'This is a test error',
+  // };
+  // window.ipcRendererInvoke("add-log", log);
   window.ipcRendererOn("autoReconnectChanged", async () => {
     console.log("autoReconnectChanged");
     startIsOnlineInterval = false;
@@ -164,7 +172,14 @@ const checkFtpProgress = async () => {
       console.log("progress: " + progress);
       syncProgress.value = progress;
     } catch (error) {
-      console.error("Error calculating and comparing size:", error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Calculate Progress",
+        open: false,
+        description: error,
+      };
+      window.ipcRendererInvoke("add-log", log);
     }
 
     let files = [];
@@ -195,11 +210,7 @@ const checkFtpProgress = async () => {
         files: files
       };
 
-      try {
-        await window.ipcRendererInvoke("add-log", log);
-      } catch (error) {
-        console.error("Error invoking add-log:", error);
-      }
+      await window.ipcRendererInvoke("add-log", log);
 
 
     }

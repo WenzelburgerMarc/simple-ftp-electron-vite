@@ -117,11 +117,8 @@ const handleSelectDirectory = async(path) => {
     destination: selectedPath.value + "/",
   };
 
-  try {
-    await window.ipcRendererInvoke("add-log", log);
-  } catch (error) {
-    console.error("Error in deleteFile log:", error);
-  }
+  await window.ipcRendererInvoke("add-log", log);
+
 };
 
 
@@ -184,11 +181,8 @@ const validateSettings = () => {
 const saveSettings = async () => {
   try {
     startLoading();
-    try {
-      window.ipcRendererInvoke("unwatch-client-directory");
-    } catch (e) {
-      console.error(e);
-    }
+
+    await window.ipcRendererInvoke("unwatch-client-directory");
 
     if (!validateSettings()) {
       stopLoading();
@@ -207,6 +201,14 @@ const saveSettings = async () => {
   } catch (e) {
     stopLoading();
     displayFlash("An Error Occured While Saving Settings", "error");
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Failed To Save Settings",
+      open: false,
+      description: e,
+    };
+    window.ipcRendererInvoke("add-log", log);
   }
 };
 

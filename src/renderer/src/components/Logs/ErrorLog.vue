@@ -29,7 +29,7 @@ const deleteLog = (id) => {
 <template>
   <div
     :class="[
-                'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800 cursor-default'
+                'w-full grid grid-cols-6 gap-0 hover:bg-red-400 bg-red-300 transition-all duration-300 text-gray-800 cursor-default'
                 ]">
     <div class="col-span-2 p-1  truncate-no-hover">{{ log.type }}
     </div>
@@ -40,7 +40,7 @@ const deleteLog = (id) => {
         <icon-button-component :icon="['fas', 'trash-alt']"
                                emit-name="deleteLog"
                                @deleteLog="deleteLog(log.id)"
-                               icon-class="text-red-500"
+                               icon-class="text-gray-800"
                                :btn-class="'z-50 close text-xl flex justify-center items-center'"
         />
         <icon-button-component
