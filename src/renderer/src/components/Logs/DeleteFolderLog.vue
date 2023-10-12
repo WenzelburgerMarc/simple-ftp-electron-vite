@@ -43,10 +43,10 @@ const deleteLog = (id) => {
 <template>
   <div
     :class="[
-                'w-full grid grid-cols-5 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
+                'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
                 !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default'
                 ]">
-    <div class="col-span-1 p-1  truncate-no-hover">{{ log.type }}
+    <div class="col-span-2 p-1  truncate-no-hover">{{ log.type }}
     </div>
     <div class="col-span-3 p-1  truncate-no-hover">{{ log.destination }}
     </div>

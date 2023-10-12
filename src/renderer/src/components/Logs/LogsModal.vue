@@ -37,13 +37,13 @@
                            :prop-log="log"
                            :prop-allow-expand="false"
                            @deleteLog="deleteLog"
-                           v-else-if="'Create-Folder'" />
+                           v-else-if="log.logType ==='Create-Folder'" />
 
         <set-sync-path-log :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                            :prop-log="log"
                            :prop-allow-expand="false"
                            @deleteLog="deleteLog"
-                           v-else-if="'Set-Sync-Path'" />
+                           v-else-if="log.logType ==='Set-Sync-Path'" />
 
         <delete-folder-log v-else-if="log.logType === 'Delete-Folder'"
                            :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
@@ -64,7 +64,6 @@
         <font-awesome-icon :icon="['fas', 'chevron-left']" />
       </button>
 
-      <!-- Nächste Seite Button -->
       <button @click="nextPage"
               :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
               :class="currentPage * itemsPerPage >= logList.length ? 'bg-gray-200' : 'bg-blue-600'"
@@ -142,6 +141,7 @@ onMounted(async () => {
     console.log("logs", logs);
   });
   logs = await window.ipcRendererInvoke("get-logs");
+  console.log("logs", logs);
   await updateLogs(logs);
 
 
