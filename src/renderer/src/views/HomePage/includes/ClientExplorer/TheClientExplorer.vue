@@ -209,6 +209,23 @@ const deleteFolder = async (folder) => {
     .then(response => {
       if (response.success) {
         displayFlash("Deleted folder", "success");
+
+
+        let log = {
+          logType: 'Delete-Folder',
+          id: window.api.getUUID(),
+          type: "Deleted Client Folder",
+          open: false,
+          totalFiles: 1,
+          destination: currentDir.value + "/" + folder.name,
+        };
+
+        try {
+          window.ipcRendererInvoke("add-log", log);
+        } catch (error) {
+          console.error("Error in deleteFile log:", error);
+        }
+
         listFiles();
       } else {
         displayFlash(response.message, "error");

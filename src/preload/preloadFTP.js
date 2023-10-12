@@ -162,6 +162,21 @@ export const deleteDirectory = async (directory) => {
 
   try {
     await sftp.rmdir(directory, true);
+
+    let log = {
+      logType: 'Delete-Folder',
+      id: uuidv4(),
+      type: "Deleted Server Folder",
+      open: false,
+      totalFiles: 1,
+      destination: directory + "/",
+    };
+
+    try {
+      await ipcRenderer.invoke("add-log", log);
+    } catch (error) {
+      console.error("Error in deleteFile log:", error);
+    }
   } catch (error) {
     console.error(`Error creating directory at ${directory}:`, error);
     throw error;

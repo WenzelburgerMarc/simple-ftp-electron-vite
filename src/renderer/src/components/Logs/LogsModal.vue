@@ -44,6 +44,13 @@
                            :prop-allow-expand="false"
                            @deleteLog="deleteLog"
                            v-else-if="'Set-Sync-Path'" />
+
+        <delete-folder-log v-else-if="log.logType === 'Delete-Folder'"
+                           :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                           :prop-log="log"
+                           :prop-allow-expand="false"
+                           @deleteLog="deleteLog"
+        />
       </template>
 
     </div>
@@ -80,6 +87,7 @@ import SyncModeLog from "./SyncModeLog.vue";
 import DeleteFileLog from "./DeleteFileLog.vue";
 import CreateFolderLog from "./CreateFolderLog.vue";
 import SetSyncPathLog from "./SetSyncPathLog.vue";
+import DeleteFolderLog from "./DeleteFolderLog.vue";
 // Setup
 const props = defineProps({
   showModal: Boolean
