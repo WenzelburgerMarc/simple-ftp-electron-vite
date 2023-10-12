@@ -153,6 +153,25 @@ const setFtpSyncDirectory = async () => {
   await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", currentDir.value);
   setCurrentDir(currentDir.value);
   initialPath.value = currentDir.value;
+
+
+
+  let log = {
+    logType: "Set-Sync-Path",
+    id: window.api.getUUID(),
+    type: "Server Sync Path Set",
+    open: false,
+    totalFiles: 1,
+    destination: currentDir.value + "/",
+    progress: "-",
+  };
+
+  try {
+    await window.ipcRendererInvoke("add-log", log);
+  } catch (error) {
+    console.error("Error in deleteFile log:", error);
+  }
+
   displayFlash("FTP Sync Directory Set!", "success");
 };
 
@@ -175,6 +194,29 @@ const createNewFolderOnFtp = async (name) => {
   if (folderName != null) {
     const path = currentDir.value + "/" + folderName + "/";
     await createNewFolder(path);
+
+    let name = folderName.split("/").pop();
+    if(name === "") {
+      name = folderName;
+    }
+
+    let log = {
+      logType: "Create-Folder",
+      id: window.api.getUUID(),
+      type: "Server Folder Created",
+      name: name,
+      open: false,
+      totalFiles: 1,
+      destination: currentDir.value + "/",
+      progress: "-",
+    };
+
+    try {
+      await window.ipcRendererInvoke("add-log", log);
+    } catch (error) {
+      console.error("Error in deleteFile log:", error);
+    }
+
     await listFiles();
     updateShowModal(false);
     displayFlash("Folder created", "success");

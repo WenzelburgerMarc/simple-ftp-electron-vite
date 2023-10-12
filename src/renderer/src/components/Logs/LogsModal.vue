@@ -32,6 +32,18 @@
                          :prop-allow-expand="false"
                          @deleteLog="deleteLog"
         />
+
+        <create-folder-log :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                           :prop-log="log"
+                           :prop-allow-expand="false"
+                           @deleteLog="deleteLog"
+                           v-else-if="'Create-Folder'" />
+
+        <set-sync-path-log :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                           :prop-log="log"
+                           :prop-allow-expand="false"
+                           @deleteLog="deleteLog"
+                           v-else-if="'Set-Sync-Path'" />
       </template>
 
     </div>
@@ -66,6 +78,8 @@ import { nextTick, onMounted, onUnmounted, computed } from "vue";
 import LabelComponent from "../form/LabelComponent.vue";
 import SyncModeLog from "./SyncModeLog.vue";
 import DeleteFileLog from "./DeleteFileLog.vue";
+import CreateFolderLog from "./CreateFolderLog.vue";
+import SetSyncPathLog from "./SetSyncPathLog.vue";
 // Setup
 const props = defineProps({
   showModal: Boolean
@@ -149,24 +163,16 @@ onUnmounted(() => {
 });
 
 const toggleLogDetails = (id) => {
-  console.log("toggleLogDetails 1");
   if (!allowExpand.value) return;
-  console.log("toggleLogDetails 2");
-  logList.value.forEach(async(log, index) => {
-    console.log("toggleLogDetails 3");
+  logList.value.forEach(async (log, index) => {
     if (log.id === id && log.files) {
-      console.log("toggleLogDetails 4");
       logList.value[index] = { ...log, open: !log.open };
       await nextTick();
       const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
-      console.log("toggleLogDetails 5");
       if (element) {
-        console.log("toggleLogDetails 6");
         if (!log.open) {
-          console.log("toggleLogDetails 7");
           element.style.maxHeight = (element.scrollHeight + 100) + "px";
         } else {
-          console.log("toggleLogDetails 8");
           element.style.maxHeight = 0 + "px";
 
         }

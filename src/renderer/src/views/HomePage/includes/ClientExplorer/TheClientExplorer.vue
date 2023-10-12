@@ -54,6 +54,29 @@ const createNewFolderOnClient = async () => {
   const folderName = await window.ipcRendererInvoke("create-new-folder-client", currentDir.value);
   if (folderName) {
     displayFlash("Folder created", "success");
+
+    let name = folderName.split("/").pop();
+    if(name === "") {
+      name = folderName;
+    }
+
+    let log = {
+      logType: "Create-Folder",
+      id: window.api.getUUID(),
+      type: "Client Folder Created",
+      name: name,
+      open: false,
+      totalFiles: 1,
+      destination: currentDir.value + "/",
+      progress: "-",
+    };
+
+    try {
+      await window.ipcRendererInvoke("add-log", log);
+    } catch (error) {
+      console.error("Error in deleteFile log:", error);
+    }
+
     await listFiles();
     return;
   }

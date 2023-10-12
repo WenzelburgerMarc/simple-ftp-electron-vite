@@ -103,10 +103,27 @@ const updateAutoReloadFtpInterval = (newValue) => {
   autoReloadFtpInterval.value = newValue;
 };
 
-const handleSelectDirectory = (path) => {
-  disconnect(true);
+const handleSelectDirectory = async(path) => {
+  await disconnect(true);
   selectedPath.value = path;
-  saveSettings();
+  await saveSettings();
+
+
+  let log = {
+    logType: "Set-Sync-Path",
+    id: window.api.getUUID(),
+    type: "Client Sync Path Set",
+    open: false,
+    totalFiles: 1,
+    destination: selectedPath.value + "/",
+    progress: "-",
+  };
+
+  try {
+    await window.ipcRendererInvoke("add-log", log);
+  } catch (error) {
+    console.error("Error in deleteFile log:", error);
+  }
 };
 
 

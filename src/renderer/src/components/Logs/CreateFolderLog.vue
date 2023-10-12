@@ -1,5 +1,4 @@
 <script setup>
-import { formatSize } from "../../js/logsModalController";
 import { defineProps, defineEmits, ref, watch, onBeforeMount } from "vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
 
@@ -43,20 +42,17 @@ const deleteLog = (id) => {
 
 <template>
   <div
-       :class="[
-                'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
+    :class="[
+                'w-full grid grid-cols-4 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
                 !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default'
                 ]">
     <div class="col-span-1 p-1  truncate-no-hover">{{ log.type }}
     </div>
-    <div class="col-span-1 p-1  truncate-no-hover">{{ log.files[0].name }}
+    <div class="col-span-1 p-1  truncate-no-hover">{{ log.name }}
     </div>
 
-    <div class="col-span-1 p-1  truncate-no-hover">{{ formatSize(log.totalSize) }}
+    <div class="col-span-1 p-1  truncate-no-hover">{{ log.destination }}
     </div>
-    <div class="col-span-2 p-1  truncate-no-hover">{{ log.destination }}
-    </div>
-
     <div class="col-span-1 p-1  truncate-no-hover">
       <div class="flex justify-end items-center space-x-2">
         <icon-button-component :icon="['fas', 'trash-alt']"
