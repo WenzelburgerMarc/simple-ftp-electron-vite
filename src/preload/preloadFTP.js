@@ -104,21 +104,32 @@ export const deleteFile = async (filePath) => {
 
   try {
     const fileStats = await sftp.stat(filePath);
+    let type = filePath.split(".");
+    type = type[type.length - 1];
+
+    let name = filePath.split("/");
+    name = name[name.length - 1];
 
     console.log("Attempting to delete file:", filePath);
     await sftp.delete(filePath);
 
     let log = {
+      logType: 'Delete-File',
       id: uuidv4(),
-      type: filePath.split("/").pop() + " Deleted",
+      type: "Deleted Server File",
       open: false,
       totalFiles: 1,
       totalSize: fileStats.size,
       destination: destPath + "/",
       progress: "-",
-      files: null
+      files: [{
+        name: name,
+        size: fileStats.size,
+        type: type
+      }]
     };
 
+    console.log(log);
     try {
       await ipcRenderer.invoke("add-log", log);
     } catch (error) {

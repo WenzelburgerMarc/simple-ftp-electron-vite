@@ -53,11 +53,11 @@ const changePath = (path) => {
 const createNewFolderOnClient = async () => {
   const folderName = await window.ipcRendererInvoke("create-new-folder-client", currentDir.value);
   if (folderName) {
-    displayFlash("Folder created", "success")
+    displayFlash("Folder created", "success");
     await listFiles();
     return;
   }
-  displayFlash("Error creating folder", "error")
+  displayFlash("Error creating folder", "error");
 };
 
 onMounted(async () => {
@@ -127,7 +127,7 @@ const copyFileToCurrentDir = async (sourcePath) => {
   const basename = (p) => p.split(/[\\/]/).pop();
   const destinationPath = currentDir.value + "/" + basename(sourcePath);
   await window.ipcRendererInvoke("copy-file", sourcePath, destinationPath);
-  displayFlash("File copied", "success")
+  displayFlash("File copied", "success");
   await listFiles();
 };
 
@@ -136,7 +136,7 @@ const openSelectedClientDirectory = async () => {
 };
 
 const deleteFile = async (file) => {
-  const filePath = currentDir.value + '/' + file.name;
+  const filePath = currentDir.value + "/" + file.name;
 
   try {
     const response = await window.ipcRendererInvoke("delete-client-file", filePath);
@@ -146,15 +146,21 @@ const deleteFile = async (file) => {
 
 
       let log = {
+        logType: "Delete-File",
         id: window.api.getUUID(),
-        type: file.name + " Deleted",
+        type: "Deleted Client File",
         open: false,
         totalFiles: 1,
-
         totalSize: file.size,
         destination: currentDir.value + "/",
         progress: "-",
-        files: null
+        files: [{
+          name: file.name,
+          size: file.size,
+          type: file.type
+        }]
+
+
       };
 
       try {
@@ -169,13 +175,16 @@ const deleteFile = async (file) => {
   } catch (error) {
     displayFlash(error.message, "error");
   }
+
+
+
 };
 
 
 const deleteFolder = async (folder) => {
-  await window.ipcRendererInvoke("delete-client-directory", currentDir.value + '/' + folder.name)
+  await window.ipcRendererInvoke("delete-client-directory", currentDir.value + "/" + folder.name)
     .then(response => {
-      if(response.success) {
+      if (response.success) {
         displayFlash("Deleted folder", "success");
         listFiles();
       } else {
@@ -255,7 +264,7 @@ const deleteFolder = async (folder) => {
     <FileList :initial-file-list="fileList"
               @file-clicked="handleClick"
               @delete-file="deleteFile"
-              @delete-folder="deleteFolder"/>
+              @delete-folder="deleteFolder" />
 
   </panel-component>
 

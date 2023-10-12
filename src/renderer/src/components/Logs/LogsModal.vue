@@ -1,12 +1,11 @@
 <template>
   <ModalComponent @closeModal="closeModal"
                   :show-modal="showModal">
-    <div class="w-full flex flex-col space-y-4 justify-start items-center relative">
-      <div class="w-full flex justify-between items-center">
+    <div class="w-full flex flex-col justify-start items-center relative pb-10">
+      <div class="w-full flex justify-between items-center ">
 
-          <TitleComponent :title-text="'Logs'"
-                          :size="'medium'" />
-
+        <TitleComponent :title-text="'Logs'"
+                        :size="'medium'" />
 
 
         <IconButtonComponent
@@ -17,85 +16,43 @@
           @closeSettings="closeModal"
         />
       </div>
-      <div class="grid grid-cols-6 gap-0 w-full text-sm text-left text-gray-500 rounded-lg overflow-hidden pb-10">
-
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Type</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Total Files</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Total Size</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Destination</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200">Progress</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase bg-gray-200"></div>
 
 
-        <template v-for="log in paginatedLogs"
-                  :key="log.id">
-          <div
-            :class="[
-                'col-span-8 grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300',
-                !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default',
-                paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''
-              ]"
-          >
+      <template v-for="log in paginatedLogs"
+                :key="log.id">
+        <sync-mode-log @deleteLog="deleteLog"
+                       @toggleLogDetails="toggleLogDetails"
+                       :prop-log="log"
+                       :prop-allow-expand="allowExpand"
+                       v-if="log.logType === 'Sync-Progress'"
+                       :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''" />
+        <delete-file-log v-else-if="log.logType === 'Delete-File'"
+                         :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                         :prop-log="log"
+                         :prop-allow-expand="false"
+                         @deleteLog="deleteLog"
+        />
+      </template>
 
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.type }}</div>
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.totalFiles }}</div>
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ formatSize(log.totalSize) }}</div>
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.destination }}</div>
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">{{ log.progress }}</div>
-            <div @click="toggleLogDetails(log.id)" class="col-span-1 p-1 truncate">
-              <div class="flex justify-center items-center space-x-2">
-                <icon-button-component :icon="['fas', 'trash-alt']"
-                                       emit-name="deleteLog"
-                                       @deleteLog="deleteLog(log.id)"
-                                       icon-class="text-red-500"
-                                       :btn-class="'z-50 close text-xl flex justify-center items-center'"
-                />
-                <icon-button-component @click="toggleLogDetails(log.id)" v-if="allowExpand && log.files"
-                                       :icon="['fas', 'chevron-down']"
-                                       :icon-class="[
-                    log.open ? 'rotate-180' : '',
-                    'transition-transform duration-300 text-gray-700'
-                  ]"
-                                       :btn-class="'z-20 close text-xl flex justify-center items-center ml-auto'"
-                />
-              </div>
-
-
-            </div>
-          </div>
-
-
-          <div
-
-            class="col-span-8 bg-gray-200 accordion-content transition-all duration-300 grid grid-cols-8"
-            :data-id="log.id">
-            <div class="col-span-8 grid grid-cols-4 gap-0 p-1">
-              <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Path</div>
-              <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Name</div>
-              <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Size</div>
-              <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Type</div>
-              <template v-for="file in log.files" :key="file.name">
-                <div class="col-span-8 grid grid-cols-4 gap-0 hover:bg-gray-300 rounded-full cursor-default">
-                  <div class="col-span-1 p-1 truncate">{{ file.path }}</div>
-                  <div class="col-span-1 p-1 truncate">{{ file.name }}</div>
-                  <div class="col-span-1 p-1 truncate">{{ formatSize(file.size) }}</div>
-                  <div class="col-span-1 p-1 truncate">{{ file.type }}</div>
-                </div>
-              </template>
-            </div>
-          </div>
-        </template>
-
-      </div>
     </div>
-    <div class="w-full flex justify-center items-center space-x-2" v-if="logList.length > itemsPerPage">
-      <button @click="prevPage" :disabled="currentPage <= 1" class="px-1 text-white bg-blue-600 rounded"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
+
+    <div class="w-full flex justify-center items-center space-x-2"
+         v-if="logList.length > itemsPerPage">
+      <button @click="prevPage"
+              :disabled="currentPage <= 1"
+              class="px-1 text-white bg-blue-600 rounded">
+        <font-awesome-icon :icon="['fas', 'chevron-left']" />
+      </button>
 
       <!-- Nächste Seite Button -->
-      <button @click="nextPage" :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
-              class="px-1 text-white bg-blue-600 rounded"><font-awesome-icon :icon="['fas', 'chevron-right']" /></button>
+      <button @click="nextPage"
+              :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
+              class="px-1 text-white bg-blue-600 rounded">
+        <font-awesome-icon :icon="['fas', 'chevron-right']" />
+      </button>
     </div>
-    <LabelComponent class="absolute bottom-3 right-3" :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
+    <LabelComponent class="absolute bottom-3 right-3"
+                    :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
   </ModalComponent>
 </template>
@@ -107,7 +64,8 @@ import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
 import { nextTick, onMounted, onUnmounted, computed } from "vue";
 import LabelComponent from "../form/LabelComponent.vue";
-
+import SyncModeLog from "./SyncModeLog.vue";
+import DeleteFileLog from "./DeleteFileLog.vue";
 // Setup
 const props = defineProps({
   showModal: Boolean
@@ -151,13 +109,13 @@ const updateLogs = (updatedLogs) => {
   logList.value = updatedLogs.reverse();
 };
 
-onMounted(async() => {
+onMounted(async () => {
   let logs = await window.ipcRendererInvoke("get-logs");
 
   window.ipcRendererOn("log-changed", async () => {
     logs = await window.ipcRendererInvoke("get-logs");
     updateLogs(logs);
-    console.log("logs", logs)
+    console.log("logs", logs);
   });
   logs = await window.ipcRendererInvoke("get-logs");
   await updateLogs(logs);
@@ -169,7 +127,6 @@ onMounted(async() => {
 
   window.ipcRendererOn("sync-progress-pause", async () => {
     allowExpand.value = true;
-
 
 
   });
@@ -192,18 +149,25 @@ onUnmounted(() => {
 });
 
 const toggleLogDetails = (id) => {
+  console.log("toggleLogDetails 1");
   if (!allowExpand.value) return;
-  logList.value.forEach(async (log) => {
+  console.log("toggleLogDetails 2");
+  logList.value.forEach(async(log, index) => {
+    console.log("toggleLogDetails 3");
     if (log.id === id && log.files) {
-      log.open = !log.open;
+      console.log("toggleLogDetails 4");
+      logList.value[index] = { ...log, open: !log.open };
       await nextTick();
       const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
-
+      console.log("toggleLogDetails 5");
       if (element) {
-        if (log.open) {
-          element.style.maxHeight = element.scrollHeight + "px";
+        console.log("toggleLogDetails 6");
+        if (!log.open) {
+          console.log("toggleLogDetails 7");
+          element.style.maxHeight = (element.scrollHeight + 100) + "px";
         } else {
-          element.style.maxHeight = 0+"px";
+          console.log("toggleLogDetails 8");
+          element.style.maxHeight = 0 + "px";
 
         }
       }
@@ -211,25 +175,6 @@ const toggleLogDetails = (id) => {
   });
 };
 
-
-const formatSize = (size) => {
-  const kb = 1024;
-  const mb = kb * 1024;
-  const gb = mb * 1024;
-  const tb = gb * 1024;
-
-  if (size >= tb) {
-    return `${(size / tb).toFixed(2)} TB`;
-  } else if (size >= gb) {
-    return `${(size / gb).toFixed(2)} GB`;
-  } else if (size >= mb) {
-    return `${(size / mb).toFixed(2)} MB`;
-  } else if (size >= kb) {
-    return `${(size / kb).toFixed(2)} KB`;
-  } else {
-    return `${size} B`;
-  }
-};
 
 </script>
 
@@ -240,5 +185,19 @@ const formatSize = (size) => {
   max-height: 0;
   transition: max-height 0.3s ease-in-out;
 }
+
+.truncate-no-hover {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.truncate-no-hover:hover {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: break-all;
+}
+
 
 </style>

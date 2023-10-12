@@ -184,6 +184,7 @@ const checkFtpProgress = async () => {
       let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
 
       let log = {
+        logType: 'Sync-Progress',
         id: logID.value,
         type: progressPaused.value ? currentType.value+' Canceled' : currentType.value,
         open: false,
@@ -213,12 +214,12 @@ const checkFtpProgress = async () => {
 
 let shortlyStarted = ref(false);
 let showProgress = reactive(ref(false));
-let idAlreadySet = false;
+let idAlreadySet = ref(false);
 window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) => {
 
-  if (!idAlreadySet) {
+  if (!idAlreadySet.value) {
     logID.value = await window.api.getUUID();
-    idAlreadySet = true;
+    idAlreadySet.value = true;
   }
   progressPaused.value = false;
   shortlyStarted.value = true;
@@ -237,7 +238,7 @@ let progressPaused = ref(false);
 window.ipcRendererOn("sync-progress-pause", async () => {
 
   syncProgress.value = 0;
-  idAlreadySet = false;
+  idAlreadySet.value = false;
  progressPaused.value = true;
   console.log("sync-progress-pause");
   if (intervalID){
@@ -261,7 +262,7 @@ window.ipcRendererOn("sync-progress-end", async () => {
     return;
   }
   if (syncProgress.value >= 100) {
-    idAlreadySet = false;
+    idAlreadySet.value = false;
     finishedSyncing.value = true;
     setTimeout(() => {
       showProgress.value = false;
