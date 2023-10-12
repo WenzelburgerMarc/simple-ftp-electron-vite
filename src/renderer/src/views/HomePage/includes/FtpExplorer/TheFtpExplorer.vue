@@ -206,9 +206,7 @@ const createNewFolderOnFtp = async (name) => {
       type: "Server Folder Created",
       name: name,
       open: false,
-      totalFiles: 1,
       destination: currentDir.value + "/",
-      progress: "-",
     };
 
     try {

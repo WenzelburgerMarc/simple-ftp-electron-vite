@@ -188,7 +188,7 @@ export const deleteDirectory = async (directory) => {
 
 
 export const createNewFolder = async (selectedDirectory) => {
-  const result = await window.ftp.createnewFolder(selectedDirectory);
+  const result = await window.ftp.createNewFolder(selectedDirectory);
   if (result) {
     await listFilesAndDirectories();
     displayFlash("Created new folder", "success");

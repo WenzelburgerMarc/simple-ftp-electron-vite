@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Pagination Design">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Logs Design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/CreateFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/CreateFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SetSyncPathLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/SetSyncPathLog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFileLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFileLog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,15 +123,7 @@
       <workItem from="1697008735202" duration="103000" />
       <workItem from="1697008848360" duration="18021000" />
       <workItem from="1697027403581" duration="6405000" />
-      <workItem from="1697094463621" duration="17269000" />
-    </task>
-    <task id="LOCAL-00039" summary="Add - Pause Button To sync-slider-options.vue">
-      <option name="closed" value="true" />
-      <created>1696402133185</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1696402133185</updated>
+      <workItem from="1697094463621" duration="18519000" />
     </task>
     <task id="LOCAL-00040" summary="Fix - Breadcrumb, set Sync Directory">
       <option name="closed" value="true" />
@@ -514,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697111484061</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Fix - Logs Design">
+      <option name="closed" value="true" />
+      <created>1697114050489</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1697114050490</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +538,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Label Of enable auto reconnect checkbox" />
     <MESSAGE value="Fix - Do not Show delete File/Folder Buttons on Sync" />
     <MESSAGE value="Add - Loading Between Mode Switches" />
     <MESSAGE value="Fix - Flash Message Order on Connect" />
@@ -560,6 +562,7 @@
     <MESSAGE value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
     <MESSAGE value="Add - Delete Folder Log" />
     <MESSAGE value="Fix - Pagination Design" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Pagination Design" />
+    <MESSAGE value="Fix - Logs Design" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Logs Design" />
   </component>
 </project>

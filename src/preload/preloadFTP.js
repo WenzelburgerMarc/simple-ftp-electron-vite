@@ -104,8 +104,6 @@ export const deleteFile = async (filePath) => {
 
   try {
     const fileStats = await sftp.stat(filePath);
-    let type = filePath.split(".");
-    type = type[type.length - 1];
 
     let name = filePath.split("/");
     name = name[name.length - 1];
@@ -118,15 +116,10 @@ export const deleteFile = async (filePath) => {
       id: uuidv4(),
       type: "Deleted Server File",
       open: false,
-      totalFiles: 1,
       totalSize: fileStats.size,
       destination: destPath + "/",
-      progress: "-",
-      files: [{
-        name: name,
-        size: fileStats.size,
-        type: type
-      }]
+      name: name
+
     };
 
     console.log(log);
@@ -142,7 +135,7 @@ export const deleteFile = async (filePath) => {
   }
 };
 
-export const createnewFolder = async (selectedDirectory) => {
+export const createNewFolder = async (selectedDirectory) => {
   if (!isConnected) {
     throw new Error("Not connected to FTP server");
   }
@@ -168,7 +161,6 @@ export const deleteDirectory = async (directory) => {
       id: uuidv4(),
       type: "Deleted Server Folder",
       open: false,
-      totalFiles: 1,
       destination: directory + "/",
     };
 

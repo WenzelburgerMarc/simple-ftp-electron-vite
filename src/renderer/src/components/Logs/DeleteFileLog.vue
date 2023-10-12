@@ -49,7 +49,7 @@ const deleteLog = (id) => {
                 ]">
     <div class="col-span-1 p-1  truncate-no-hover">{{ log.type }}
     </div>
-    <div class="col-span-1 p-1  truncate-no-hover">{{ log.files[0].name }}
+    <div class="col-span-1 p-1  truncate-no-hover">{{ log.name }}
     </div>
 
     <div class="col-span-1 p-1  truncate-no-hover">{{ formatSize(log.totalSize) }}

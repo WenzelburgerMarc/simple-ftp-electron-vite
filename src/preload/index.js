@@ -9,7 +9,7 @@ import {
   getCurrentDir,
   listFilesAndDirectories,
   deleteFile,
-  createnewFolder,
+  createNewFolder,
   deleteDirectory,
   startSyncing,
   stopSyncing,
@@ -47,13 +47,12 @@ contextBridge.exposeInMainWorld("ftp", {
   getCurrentDir,
   listFilesAndDirectories,
   deleteFile,
-  createnewFolder,
+  createNewFolder,
   deleteDirectory,
   startSyncing,
   stopSyncing,
   getSyncMode,
   setSyncMode,
-  //calculateFtpDirectorySize,
   calculateAndCompareSize
 });
 

@@ -114,9 +114,7 @@ const handleSelectDirectory = async(path) => {
     id: window.api.getUUID(),
     type: "Client Sync Path Set",
     open: false,
-    totalFiles: 1,
     destination: selectedPath.value + "/",
-    progress: "-",
   };
 
   try {

@@ -9,6 +9,7 @@ import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
+import { v4 as uuidv4 } from "uuid";
 
 const currentDir = ref("");
 const fileList = ref([]);
@@ -56,7 +57,7 @@ const createNewFolderOnClient = async () => {
     displayFlash("Folder created", "success");
 
     let name = folderName.split("/").pop();
-    if(name === "") {
+    if (name === "") {
       name = folderName;
     }
 
@@ -66,9 +67,7 @@ const createNewFolderOnClient = async () => {
       type: "Client Folder Created",
       name: name,
       open: false,
-      totalFiles: 1,
-      destination: currentDir.value + "/",
-      progress: "-",
+      destination: currentDir.value + "/"
     };
 
     try {
@@ -170,20 +169,12 @@ const deleteFile = async (file) => {
 
       let log = {
         logType: "Delete-File",
-        id: window.api.getUUID(),
-        type: "Deleted Client File",
+        id: uuidv4(),
+        type: "Deleted Server File",
         open: false,
-        totalFiles: 1,
         totalSize: file.size,
-        destination: currentDir.value + "/",
-        progress: "-",
-        files: [{
-          name: file.name,
-          size: file.size,
-          type: file.type
-        }]
-
-
+        destination: filePath + "/",
+        name: file.name
       };
 
       try {
@@ -199,8 +190,6 @@ const deleteFile = async (file) => {
     displayFlash(error.message, "error");
   }
 
-
-
 };
 
 
@@ -210,14 +199,12 @@ const deleteFolder = async (folder) => {
       if (response.success) {
         displayFlash("Deleted folder", "success");
 
-
         let log = {
-          logType: 'Delete-Folder',
+          logType: "Delete-Folder",
           id: window.api.getUUID(),
           type: "Deleted Client Folder",
           open: false,
-          totalFiles: 1,
-          destination: currentDir.value + "/" + folder.name,
+          destination: currentDir.value + "/" + folder.name
         };
 
         try {
