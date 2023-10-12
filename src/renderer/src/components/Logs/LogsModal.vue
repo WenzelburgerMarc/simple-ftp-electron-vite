@@ -59,14 +59,16 @@
          v-if="logList.length > itemsPerPage">
       <button @click="prevPage"
               :disabled="currentPage <= 1"
-              class="px-1 text-white bg-blue-600 rounded">
+              :class="currentPage <= 1 ? 'bg-gray-200' : 'bg-blue-600'"
+              class="px-2 text-white rounded">
         <font-awesome-icon :icon="['fas', 'chevron-left']" />
       </button>
 
       <!-- Nächste Seite Button -->
       <button @click="nextPage"
               :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
-              class="px-1 text-white bg-blue-600 rounded">
+              :class="currentPage * itemsPerPage >= logList.length ? 'bg-gray-200' : 'bg-blue-600'"
+              class="px-2 text-white rounded">
         <font-awesome-icon :icon="['fas', 'chevron-right']" />
       </button>
     </div>
@@ -115,7 +117,7 @@ const closeModal = () => {
 };
 
 const currentPage = ref(1);
-const itemsPerPage = ref(10);
+const itemsPerPage = ref(5);
 
 const paginatedLogs = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value;

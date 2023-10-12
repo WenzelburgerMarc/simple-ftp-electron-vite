@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Delete Folder Log">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,15 +117,7 @@
       <workItem from="1697008735202" duration="103000" />
       <workItem from="1697008848360" duration="18021000" />
       <workItem from="1697027403581" duration="6405000" />
-      <workItem from="1697094463621" duration="15141000" />
-    </task>
-    <task id="LOCAL-00037" summary="Fix - FlashMessage.vue">
-      <option name="closed" value="true" />
-      <created>1696399926281</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1696399926281</updated>
+      <workItem from="1697094463621" duration="15637000" />
     </task>
     <task id="LOCAL-00038" summary="Fix - SettingsModal Design">
       <option name="closed" value="true" />
@@ -514,7 +503,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697109164273</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Add - Delete Folder Log">
+      <option name="closed" value="true" />
+      <created>1697111063929</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1697111063929</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +532,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue" />
     <MESSAGE value="Fix - On Manual Disconnect -&gt; Set Auto Reconnect Setting to False" />
     <MESSAGE value="Fix - Label Of enable auto reconnect checkbox" />
     <MESSAGE value="Fix - Do not Show delete File/Folder Buttons on Sync" />
@@ -560,6 +556,7 @@
     <MESSAGE value="Add - Delete client File Log" />
     <MESSAGE value="Fix - Delete File Log, Upload/Download + Cancel Log" />
     <MESSAGE value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
+    <MESSAGE value="Add - Delete Folder Log" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Delete Folder Log" />
   </component>
 </project>
