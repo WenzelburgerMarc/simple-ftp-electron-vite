@@ -4,42 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Removed old Console Logs">
-      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FlashMessage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/CreateFolderLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFileLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/ErrorLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SetSyncPathLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SyncModeLog.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarUser.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/CheckboxComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/InputComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - ESLINT">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,15 +121,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="951000" />
-    </task>
-    <task id="LOCAL-00044" summary="Fix - Upload Progress Bar">
-      <option name="closed" value="true" />
-      <created>1696493477699</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1696493477699</updated>
+      <workItem from="1697180643061" duration="1684000" />
     </task>
     <task id="LOCAL-00045" summary="Fix - Upload">
       <option name="closed" value="true" />
@@ -547,7 +507,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697181560413</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Fix - ESLINT">
+      <option name="closed" value="true" />
+      <created>1697181681607</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1697181681607</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +536,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Delete Files/Folders After Upload Setting + Functionality" />
     <MESSAGE value="Fix - Electron Error after close" />
     <MESSAGE value="Add - Exit Button&#10;Fix - Application Title" />
     <MESSAGE value="Fix - Delete Button Design" />
@@ -593,6 +560,7 @@
     <MESSAGE value="Cleanup - Log Files&#10;Add - Error Log Vue Component" />
     <MESSAGE value="Add - Error Logs" />
     <MESSAGE value="Fix - Removed old Console Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Removed old Console Logs" />
+    <MESSAGE value="Fix - ESLINT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - ESLINT" />
   </component>
 </project>

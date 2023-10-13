@@ -191,6 +191,13 @@ const deleteLog = async (id) => {
   await window.ipcRendererInvoke("delete-log", id);
   const logs = await window.ipcRendererInvoke("get-logs");
   await updateLogs(logs);
+  isCurrentPageEmpty();
+};
+
+const isCurrentPageEmpty = () => {
+  if (paginatedLogs.value.length === 0 && currentPage.value > 1) {
+    currentPage.value -= 1;
+  }
 };
 
 onUnmounted(() => {

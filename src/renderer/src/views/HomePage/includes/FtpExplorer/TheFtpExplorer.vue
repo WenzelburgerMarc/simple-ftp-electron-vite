@@ -268,7 +268,7 @@ v-if="showTooltip"
           @goBackFTPPath="handleBack" />
 
         <Breadcrumb
-:initial-breadcrumb="breadcrumb"
+                    :initial-breadcrumb="initialPath.split('/').filter(segment => segment.trim() !== '')"
                     :current-dir="currentDir"
                     :initial-path-prop="initialPath"
                     @change-path="changePath" />
