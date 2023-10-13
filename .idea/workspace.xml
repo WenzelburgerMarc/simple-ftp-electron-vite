@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Error Logs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarUser.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,15 +124,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="12363000" />
-    </task>
-    <task id="LOCAL-00057" summary="Add - Reconnect on Internet Connection Failure">
-      <option name="closed" value="true" />
-      <created>1696845413672</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1696845413672</updated>
+      <workItem from="1697180643061" duration="13985000" />
     </task>
     <task id="LOCAL-00058" summary="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type">
       <option name="closed" value="true" />
@@ -514,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697193400562</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="Fix - Error Logs">
+      <option name="closed" value="true" />
+      <created>1697194233792</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1697194233792</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +539,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Logs Design" />
     <MESSAGE value="Fix - logs design&#10;Add - Logs Functionality" />
     <MESSAGE value="Add - Delete Logs" />
     <MESSAGE value="Fix - Logs Order" />
@@ -560,6 +563,7 @@
     <MESSAGE value="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn" />
     <MESSAGE value="Add - Save Logs Functionality" />
     <MESSAGE value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
+    <MESSAGE value="Fix - Error Logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Error Logs" />
   </component>
 </project>

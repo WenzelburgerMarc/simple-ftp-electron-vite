@@ -3,9 +3,9 @@
 class="sidebar-item p-2 flex items-center justify-start rounded-xl hover:cursor-pointer overflow-hidden"
         :class="[props.item.isLogoItem ? '' : 'hover:bg-blue-400', activeRoute ? 'bg-blue-400' : '']" @click="props.item.actionEvent">
         <div class="w-12 h-12  flex-shrink-0 flex items-center justify-center rounded-full">
-            <i
-:class="[props.item.iconClass, props.item.isLogoItem ? 'font-semibold' : 'font-normal']"
-                class='bx text-2xl rounded-md text-white text-center'></i>
+            <font-awesome-icon :icon="props.item.iconClass"
+:class="[props.item.isLogoItem ? 'font-semibold' : 'font-normal']"
+                class='bx text-xl rounded-md text-white text-center'></font-awesome-icon>
         </div>
 
 
@@ -24,6 +24,7 @@ class="sidebar-item p-2 flex items-center justify-start rounded-xl hover:cursor-
 
 import SidebarItemTooltip from './SidebarItemTooltip.vue';
 import { watch, ref, defineProps } from 'vue';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const props = defineProps({
     item: {

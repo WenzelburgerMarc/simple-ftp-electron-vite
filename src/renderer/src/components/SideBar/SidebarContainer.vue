@@ -60,7 +60,7 @@ const router = useRouter();
 
 
 const darkModeOn = ref(document.documentElement.classList.contains("dark"));
-const darkModeIcon = computed(() => darkModeOn.value ? "bx-moon" : "bx-sun");
+const darkModeIcon = computed(() => darkModeOn.value ? "fa-solid fa-moon" : "fa-solid fa-sun");
 const arrSidebarItemsBottom = [
 
   {
@@ -72,7 +72,7 @@ const arrSidebarItemsBottom = [
     activeRouteName: ""
   },
   {
-    iconClass: "bx-log-out",
+    iconClass: "fa-solid fa-right-from-bracket",
     label: "Exit",
     actionEvent: () => {
       window.ipcRendererInvoke("exit");
@@ -91,7 +91,7 @@ const toggleDarkMode = () => {
 
 const arrSidebarItemsTop = [
   {
-    iconClass: "bx-analyse",
+    iconClass: "fa-solid fa-magnifying-glass-chart",
     label: "Logs",
     actionEvent: () => {
       emit("logsClicked");
@@ -101,7 +101,7 @@ const arrSidebarItemsTop = [
     activeRouteName: "logs"
   },
   {
-    iconClass: "bx-cog",
+    iconClass: "fa-solid fa-gear",
     label: "Settings",
     actionEvent: () => {
       emit("settingsClicked");
@@ -113,7 +113,7 @@ const arrSidebarItemsTop = [
 ];
 
 const logoItem = {
-  iconClass: "bx-home",
+  iconClass: "fa-solid fa-house",
   label: "Home",
   actionEvent: () => {
     goToHome();
