@@ -85,14 +85,12 @@ onMounted(async () => {
   window.ipcRendererInvoke("watch-client-directory", initialPath.value);
 
   window.ipcRendererOn("client-directory-changed", async (event, path) => {
-    console.log("client-directory-changed", path);
     currentDir.value = path;
     initialPath.value = path;
     await listFiles();
   });
 
   window.ipcRendererOn("file-changed", async () => {
-    console.log("file-changed");
     await listFiles();
   });
 

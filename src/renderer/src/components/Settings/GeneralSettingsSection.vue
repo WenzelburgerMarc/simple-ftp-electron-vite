@@ -131,7 +131,6 @@ const closeModal = () => {
 onMounted(async () => {
   window.ipcRendererOn("disableAutoReconnectChanged", async () => {
     enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
-    console.log("enableAutoReconnectChanged", enableAutoReconnect.value);
   });
 
   window.api.getAutoStartItemSetting().then(settings => {

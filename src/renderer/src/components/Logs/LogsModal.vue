@@ -150,10 +150,9 @@ onMounted(async () => {
   window.ipcRendererOn("log-changed", async () => {
     logs = await window.ipcRendererInvoke("get-logs");
     updateLogs(logs);
-    console.log("logs", logs);
   });
   logs = await window.ipcRendererInvoke("get-logs");
-  console.log("logs", logs);
+
   await updateLogs(logs);
 
 

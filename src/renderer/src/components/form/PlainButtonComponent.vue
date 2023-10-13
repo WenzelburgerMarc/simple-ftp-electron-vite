@@ -1,9 +1,9 @@
 <template>
-  <button @click="$emit(emitEvent)" class="w-fit rounded-md">{{ buttonText }}</button>
+  <button class="w-fit rounded-md" @click="$emit(props.emitEvent)">{{ props.buttonText }}</button>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps } from 'vue';
 
 const props = defineProps({
   buttonText: {

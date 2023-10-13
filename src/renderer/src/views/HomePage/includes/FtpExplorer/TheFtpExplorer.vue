@@ -118,7 +118,6 @@ const startPolling = async () => {
   timeout += 250;
   pollingInterval = setInterval(async () => {
     await listFiles(false);
-    console.log("polling");
   }, timeout);
 };
 
@@ -156,7 +155,7 @@ const listFiles = async (showLoader = true) => {
 };
 
 const setFtpSyncDirectory = async () => {
-  console.log("setFtpSyncDirectory");
+
   await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", currentDir.value);
   setCurrentDir(currentDir.value);
   initialPath.value = currentDir.value;
@@ -186,7 +185,6 @@ const deleteFtpFile = async (file) => {
 
 const deleteFtpFolder = async (folder) => {
   const path = currentDir.value + "/" + folder.name;
-  console.log(path);
   await deleteDirectory(path);
   await listFiles();
 };

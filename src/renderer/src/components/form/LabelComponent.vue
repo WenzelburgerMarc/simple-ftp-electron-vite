@@ -1,5 +1,5 @@
 <template>
-  <label class="text-sm text-gray-700">{{ labelText }}</label>
+  <label class="text-sm text-gray-700">{{ props.labelText }}</label>
 </template>
 
 <script setup>

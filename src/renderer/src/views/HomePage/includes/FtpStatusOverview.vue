@@ -82,7 +82,6 @@ let onlineStatusChanged = false;
 let currentlyReConnecting = false;
 
 const startAutoReconnect = async () => {
-  console.log("startAutoReconnect");
 
   if (!startIsOnlineInterval && !currentlyReConnecting) {
     startIsOnlineInterval = setInterval(async () => {
@@ -103,7 +102,6 @@ const startAutoReconnect = async () => {
       }
 
       const ftpAutoReconnect = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
-      console.log("ftpAutoReconnect: ", ftpAutoReconnect);
 
       if (ftpAutoReconnect && !connected.value && !currentlyReConnecting) {
         ftpCredentials.value.host = await window.ipcRendererInvoke("get-setting", "ftpHost");
@@ -138,7 +136,6 @@ onMounted(async () => {
   // };
   // window.ipcRendererInvoke("add-log", log);
   window.ipcRendererOn("autoReconnectChanged", async () => {
-    console.log("autoReconnectChanged");
     startIsOnlineInterval = false;
     currentlyReConnecting = false;
     await startAutoReconnect();
@@ -148,7 +145,6 @@ onMounted(async () => {
   await startAutoReconnect();
 
   watch(connected, async (newValue) => {
-    console.log("new");
     if (newValue) {
       ftpCredentials.value.host = await window.ipcRendererInvoke("get-setting", "ftpHost");
     }
@@ -169,7 +165,6 @@ const checkFtpProgress = async () => {
       progress = await window.ftp.calculateAndCompareSize(
         await window.ipcRendererInvoke("get-setting", "ftp-sync-mode")
       );
-      console.log("progress: " + progress);
       syncProgress.value = progress;
     } catch (error) {
       let log = {
@@ -185,7 +180,6 @@ const checkFtpProgress = async () => {
     let files = [];
     let size = 0;
 
-    console.log(currentProcessingFiles.value);
     currentProcessingFiles.value = currentProcessingFiles.value || [];
     if (Array.isArray(currentProcessingFiles.value) && currentProcessingFiles.value.length > 0) {
 
@@ -236,7 +230,7 @@ window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) =>
   shortlyStarted.value = true;
   currentProcessingFiles.value = currentFiles;
   currentType.value = type;
-  console.log("sync-progress-start");
+
   finishedSyncing.value = false;
   if (intervalID)
     clearInterval(intervalID);
@@ -251,7 +245,7 @@ window.ipcRendererOn("sync-progress-pause", async () => {
   syncProgress.value = 0;
   idAlreadySet.value = false;
  progressPaused.value = true;
-  console.log("sync-progress-pause");
+
   if (intervalID){
     setTimeout(() => {
       clearInterval(intervalID);
@@ -268,7 +262,7 @@ window.ipcRendererOn("sync-progress-pause", async () => {
 });
 
 window.ipcRendererOn("sync-progress-end", async () => {
-  console.log("sync-progress-end");
+
   if(progressPaused.value){
     return;
   }

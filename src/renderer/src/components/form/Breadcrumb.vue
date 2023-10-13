@@ -110,7 +110,6 @@ onMounted(() => {
     if (!initialPath.value) {
       return false;
     }
-    console.log(initialPath.value, currentDir.value);
 
     if(initialPath.value === currentDir.value) {
       return true;

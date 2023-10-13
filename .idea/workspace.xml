@@ -4,20 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Cleanup - Log Files&#10;Add - Error Log Vue Component">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Error Logs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/ErrorLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/ErrorLog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +61,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -69,31 +73,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.laravel-idea.search-composer-json&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.18.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.18.0&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/wenzelburgermarc/Documents/simple-ftp-electron-vite&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.laravel-idea.search-composer-json": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "18.18.0",
+    "javascript.nodejs.core.library.typings.version": "18.18.0",
+    "last_opened_file_path": "/Users/wenzelburgermarc/Documents/simple-ftp-electron-vite",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/renderer/src/components" />
@@ -128,15 +133,9 @@
       <workItem from="1697008735202" duration="103000" />
       <workItem from="1697008848360" duration="18021000" />
       <workItem from="1697027403581" duration="6405000" />
-      <workItem from="1697094463621" duration="23785000" />
-    </task>
-    <task id="LOCAL-00042" summary="Fix - Sync Slider options Transition Duration">
-      <option name="closed" value="true" />
-      <created>1696426596033</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1696426596033</updated>
+      <workItem from="1697094463621" duration="23905000" />
+      <workItem from="1697180602348" duration="31000" />
+      <workItem from="1697180643061" duration="848000" />
     </task>
     <task id="LOCAL-00043" summary="Add - Start Syncing on Start up&#10;Add - Save Sync State after closing application">
       <option name="closed" value="true" />
@@ -522,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697117436005</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Add - Error Logs">
+      <option name="closed" value="true" />
+      <created>1697120577372</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1697120577372</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +550,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Flash Message Order on Connect" />
     <MESSAGE value="Add - Auto Re-Connect disabled Info" />
     <MESSAGE value="Add - Delete Files/Folders After Upload Setting + Functionality" />
     <MESSAGE value="Fix - Electron Error after close" />
@@ -568,6 +574,7 @@
     <MESSAGE value="Fix - Logs Design" />
     <MESSAGE value="Fix - Removed Unused Log Objects" />
     <MESSAGE value="Cleanup - Log Files&#10;Add - Error Log Vue Component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup - Log Files&#10;Add - Error Log Vue Component" />
+    <MESSAGE value="Add - Error Logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Error Logs" />
   </component>
 </project>

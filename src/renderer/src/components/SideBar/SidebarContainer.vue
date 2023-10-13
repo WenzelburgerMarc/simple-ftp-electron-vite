@@ -89,7 +89,6 @@ const arrSidebarItemsTop = [
     iconClass: "bx-analyse",
     label: "Logs",
     actionEvent: () => {
-      console.log("go to logs");
       emit("logsClicked");
       if (isOpen.value)
         toggleSidebar();

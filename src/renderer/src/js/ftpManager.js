@@ -61,7 +61,6 @@ export const connect = (ftpSettings, justTest = false) => {
         displayFlash("FTP-Connection Settings are valid", "success");
         await disconnect(true, true);
         stopLoading();
-        console.log("justTest");
         return resolve(true);
       }
       displayFlash("Connected to FTP Server", "success");
@@ -119,7 +118,6 @@ export const getFileList = () => {
 };
 export const listFilesAndDirectories = async (remoteDir = currentDir.value, showLoader = true) => {
   if (!connected.value) {
-    console.log("Not connected to the server");
     return;
   }
 
@@ -133,13 +131,19 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
 
     await window.ftp.listFilesAndDirectories(remoteDir);
     fileList.value = window.ftp.getFiles();
-    console.log(fileList.value);
 
     stopLoading();
 
   } catch (error) {
     stopLoading();
-    console.log(error);
+    let log  = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - List Files",
+      open: false,
+      description: error.message
+    };
+    window.ipcRendererInvoke("add-log", log);
     displayFlash("Failed to list files", "error");
 
   }
@@ -160,7 +164,14 @@ export const deleteFile = async (file) => {
     })
     .catch((error) => {
       stopLoading();
-      console.log(error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Delete File",
+        open: false,
+        description: error
+      }
+      window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");
 
     });
@@ -180,7 +191,14 @@ export const deleteDirectory = async (directory) => {
     })
     .catch((error) => {
       stopLoading();
-      console.log(error);
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Delete Directory",
+        open: false,
+        description: error
+      }
+      window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");
 
     });
@@ -205,7 +223,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     await window.ftp.stopSyncing();
     await window.ftp.setSyncMode(mode);
     await window.ftp.startSyncing(mode, clientSyncPath, ftpSyncPath);
-    console.log(mode);
+
     currentSyncMode.value = window.ftp.getSyncMode();
     if (mode === "download" || mode === "upload")
       displayFlash("Syncing started", "success");

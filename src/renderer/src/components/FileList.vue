@@ -86,7 +86,6 @@ const formatType = (name, type) => {
 };
 let interval = null;
 onMounted(async() => {
-  console.log("FileList mounted")
 
   if(interval) {
     clearInterval(interval);

@@ -87,7 +87,15 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
     }
     setFiles(files);
   } catch (error) {
-    console.log(error);
+
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - List Server Files",
+      open: false,
+      description: error,
+    };
+    await ipcRenderer.invoke("add-log", log);
   }
 };
 
@@ -108,7 +116,6 @@ export const deleteFile = async (filePath) => {
     let name = filePath.split("/");
     name = name[name.length - 1];
 
-    console.log("Attempting to delete file:", filePath);
     await sftp.delete(filePath);
 
     let log = {
@@ -121,8 +128,6 @@ export const deleteFile = async (filePath) => {
       name: name
 
     };
-
-    console.log(log);
 
     await ipcRenderer.invoke("add-log", log);
 
@@ -254,7 +259,7 @@ export const calculateAndCompareSize = async (mode) => {
     if (progress > 100) {
       progress = 100;
     }
-    console.log(`Synchronization progress: ${progress.toFixed(2)}%`);
+
     return progress.toFixed(2);
   }
 
@@ -275,9 +280,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
       if (localStats.isFile()) {
         const serverExists = await sftp.exists(serverPath);
         if (!serverExists) {
-
           shouldUpload = true;
-          console.log(`File ${localPath} does not exist on server. Preparing to upload.`);
         } else {
 
           const serverStats = await sftp.stat(serverPath);
@@ -287,7 +290,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
 
           if (localSize > serverSize) {
             shouldUpload = true;
-            console.log(`File ${localPath} is partially uploaded. Preparing to resume upload.`);
+
           } else {
 
             const serverMtime = Math.floor(new Date(serverStats.mtime).getTime() / 1000);
@@ -295,9 +298,6 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
 
 
             shouldUpload = localMtime > serverMtime;
-            if (shouldUpload) {
-              console.log(`File ${localPath} is newer than server. Preparing to upload.`);
-            }
           }
         }
 
@@ -343,9 +343,6 @@ const deleteFolders = async (clientSyncPath) => {
       ))
   );
 
-
-  console.log("foldersToDelete: ", foldersToDelete);
-
   for (const folder of foldersToDelete) {
 
 
@@ -372,8 +369,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       currentFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath);
       await ipcRenderer.invoke("sync-progress-start", currentFilesToUpload, "Upload");
 
-      for (const { name, localPath, serverPath, type } of currentFilesToUpload) {
-        console.log("uploading file: ", name, localPath, serverPath, type);
+      for (const { localPath, serverPath, type } of currentFilesToUpload) {
 
         if (type === "f") {
           try {
@@ -464,7 +460,6 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
           }
         }
         if (shouldDownload) {
-          console.log("should download: ", item);
           filesToDownload.push({ name: item.name, localPath, serverPath, type: item.type, size: item.size });
         }
       } else if (item.type === "d") {
@@ -500,13 +495,11 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       currentDownloadFiles = await getFilesToDownload(clientSyncPath, ftpSyncPath);
       await ipcRenderer.invoke("sync-progress-start", currentDownloadFiles, "Download");
 
-      for (const { item, localPath, serverPath, type } of currentDownloadFiles) {
-        console.log("downloading file: ", item, localPath, serverPath);
+      for (const { localPath, serverPath, type } of currentDownloadFiles) {
 
         if (type === "-" || type === "f") {
           try {
             await sftp.fastGet(serverPath, localPath);
-            console.log(`Downloaded: ${name}`);
           } catch (error) {
             let log = {
               logType: "Error",
@@ -575,7 +568,6 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
   interval = parseInt(interval);
   interval += 250;
-  console.log("interval: ", interval);
 
   intervalId = setInterval(async () => {
     if (firstRun) {
@@ -584,7 +576,6 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     }
     const newInterval = parseInt(await ipcRenderer.invoke("get-setting", "autoSyncInterval")) + 250;
     if (newInterval !== interval) {
-      console.log("Interval has changed. Updating...");
       clearInterval(intervalId);
       interval = newInterval;
       await startSyncing(mode, clientSyncPath, ftpSyncPath);
@@ -593,21 +584,20 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
 
     if (mode === "upload") {
-      console.log("upload mode is selected");
 
       setSyncMode("upload");
       await uploadFiles(clientSyncPath, ftpSyncPath);
       if (!firstRun)
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else if (mode === "download") {
-      console.log("Download mode is selected");
+
       setSyncMode("download");
       await downloadFiles(clientSyncPath, ftpSyncPath);
       if (!firstRun)
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else if (mode === "") {
       setSyncMode("");
-      console.log("Syncing paused");
+
       await ipcRenderer.invoke("sync-progress-pause");
       await stopSyncing();
 
@@ -638,7 +628,7 @@ export const stopSyncing = async () => {
 
   uploadInProgress.value = false;
   downloadInProgress.value = false;
-  console.log("Syncing stopped");
+
 };
 export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
   try {
@@ -648,10 +638,10 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
         try {
           if (file.type === "f") {
             await sftp.delete(file.serverPath);
-            console.log(`Deleted ${file.name} on server`);
+
           } else {
             await sftp.rmdir(file.serverPath, true);
-            console.log(`Deleted directory ${file.name} on server`);
+
           }
         } catch (error) {
           let log = {
@@ -672,7 +662,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
         try {
           if (file.type === "-" || file.type === "f") {
             fs.unlinkSync(file.localPath);
-            console.log(`Deleted ${file.name} on client`);
+
           } else {
             fs.rmdirSync(file.localPath, { recursive: true });
 
