@@ -2,7 +2,7 @@
   <main-layout>
     <div class="w-full flex flex-col justify-center items-center space-y-3 p-3 mr-[10px]">
       <FtpStatusOverview
-:is-connected="connected"
+                         :is-connected="connected"
                          @listFiles="listFilesAndDirectories" />
 
       <the-ftp-explorer />
@@ -23,5 +23,6 @@ import TheFtpExplorer from "./includes/FtpExplorer/TheFtpExplorer.vue";
 import { connected, listFilesAndDirectories } from "../../js/ftpManager";
 import TheClientExplorer from "./includes/ClientExplorer/TheClientExplorer.vue";
 import SyncSliderOptions from "./includes/sync-slider-options.vue";
+
 </script>
 

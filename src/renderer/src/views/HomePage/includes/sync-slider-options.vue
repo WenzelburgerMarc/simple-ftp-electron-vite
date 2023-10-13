@@ -4,7 +4,7 @@
 :style="switchingBackgroundStyle"
          class="absolute bg-blue-600 h-full shadow-md -z-10 rounded-md" />
     <icon-button-component
-:icon="['fas', 'upload']"
+                           :icon="['fas', 'upload']"
                            emit-name="setSyncUpload"
                            :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
                            :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
@@ -12,7 +12,7 @@
       Upload
     </icon-button-component>
     <icon-button-component
-:icon="['fas', 'download']"
+                           :icon="['fas', 'download']"
                            emit-name="setSyncDownload"
                            :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
                            :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
@@ -20,7 +20,7 @@
       Download
     </icon-button-component>
     <icon-button-component
-:icon="['fas', 'pause']"
+                           :icon="['fas', 'pause']"
                            emit-name="setStopSyncingMethod"
                            :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
                            :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"

@@ -1,6 +1,6 @@
 <script setup>
 import ModalComponent from "../../../../components/ModalComponent.vue";
-import { defineEmits, defineProps, ref, toRefs } from "vue";
+import { defineEmits, defineProps, onMounted, ref, toRefs, watch } from "vue";
 import IconButtonComponent from "../../../../components/form/IconButtonComponent.vue";
 import TitleComponent from "../../../../components/form/TitleComponent.vue";
 import LabelInputComponent from "../../../../components/form/LabelInputComponent.vue";
@@ -11,6 +11,15 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:showModal", 'createFolder']);
 const { showModal } = toRefs(props);
+
+onMounted(() => {
+  watch(props, (newValue) => {
+    if (newValue.showModal) {
+      newFolderName.value = "";
+    }
+  });
+});
+
 const closeModal = () => {
   emits("update:showModal", false);
 };

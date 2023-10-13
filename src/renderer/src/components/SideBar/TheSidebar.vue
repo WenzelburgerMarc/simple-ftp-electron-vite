@@ -23,8 +23,8 @@ watch(() => toggledSidebar.value, () => {
 </script>
 
 <template>
-    <div>
-        <SidebarContainer class="z-30" @logs-clicked="logsClicked" @settings-clicked="settingsClicked" @toggledSidebarEvent="toggledSidebar = !toggledSidebar" />
+    <div class="z-30">
+        <SidebarContainer @logs-clicked="logsClicked" @settings-clicked="settingsClicked" @toggledSidebarEvent="toggledSidebar = !toggledSidebar" />
     </div>
 </template>
 

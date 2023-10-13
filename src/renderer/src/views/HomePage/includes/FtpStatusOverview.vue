@@ -42,14 +42,14 @@ v-if="isConnected"
 v-if="isConnected"
                                emit-name="disconnectFtpIconBtn"
                                icon-class="text-2xl text-red-500"
-                               icon="xmark"
+                               :icon="['fas', 'xmark']"
                                @disconnectFtpIconBtn="disconnectFtp" />
 
         <icon-button-component
 v-if="!isConnected"
                                emit-name="connectFtpIconBtn"
                                icon-class="text-lg text-gray-800"
-                               icon="plug"
+                               :icon="['fas', 'plug']"
                                @connectFtpIconBtn="connectToFtp" />
 
       </div>

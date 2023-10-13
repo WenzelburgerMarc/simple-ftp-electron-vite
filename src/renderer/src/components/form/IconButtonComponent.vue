@@ -6,19 +6,20 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+
 
 const props = defineProps({
   icon: {
-    type: Array,
+    // array or string
+    type: [String, Array],
     required: true
   },
   btnClass: {
-    type: String,
+    type: [String, Array],
     default: ''
   },
   iconClass: {
-    type: String,
+    type: [String, Array],
     default: 'text-gray-800'
   },
   emitName: {

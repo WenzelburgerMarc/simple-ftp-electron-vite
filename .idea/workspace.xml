@@ -4,13 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Error Logs">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarUser.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +138,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="13985000" />
-    </task>
-    <task id="LOCAL-00058" summary="Fix - Reconnect on Internet Connection Failure&#10;Fix - Flash Message Type">
-      <option name="closed" value="true" />
-      <created>1696845867148</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1696845867148</updated>
+      <workItem from="1697180643061" duration="18407000" />
     </task>
     <task id="LOCAL-00059" summary="Add - Auto Reconnect Option in GeneralSettingsSection.vue&#10;Add - Auto Reconnect Implemented in ftp status overview .vue">
       <option name="closed" value="true" />
@@ -518,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697194233792</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon">
+      <option name="closed" value="true" />
+      <created>1697195876864</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1697195876864</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +553,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - logs design&#10;Add - Logs Functionality" />
     <MESSAGE value="Add - Delete Logs" />
     <MESSAGE value="Fix - Logs Order" />
     <MESSAGE value="Add - Pagination" />
@@ -564,6 +577,7 @@
     <MESSAGE value="Add - Save Logs Functionality" />
     <MESSAGE value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
     <MESSAGE value="Fix - Error Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Error Logs" />
+    <MESSAGE value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
   </component>
 </project>

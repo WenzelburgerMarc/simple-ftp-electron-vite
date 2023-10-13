@@ -13,7 +13,7 @@
 <script setup>
 import LabelComponent from "@/components/form/LabelComponent.vue";
 import InputComponent from "@/components/form/InputComponent.vue";
-import { defineProps } from "vue";
+
 
 const props = defineProps({
   label: String,

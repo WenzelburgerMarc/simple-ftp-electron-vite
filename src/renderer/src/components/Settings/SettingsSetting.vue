@@ -21,7 +21,7 @@ const showGeneralSettings = ref(true);
 const showFtpSettings = ref(false);
 
 onMounted(() => {
-  if(localStorage.getItem('showFtpSettings') == 'true') {
+  if(localStorage.getItem('showFtpSettings') === 'true') {
     showFtpSettingsHandler();
   } else {
     showGeneralSettingsHandler();

@@ -68,17 +68,11 @@ import { displayFlash } from "../../js/flashMessageController";
 import { startLoading, stopLoading } from "@/js/loaderManager.js";
 import { disconnect } from "../../js/ftpManager";
 
-// eslint-disable-next-line vue/no-dupe-keys
 let autoSyncInterval = reactive(ref(0));
-// eslint-disable-next-line vue/no-dupe-keys
 let autoReloadFtpInterval = reactive(ref(0));
-// eslint-disable-next-line vue/no-dupe-keys
 const selectedPath = ref("");
-// eslint-disable-next-line vue/no-dupe-keys
 const enableAutoStart = ref(false);
-// eslint-disable-next-line vue/no-dupe-keys
 const enableAutoReconnect = ref(false);
-// eslint-disable-next-line vue/no-dupe-keys
 const enableDeletingFilesAfterUpload = ref(false);
 
 
@@ -154,7 +148,7 @@ onMounted(async () => {
 });
 
 // Watch showModal
-watch(props.showModal, async () => {
+watch(props, async () => {
   await loadSettings();
 });
 const loadSettings = async () => {

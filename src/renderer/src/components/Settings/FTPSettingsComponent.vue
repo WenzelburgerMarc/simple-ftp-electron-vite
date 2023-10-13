@@ -94,7 +94,7 @@ onMounted(async () => {
 });
 
 // Watch showModal
-watch(props.showModal, async () => {
+watch(props, async () => {
   await loadSettings();
 });
 const loadSettings = async () => {

@@ -194,7 +194,13 @@ const createNewFolderOnFtp = async (name) => {
 
   if (folderName != null) {
     const path = currentDir.value + "/" + folderName + "/";
-    await createNewFolder(path);
+    try {
+      await createNewFolder(path);
+      displayFlash("Folder created", "success");
+    }catch (error) {
+      displayFlash("Folder already exists", "info");
+    }
+
 
     let name = folderName.split("/").pop();
     if(name === "") {
@@ -213,7 +219,8 @@ const createNewFolderOnFtp = async (name) => {
     await window.ipcRendererInvoke("add-log", log);
     await listFiles();
     updateShowModal(false);
-    displayFlash("Folder created", "success");
+
+
     return;
   }
   displayFlash("Error creating folder", "error");
