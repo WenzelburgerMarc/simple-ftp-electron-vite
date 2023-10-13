@@ -112,12 +112,14 @@
       <icon-button-component icon="fas fa-download"
                              :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
-                             @click="saveAllLogs"> Save Logs</icon-button-component>
+                             emit-name="saveAllLogs"
+                             @saveAllLogs="saveAllLogs"> Save Logs</icon-button-component>
       <icon-button-component v-if="logList.length > 0"
                              icon="fas fa-trash-alt"
                              :btn-class="'bg-red-300 hover:bg-red-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
-                             @click="deleteAllLogs"> Clear All
+                              emit-name="deleteAllLogs"
+                             @deleteAllLogs="deleteAllLogs"> Clear All
       </icon-button-component>
     </div>
   </ModalComponent>
@@ -209,6 +211,7 @@ onMounted(async () => {
 });
 
 const saveAllLogs = async () => {
+  console.log("save all logs");
   await window.ipcRendererInvoke("save-all-logs");
 };
 

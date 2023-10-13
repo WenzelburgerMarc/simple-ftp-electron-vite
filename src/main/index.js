@@ -349,29 +349,33 @@ ipcMain.handle("delete-log", (event, id) => {
   event.sender.send("log-changed");
 });
 ipcMain.handle("save-all-logs", async () => {
-  const logs = await store.get("logs", []);
-  const copyLogs = JSON.parse(JSON.stringify(logs));
-  await copyLogs.forEach(log => {
-    delete log.open;
-    delete log.logType;
-  });
-
-  const { filePath } = await dialog.showSaveDialog({
-    title: "Save Logs",
-    defaultPath: path.join(app.getPath("downloads"), "logs.json"),
-    buttonLabel: "Save Logs",
-    filters: [
-      { name: "JSON", extensions: ["json"] }
-    ]
-  });
-
-  if (filePath) {
-    fs.writeFileSync(filePath, JSON.stringify(copyLogs, null, 2));
-    shell.openPath(filePath).then(() => {
-      displayFlash("Logs saved successfully", "success");
+  try {
+    const logs = await store.get("logs", []);
+    const copyLogs = JSON.parse(JSON.stringify(logs));
+    copyLogs.forEach(log => {
+      delete log.open;
+      delete log.logType;
     });
+
+    const { filePath } = await dialog.showSaveDialog({
+      title: "Save Logs",
+      defaultPath: path.join(app.getPath("downloads"), "logs.json"),
+      buttonLabel: "Save Logs",
+      filters: [
+        { name: "JSON", extensions: ["json"] }
+      ]
+    });
+
+    if (filePath) {
+      fs.writeFileSync(filePath, JSON.stringify(copyLogs, null, 2));
+      await shell.openPath(filePath);
+      displayFlash("Logs saved successfully", "success");
+    }
+  } catch (error) {
+    displayFlash("Error saving logs", "error");
   }
 });
+
 ipcMain.handle("delete-all-logs", (event) => {
   store.set("logs", []);
   displayFlash("Logs deleted successfully", "success");
