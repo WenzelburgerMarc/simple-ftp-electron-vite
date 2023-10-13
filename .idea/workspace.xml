@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Save Logs Functionality">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,15 +120,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="11467000" />
-    </task>
-    <task id="LOCAL-00056" summary="Fix - Save Settings in GeneralSettingsSection.vue&#10;Fix - Progress Bar Color on Finish&#10;Fix - Display Flash">
-      <option name="closed" value="true" />
-      <created>1696842420101</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1696842420101</updated>
+      <workItem from="1697180643061" duration="12363000" />
     </task>
     <task id="LOCAL-00057" summary="Add - Reconnect on Internet Connection Failure">
       <option name="closed" value="true" />
@@ -515,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697192442104</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
+      <option name="closed" value="true" />
+      <created>1697193400562</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1697193400562</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +535,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Logs Modal&#10;Fix - Modal Controlling" />
     <MESSAGE value="Add - Logs Design" />
     <MESSAGE value="Fix - logs design&#10;Add - Logs Functionality" />
     <MESSAGE value="Add - Delete Logs" />
@@ -561,6 +559,7 @@
     <MESSAGE value="Fix - Accordion" />
     <MESSAGE value="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn" />
     <MESSAGE value="Add - Save Logs Functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Save Logs Functionality" />
+    <MESSAGE value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
   </component>
 </project>

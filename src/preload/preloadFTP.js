@@ -4,7 +4,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { ipcRenderer } from "electron";
 import { displayFlash } from "../renderer/src/js/flashMessageController";
-
+import { v4 as uuidv4 } from "uuid";
 
 let uploadInProgress = ref(false);
 let downloadInProgress = ref(false);
@@ -93,13 +93,11 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
       id: window.api.getUUID(),
       type: "Error - List Server Files",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
   }
 };
-
-import { v4 as uuidv4 } from "uuid";
 
 export const deleteFile = async (filePath) => {
   if (!isConnected) {
@@ -119,7 +117,7 @@ export const deleteFile = async (filePath) => {
     await sftp.delete(filePath);
 
     let log = {
-      logType: 'Delete-File',
+      logType: "Delete-File",
       id: uuidv4(),
       type: "Deleted Server File",
       open: false,
@@ -137,7 +135,7 @@ export const deleteFile = async (filePath) => {
       id: window.api.getUUID(),
       type: "Error - Delete Server File",
       open: false,
-      description: error.message,
+      description: error.message
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -158,7 +156,7 @@ export const createNewFolder = async (selectedDirectory) => {
       id: window.api.getUUID(),
       type: "Error - Creating Server Folder",
       open: false,
-      description: error.message,
+      description: error.message
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -176,11 +174,11 @@ export const deleteDirectory = async (directory) => {
     await sftp.rmdir(directory, true);
 
     let log = {
-      logType: 'Delete-Folder',
+      logType: "Delete-Folder",
       id: uuidv4(),
       type: "Deleted Server Folder",
       open: false,
-      destination: directory + "/",
+      destination: directory + "/"
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -191,7 +189,7 @@ export const deleteDirectory = async (directory) => {
       id: window.api.getUUID(),
       type: "Error - Delete Server Folder",
       open: false,
-      description: error.message,
+      description: error.message
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -321,7 +319,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Get Files to Upload",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
     return [];
@@ -380,7 +378,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
               id: window.api.getUUID(),
               type: "Error - Upload File",
               open: false,
-              description: error.message,
+              description: error.message
             };
             await ipcRenderer.invoke("add-log", log);
           }
@@ -403,7 +401,19 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
                 fs.unlinkSync(file.localPath);
               }
             }
-            await deleteFolders(clientSyncPath);
+            try {
+              await deleteFolders(clientSyncPath);
+            } catch (error) {
+              let log = {
+                logType: "Error",
+                id: window.api.getUUID(),
+                type: "Error - Delete Client File After Upload",
+                open: false,
+                description: error.message
+              };
+              await ipcRenderer.invoke("add-log", log);
+            }
+
             await displayFlash("Files deleted on client after upload", "success");
           }
           await listFilesAndDirectories();
@@ -417,7 +427,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
           id: window.api.getUUID(),
           type: "Error - Upload File",
           open: false,
-          description: error.message,
+          description: error.message
         };
         await ipcRenderer.invoke("add-log", log);
       }
@@ -428,7 +438,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Upload File",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
   }
@@ -478,7 +488,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Get Files to Download",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
     return [];
@@ -506,7 +516,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
               id: window.api.getUUID(),
               type: "Error - Download File",
               open: false,
-              description: error.message,
+              description: error.message
             };
             await ipcRenderer.invoke("add-log", log);
           }
@@ -532,7 +542,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
           id: window.api.getUUID(),
           type: "Error - Download File",
           open: false,
-          description: error.message,
+          description: error.message
         };
         await ipcRenderer.invoke("add-log", log);
       }
@@ -543,7 +553,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Download File",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
   }
@@ -558,7 +568,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Start Syncing",
       open: false,
-      description: 'Not Connected to FTP Server',
+      description: "Not Connected to FTP Server"
     };
     await ipcRenderer.invoke("add-log", log);
     return;
@@ -611,7 +621,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
         id: window.api.getUUID(),
         type: "Error - Invalid Syncing Mode",
         open: false,
-        description: 'This Sync Mode does not exist.',
+        description: "This Sync Mode does not exist."
       };
       await ipcRenderer.invoke("add-log", log);
       await ipcRenderer.invoke("sync-progress-stop-loading");
@@ -649,7 +659,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             id: window.api.getUUID(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
-            description: error.message,
+            description: error.message
           };
           await ipcRenderer.invoke("add-log", log);
         }
@@ -673,7 +683,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             id: window.api.getUUID(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
-            description: error.message,
+            description: error.message
           };
           await ipcRenderer.invoke("add-log", log);
         }
@@ -687,7 +697,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
       id: window.api.getUUID(),
       type: "Error - Delete Client File On Mode Switch",
       open: false,
-      description: error.message,
+      description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
   }
