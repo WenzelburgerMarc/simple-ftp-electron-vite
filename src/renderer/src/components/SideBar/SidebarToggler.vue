@@ -4,8 +4,8 @@
     @click="$emit('toggleSidebar')"
   >
     <font-awesome-icon :icon="['fa-solid', 'fa-chevron-left']"
-      :class="isOpenWatcher ? 'rotate-180' : ''"
-      class="icon text-white text-center text-xl"
+                       :class="isOpenWatcher ? 'rotate-180' : ''"
+                       class="icon text-white text-center text-xl"
     ></font-awesome-icon>
 
   </div>

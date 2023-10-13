@@ -1,4 +1,4 @@
-const https = require('https');
+const https = require("https");
 
 export const online = () => {
   return new Promise((resolve) => {
@@ -7,7 +7,7 @@ export const online = () => {
       request.destroy();
     });
 
-    request.on('error', () => resolve(false));
+    request.on("error", () => resolve(false));
     request.end();
   });
 };

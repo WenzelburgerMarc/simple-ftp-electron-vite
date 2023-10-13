@@ -1,37 +1,37 @@
 <template>
   <div
-class="sidebar w-auto fixed top-0 left-0 bg-blue-600 h-screen z-50"
-       :class="isOpen ? 'sidebarOpen' : 'sidebarClosed'">
+    class="sidebar w-auto fixed top-0 left-0 bg-blue-600 h-screen z-50"
+    :class="isOpen ? 'sidebarOpen' : 'sidebarClosed'">
 
     <div class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
 
       <sidebar-toggler
-:is-open="isOpen"
-                       class="absolute left-full m-3"
-                       @toggleSidebar="toggleSidebar()" />
+        :is-open="isOpen"
+        class="absolute left-full m-3"
+        @toggleSidebar="toggleSidebar()" />
 
       <sidebar-item
-:item="logoItem"
-                    :is-open="isOpen"
-                    class="z-50 mx-auto my-3 w-11/12"
-                    :active-route="isRouteName('home').value" />
+        :item="logoItem"
+        :is-open="isOpen"
+        class="z-50 mx-auto my-3 w-11/12"
+        :active-route="isRouteName('home').value" />
       <sidebar-divider />
       <SidebarItem
-v-for="item in arrSidebarItemsTop"
-                   :key="item"
-                   :item="item"
-                   :is-open="isOpen"
-                   class="mx-auto mt-3 w-11/12"
-                   :active-route="isRouteName(item.activeRouteName).value" />
+        v-for="item in arrSidebarItemsTop"
+        :key="item"
+        :item="item"
+        :is-open="isOpen"
+        class="mx-auto mt-3 w-11/12"
+        :active-route="isRouteName(item.activeRouteName).value" />
 
       <sidebar-divider class="mt-auto" />
       <SidebarItem
-v-for="item in arrSidebarItemsBottom"
-                   :key="item"
-                   :item="item"
-                   :is-open="isOpen"
-                   class="mx-auto mt-3 w-11/12"
-                   :active-route="isRouteName(item.activeRouteName).value" />
+        v-for="item in arrSidebarItemsBottom"
+        :key="item"
+        :item="item"
+        :is-open="isOpen"
+        class="mx-auto mt-3 w-11/12"
+        :active-route="isRouteName(item.activeRouteName).value" />
     </div>
 
 
@@ -80,7 +80,7 @@ const arrSidebarItemsBottom = [
         toggleSidebar();
     },
     activeRouteName: ""
-  },
+  }
 ];
 
 
@@ -109,7 +109,7 @@ const arrSidebarItemsTop = [
         toggleSidebar();
     },
     activeRouteName: ""
-  },
+  }
 ];
 
 const logoItem = {

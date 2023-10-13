@@ -125,7 +125,7 @@ const listFiles = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To List Client Files",
         open: false,
-        description: error.message,
+        description: error.message
       };
       await window.ipcRendererInvoke("add-log", log);
     }
@@ -173,7 +173,7 @@ const deleteFile = async (file) => {
         name: file.name
       };
 
-        await window.ipcRendererInvoke("add-log", log);
+      await window.ipcRendererInvoke("add-log", log);
 
     } else {
       displayFlash(response.message, "error");
@@ -226,27 +226,27 @@ const deleteFolder = async (folder) => {
 
       <div class="relative">
         <button
-type="button"
-                @mouseover="showTooltip = true"
-                @mouseleave="showTooltip = false">
+          type="button"
+          @mouseover="showTooltip = true"
+          @mouseleave="showTooltip = false">
           <title-component
-title-text="Client"
-                           @click="goToClientInitialPath" />
+            title-text="Client"
+            @click="goToClientInitialPath" />
         </button>
         <div
-v-if="showTooltip"
-             class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+          v-if="showTooltip"
+          class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
           Go To The Root Of Your Sync Directory
         </div>
       </div>
 
 
       <icon-button-component
-:icon="['far', 'folder-open']"
-                             emit-name="openClientFolder"
-                             btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon-class="mr-2"
-                             @click="openSelectedClientDirectory">Open Folder
+        :icon="['far', 'folder-open']"
+        emit-name="openClientFolder"
+        btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+        icon-class="mr-2"
+        @click="openSelectedClientDirectory">Open Folder
       </icon-button-component>
     </div>
 
@@ -264,18 +264,18 @@ v-if="showTooltip"
             @goBackFTPPath="handleBack" />
 
           <Breadcrumb
-:initial-breadcrumb="breadcrumb"
-                      :current-dir="currentDir"
-                      :initial-path-prop="initialPath"
-                      @change-path="changePath" />
+            :initial-breadcrumb="breadcrumb"
+            :current-dir="currentDir"
+            :initial-path-prop="initialPath"
+            @change-path="changePath" />
         </div>
 
         <icon-button-component
-emit-name="newFolderClient"
-                               btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                               icon="plus"
-                               icon-class="mr-2"
-                               @newFolderClient="createNewFolderOnClient">New Folder
+          emit-name="newFolderClient"
+          btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+          icon="plus"
+          icon-class="mr-2"
+          @newFolderClient="createNewFolderOnClient">New Folder
         </icon-button-component>
 
       </div>
@@ -283,10 +283,10 @@ emit-name="newFolderClient"
     </div>
 
     <FileList
-:initial-file-list="fileList"
-              @file-clicked="handleClick"
-              @delete-file="deleteFile"
-              @delete-folder="deleteFolder" />
+      :initial-file-list="fileList"
+      @file-clicked="handleClick"
+      @delete-file="deleteFile"
+      @delete-folder="deleteFolder" />
 
   </panel-component>
 

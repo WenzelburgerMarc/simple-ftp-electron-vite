@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export const showFlash = ref(false);
 export const flashMessage = ref("");
@@ -29,7 +29,7 @@ export const hideFlash = () => {
 
     setTimeout(() => {
       showNextFlash();
-    }, 500)
+    }, 500);
   }
 };
 

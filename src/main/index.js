@@ -1,5 +1,5 @@
 "use strict";
-// === IMPORTS ===
+
 import { app, BrowserWindow, ipcMain, dialog, shell } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { join } from "path";
@@ -10,7 +10,7 @@ import { displayFlash } from "../renderer/src/js/flashMessageController";
 
 let mainWindow = null;
 
-// === WINDOW CREATION FUNCTION ===
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -82,12 +82,10 @@ app.on("window-all-closed", () => {
 });
 
 
-// === ELECTRON STORE ===
 const Store = require("electron-store");
 const store = new Store();
 
 
-// === IPC COMMUNICATION: GENERAL ===
 ipcMain.handle("get-auto-start-item-setting", () => {
 
   return app.getLoginItemSettings();

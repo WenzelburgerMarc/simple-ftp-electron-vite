@@ -1,30 +1,30 @@
 <template>
   <panel-component class="relative z-0 ftp-status flex flex-col justify-between items-center overflow-hidden">
     <div
-:class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
-         :style="{width: syncProgress + '%'}"
-         class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
+      :class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
+      :style="{width: syncProgress + '%'}"
+      class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
     <div class="w-full flex justify-between items-center z-10 pointer-events-auto">
       <div class="w-full flex items-center space-x-4">
         <div
-:class="statusClass"
-             class="w-3 h-3 rounded-full"></div>
+          :class="statusClass"
+          class="w-3 h-3 rounded-full"></div>
         <div class="text-sm w-full flex flex-col justify-center items-start">
           <p
-v-if="isConnected"
-             class="text-green-500">Connected</p>
+            v-if="isConnected"
+            class="text-green-500">Connected</p>
           <p
-v-else
-             class="text-red-500">Disconnected</p>
+            v-else
+            class="text-red-500">Disconnected</p>
           <p
-v-if="isConnected && ftpCredentials.host"
-             class="text-gray-800">Host: {{ ftpCredentials.host }}</p>
+            v-if="isConnected && ftpCredentials.host"
+            class="text-gray-800">Host: {{ ftpCredentials.host }}</p>
           <p
-v-else
-             class="text-gray-400">No host connected</p>
+            v-else
+            class="text-gray-400">No host connected</p>
           <p
-v-if="isConnected && currentSyncMode"
-             class="text-gray-800 truncate">
+            v-if="isConnected && currentSyncMode"
+            class="text-gray-800 truncate">
 
 
           </p>
@@ -33,24 +33,24 @@ v-if="isConnected && currentSyncMode"
       </div>
       <div class="w-full flex justify-end items-center space-x-2">
         <icon-button-component
-v-if="isConnected"
-                               emit-name="listFilesIconBtn"
-                               icon-class="text-lg text-gray-800"
-                               icon="rotate-right"
-                               @listFilesIconBtn="listFiles" />
+          v-if="isConnected"
+          emit-name="listFilesIconBtn"
+          icon-class="text-lg text-gray-800"
+          icon="rotate-right"
+          @listFilesIconBtn="listFiles" />
         <icon-button-component
-v-if="isConnected"
-                               emit-name="disconnectFtpIconBtn"
-                               icon-class="text-2xl text-red-500"
-                               :icon="['fas', 'xmark']"
-                               @disconnectFtpIconBtn="disconnectFtp" />
+          v-if="isConnected"
+          emit-name="disconnectFtpIconBtn"
+          icon-class="text-2xl text-red-500"
+          :icon="['fas', 'xmark']"
+          @disconnectFtpIconBtn="disconnectFtp" />
 
         <icon-button-component
-v-if="!isConnected"
-                               emit-name="connectFtpIconBtn"
-                               icon-class="text-lg text-gray-800"
-                               :icon="['fas', 'plug']"
-                               @connectFtpIconBtn="connectToFtp" />
+          v-if="!isConnected"
+          emit-name="connectFtpIconBtn"
+          icon-class="text-lg text-gray-800"
+          :icon="['fas', 'plug']"
+          @connectFtpIconBtn="connectToFtp" />
 
       </div>
     </div>
@@ -136,15 +136,6 @@ const startAutoReconnect = async () => {
 
 
 onMounted(async () => {
-  //window.ipcRendererInvoke("delete-all-logs");
-  // let log = {
-  //   logType: "Error",
-  //   id: window.api.getUUID(),
-  //   type: "Error - Test",
-  //   open: false,
-  //   description: 'This is a test error',
-  // };
-  // window.ipcRendererInvoke("add-log", log);
   window.ipcRendererOn("autoReconnectChanged", async () => {
     startIsOnlineInterval = false;
     currentlyReConnecting = false;
@@ -182,7 +173,7 @@ const checkFtpProgress = async () => {
         id: window.api.getUUID(),
         type: "Error - Calculate Progress",
         open: false,
-        description: error.message,
+        description: error.message
       };
       window.ipcRendererInvoke("add-log", log);
     }
@@ -203,24 +194,23 @@ const checkFtpProgress = async () => {
       let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
 
       let log = {
-        logType: 'Sync-Progress',
+        logType: "Sync-Progress",
         id: logID.value,
-        type: progressPaused.value ? currentType.value+' Canceled' : currentType.value,
+        type: progressPaused.value ? currentType.value + " Canceled" : currentType.value,
         open: false,
         totalFiles: currentProcessingFiles.value.length,
         totalSize: size,
         destination: currentType.value === "Upload" ? ftpSyncPath : clientSyncPath,
-        progress: progressPaused.value ? '-' : isNaN(progress) ? "100%" : progress + "%" || "0%",
+        progress: progressPaused.value ? "-" : isNaN(progress) ? "100%" : progress + "%" || "0%",
         files: files
       };
 
       await window.ipcRendererInvoke("add-log", log);
 
-
     }
 
-    if(progressPaused.value){
-      clearInterval(intervalID)
+    if (progressPaused.value) {
+      clearInterval(intervalID);
     }
 
   }, 50);
@@ -254,9 +244,9 @@ window.ipcRendererOn("sync-progress-pause", async () => {
 
   syncProgress.value = 0;
   idAlreadySet.value = false;
- progressPaused.value = true;
+  progressPaused.value = true;
 
-  if (intervalID){
+  if (intervalID) {
     setTimeout(() => {
       clearInterval(intervalID);
     }, 500);
@@ -273,7 +263,7 @@ window.ipcRendererOn("sync-progress-pause", async () => {
 
 window.ipcRendererOn("sync-progress-end", async () => {
 
-  if(progressPaused.value){
+  if (progressPaused.value) {
     return;
   }
   if (syncProgress.value >= 100) {
@@ -314,12 +304,6 @@ const listFiles = () => {
 const statusClass = computed(() => {
   return props.isConnected ? "bg-green-500" : "bg-red-500";
 });
-//
-// const capitalizedSyncModeWithIng = computed(() => {
-//   if (!currentSyncMode.value) return "Paused";
-//   const mode = currentSyncMode.value;
-//   return mode.charAt(0).toUpperCase() + mode.slice(1) + "ing";
-// });
 
 const disconnectFtp = async () => {
   await stopSyncing();

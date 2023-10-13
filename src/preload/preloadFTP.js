@@ -152,9 +152,9 @@ export const createNewFolder = async (selectedDirectory) => {
 
     let exists = await sftp.exists(selectedDirectory);
 
-    if(exists === 'd'){
+    if (exists === "d") {
       throw new Error("Folder already exists");
-    }else{
+    } else {
       await sftp.mkdir(selectedDirectory, true);
     }
 

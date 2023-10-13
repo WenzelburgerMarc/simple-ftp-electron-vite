@@ -1,6 +1,8 @@
 <template>
-  <button :class="props.btnClass" @click="$emit(props.emitName)" >
-    <font-awesome-icon :icon="props.icon" :class="props.iconClass"  />
+  <button :class="props.btnClass"
+          @click="$emit(props.emitName)">
+    <font-awesome-icon :icon="props.icon"
+                       :class="props.iconClass" />
     <slot></slot>
   </button>
 </template>
@@ -10,21 +12,20 @@
 
 const props = defineProps({
   icon: {
-    // array or string
     type: [String, Array],
     required: true
   },
   btnClass: {
     type: [String, Array],
-    default: ''
+    default: ""
   },
   iconClass: {
     type: [String, Array],
-    default: 'text-gray-800'
+    default: "text-gray-800"
   },
   emitName: {
     type: String,
-    default: 'click'
+    default: "click"
   }
 });
 

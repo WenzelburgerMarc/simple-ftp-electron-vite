@@ -97,13 +97,12 @@ onMounted(async () => {
   });
 
 
-
-  if(syncModeInterval) {
+  if (syncModeInterval) {
     clearInterval(syncModeInterval);
   }
   syncModeInterval = setInterval(async () => {
     currentSyncMode.value = await window.ftp.getSyncMode();
-    if(currentSyncMode.value === "") {
+    if (currentSyncMode.value === "") {
       pauseModeEnabled.value = true;
     } else {
       pauseModeEnabled.value = false;
@@ -147,7 +146,7 @@ const listFiles = async (showLoader = true) => {
         id: window.api.getUUID(),
         type: "Error - Failed To List Files",
         open: false,
-        description: error.message,
+        description: error.message
       };
       await window.ipcRendererInvoke("add-log", log);
     }
@@ -161,7 +160,6 @@ const setFtpSyncDirectory = async () => {
   initialPath.value = currentDir.value;
 
 
-
   let log = {
     logType: "Set-Sync-Path",
     id: window.api.getUUID(),
@@ -169,7 +167,7 @@ const setFtpSyncDirectory = async () => {
     open: false,
     totalFiles: 1,
     destination: currentDir.value + "/",
-    progress: "-",
+    progress: "-"
   };
 
   await window.ipcRendererInvoke("add-log", log);
@@ -197,13 +195,13 @@ const createNewFolderOnFtp = async (name) => {
     try {
       await createNewFolder(path);
       displayFlash("Folder created", "success");
-    }catch (error) {
+    } catch (error) {
       displayFlash("Folder already exists", "info");
     }
 
 
     let name = folderName.split("/").pop();
-    if(name === "") {
+    if (name === "") {
       name = folderName;
     }
 
@@ -213,7 +211,7 @@ const createNewFolderOnFtp = async (name) => {
       type: "Server Folder Created",
       name: name,
       open: false,
-      destination: currentDir.value + "/",
+      destination: currentDir.value + "/"
     };
 
     await window.ipcRendererInvoke("add-log", log);
@@ -229,9 +227,9 @@ const createNewFolderOnFtp = async (name) => {
 
 <template>
   <set-ftp-folder-name-modal
-:show-modal="showModal"
-                             @update:showModal="updateShowModal"
-                             @createFolder="createNewFolderOnFtp" />
+    :show-modal="showModal"
+    @update:showModal="updateShowModal"
+    @createFolder="createNewFolderOnFtp" />
   <panel-component
     v-if="connected"
     class="relative h-[45vh] overflow-x-hidden shadow-md sm:rounded-lg">
@@ -239,27 +237,27 @@ const createNewFolderOnFtp = async (name) => {
     <div class="w-full flex justify-between items-center">
       <div class="relative">
         <button
-type="button"
-                @mouseover="showTooltip = true"
-                @mouseleave="showTooltip = false">
+          type="button"
+          @mouseover="showTooltip = true"
+          @mouseleave="showTooltip = false">
           <title-component
-title-text="Server"
-                           @click="goToFtpInitialPath" />
+            title-text="Server"
+            @click="goToFtpInitialPath" />
         </button>
         <div
-v-if="showTooltip"
-             class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+          v-if="showTooltip"
+          class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
           Go To The Root Of Your Sync Directory
         </div>
       </div>
-        <icon-button-component
-:class="[pauseModeEnabled ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
-                               emit-name="SelectFtpSyncDurectory"
-                               btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                               icon="rotate"
-                               icon-class="mr-2"
-                               @SelectFtpSyncDurectory="setFtpSyncDirectory">Select Current Path As Sync Directory
-        </icon-button-component>
+      <icon-button-component
+        :class="[pauseModeEnabled ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
+        emit-name="SelectFtpSyncDurectory"
+        btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+        icon="rotate"
+        icon-class="mr-2"
+        @SelectFtpSyncDurectory="setFtpSyncDirectory">Select Current Path As Sync Directory
+      </icon-button-component>
     </div>
 
 
@@ -275,28 +273,28 @@ v-if="showTooltip"
           @goBackFTPPath="handleBack" />
 
         <Breadcrumb
-                    :initial-breadcrumb="initialPath.split('/').filter(segment => segment.trim() !== '')"
-                    :current-dir="currentDir"
-                    :initial-path-prop="initialPath"
-                    @change-path="changePath" />
+          :initial-breadcrumb="initialPath.split('/').filter(segment => segment.trim() !== '')"
+          :current-dir="currentDir"
+          :initial-path-prop="initialPath"
+          @change-path="changePath" />
 
       </div>
       <icon-button-component
-emit-name="newFolderFtp"
-                             btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon="plus"
-                             icon-class="mr-2"
-                             @newFolderFtp="showModal = true">New Folder
+        emit-name="newFolderFtp"
+        btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+        icon="plus"
+        icon-class="mr-2"
+        @newFolderFtp="showModal = true">New Folder
       </icon-button-component>
 
     </div>
 
     <FileList
-:pause-mode-enabled="pauseModeEnabled.value"
-              :initial-file-list="fileList"
-              @file-clicked="handleClick"
-              @delete-file="deleteFtpFile"
-              @delete-folder="deleteFtpFolder" />
+      :pause-mode-enabled="pauseModeEnabled.value"
+      :initial-file-list="fileList"
+      @file-clicked="handleClick"
+      @delete-file="deleteFtpFile"
+      @delete-folder="deleteFtpFolder" />
 
   </panel-component>
 

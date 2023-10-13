@@ -1,30 +1,30 @@
 <template>
   <div class="relative flex justify-center items-center w-fit">
     <div
-:style="switchingBackgroundStyle"
-         class="absolute bg-blue-600 h-full shadow-md -z-10 rounded-md" />
+      :style="switchingBackgroundStyle"
+      class="absolute bg-blue-600 h-full shadow-md -z-10 rounded-md" />
     <icon-button-component
-                           :icon="['fas', 'upload']"
-                           emit-name="setSyncUpload"
-                           :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
-                           @setSyncUpload="setSyncUpload">
+      :icon="['fas', 'upload']"
+      emit-name="setSyncUpload"
+      :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+      :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+      @setSyncUpload="setSyncUpload">
       Upload
     </icon-button-component>
     <icon-button-component
-                           :icon="['fas', 'download']"
-                           emit-name="setSyncDownload"
-                           :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
-                           @setSyncDownload="setSyncDownload">
+      :icon="['fas', 'download']"
+      emit-name="setSyncDownload"
+      :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+      :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+      @setSyncDownload="setSyncDownload">
       Download
     </icon-button-component>
     <icon-button-component
-                           :icon="['fas', 'pause']"
-                           emit-name="setStopSyncingMethod"
-                           :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
-                           @setStopSyncingMethod="setStopSyncingMethod">
+      :icon="['fas', 'pause']"
+      emit-name="setStopSyncingMethod"
+      :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
+      :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+      @setStopSyncingMethod="setStopSyncingMethod">
       Pause
     </icon-button-component>
 
@@ -39,7 +39,7 @@ import { startSyncing } from "../../../js/ftpManager";
 
 const uploadEnabled = ref(false);
 
-onMounted(async() => {
+onMounted(async () => {
   let mode = await window.ipcRendererInvoke("get-setting", "ftp-sync-mode");
 
   if (mode === "upload") {
@@ -66,7 +66,7 @@ const setSyncUpload = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Start Upload Syncing",
         open: false,
-        description: error.message,
+        description: error.message
       };
       window.ipcRendererInvoke("add-log", log);
 
@@ -88,7 +88,7 @@ const setSyncDownload = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Start Download Syncing",
         open: false,
-        description: error.message,
+        description: error.message
       };
       window.ipcRendererInvoke("add-log", log);
 
@@ -96,11 +96,11 @@ const setSyncDownload = async () => {
 
 };
 
-const setStopSyncingMethod = async() => {
+const setStopSyncingMethod = async () => {
   await window.ipcRendererInvoke("sync-progress-start-loading");
   await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
   uploadEnabled.value = null;
-  await startSyncing('', '', '');
+  await startSyncing("", "", "");
 
 };
 

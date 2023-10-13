@@ -15,11 +15,11 @@ import {
   stopSyncing,
   getSyncMode,
   setSyncMode,
-  calculateAndCompareSize,
+  calculateAndCompareSize
 
 } from "./preloadFTP";
-import {online} from "./isOnline";
-import { v4 as uuidv4 } from 'uuid';
+import { online } from "./isOnline";
+import { v4 as uuidv4 } from "uuid";
 // Expose protected methods that allow the renderer process to use
 contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {
   return ipcRenderer.invoke(channel, ...args);

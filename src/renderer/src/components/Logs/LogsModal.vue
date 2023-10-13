@@ -108,24 +108,24 @@
       :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
     <div class="w-fit flex flex-col space-y-2">
-<!-- save all btn - saves log at programm path + opens it -->
+
       <icon-button-component :icon="['fas', 'fa-download']"
                              :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
                              emit-name="saveAllLogs"
-                             @saveAllLogs="saveAllLogs"> Save Logs</icon-button-component>
+                             @saveAllLogs="saveAllLogs"> Save Logs
+      </icon-button-component>
       <icon-button-component v-if="logList.length > 0"
                              :icon="['fas', 'fa-trash-alt']"
                              :btn-class="'bg-red-300 hover:bg-red-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
-                              emit-name="deleteAllLogs"
+                             emit-name="deleteAllLogs"
                              @deleteAllLogs="deleteAllLogs"> Clear All
       </icon-button-component>
     </div>
   </ModalComponent>
 </template>
 <script setup>
-// Imports
 import { toRefs, defineProps, defineEmits, ref } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
@@ -138,7 +138,7 @@ import CreateFolderLog from "./CreateFolderLog.vue";
 import SetSyncPathLog from "./SetSyncPathLog.vue";
 import DeleteFolderLog from "./DeleteFolderLog.vue";
 import ErrorLog from "./ErrorLog.vue";
-// Setup
+
 const props = defineProps({
   showModal: Boolean
 });
@@ -224,7 +224,7 @@ const deleteAllLogs = async () => {
 
 const getFirstOrLast = (log) => {
   const index = paginatedLogs.value.findIndex((item) => item.id === log.id);
-  if(index === 0 && index === paginatedLogs.value.length - 1) {
+  if (index === 0 && index === paginatedLogs.value.length - 1) {
     console.log("both");
     return "both";
   } else if (index === 0) {
@@ -267,7 +267,7 @@ const toggleLogDetails = (id) => {
       if (element) {
         if (!log.open) {
           element.style.maxHeight = (element.scrollHeight) + "px";
-          //
+
         } else {
           element.style.maxHeight = 0 + "px";
 

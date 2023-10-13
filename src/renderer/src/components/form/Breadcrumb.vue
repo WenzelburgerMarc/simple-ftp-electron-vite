@@ -2,15 +2,15 @@
   <div class="breadcrumb">
 
     <template
-              v-for="(segment, index) in breadcrumb"
-              :key="index">
+      v-for="(segment, index) in breadcrumb"
+      :key="index">
       <a
-         class="w-full mr-0 hover:underline hover:text-blue-600"
-         :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
-         href="#"
-         @click.prevent="changePath(segment.path)"
-         @mouseover="hover(index)"
-         @mouseout="unhover()">
+        class="w-full mr-0 hover:underline hover:text-blue-600"
+        :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
+        href="#"
+        @click.prevent="changePath(segment.path)"
+        @mouseover="hover(index)"
+        @mouseout="unhover()">
         {{ segment.name }}
       </a>
     </template>
@@ -64,10 +64,10 @@ const unhover = () => {
 };
 
 const getCurrentPathBreadcrumb = () => {
-  try{
+  try {
     const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
-    if(segments.length === 0) {
-      segments.push('');
+    if (segments.length === 0) {
+      segments.push("");
     }
     return segments.map((segment, index) => {
       return {
@@ -76,7 +76,7 @@ const getCurrentPathBreadcrumb = () => {
         hover: false
       };
     });
-  }catch (e) {
+  } catch (e) {
     return {
       name: "/" + currentDir.value,
       path: "/" + currentDir.value,
@@ -111,7 +111,7 @@ onMounted(() => {
       return false;
     }
 
-    if(initialPath.value === currentDir.value) {
+    if (initialPath.value === currentDir.value) {
       return true;
     }
     return false;

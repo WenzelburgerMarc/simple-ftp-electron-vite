@@ -2,22 +2,22 @@
   <div class="flex w-full flex-col items-center justify-center">
 
     <LabelComponent
-:label-text="props.labelText"
-                    class="mr-auto"/>
+      :label-text="props.labelText"
+      class="mr-auto" />
 
     <div class="flex w-full flex-col items-center justify-center overflow-hidden rounded-md border border-blue-600">
       <button
-class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100"
-              @click="selectDirectory">
-        <font-awesome-icon :icon="['far', 'folder-open']"/>
-        {{ selectedPath ? 'Selected Path: ' + selectedPath : props.btnText }}
+        class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100"
+        @click="selectDirectory">
+        <font-awesome-icon :icon="['far', 'folder-open']" />
+        {{ selectedPath ? "Selected Path: " + selectedPath : props.btnText }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref, defineProps, defineEmits, watchEffect} from 'vue';
+import { ref, defineProps, defineEmits, watchEffect } from "vue";
 import LabelComponent from "@/components/form/LabelComponent.vue";
 
 const props = defineProps({
@@ -25,8 +25,8 @@ const props = defineProps({
   btnText: String,
   prevSelectedPath: String
 });
-const emits = defineEmits(['updateSelectedPath']);
-const selectedPath = ref('');
+const emits = defineEmits(["updateSelectedPath"]);
+const selectedPath = ref("");
 
 watchEffect(() => {
   selectedPath.value = props.prevSelectedPath;
@@ -37,7 +37,7 @@ const selectDirectory = async () => {
   if (path) {
     selectedPath.value = path;
 
-    emits('updateSelectedPath', path);
+    emits("updateSelectedPath", path);
   }
 };
 </script>

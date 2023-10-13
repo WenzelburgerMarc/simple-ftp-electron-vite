@@ -7,7 +7,7 @@ const log = ref(null);
 onBeforeMount(() => {
   watch(props, (newValue) => {
     log.value = newValue.propLog;
-  }, {deep: true, immediate: true});
+  }, { deep: true, immediate: true });
 
   log.value = props.propLog;
 });
@@ -42,11 +42,11 @@ const deleteLog = (id) => {
     <div class="col-span-1 p-1 flex justify-end items-center truncate-no-hover">
       <div class="flex justify-end items-center space-x-2">
         <icon-button-component
-:icon="['fas', 'trash-alt']"
-                               emit-name="deleteLog"
-                               icon-class="text-red-500"
-                               :btn-class="'z-50 close text-xl flex justify-center items-center'"
-                               @deleteLog="deleteLog(log.id)"
+          :icon="['fas', 'trash-alt']"
+          emit-name="deleteLog"
+          icon-class="text-red-500"
+          :btn-class="'z-50 close text-xl flex justify-center items-center'"
+          @deleteLog="deleteLog(log.id)"
         />
         <icon-button-component
           :icon="['fas', 'chevron-down']"

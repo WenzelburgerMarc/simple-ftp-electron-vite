@@ -4,51 +4,51 @@
 
 
     <TitleComponent
-title-text="FTP Settings"
-                    size="medium" />
+      title-text="FTP Settings"
+      size="medium" />
     <IconButtonComponent
-v-if="showModal"
-                         emit-name="closeFtpSettings"
-                         :icon="['fas', 'xmark']"
-                         btn-class="z-20 close text-xl flex justify-center items-center"
-                         @closeFtpSettings="closeModal" />
+      v-if="showModal"
+      emit-name="closeFtpSettings"
+      :icon="['fas', 'xmark']"
+      btn-class="z-20 close text-xl flex justify-center items-center"
+      @closeFtpSettings="closeModal" />
   </div>
 
   <!-- FTP Settings Fields -->
   <LabelInputComponent
-label="Host"
-                       type="text"
-                       placeholder="192.168.1.1 or ftp.example.com"
-                       :model-value="ftpHost"
-                       @update:modelValue="updateFtpHost" />
+    label="Host"
+    type="text"
+    placeholder="192.168.1.1 or ftp.example.com"
+    :model-value="ftpHost"
+    @update:modelValue="updateFtpHost" />
   <LabelInputComponent
-label="Port"
-                       type="text"
-                       placeholder="21"
-                       :model-value="ftpPort"
-                       @update:modelValue="updateFtpPort" />
+    label="Port"
+    type="text"
+    placeholder="21"
+    :model-value="ftpPort"
+    @update:modelValue="updateFtpPort" />
   <LabelInputComponent
-label="Username"
-                       type="text"
-                       placeholder="john_doe"
-                       :model-value="ftpUsername"
-                       @update:modelValue="updateFtpUsername" />
+    label="Username"
+    type="text"
+    placeholder="john_doe"
+    :model-value="ftpUsername"
+    @update:modelValue="updateFtpUsername" />
   <LabelInputComponent
-label="Password"
-                       type="password"
-                       placeholder="********"
-                       :model-value="ftpPassword"
-                       @update:modelValue="updateFtpPassword" />
+    label="Password"
+    type="password"
+    placeholder="********"
+    :model-value="ftpPassword"
+    @update:modelValue="updateFtpPassword" />
   <div class="w-full flex justify-start items-center space-x-3 mr-auto">
     <ButtonComponent
-button-text="Save & Connect"
-                     emit-event="connectFTPSettings"
-                     @connectFTPSettings="connectFtpSettings" />
+      button-text="Save & Connect"
+      emit-event="connectFTPSettings"
+      @connectFTPSettings="connectFtpSettings" />
     <PlainButtonComponent
-class="text-gray-800 hover:text-black"
-                          button-text="Test Connection"
-                          emit-event="testFTPSettings"
-                          @testFTPSettings="testFtpSettings" />
+      class="text-gray-800 hover:text-black"
+      button-text="Test Connection"
+      emit-event="testFTPSettings"
+      @testFTPSettings="testFtpSettings" />
   </div>
 </template>
 <script setup>
@@ -88,12 +88,10 @@ const closeModal = () => {
   emits("closeModal");
 };
 
-// On Mounted
 onMounted(async () => {
   await loadSettings();
 });
 
-// Watch showModal
 watch(props, async () => {
   await loadSettings();
 });
@@ -107,7 +105,6 @@ const loadSettings = async () => {
 };
 
 
-// Save and Test FTP Settings
 const connectFtpSettings = async () => {
   await saveSettings();
   connect({
@@ -125,7 +122,7 @@ const connectFtpSettings = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Connect To FTP Server",
         open: false,
-        description: error.message,
+        description: error.message
       };
       window.ipcRendererInvoke("add-log", log);
     });
@@ -140,7 +137,6 @@ const testFtpSettings = async () => {
   }, true);
 };
 
-// Save Settings
 const saveSettings = async () => {
   try {
     startLoading();

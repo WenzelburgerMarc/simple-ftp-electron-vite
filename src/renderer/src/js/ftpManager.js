@@ -91,7 +91,7 @@ export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage
     }
     stopLoading();
     if (hideFlashMessage) return;
-    if(previousConnectionStatus) {
+    if (previousConnectionStatus) {
       displayFlash("Disconnected from FTP Server", "success");
     }
 
@@ -136,7 +136,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
 
   } catch (error) {
     stopLoading();
-    let log  = {
+    let log = {
       logType: "Error",
       id: window.api.getUUID(),
       type: "Error - List Files",
@@ -170,7 +170,7 @@ export const deleteFile = async (file) => {
         type: "Error - Delete File",
         open: false,
         description: error.message
-      }
+      };
       window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");
 
@@ -197,7 +197,7 @@ export const deleteDirectory = async (directory) => {
         type: "Error - Delete Directory",
         open: false,
         description: error.message
-      }
+      };
       window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");
 
