@@ -212,12 +212,18 @@ const toggleLogDetails = (id) => {
       logList.value[index] = { ...log, open: !log.open };
       await nextTick();
       const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
+      const subelements = document.querySelectorAll(`.accordion-content[data-id="${id}"] .initial-truncate`);
       if (element) {
         if (!log.open) {
           element.style.maxHeight = (element.scrollHeight + 100) + "px";
+          for(let i = 0; i < subelements.length; i++){
+            subelements[i].classList.remove("initial-truncate");
+          }
         } else {
           element.style.maxHeight = 0 + "px";
-
+          for(let i = 0; i < subelements.length; i++){
+            subelements[i].classList.add("initial-truncate");
+          }
         }
       }
     }

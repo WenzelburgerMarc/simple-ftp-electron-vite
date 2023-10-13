@@ -129,10 +129,10 @@ v-else
 v-for="file in log.files"
                   :key="file.name">
           <div class="col-span-8 grid grid-cols-4 gap-0 hover:bg-gray-300 rounded-md cursor-default">
-            <div class="col-span-1 p-1 truncate-no-hover">{{ file.path }}</div>
-            <div class="col-span-1 p-1 truncate-no-hover">{{ file.name }}</div>
-            <div class="col-span-1 p-1 truncate-no-hover">{{ formatSize(file.size) }}</div>
-            <div class="col-span-1 p-1 truncate-no-hover">{{ file.type }}</div>
+            <div class="col-span-1 p-1 truncate-no-hover initial-truncate">{{ file.path }}</div>
+            <div class="col-span-1 p-1 truncate-no-hover initial-truncate">{{ file.name }}</div>
+            <div class="col-span-1 p-1 truncate-no-hover initial-truncate">{{ formatSize(file.size) }}</div>
+            <div class="col-span-1 p-1 truncate-no-hover initial-truncate">{{ file.type }}</div>
           </div>
         </template>
       </div>
@@ -153,6 +153,13 @@ v-for="file in log.files"
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.initial-truncate {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: break-all;
 }
 
 .truncate-no-hover:hover {

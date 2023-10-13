@@ -123,11 +123,14 @@ ipcMain.handle("set-setting", (event, key, value) => {
 ipcMain.handle("get-all-data", () => {
   return store.store;
 });
-
 ipcMain.handle("list-local-files", async (event, dirPath) => {
   try {
     const files = fs.readdirSync(dirPath);
     return files.map(file => {
+      if (file.startsWith('.')) { // Überspringen von versteckten Dateien
+        return null;
+      }
+
       const filePath = path.join(dirPath, file);
       try {
         const stats = fs.statSync(filePath);
@@ -162,6 +165,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
     return [];
   }
 });
+
 
 ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
   const result = await dialog.showSaveDialog({
