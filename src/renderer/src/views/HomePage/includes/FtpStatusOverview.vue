@@ -182,7 +182,7 @@ const checkFtpProgress = async () => {
         id: window.api.getUUID(),
         type: "Error - Calculate Progress",
         open: false,
-        description: error,
+        description: error.message,
       };
       window.ipcRendererInvoke("add-log", log);
     }

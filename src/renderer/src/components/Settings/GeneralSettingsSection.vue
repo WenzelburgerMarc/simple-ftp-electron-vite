@@ -206,7 +206,7 @@ const saveSettings = async () => {
     await window.ipcRendererInvoke("set-setting", "enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
     stopLoading();
     displayFlash("Settings Saved", "success");
-  } catch (e) {
+  } catch (error) {
     stopLoading();
     displayFlash("An Error Occured While Saving Settings", "error");
     let log = {
@@ -214,7 +214,7 @@ const saveSettings = async () => {
       id: window.api.getUUID(),
       type: "Error - Failed To Save Settings",
       open: false,
-      description: e,
+      description: error.message,
     };
     window.ipcRendererInvoke("add-log", log);
   }

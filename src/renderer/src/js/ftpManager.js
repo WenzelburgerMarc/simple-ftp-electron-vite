@@ -169,7 +169,7 @@ export const deleteFile = async (file) => {
         id: window.api.getUUID(),
         type: "Error - Delete File",
         open: false,
-        description: error
+        description: error.message
       }
       window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");
@@ -196,7 +196,7 @@ export const deleteDirectory = async (directory) => {
         id: window.api.getUUID(),
         type: "Error - Delete Directory",
         open: false,
-        description: error
+        description: error.message
       }
       window.ipcRendererInvoke("add-log", log);
       displayFlash(error.message, "error");

@@ -23,7 +23,7 @@ import { computed, onMounted, reactive, ref, watch } from "vue";
 
 const props = defineProps({
   initialBreadcrumb: {
-    type: Array,
+    type: Object,
     required: true
   },
   currentDir: {

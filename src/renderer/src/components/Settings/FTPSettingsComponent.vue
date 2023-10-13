@@ -125,7 +125,7 @@ const connectFtpSettings = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Connect To FTP Server",
         open: false,
-        description: error,
+        description: error.message,
       };
       window.ipcRendererInvoke("add-log", log);
     });

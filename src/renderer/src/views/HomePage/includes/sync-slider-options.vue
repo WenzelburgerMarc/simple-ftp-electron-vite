@@ -66,7 +66,7 @@ const setSyncUpload = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Start Upload Syncing",
         open: false,
-        description: error,
+        description: error.message,
       };
       window.ipcRendererInvoke("add-log", log);
 
@@ -88,7 +88,7 @@ const setSyncDownload = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To Start Download Syncing",
         open: false,
-        description: error,
+        description: error.message,
       };
       window.ipcRendererInvoke("add-log", log);
 

@@ -125,7 +125,7 @@ const listFiles = async () => {
         id: window.api.getUUID(),
         type: "Error - Failed To List Client Files",
         open: false,
-        description: error,
+        description: error.message,
       };
       await window.ipcRendererInvoke("add-log", log);
     }

@@ -93,7 +93,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
       id: window.api.getUUID(),
       type: "Error - List Server Files",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
   }
@@ -137,7 +137,7 @@ export const deleteFile = async (filePath) => {
       id: window.api.getUUID(),
       type: "Error - Delete Server File",
       open: false,
-      description: error,
+      description: error.message,
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -158,7 +158,7 @@ export const createNewFolder = async (selectedDirectory) => {
       id: window.api.getUUID(),
       type: "Error - Creating Server Folder",
       open: false,
-      description: error,
+      description: error.message,
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -191,7 +191,7 @@ export const deleteDirectory = async (directory) => {
       id: window.api.getUUID(),
       type: "Error - Delete Server Folder",
       open: false,
-      description: error,
+      description: error.message,
     };
 
     await ipcRenderer.invoke("add-log", log);
@@ -321,7 +321,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Get Files to Upload",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
     return [];
@@ -380,7 +380,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
               id: window.api.getUUID(),
               type: "Error - Upload File",
               open: false,
-              description: error,
+              description: error.message,
             };
             await ipcRenderer.invoke("add-log", log);
           }
@@ -417,7 +417,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
           id: window.api.getUUID(),
           type: "Error - Upload File",
           open: false,
-          description: error,
+          description: error.message,
         };
         await ipcRenderer.invoke("add-log", log);
       }
@@ -428,7 +428,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Upload File",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
   }
@@ -478,7 +478,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Get Files to Download",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
     return [];
@@ -506,7 +506,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
               id: window.api.getUUID(),
               type: "Error - Download File",
               open: false,
-              description: error,
+              description: error.message,
             };
             await ipcRenderer.invoke("add-log", log);
           }
@@ -532,7 +532,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
           id: window.api.getUUID(),
           type: "Error - Download File",
           open: false,
-          description: error,
+          description: error.message,
         };
         await ipcRenderer.invoke("add-log", log);
       }
@@ -543,7 +543,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       id: window.api.getUUID(),
       type: "Error - Download File",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
   }
@@ -649,7 +649,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             id: window.api.getUUID(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
-            description: error,
+            description: error.message,
           };
           await ipcRenderer.invoke("add-log", log);
         }
@@ -673,7 +673,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
             id: window.api.getUUID(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
-            description: error,
+            description: error.message,
           };
           await ipcRenderer.invoke("add-log", log);
         }
@@ -687,7 +687,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
       id: window.api.getUUID(),
       type: "Error - Delete Client File On Mode Switch",
       open: false,
-      description: error,
+      description: error.message,
     };
     await ipcRenderer.invoke("add-log", log);
   }

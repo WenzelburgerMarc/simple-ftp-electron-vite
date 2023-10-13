@@ -142,7 +142,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
           id: window.api.getUUID(),
           type: "Error - List Client Files",
           open: false,
-          description: error,
+          description: error.message,
         };
 
         addLog(event, log);
@@ -155,7 +155,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
       id: window.api.getUUID(),
       type: "Error - List Client Files",
       open: false,
-      description: error,
+      description: error.message,
     };
     addLog(event, log);
     return [];
@@ -180,7 +180,7 @@ ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
         id: window.api.getUUID(),
         type: "Error - Creating Client Folder",
         open: false,
-        description: error,
+        description: error.message,
       };
 
       addLog(event, log);
@@ -202,7 +202,7 @@ ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
       id: window.api.getUUID(),
       type: "Error - Copy Client Files",
       open: false,
-      description: error,
+      description: error.message,
     };
 
     addLog(event, log);
@@ -252,7 +252,7 @@ ipcMain.handle("delete-client-file", async (event, path) => {
       id: window.api.getUUID(),
       type: "Error - Delete Client Files",
       open: false,
-      description: error,
+      description: error.message,
     };
     addLog(event, log);
     return { success: false, message: error.message };
@@ -270,7 +270,7 @@ ipcMain.handle("delete-client-directory", async (event, path) => {
       id: window.api.getUUID(),
       type: "Error - Delete Client Directory",
       open: false,
-      description: error,
+      description: error.message,
     };
     addLog(event, log);
     return { success: false, message: error.message };

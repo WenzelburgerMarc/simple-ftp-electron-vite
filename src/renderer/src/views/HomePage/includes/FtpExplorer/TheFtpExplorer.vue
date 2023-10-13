@@ -147,7 +147,7 @@ const listFiles = async (showLoader = true) => {
         id: window.api.getUUID(),
         type: "Error - Failed To List Files",
         open: false,
-        description: error,
+        description: error.message,
       };
       await window.ipcRendererInvoke("add-log", log);
     }
