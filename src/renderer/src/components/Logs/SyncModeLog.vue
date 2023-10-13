@@ -82,16 +82,16 @@ const deleteLog = (id) => {
             ]"
   >
 
-    <div
-      class="col-span-1 p-1  truncate-no-hover"
+    <div :class="isCanceled ? 'col-span-2' : 'col-span-1'"
+      class="p-1  truncate-no-hover"
       @click="toggleLogDetails(log.id)">{{ log.type }}
     </div>
     <div
       class="col-span-1 p-1  truncate-no-hover"
       @click="toggleLogDetails(log.id)">{{ log.totalFiles }}
     </div>
-    <div
-      class="col-span-1 p-1  truncate-no-hover"
+    <div :class="isCanceled ? 'col-span-2' : 'col-span-1'"
+      class="p-1  truncate-no-hover"
       @click="toggleLogDetails(log.id)">{{ formatSize(log.totalSize) }}
     </div>
     <div
@@ -99,7 +99,7 @@ const deleteLog = (id) => {
       @click="toggleLogDetails(log.id)">{{ log.destination }}
     </div>
     <div
-      class="col-span-1 p-1  truncate-no-hover"
+      class="col-span-1 p-1  truncate-no-hover" v-if="!isCanceled"
       @click="toggleLogDetails(log.id)">{{ log.progress }}
     </div>
     <div
@@ -142,17 +142,17 @@ const deleteLog = (id) => {
       class="col-span-8 cursor-default bg-gray-200 accordion-content transition-all duration-300 text-gray-800"
       :data-id="log.id">
       <div class="col-span-8 grid grid-cols-4 gap-0 p-1">
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Path</div>
+        <div :class="isCanceled ? 'col-span-2' : 'col-span-1 '" class="p-1 text-xs text-gray-700 uppercase">Path</div>
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Name</div>
-        <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Size</div>
+        <div v-if="!isCanceled" class="col-span-1 p-1 text-xs text-gray-700 uppercase">Size</div>
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Type</div>
         <template
           v-for="file in log.files"
           :key="file.name">
           <div class="col-span-8 grid grid-cols-4 gap-0 hover:bg-gray-300 rounded-md cursor-default">
-            <div class="col-span-1 p-1 truncate-no-hover">{{ file.path }}</div>
-            <div class="col-span-1 p-1 truncate-no-hover">{{ file.name }}</div>
-            <div class="col-span-1 p-1 truncate-no-hover">{{ formatSize(file.size) }}</div>
+            <div :class="isCanceled ? 'col-span-2' : 'col-span-1'" class="col-span-1 p-1 truncate-no-hover">{{ file.path }}</div>
+            <div  class="p-1 truncate-no-hover">{{ file.name }}</div>
+            <div v-if="!isCanceled" class="col-span-1 p-1 truncate-no-hover">{{ formatSize(file.size) }}</div>
             <div class="col-span-1 p-1 truncate-no-hover">{{ file.type }}</div>
           </div>
         </template>
