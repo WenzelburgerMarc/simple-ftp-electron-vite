@@ -127,7 +127,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
   try {
     const files = fs.readdirSync(dirPath);
     return files.map(file => {
-      if (file.startsWith('.')) { // Überspringen von versteckten Dateien
+      if (file.startsWith('.')) {
         return null;
       }
 

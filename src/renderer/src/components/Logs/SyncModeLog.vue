@@ -78,7 +78,7 @@ const deleteLog = (id) => {
     :class="[
                 'w-full grid grid-cols-6 gap-0 hover:bg-gray-50 transition-all duration-300 text-gray-800',
                 !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default', isCanceled ? 'bg-gray-200' : '',
-                firstOrLast === 'first' ? 'rounded-t-xl' : '', firstOrLast === 'last' ? 'rounded-b-xl' : ''
+                firstOrLast === 'first' ? 'rounded-t-xl' : '', firstOrLast === 'last' ? 'rounded-b-xl' : '', firstOrLast === 'both' ? 'rounded-xl' : ''
             ]"
   >
 
@@ -103,7 +103,7 @@ const deleteLog = (id) => {
       @click="toggleLogDetails(log.id)">{{ log.progress }}
     </div>
     <div
-      class="col-span-1 p-1  truncate-no-hover"
+      class="col-span-1 p-1 flex justify-end items-center truncate-no-hover"
       @click="toggleLogDetails(log.id)">
       <div class="flex justify-end items-center space-x-2">
         <icon-button-component

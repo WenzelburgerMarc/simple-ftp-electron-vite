@@ -75,12 +75,12 @@
           :first-or-last="getFirstOrLast(log)"
         />
         <!--   make a test error log     -->
-<!--        <error-log
-          v-else-if="log.logType === 'Test-Error'"
-          :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
-          :prop-log="log"
-          :prop-allow-expand="false"
-          @deleteLog="deleteLog" />-->
+        <!--        <error-log
+                  v-else-if="log.logType === 'Test-Error'"
+                  :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                  :prop-log="log"
+                  :prop-allow-expand="false"
+                  @deleteLog="deleteLog" />-->
       </template>
 
     </div>
@@ -108,6 +108,19 @@
       class="absolute bottom-3 right-3"
       :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
+    <div class="w-fit flex flex-col space-y-2">
+<!-- save all btn - saves log at programm path + opens it -->
+      <icon-button-component icon="fas fa-download"
+                             :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"
+                             :icon-class="'text-gray-800'"
+                             @click="saveAllLogs"> Save & Open Logs</icon-button-component>
+      <icon-button-component v-if="logList.length > 0"
+                             icon="fas fa-trash-alt"
+                             :btn-class="'bg-red-300 hover:bg-red-400 p-1 rounded-md text-gray-800'"
+                             :icon-class="'text-gray-800'"
+                             @click="deleteAllLogs"> Clear All
+      </icon-button-component>
+    </div>
   </ModalComponent>
 </template>
 <script setup>
@@ -196,10 +209,19 @@ onMounted(async () => {
 
 });
 
+const deleteAllLogs = async () => {
+  await window.ipcRendererInvoke("delete-all-logs");
+  const logs = await window.ipcRendererInvoke("get-logs");
+  await updateLogs(logs);
+  isCurrentPageEmpty();
+};
 
 const getFirstOrLast = (log) => {
   const index = paginatedLogs.value.findIndex((item) => item.id === log.id);
-  if (index === 0) {
+  if(index === 0 && index === paginatedLogs.value.length - 1) {
+    console.log("both");
+    return "both";
+  } else if (index === 0) {
     console.log("first");
     return "first";
   } else if (index === paginatedLogs.value.length - 1) {
