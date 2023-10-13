@@ -1,12 +1,14 @@
 <template>
   <div class="flex w-full flex-col items-center justify-center">
 
-    <LabelComponent :labelText="props.labelText"
+    <LabelComponent
+:label-text="props.labelText"
                     class="mr-auto"/>
 
     <div class="flex w-full flex-col items-center justify-center overflow-hidden rounded-md border border-blue-600">
-      <button @click="selectDirectory"
-              class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100">
+      <button
+class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100"
+              @click="selectDirectory">
         <font-awesome-icon :icon="['far', 'folder-open']"/>
         {{ selectedPath ? 'Selected Path: ' + selectedPath : props.btnText }}
       </button>

@@ -1,8 +1,8 @@
 <template>
   <div class="flex space-x-5 justify-start items-start">
     <div class="flex flex-col space-y-2 justify-start items-start">
-      <PlainButtonComponent :class="showGeneralSettings ? 'text-blue-600' : 'text-gray-800'" @showGeneralSettings="showGeneralSettingsHandler" buttonText="General" emit-event="showGeneralSettings" />
-      <PlainButtonComponent :class="showFtpSettings ? 'text-blue-500' : 'text-gray-800'" @showFtpSettings="showFtpSettingsHandler" buttonText="FTP" emit-event="showFtpSettings" />
+      <PlainButtonComponent :class="showGeneralSettings ? 'text-blue-600' : 'text-gray-800'" button-text="General" emit-event="showGeneralSettings" @showGeneralSettings="showGeneralSettingsHandler" />
+      <PlainButtonComponent :class="showFtpSettings ? 'text-blue-500' : 'text-gray-800'" button-text="FTP" emit-event="showFtpSettings" @showFtpSettings="showFtpSettingsHandler" />
 
     </div>
     <div class="flex flex-col space-y-3 flex-grow">

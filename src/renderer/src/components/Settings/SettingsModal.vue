@@ -1,5 +1,5 @@
 <template>
-  <ModalComponent @closeModal="closeModal" :show-modal="showModal">
+  <ModalComponent :show-modal="showModal" @closeModal="closeModal">
     <settings-setting>
       <!-- General Settings Section -->
       <template #showGeneralSettings>

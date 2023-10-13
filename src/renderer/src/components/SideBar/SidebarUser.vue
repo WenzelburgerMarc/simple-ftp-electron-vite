@@ -1,10 +1,12 @@
 <template>
-    <div class="sidebar-item p-2 flex items-center justify-start rounded-xl hover:cursor-pointer hover:bg-blue-400 overflow-hidden"
+    <div
+class="sidebar-item p-2 flex items-center justify-start rounded-xl hover:cursor-pointer hover:bg-blue-400 overflow-hidden"
         @click="props.item.actionEvent">
         <div class='rounded-[100%] flex-shrink-0 w-12 h-12 text-center bg-blue-800 flex items-center justify-center'>
             <i v-if="showDefaultAvatar" class='bx bx-user text-3xl text-white'></i>
-            <img v-else class='rounded-[100%] w-10 h-10' :src="props.item.avatarUrl ? props.item.avatarUrl : ''"
-                @error="showDefaultAvatar = true" alt="avatar">
+            <img
+v-else class='rounded-[100%] w-10 h-10' :src="props.item.avatarUrl ? props.item.avatarUrl : ''"
+                alt="avatar" @error="showDefaultAvatar = true">
         </div>
         <div class="flex flex-col w-full overflow-hidden">
             <h1 class="text-sm hide font-bold text-white truncate ml-3">{{

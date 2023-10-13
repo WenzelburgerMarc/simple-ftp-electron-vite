@@ -1,10 +1,12 @@
 <template>
-  <ModalComponent @closeModal="closeModal"
-                  :show-modal="showModal">
+  <ModalComponent
+:show-modal="showModal"
+                  @closeModal="closeModal">
     <div class="w-full flex flex-col justify-start items-center relative pb-10">
       <div class="w-full flex justify-between items-center ">
 
-        <TitleComponent :title-text="'Logs'"
+        <TitleComponent
+:title-text="'Logs'"
                         :size="'medium'" />
 
         <IconButtonComponent
@@ -17,47 +19,55 @@
       </div>
 
 
-      <template v-for="log in paginatedLogs"
+      <template
+v-for="log in paginatedLogs"
                 :key="log.id">
-        <sync-mode-log @deleteLog="deleteLog"
-                       @toggleLogDetails="toggleLogDetails"
+        <sync-mode-log
+v-if="log.logType === 'Sync-Progress'"
                        :prop-log="log"
                        :prop-allow-expand="allowExpand"
-                       v-if="log.logType === 'Sync-Progress'"
-                       :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''" />
-        <delete-file-log v-else-if="log.logType === 'Delete-File'"
+                       :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+                       @deleteLog="deleteLog"
+                       @toggleLogDetails="toggleLogDetails" />
+        <delete-file-log
+v-else-if="log.logType === 'Delete-File'"
                          :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                          :prop-log="log"
                          :prop-allow-expand="false"
                          @deleteLog="deleteLog"
         />
 
-        <create-folder-log :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+        <create-folder-log
+v-else-if="log.logType ==='Create-Folder'"
+                           :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                            :prop-log="log"
                            :prop-allow-expand="false"
-                           @deleteLog="deleteLog"
-                           v-else-if="log.logType ==='Create-Folder'" />
+                           @deleteLog="deleteLog" />
 
-        <set-sync-path-log :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
+        <set-sync-path-log
+v-else-if="log.logType ==='Set-Sync-Path'"
+                           :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                            :prop-log="log"
                            :prop-allow-expand="false"
-                           @deleteLog="deleteLog"
-                           v-else-if="log.logType ==='Set-Sync-Path'" />
+                           @deleteLog="deleteLog" />
 
-        <delete-folder-log v-else-if="log.logType === 'Delete-Folder'"
+        <delete-folder-log
+v-else-if="log.logType === 'Delete-Folder'"
                            :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                            :prop-log="log"
                            :prop-allow-expand="false"
                            @deleteLog="deleteLog"
         />
-        <error-log v-else-if="log.logType === 'Error'"
+        <error-log
+v-else-if="log.logType === 'Error'"
                    :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                    :prop-log="log"
                    :prop-allow-expand="false"
                    @deleteLog="deleteLog"
         />
 <!--   make a test error log     -->
-        <error-log v-else-if="log.logType === 'Test-Error'"
+        <error-log
+v-else-if="log.logType === 'Test-Error'"
                    :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
                    :prop-log="log"
                    :prop-allow-expand="false"
@@ -66,23 +76,27 @@
 
     </div>
 
-    <div class="w-full flex justify-center items-center space-x-2"
-         v-if="logList.length > itemsPerPage">
-      <button @click="prevPage"
-              :disabled="currentPage <= 1"
+    <div
+v-if="logList.length > itemsPerPage"
+         class="w-full flex justify-center items-center space-x-2">
+      <button
+:disabled="currentPage <= 1"
               :class="currentPage <= 1 ? 'bg-gray-200' : 'bg-blue-600'"
-              class="px-2 text-white rounded">
+              class="px-2 text-white rounded"
+              @click="prevPage">
         <font-awesome-icon :icon="['fas', 'chevron-left']" />
       </button>
 
-      <button @click="nextPage"
-              :disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
+      <button
+:disabled="logList ? currentPage * itemsPerPage >= logList.length : true"
               :class="currentPage * itemsPerPage >= logList.length ? 'bg-gray-200' : 'bg-blue-600'"
-              class="px-2 text-white rounded">
+              class="px-2 text-white rounded"
+              @click="nextPage">
         <font-awesome-icon :icon="['fas', 'chevron-right']" />
       </button>
     </div>
-    <LabelComponent class="absolute bottom-3 right-3"
+    <LabelComponent
+class="absolute bottom-3 right-3"
                     :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
   </ModalComponent>

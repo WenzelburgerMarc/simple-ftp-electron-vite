@@ -221,7 +221,8 @@ const createNewFolderOnFtp = async (name) => {
 </script>
 
 <template>
-  <set-ftp-folder-name-modal :show-modal="showModal"
+  <set-ftp-folder-name-modal
+:show-modal="showModal"
                              @update:showModal="updateShowModal"
                              @createFolder="createNewFolderOnFtp" />
   <panel-component
@@ -230,23 +231,27 @@ const createNewFolderOnFtp = async (name) => {
 
     <div class="w-full flex justify-between items-center">
       <div class="relative">
-        <button @mouseover="showTooltip = true"
-                @mouseleave="showTooltip = false"
-                type="button">
-          <title-component title-text="Server"
+        <button
+type="button"
+                @mouseover="showTooltip = true"
+                @mouseleave="showTooltip = false">
+          <title-component
+title-text="Server"
                            @click="goToFtpInitialPath" />
         </button>
-        <div v-if="showTooltip"
+        <div
+v-if="showTooltip"
              class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
           Go To The Root Of Your Sync Directory
         </div>
       </div>
-        <icon-button-component :class="[pauseModeEnabled ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
-                               @SelectFtpSyncDurectory="setFtpSyncDirectory"
-                               emitName="SelectFtpSyncDurectory"
-                               btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+        <icon-button-component
+:class="[pauseModeEnabled ? 'active-setsyncpath-btn' : 'inactive-setsyncpath-btn', 'transition-all duration-300']"
+                               emit-name="SelectFtpSyncDurectory"
+                               btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
                                icon="rotate"
-                               icon-class="mr-2">Select Current Path As Sync Directory
+                               icon-class="mr-2"
+                               @SelectFtpSyncDurectory="setFtpSyncDirectory">Select Current Path As Sync Directory
         </icon-button-component>
     </div>
 
@@ -262,22 +267,25 @@ const createNewFolderOnFtp = async (name) => {
           icon="arrow-left"
           @goBackFTPPath="handleBack" />
 
-        <Breadcrumb :initial-breadcrumb="breadcrumb"
+        <Breadcrumb
+:initial-breadcrumb="breadcrumb"
                     :current-dir="currentDir"
                     :initial-path-prop="initialPath"
                     @change-path="changePath" />
 
       </div>
-      <icon-button-component @newFolderFtp="showModal = true"
-                             emitName="newFolderFtp"
-                             btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+      <icon-button-component
+emit-name="newFolderFtp"
+                             btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
                              icon="plus"
-                             icon-class="mr-2">New Folder
+                             icon-class="mr-2"
+                             @newFolderFtp="showModal = true">New Folder
       </icon-button-component>
 
     </div>
 
-    <FileList :pause-mode-enabled="pauseModeEnabled.value"
+    <FileList
+:pause-mode-enabled="pauseModeEnabled.value"
               :initial-file-list="fileList"
               @file-clicked="handleClick"
               @delete-file="deleteFtpFile"

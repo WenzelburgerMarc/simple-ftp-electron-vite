@@ -54,47 +54,57 @@ const deleteLog = (id) => {
 </script>
 
 <template>
-  <div :class="[
+  <div
+:class="[
                 'w-full grid grid-cols-6 gap-0  hover:bg-gray-50 transition-all duration-300 text-gray-800',
                 !log.open ? '' : 'bg-gray-50', (allowExpand&&log.files) ? 'cursor-pointer' : 'cursor-default', isCanceled ? 'bg-gray-200' : ''
                 ]"
   >
 
-    <div  @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">{{ log.type }}
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">{{ log.type }}
     </div>
-    <div @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">{{ log.totalFiles }}
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">{{ log.totalFiles }}
     </div>
-    <div @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">{{ formatSize(log.totalSize) }}
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">{{ formatSize(log.totalSize) }}
     </div>
-    <div @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">{{ log.destination }}
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">{{ log.destination }}
     </div>
-    <div @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">{{ log.progress }}
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">{{ log.progress }}
     </div>
-    <div @click="toggleLogDetails(log.id)"
-         class="col-span-1 p-1  truncate-no-hover">
+    <div
+class="col-span-1 p-1  truncate-no-hover"
+         @click="toggleLogDetails(log.id)">
       <div class="flex justify-end items-center space-x-2" >
-        <icon-button-component :icon="['fas', 'trash-alt']"
+        <icon-button-component
+:icon="['fas', 'trash-alt']"
                                emit-name="deleteLog"
-                               @deleteLog="deleteLog(log.id)"
                                icon-class="text-red-500"
                                :btn-class="'z-50 close text-xl flex justify-center items-center'"
+                               @deleteLog="deleteLog(log.id)"
         />
-        <icon-button-component @click="toggleLogDetails(log.id)"
-                               v-if="allowExpand && log.files"
+        <icon-button-component
+v-if="allowExpand && log.files"
                                :icon="['fas', 'chevron-down']"
                                :icon-class="[
                     log.open ? 'rotate-180' : '',
                     'transition-transform duration-300 text-gray-700'
                   ]"
                                :btn-class="'z-20 close text-xl flex justify-center items-center ml-auto'"
+                               @click="toggleLogDetails(log.id)"
         />
 
-        <icon-button-component v-else
+        <icon-button-component
+v-else
                                :icon="['fas', 'chevron-down']"
                                icon-class="opacity-0 pointer-events-none"
                                :btn-class="'z-20 close text-xl flex justify-center items-center ml-auto pointer-events-none'"
@@ -115,7 +125,8 @@ const deleteLog = (id) => {
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Name</div>
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Size</div>
         <div class="col-span-1 p-1 text-xs text-gray-700 uppercase">Type</div>
-        <template v-for="file in log.files"
+        <template
+v-for="file in log.files"
                   :key="file.name">
           <div class="col-span-8 grid grid-cols-4 gap-0 hover:bg-gray-300 rounded-md cursor-default">
             <div class="col-span-1 p-1 truncate-no-hover">{{ file.path }}</div>

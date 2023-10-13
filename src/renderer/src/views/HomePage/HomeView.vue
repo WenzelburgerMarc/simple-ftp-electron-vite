@@ -1,8 +1,9 @@
 <template>
   <main-layout>
     <div class="w-full flex flex-col justify-center items-center space-y-3 p-3 mr-[10px]">
-      <FtpStatusOverview @listFiles="listFilesAndDirectories"
-                         :is-connected="connected" />
+      <FtpStatusOverview
+:is-connected="connected"
+                         @listFiles="listFilesAndDirectories" />
 
       <the-ftp-explorer />
 

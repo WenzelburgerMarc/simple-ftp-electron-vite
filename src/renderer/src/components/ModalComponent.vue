@@ -1,9 +1,11 @@
 <template>
-  <div class="fixed modal-bg top-0 left-0 h-full w-full z-40 transition-all left-0"
+  <div
+class="fixed modal-bg top-0 left-0 h-full w-full z-40 transition-all left-0"
        :class="[props.showModal ? 'blur-transparent-modal pointer-events-auto' : 'opacity-0 pointer-events-none']"></div>
 
   <transition name="modal-fade">
-    <div v-if="props.showModal"
+    <div
+v-if="props.showModal"
          class="z-50 fixed w-[calc(100vw-100px)] left-0 max-w-5xl inset-0 flex items-center justify-center mx-auto pointer-events-none">
       <div class="modal relative w-full bg-gray-100 shadow-md p-3 rounded-md modal-content pointer-events-auto">
         <slot></slot>

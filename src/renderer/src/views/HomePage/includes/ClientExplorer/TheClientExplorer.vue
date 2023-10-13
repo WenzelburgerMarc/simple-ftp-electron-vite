@@ -225,24 +225,28 @@ const deleteFolder = async (folder) => {
 
 
       <div class="relative">
-        <button @mouseover="showTooltip = true"
-                @mouseleave="showTooltip = false"
-                type="button">
-          <title-component title-text="Client"
+        <button
+type="button"
+                @mouseover="showTooltip = true"
+                @mouseleave="showTooltip = false">
+          <title-component
+title-text="Client"
                            @click="goToClientInitialPath" />
         </button>
-        <div v-if="showTooltip"
+        <div
+v-if="showTooltip"
              class="absolute min-w-max z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
           Go To The Root Of Your Sync Directory
         </div>
       </div>
 
 
-      <icon-button-component :icon="['far', 'folder-open']"
+      <icon-button-component
+:icon="['far', 'folder-open']"
                              emit-name="openClientFolder"
-                             @click="openSelectedClientDirectory"
-                             btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
-                             icon-class="mr-2">Open Folder
+                             btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+                             icon-class="mr-2"
+                             @click="openSelectedClientDirectory">Open Folder
       </icon-button-component>
     </div>
 
@@ -259,24 +263,27 @@ const deleteFolder = async (folder) => {
             icon="arrow-left"
             @goBackFTPPath="handleBack" />
 
-          <Breadcrumb :initial-breadcrumb="breadcrumb"
+          <Breadcrumb
+:initial-breadcrumb="breadcrumb"
                       :current-dir="currentDir"
                       :initial-path-prop="initialPath"
                       @change-path="changePath" />
         </div>
 
-        <icon-button-component @newFolderClient="createNewFolderOnClient"
-                               emitName="newFolderClient"
-                               btnClass="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
+        <icon-button-component
+emit-name="newFolderClient"
+                               btn-class="w-auto flex flex-shrink-0 justify-end items-center text-blue-600 hover:text-blue-700 text-base"
                                icon="plus"
-                               icon-class="mr-2">New Folder
+                               icon-class="mr-2"
+                               @newFolderClient="createNewFolderOnClient">New Folder
         </icon-button-component>
 
       </div>
 
     </div>
 
-    <FileList :initial-file-list="fileList"
+    <FileList
+:initial-file-list="fileList"
               @file-clicked="handleClick"
               @delete-file="deleteFile"
               @delete-folder="deleteFolder" />

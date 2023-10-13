@@ -1,46 +1,55 @@
 <template>
   <div class="w-full flex flex-col space-y-2 justify-start items-start">
     <div class="w-full flex justify-between items-center">
-      <TitleComponent :title-text="'General Settings'"
+      <TitleComponent
+:title-text="'General Settings'"
                       :size="'medium'" />
-      <IconButtonComponent v-if="props.showModal"
+      <IconButtonComponent
+v-if="props.showModal"
                            :emit-name="'closeSettings'"
                            :icon="['fas', 'xmark']"
                            :btn-class="'z-20 close text-xl flex justify-center items-center'"
                            @closeSettings="closeModal" />
     </div>
-    <SelectPathInputComponent :prev-selected-path="selectedPath"
+    <SelectPathInputComponent
+:prev-selected-path="selectedPath"
                               label-text="Choose Directory to Sync With Server"
                               :btn-text="'Select Save Location'"
                               @updateSelectedPath="handleSelectDirectory" />
 
 
-    <LabelInputComponent :model-value="autoSyncInterval"
-                         @update:modelValue="updateSyncInterval"
+    <LabelInputComponent
+:model-value="autoSyncInterval"
                          :label="'Auto-Sync Interval in ms'"
                          :type="'number'"
-                         :placeholder="'10000'" />
-    <LabelInputComponent :model-value="autoReloadFtpInterval"
-                         @update:modelValue="updateAutoReloadFtpInterval"
+                         :placeholder="'10000'"
+                         @update:modelValue="updateSyncInterval" />
+    <LabelInputComponent
+:model-value="autoReloadFtpInterval"
                          :label="'Auto-Reload FTP Files Interval in ms'"
                          :type="'number'"
-                         :placeholder="'60000'" />
+                         :placeholder="'60000'"
+                         @update:modelValue="updateAutoReloadFtpInterval" />
 
 
-    <CheckboxComponent :id="'enableAutoUpload'"
+    <CheckboxComponent
+:id="'enableAutoUpload'"
                        :model-value="enableAutoStart"
-                       @update:modelValue="updateEnableAutoStart"
-                       :label="'Enable Auto-Start'" />
-    <CheckboxComponent :id="'enableAutoReconnect'"
+                       :label="'Enable Auto-Start'"
+                       @update:modelValue="updateEnableAutoStart" />
+    <CheckboxComponent
+:id="'enableAutoReconnect'"
                        :model-value="enableAutoReconnect"
-                       @update:modelValue="updateEnableAutoReconnect"
-                       :label="'Enable Auto-Reconnect on Start-Up & Connection Loss'" />
-    <CheckboxComponent :id="'enableDeletingFilesAfterUpload'"
+                       :label="'Enable Auto-Reconnect on Start-Up & Connection Loss'"
+                       @update:modelValue="updateEnableAutoReconnect" />
+    <CheckboxComponent
+:id="'enableDeletingFilesAfterUpload'"
                        :model-value="enableDeletingFilesAfterUpload"
-                       @update:modelValue="updateEnableDeletingFilesAfterUpload"
-                       :label="'Enable deleting Files on Client after Upload'" />
+                       :label="'Enable deleting Files on Client after Upload'"
+                       @update:modelValue="updateEnableDeletingFilesAfterUpload" />
 
-    <ButtonComponent :button-text="'Save'"
+    <ButtonComponent
+:button-text="'Save'"
                      :emit-event="'saveSettings'"
                      :class="'mx-auto'"
                      @saveSettings="saveSettings" />

@@ -7,8 +7,8 @@
       <a
          class="w-full mr-0 hover:underline hover:text-blue-600"
          :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
-         @click.prevent="changePath(segment.path)"
          href="#"
+         @click.prevent="changePath(segment.path)"
          @mouseover="hover(index)"
          @mouseout="unhover()">
         {{ segment.name }}

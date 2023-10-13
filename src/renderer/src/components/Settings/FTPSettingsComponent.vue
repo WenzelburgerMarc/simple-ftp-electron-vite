@@ -3,9 +3,11 @@
   <div class="w-full flex justify-between items-start">
 
 
-    <TitleComponent title-text="FTP Settings"
+    <TitleComponent
+title-text="FTP Settings"
                     size="medium" />
-    <IconButtonComponent v-if="showModal"
+    <IconButtonComponent
+v-if="showModal"
                          emit-name="closeFtpSettings"
                          :icon="['fas', 'xmark']"
                          btn-class="z-20 close text-xl flex justify-center items-center"
@@ -13,31 +15,37 @@
   </div>
 
   <!-- FTP Settings Fields -->
-  <LabelInputComponent label="Host"
+  <LabelInputComponent
+label="Host"
                        type="text"
                        placeholder="192.168.1.1 or ftp.example.com"
                        :model-value="ftpHost"
                        @update:modelValue="updateFtpHost" />
-  <LabelInputComponent label="Port"
+  <LabelInputComponent
+label="Port"
                        type="text"
                        placeholder="21"
                        :model-value="ftpPort"
                        @update:modelValue="updateFtpPort" />
-  <LabelInputComponent label="Username"
+  <LabelInputComponent
+label="Username"
                        type="text"
                        placeholder="john_doe"
                        :model-value="ftpUsername"
                        @update:modelValue="updateFtpUsername" />
-  <LabelInputComponent label="Password"
+  <LabelInputComponent
+label="Password"
                        type="password"
                        placeholder="********"
                        :model-value="ftpPassword"
                        @update:modelValue="updateFtpPassword" />
   <div class="w-full flex justify-start items-center space-x-3 mr-auto">
-    <ButtonComponent button-text="Save & Connect"
+    <ButtonComponent
+button-text="Save & Connect"
                      emit-event="connectFTPSettings"
                      @connectFTPSettings="connectFtpSettings" />
-    <PlainButtonComponent class="text-gray-800 hover:text-black"
+    <PlainButtonComponent
+class="text-gray-800 hover:text-black"
                           button-text="Test Connection"
                           emit-event="testFTPSettings"
                           @testFTPSettings="testFtpSettings" />

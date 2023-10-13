@@ -27,23 +27,27 @@ const createFolder = () => {
 </script>
 
 <template>
-  <ModalComponent @closeModal="closeModal"
-                  :show-modal="showModal" class="newFolderModal">
+  <ModalComponent
+:show-modal="showModal"
+                  class="newFolderModal" @closeModal="closeModal">
     <div class="w-full flex flex-col space-y-2 justify-start items-start">
       <div class="w-full flex justify-between items-start">
         <TitleComponent :title-text="'Create A New Folder'" :size="'medium'" />
-        <IconButtonComponent v-if="props.showModal"
+        <IconButtonComponent
+v-if="props.showModal"
                              :emit-name="'closeSettings'"
                              :icon="['fas', 'xmark']"
                              :btn-class="'z-20 close text-xl flex justify-center items-center'"
                              @closeSettings="closeModal" />
       </div>
-      <LabelInputComponent :model-value="newFolderName" @update:modelValue="updateNewFolderName"
-                           :label="'Folder Name'"
+      <LabelInputComponent
+:model-value="newFolderName" :label="'Folder Name'"
                            :type="'text'"
-                           :placeholder="'Name'" />
+                           :placeholder="'Name'"
+                           @update:modelValue="updateNewFolderName" />
 
-      <ButtonComponent :button-text="'Create'"
+      <ButtonComponent
+:button-text="'Create'"
                        :emit-event="'createFolder'"
                        :class="'mx-auto'"
                        @createFolder="createFolder" />

@@ -2,28 +2,34 @@
   <table class="w-full text-sm text-left text-gray-500">
     <thead class="text-xs text-gray-700 uppercase">
     <tr>
-      <th scope="col"
+      <th
+scope="col"
           class="px-6 py-3">Name
       </th>
-      <th scope="col"
+      <th
+scope="col"
           class="px-6 py-3">Size
       </th>
-      <th scope="col"
+      <th
+scope="col"
           class="px-6 py-3">Type
       </th>
-      <th scope="col"
+      <th
+scope="col"
           class="px-6 py-3">
       </th>
     </tr>
     </thead>
     <tbody>
-    <tr v-for="file in fileList"
+    <tr
+v-for="file in fileList"
         :key="file.name"
         class="bg-white w-full  border-b border-gray-200 hover:bg-gray-50"
         >
       <td class="px-6 py-4" @click="handleClick(file)">
-        <font-awesome-icon class="text-base mr-2"
-                           v-if="file.type === 'd'"
+        <font-awesome-icon
+v-if="file.type === 'd'"
+                           class="text-base mr-2"
                            :icon="['far', 'folder-open']" />
         <span class="hover:underline cursor-pointer">{{ file.name }}</span></td>
       <td class="px-6 py-4">{{ file.type !== 'd' ? formatSize(file.size) : '' }}</td>
@@ -31,10 +37,12 @@
 
       <td class="flex items-center px-6 py-4 space-x-3" :class="[showDeleteButtons ? 'active-delete-buttons' : 'inactive-delete-buttons', 'transition-all duration-300']">
 
-        <a v-if="file.type !== 'd'" href="#"
+        <a
+v-if="file.type !== 'd'" href="#"
            class="font-medium flex-grow text-red-600 truncate hover:text-red-700"
             @click.prevent="$emit('delete-file', file)">Delete File</a>
-        <a v-else href="#" class="font-medium flex-grow truncate text-red-600 hover:text-red-700"
+        <a
+v-else href="#" class="font-medium flex-grow truncate text-red-600 hover:text-red-700"
            @click.prevent="$emit('delete-folder', file)">Delete Folder</a>
       </td>
     </tr>

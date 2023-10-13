@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit(props.emitName)" :class="props.btnClass" >
+  <button :class="props.btnClass" @click="$emit(props.emitName)" >
     <font-awesome-icon :icon="props.icon" :class="props.iconClass"  />
     <slot></slot>
   </button>

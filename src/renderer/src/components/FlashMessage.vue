@@ -6,7 +6,8 @@
     enter-to-class="opacity-100 transform translate-x-0"
     leave-from-class="opacity-100 transform translate-x-0"
     leave-to-class="opacity-0 transform translate-x-full">
-    <div v-if="visible"
+    <div
+v-if="visible"
          class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden no-blur"
          >
       <div class="flex w-3" :class="gradientClasses"></div>
@@ -14,7 +15,7 @@
         <h1 class="md:text-xl text-gray-600" v-text="flashTitle"></h1>
         <p class="text-gray-400 text-xs md:text-sm font-light" v-text="flashMessage"></p>
       </div>
-      <div @click="closeFlash" class="cursor-pointer border-l hover:bg-gray-100 border-gray-100 px-4 flex place-items-center">
+      <div class="cursor-pointer border-l hover:bg-gray-100 border-gray-100 px-4 flex place-items-center" @click="closeFlash">
         <p class="text-gray-400 text-xs">CLOSE</p>
       </div>
     </div>

@@ -1,23 +1,30 @@
 <template>
   <panel-component class="relative z-0 ftp-status flex flex-col justify-between items-center overflow-hidden">
-    <div :class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
+    <div
+:class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
          :style="{width: syncProgress + '%'}"
          class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
     <div class="w-full flex justify-between items-center z-10 pointer-events-auto">
       <div class="w-full flex items-center space-x-4">
-        <div :class="statusClass"
+        <div
+:class="statusClass"
              class="w-3 h-3 rounded-full"></div>
         <div class="text-sm w-full flex flex-col justify-center items-start">
-          <p v-if="isConnected"
+          <p
+v-if="isConnected"
              class="text-green-500">Connected</p>
-          <p v-else
+          <p
+v-else
              class="text-red-500">Disconnected</p>
-          <p v-if="isConnected && ftpCredentials.host"
+          <p
+v-if="isConnected && ftpCredentials.host"
              class="text-gray-800">Host: {{ ftpCredentials.host }}</p>
-          <p v-else
+          <p
+v-else
              class="text-gray-400">No host connected</p>
-          <p class="text-gray-800 truncate"
-             v-if="isConnected && currentSyncMode">
+          <p
+v-if="isConnected && currentSyncMode"
+             class="text-gray-800 truncate">
 
 
           </p>
@@ -25,22 +32,25 @@
         </div>
       </div>
       <div class="w-full flex justify-end items-center space-x-2">
-        <icon-button-component emit-name="listFilesIconBtn"
-                               @listFilesIconBtn="listFiles"
-                               v-if="isConnected"
-                               iconClass="text-lg text-gray-800"
-                               icon="rotate-right" />
-        <icon-button-component emit-name="disconnectFtpIconBtn"
-                               @disconnectFtpIconBtn="disconnectFtp"
-                               v-if="isConnected"
-                               iconClass="text-2xl text-red-500"
-                               icon="xmark" />
+        <icon-button-component
+v-if="isConnected"
+                               emit-name="listFilesIconBtn"
+                               icon-class="text-lg text-gray-800"
+                               icon="rotate-right"
+                               @listFilesIconBtn="listFiles" />
+        <icon-button-component
+v-if="isConnected"
+                               emit-name="disconnectFtpIconBtn"
+                               icon-class="text-2xl text-red-500"
+                               icon="xmark"
+                               @disconnectFtpIconBtn="disconnectFtp" />
 
-        <icon-button-component emit-name="connectFtpIconBtn"
-                               @connectFtpIconBtn="connectToFtp"
-                               v-if="!isConnected"
-                               iconClass="text-lg text-gray-800"
-                               icon="plug" />
+        <icon-button-component
+v-if="!isConnected"
+                               emit-name="connectFtpIconBtn"
+                               icon-class="text-lg text-gray-800"
+                               icon="plug"
+                               @connectFtpIconBtn="connectToFtp" />
 
       </div>
     </div>

@@ -1,26 +1,30 @@
 <template>
   <div class="relative flex justify-center items-center w-fit">
-    <div :style="switchingBackgroundStyle"
+    <div
+:style="switchingBackgroundStyle"
          class="absolute bg-blue-600 h-full shadow-md -z-10 rounded-md" />
-    <icon-button-component :icon="['fas', 'upload']"
+    <icon-button-component
+:icon="['fas', 'upload']"
                            emit-name="setSyncUpload"
-                           @setSyncUpload="setSyncUpload"
                            :btn-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
+                           :icon-class="[isActive('upload') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+                           @setSyncUpload="setSyncUpload">
       Upload
     </icon-button-component>
-    <icon-button-component :icon="['fas', 'download']"
+    <icon-button-component
+:icon="['fas', 'download']"
                            emit-name="setSyncDownload"
-                           @setSyncDownload="setSyncDownload"
                            :btn-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
+                           :icon-class="[isActive('download') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+                           @setSyncDownload="setSyncDownload">
       Download
     </icon-button-component>
-    <icon-button-component :icon="['fas', 'pause']"
+    <icon-button-component
+:icon="['fas', 'pause']"
                            emit-name="setStopSyncingMethod"
-                           @setStopSyncingMethod="setStopSyncingMethod"
                            :btn-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'w-[120px] transition duration-300 flex justify-center items-center p-3']"
-                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']">
+                           :icon-class="[isActive('pause') ? 'text-gray-200' : 'text-gray-800', 'mr-2 transition duration-300']"
+                           @setStopSyncingMethod="setStopSyncingMethod">
       Pause
     </icon-button-component>
 

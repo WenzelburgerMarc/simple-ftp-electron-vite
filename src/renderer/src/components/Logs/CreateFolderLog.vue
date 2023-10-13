@@ -40,11 +40,12 @@ const deleteLog = (id) => {
     </div>
     <div class="col-span-1 p-1  truncate-no-hover">
       <div class="flex justify-end items-center space-x-2">
-        <icon-button-component :icon="['fas', 'trash-alt']"
+        <icon-button-component
+:icon="['fas', 'trash-alt']"
                                emit-name="deleteLog"
-                               @deleteLog="deleteLog(log.id)"
                                icon-class="text-red-500"
                                :btn-class="'z-50 close text-xl flex justify-center items-center'"
+                               @deleteLog="deleteLog(log.id)"
         />
         <icon-button-component
           :icon="['fas', 'chevron-down']"

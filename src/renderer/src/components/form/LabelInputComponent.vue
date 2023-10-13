@@ -1,9 +1,10 @@
 <template>
   <div class="w-full flex flex-col">
-    <LabelComponent :labelText="props.label"/>
-    <InputComponent :type="props.type"
+    <LabelComponent :label-text="props.label"/>
+    <InputComponent
+:type="props.type"
                     :placeholder="props.placeholder"
-                    :modelValue="props.modelValue"
+                    :model-value="props.modelValue"
                     @update:modelValue="val => $emit('update:modelValue', val)"
     />
   </div>
