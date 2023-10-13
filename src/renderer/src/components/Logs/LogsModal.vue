@@ -74,7 +74,6 @@
           @deleteLog="deleteLog"
           :first-or-last="getFirstOrLast(log)"
         />
-        <!--   make a test error log     -->
         <!--        <error-log
                   v-else-if="log.logType === 'Test-Error'"
                   :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
@@ -113,7 +112,7 @@
       <icon-button-component icon="fas fa-download"
                              :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
-                             @click="saveAllLogs"> Save & Open Logs</icon-button-component>
+                             @click="saveAllLogs"> Save Logs</icon-button-component>
       <icon-button-component v-if="logList.length > 0"
                              icon="fas fa-trash-alt"
                              :btn-class="'bg-red-300 hover:bg-red-400 p-1 rounded-md text-gray-800'"
@@ -208,6 +207,10 @@ onMounted(async () => {
 
 
 });
+
+const saveAllLogs = async () => {
+  await window.ipcRendererInvoke("save-all-logs");
+};
 
 const deleteAllLogs = async () => {
   await window.ipcRendererInvoke("delete-all-logs");

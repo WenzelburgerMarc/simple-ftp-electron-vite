@@ -5,7 +5,8 @@ import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { join } from "path";
 import * as path from "path";
 import * as fs from "fs";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import { displayFlash } from "../renderer/src/js/flashMessageController";
 
 let mainWindow = null;
 
@@ -127,7 +128,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
   try {
     const files = fs.readdirSync(dirPath);
     return files.map(file => {
-      if (file.startsWith('.')) {
+      if (file.startsWith(".")) {
         return null;
       }
 
@@ -146,7 +147,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
           id: uuidv4(),
           type: "Error - List Client Files",
           open: false,
-          description: error.message,
+          description: error.message
         };
 
         addLog(event, log);
@@ -159,7 +160,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
       id: uuidv4(),
       type: "Error - List Client Files",
       open: false,
-      description: error.message,
+      description: error.message
     };
     addLog(event, log);
     return [];
@@ -185,7 +186,7 @@ ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
         id: uuidv4(),
         type: "Error - Creating Client Folder",
         open: false,
-        description: error.message,
+        description: error.message
       };
 
       addLog(event, log);
@@ -207,7 +208,7 @@ ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
       id: uuidv4(),
       type: "Error - Copy Client Files",
       open: false,
-      description: error.message,
+      description: error.message
     };
 
     addLog(event, log);
@@ -257,7 +258,7 @@ ipcMain.handle("delete-client-file", async (event, path) => {
       id: uuidv4(),
       type: "Error - Delete Client Files",
       open: false,
-      description: error.message,
+      description: error.message
     };
     addLog(event, log);
     return { success: false, message: error.message };
@@ -275,7 +276,7 @@ ipcMain.handle("delete-client-directory", async (event, path) => {
       id: uuidv4(),
       type: "Error - Delete Client Directory",
       open: false,
-      description: error.message,
+      description: error.message
     };
     addLog(event, log);
     return { success: false, message: error.message };
@@ -347,27 +348,54 @@ ipcMain.handle("delete-log", (event, id) => {
   store.set("logs", logs);
   event.sender.send("log-changed");
 });
+ipcMain.handle("save-all-logs", async () => {
+  const logs = await store.get("logs", []);
+  const copyLogs = JSON.parse(JSON.stringify(logs));
+  await copyLogs.forEach(log => {
+    delete log.open;
+    delete log.logType;
+  });
 
+  const { filePath } = await dialog.showSaveDialog({
+    title: "Save Logs",
+    defaultPath: path.join(app.getPath("downloads"), "logs.json"),
+    buttonLabel: "Save Logs",
+    filters: [
+      { name: "JSON", extensions: ["json"] }
+    ]
+  });
+
+  if (filePath) {
+    fs.writeFileSync(filePath, JSON.stringify(copyLogs, null, 2));
+    shell.openPath(filePath).then(() => {
+      displayFlash("Logs saved successfully", "success");
+    });
+  }
+});
 ipcMain.handle("delete-all-logs", (event) => {
   store.set("logs", []);
+  displayFlash("Logs deleted successfully", "success");
   event.sender.send("log-changed");
 });
 const addLog = (event, log) => {
   const logs = store.get("logs", []);
 
-  if(logs.length > 0){
-    let tmpLatestLog = JSON.parse(JSON.stringify(logs[logs.length - 1])); // tiefe Kopie
-    let tmpNewLog = JSON.parse(JSON.stringify(log)); // tiefe Kopie
+  if (logs.length > 0) {
+    let tmpLatestLog = JSON.parse(JSON.stringify(logs[logs.length - 1]));
+    let tmpNewLog = JSON.parse(JSON.stringify(log));
 
     delete tmpLatestLog.id;
     delete tmpNewLog.id;
 
-    if(JSON.stringify(tmpLatestLog) === JSON.stringify(tmpNewLog)){
-      console.log('same log', tmpLatestLog, tmpNewLog);
+    if (JSON.stringify(tmpLatestLog) === JSON.stringify(tmpNewLog)) {
+      console.log("same log", tmpLatestLog, tmpNewLog);
+      log.logCount = log.logCount ? log.logCount + 1 : 2;
       event.sender.send("log-changed");
       return;
     }
   }
+
+  log.timestamp = new Date().getTime();
 
   let index = logs.findIndex((l) => l.id === log.id);
 
@@ -379,4 +407,4 @@ const addLog = (event, log) => {
 
   store.set("logs", logs);
   event.sender.send("log-changed");
-}
+};
