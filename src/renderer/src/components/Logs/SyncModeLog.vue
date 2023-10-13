@@ -25,7 +25,7 @@ onMounted(() => {
   const accordionElements = document.querySelectorAll('.accordion-content');
   accordionElements.forEach(element => {
     element.addEventListener('mouseover', handleMouseOver);
-    element.addEventListener('mouseout', handleMouseOut);
+    element.addEventListener('mouseout', handleMouseOver);
   });
 });
 
@@ -33,13 +33,6 @@ const handleMouseOver = (event) => {
   const element = event.currentTarget;
   if (element) {
     element.style.maxHeight = (element.scrollHeight) + "px";
-  }
-};
-
-const handleMouseOut = (event) => {
-  const element = event.currentTarget;
-  if (element) {
-    element.style.maxHeight = element.scrollHeight + "px";
   }
 };
 
