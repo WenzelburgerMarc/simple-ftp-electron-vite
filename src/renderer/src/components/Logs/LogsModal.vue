@@ -188,6 +188,7 @@ onMounted(async () => {
 });
 
 const deleteLog = async (id) => {
+
   await window.ipcRendererInvoke("delete-log", id);
   const logs = await window.ipcRendererInvoke("get-logs");
   await updateLogs(logs);

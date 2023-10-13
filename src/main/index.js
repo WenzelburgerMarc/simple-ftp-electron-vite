@@ -5,6 +5,7 @@ import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { join } from "path";
 import * as path from "path";
 import * as fs from "fs";
+import { v4 as uuidv4 } from 'uuid';
 
 let mainWindow = null;
 
@@ -139,7 +140,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
       } catch (error) {
         let log = {
           logType: "Error",
-          id: window.api.getUUID(),
+          id: uuidv4(),
           type: "Error - List Client Files",
           open: false,
           description: error.message,
@@ -152,7 +153,7 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - List Client Files",
       open: false,
       description: error.message,
@@ -177,7 +178,7 @@ ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
     } catch (error) {
       let log = {
         logType: "Error",
-        id: window.api.getUUID(),
+        id: uuidv4(),
         type: "Error - Creating Client Folder",
         open: false,
         description: error.message,
@@ -199,7 +200,7 @@ ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Copy Client Files",
       open: false,
       description: error.message,
@@ -249,7 +250,7 @@ ipcMain.handle("delete-client-file", async (event, path) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Delete Client Files",
       open: false,
       description: error.message,
@@ -267,7 +268,7 @@ ipcMain.handle("delete-client-directory", async (event, path) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Delete Client Directory",
       open: false,
       description: error.message,
@@ -335,8 +336,9 @@ ipcMain.handle("update-log", (event, index, updatedUpload) => {
 });
 
 
-ipcMain.handle("delete-log", (event, index) => {
+ipcMain.handle("delete-log", (event, id) => {
   const logs = store.get("logs", []);
+  const index = logs.findIndex((log) => log.id === id);
   logs.splice(index, 1);
   store.set("logs", logs);
   event.sender.send("log-changed");
@@ -346,23 +348,31 @@ ipcMain.handle("delete-all-logs", (event) => {
   store.set("logs", []);
   event.sender.send("log-changed");
 });
-
 const addLog = (event, log) => {
   const logs = store.get("logs", []);
-  let index = 0;
-  try{
-    index = logs.findIndex((l) => l.id === log.id);
-  }catch(e){
-    index = -1;
+
+  if(logs.length > 0){
+    let tmpLatestLog = JSON.parse(JSON.stringify(logs[logs.length - 1])); // tiefe Kopie
+    let tmpNewLog = JSON.parse(JSON.stringify(log)); // tiefe Kopie
+
+    delete tmpLatestLog.id;
+    delete tmpNewLog.id;
+
+    if(JSON.stringify(tmpLatestLog) === JSON.stringify(tmpNewLog)){
+      console.log('same log', tmpLatestLog, tmpNewLog);
+      event.sender.send("log-changed");
+      return;
+    }
   }
+
+  let index = logs.findIndex((l) => l.id === log.id);
 
   if (index !== -1) {
     logs[index] = log;
-    store.set("logs", logs);
-    event.sender.send("log-changed");
   } else {
     logs.push(log);
-    store.set("logs", logs);
-    event.sender.send("log-changed");
   }
+
+  store.set("logs", logs);
+  event.sender.send("log-changed");
 }
