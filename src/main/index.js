@@ -1,412 +1,44 @@
-"use strict";
+// Desc: This file contains the main entry point of the electron app
+import { app, BrowserWindow } from "electron";
+import { electronApp, optimizer } from "@electron-toolkit/utils";
+import createMainWindow, { mainWindow, setMainWindow } from "./window";
+import './ipcHandler';  // Import IPC (Inter-Process Communication) handlers
 
-import { app, BrowserWindow, ipcMain, dialog, shell } from "electron";
-import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import { join } from "path";
-import * as path from "path";
-import * as fs from "fs";
-import { v4 as uuidv4 } from "uuid";
-import { displayFlash } from "../renderer/src/js/flashMessageController";
-
-let mainWindow = null;
-
-
+// Function to create the main application window
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 720,
-    resizable: true,
-    maximizable: true,
-    title: "FTP Synchronizer",
-    frame: true,
-    minWidth: 1280,
-    minHeight: 720,
-    show: false,
-    autoHideMenuBar: true,
-    webPreferences: {
-      sandbox: false,
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: join(__dirname, "../preload/index.js")
-    }
+  createMainWindow();  // Initialize the main window of the app
+
+  // Add an event listener for when the main window is closed
+  mainWindow.on("closed", function() {
+    setMainWindow(null);  // Reset the main window reference
   });
-
-  mainWindow.webContents.session.clearCache().then(() => {
-    mainWindow.on("ready-to-show", () => {
-
-      if (process.argv.includes("--hidden")) {
-        mainWindow.minimize();
-      } else {
-        mainWindow.show();
-      }
-
-      if (is.dev) {
-        mainWindow.webContents.openDevTools();
-      }
-    });
-
-    mainWindow.webContents.setWindowOpenHandler((details) => {
-      shell.openExternal(details.url);
-      return { action: "deny" };
-    });
-
-    if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-      mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
-    } else {
-      mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
-    }
-  });
-
-
 }
 
+// Ensure the Electron app is ready before executing the following code
 app.whenReady().then(() => {
+  // Set the AppUserModelId for Windows notifications
   electronApp.setAppUserModelId("com.electron");
 
-
+  // Add an event listener for when any new browser window is created
   app.on("browser-window-created", (_, window) => {
-    optimizer.watchWindowShortcuts(window);
+    optimizer.watchWindowShortcuts(window);  // Watch for window shortcuts and optimize accordingly
   });
 
+  // Create the main application window
   createWindow();
 
+  // Add an event listener for when the app is activated (clicked on dock/taskbar icon)
   app.on("activate", function() {
+    // If no windows are open, create a new main window
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
+// Add an event listener for when all windows of the app are closed
 app.on("window-all-closed", () => {
+  // On macOS, it's common to not quit the app when all windows are closed, hence the check for 'darwin'
+  // On other platforms, quit the app when all windows are closed
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
-
-
-const Store = require("electron-store");
-const store = new Store();
-
-
-ipcMain.handle("get-auto-start-item-setting", () => {
-
-  return app.getLoginItemSettings();
-});
-
-ipcMain.handle("set-auto-start-item-setting", (event, settings) => {
-  app.setLoginItemSettings({
-    openAtLogin: settings.openAtLogin,
-    args: ["--hidden"]
-  });
-  return app.getLoginItemSettings();
-});
-
-ipcMain.handle("select-directory", async (event) => {
-  const result = await dialog.showOpenDialog({
-    properties: ["openDirectory"]
-  });
-  if (!result.canceled && result.filePaths.length > 0) {
-    event.sender.send("client-directory-changed", result.filePaths[0]);
-    return result.filePaths[0];
-  } else {
-    return null;
-  }
-});
-
-ipcMain.handle("get-setting", (event, key) => {
-  return store.get(key);
-});
-
-ipcMain.handle("set-setting", (event, key, value) => {
-  store.set(key, value);
-});
-
-ipcMain.handle("get-all-data", () => {
-  return store.store;
-});
-ipcMain.handle("list-local-files", async (event, dirPath) => {
-  try {
-    const files = fs.readdirSync(dirPath);
-    return files.map(file => {
-      if (file.startsWith(".")) {
-        return null;
-      }
-
-      const filePath = path.join(dirPath, file);
-      try {
-        const stats = fs.statSync(filePath);
-        return {
-          name: file,
-          path: filePath,
-          type: stats.isDirectory() ? "d" : "f",
-          size: stats.size
-        };
-      } catch (error) {
-        let log = {
-          logType: "Error",
-          id: uuidv4(),
-          type: "Error - List Client Files",
-          open: false,
-          description: error.message
-        };
-
-        addLog(event, log);
-        return null;
-      }
-    }).filter(file => file !== null);
-  } catch (error) {
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - List Client Files",
-      open: false,
-      description: error.message
-    };
-    addLog(event, log);
-    return [];
-  }
-});
-
-
-ipcMain.handle("create-new-folder-client", async (event, selectedDirectory) => {
-  const result = await dialog.showSaveDialog({
-    defaultPath: selectedDirectory,
-    properties: ["createDirectory"]
-  });
-
-  if (!result.canceled && result.filePath) {
-    try {
-      if (!fs.existsSync(result.filePath)) {
-        fs.mkdirSync(result.filePath, { recursive: true });
-      }
-      return result.filePath;
-    } catch (error) {
-      let log = {
-        logType: "Error",
-        id: uuidv4(),
-        type: "Error - Creating Client Folder",
-        open: false,
-        description: error.message
-      };
-
-      addLog(event, log);
-      return null;
-    }
-  } else {
-    return null;
-  }
-});
-
-ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
-  try {
-    await fs.promises.copyFile(sourcePath, destinationPath);
-
-    return destinationPath;
-  } catch (error) {
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - Copy Client Files",
-      open: false,
-      description: error.message
-    };
-
-    addLog(event, log);
-    throw error;
-  }
-});
-
-let watcher;
-let intervalId = null;
-ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
-  watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
-
-
-    if (filename && !mainWindow.isDestroyed()) {
-      event.sender.send("file-changed", { eventType });
-    }
-  });
-
-  if (intervalId) clearInterval(intervalId);
-
-  intervalId = setInterval(() => {
-    if (!mainWindow.isDestroyed())
-      event.sender.send("file-changed", { eventType: "change" });
-  }, 1000);
-});
-
-ipcMain.handle("unwatch-client-directory", async () => {
-  watcher.close();
-});
-
-ipcMain.handle("restart-ftp-reload-interval", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("restart-ftp-reload-interval");
-});
-
-ipcMain.handle("open-selected-client-directory", async (event, path) => {
-  await shell.openPath(path);
-});
-
-ipcMain.handle("delete-client-file", async (event, path) => {
-  try {
-    await fs.promises.unlink(path);
-    return { success: true, message: "File deleted successfully" };
-  } catch (error) {
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - Delete Client Files",
-      open: false,
-      description: error.message
-    };
-    addLog(event, log);
-    return { success: false, message: error.message };
-  }
-});
-
-
-ipcMain.handle("delete-client-directory", async (event, path) => {
-  try {
-    await fs.promises.rmdir(path);
-    return { success: true, message: "Folder deleted successfully" };
-  } catch (error) {
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - Delete Client Directory",
-      open: false,
-      description: error.message
-    };
-    addLog(event, log);
-    return { success: false, message: error.message };
-  }
-});
-
-ipcMain.handle("sync-progress-end", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-end");
-});
-
-ipcMain.handle("sync-progress-pause", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-pause");
-});
-
-
-ipcMain.handle("sync-progress-start", async (event, currentFiles, type) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-start", currentFiles, type);
-
-});
-
-ipcMain.handle("sync-progress-start-loading", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-start-loading");
-});
-
-ipcMain.handle("sync-progress-stop-loading", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("sync-progress-stop-loading");
-});
-
-ipcMain.handle("disableAutoReconnectChanged", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("disableAutoReconnectChanged");
-});
-
-ipcMain.handle("autoReconnectChanged", async (event) => {
-  if (!mainWindow.isDestroyed())
-    event.sender.send("autoReconnectChanged");
-});
-
-
-ipcMain.handle("exit", async () => {
-  app.exit();
-});
-
-ipcMain.handle("add-log", (event, log) => {
-  addLog(event, log);
-});
-
-ipcMain.handle("get-logs", () => {
-  return store.get("logs", []);
-});
-
-ipcMain.handle("update-log", (event, index, updatedUpload) => {
-  const logs = store.get("logs", []);
-  logs[index] = updatedUpload;
-  store.set("logs", logs);
-  event.sender.send("log-changed");
-});
-
-
-ipcMain.handle("delete-log", (event, id) => {
-  const logs = store.get("logs", []);
-  const index = logs.findIndex((log) => log.id === id);
-  logs.splice(index, 1);
-  store.set("logs", logs);
-  event.sender.send("log-changed");
-});
-ipcMain.handle("save-all-logs", async () => {
-  try {
-    const logs = await store.get("logs", []);
-    const copyLogs = JSON.parse(JSON.stringify(logs));
-    copyLogs.forEach(log => {
-      delete log.open;
-      delete log.logType;
-    });
-
-    const { filePath } = await dialog.showSaveDialog({
-      title: "Save Logs",
-      defaultPath: path.join(app.getPath("downloads"), "logs.json"),
-      buttonLabel: "Save Logs",
-      filters: [
-        { name: "JSON", extensions: ["json"] }
-      ]
-    });
-
-    if (filePath) {
-      fs.writeFileSync(filePath, JSON.stringify(copyLogs, null, 2));
-      await shell.openPath(filePath);
-      displayFlash("Logs saved successfully", "success");
-    }
-  } catch (error) {
-    displayFlash("Error saving logs", "error");
-  }
-});
-
-ipcMain.handle("delete-all-logs", (event) => {
-  store.set("logs", []);
-  displayFlash("Logs deleted successfully", "success");
-  event.sender.send("log-changed");
-});
-const addLog = (event, log) => {
-  const logs = store.get("logs", []);
-
-  if (logs.length > 0) {
-    let tmpLatestLog = JSON.parse(JSON.stringify(logs[logs.length - 1]));
-    let tmpNewLog = JSON.parse(JSON.stringify(log));
-
-    delete tmpLatestLog.id;
-    delete tmpNewLog.id;
-
-    if (JSON.stringify(tmpLatestLog) === JSON.stringify(tmpNewLog)) {
-      console.log("same log", tmpLatestLog, tmpNewLog);
-      log.logCount = log.logCount ? log.logCount + 1 : 2;
-      event.sender.send("log-changed");
-      return;
-    }
-  }
-
-  log.timestamp = new Date().getTime();
-
-  let index = logs.findIndex((l) => l.id === log.id);
-
-  if (index !== -1) {
-    logs[index] = log;
-  } else {
-    logs.push(log);
-  }
-
-  store.set("logs", logs);
-  event.sender.send("log-changed");
-};

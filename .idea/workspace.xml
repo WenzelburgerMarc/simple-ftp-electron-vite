@@ -4,59 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Clear New Ftp Folder Input On Popup">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Formatting Files">
+      <change afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/logs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron.vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron.vite.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/isOnline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/isOnline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/FileList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FlashMessage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/FlashMessage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/CreateFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/CreateFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFileLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFileLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/DeleteFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/ErrorLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/ErrorLog.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SetSyncPathLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/SetSyncPathLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SyncModeLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/SyncModeLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarDivider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarDivider.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/Breadcrumb.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/CheckboxComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/CheckboxComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/InputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/InputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/setFtpFolderNameModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -103,7 +64,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2W1z7rFp7grPaP6lMKq7IxeAMEz" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -170,15 +133,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="19212000" />
-    </task>
-    <task id="LOCAL-00060" summary="Fix - On Manual Disconnect -&gt; Set Auto Reconnect Setting to False">
-      <option name="closed" value="true" />
-      <created>1696856028478</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1696856028478</updated>
+      <workItem from="1697180643061" duration="25184000" />
     </task>
     <task id="LOCAL-00061" summary="Fix - Label Of enable auto reconnect checkbox">
       <option name="closed" value="true" />
@@ -564,7 +519,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697204271308</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="Formatting Files">
+      <option name="closed" value="true" />
+      <created>1697205289525</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1697205289525</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +548,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Logs Order" />
     <MESSAGE value="Add - Pagination" />
     <MESSAGE value="Add - Cancel Action Log" />
     <MESSAGE value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
@@ -610,6 +572,7 @@
     <MESSAGE value="Fix - Error Logs" />
     <MESSAGE value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
     <MESSAGE value="Fix - Clear New Ftp Folder Input On Popup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Clear New Ftp Folder Input On Popup" />
+    <MESSAGE value="Formatting Files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Formatting Files" />
   </component>
 </project>

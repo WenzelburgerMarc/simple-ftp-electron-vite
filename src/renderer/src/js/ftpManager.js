@@ -21,6 +21,14 @@ export const connect = (ftpSettings, justTest = false) => {
     const handleConnectionError = (message) => {
       displayFlash(message, "error");
       stopLoading();
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Connect to FTP",
+        open: false,
+        description: message
+      }
+      window.ipcRendererInvoke("add-log", log);
       reject(new Error(message));
     };
 

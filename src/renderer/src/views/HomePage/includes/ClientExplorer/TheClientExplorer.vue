@@ -74,7 +74,7 @@ const createNewFolderOnClient = async () => {
     await listFiles();
     return;
   }
-  displayFlash("Error creating folder", "error");
+  displayFlash("Canceled creating folder", "info");
 };
 
 onMounted(async () => {

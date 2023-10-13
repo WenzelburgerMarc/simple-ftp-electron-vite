@@ -1,3 +1,4 @@
+// Desc: Checks if the user is connected to the internet
 const https = require("https");
 
 export const online = () => {

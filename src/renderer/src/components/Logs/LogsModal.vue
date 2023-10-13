@@ -211,7 +211,6 @@ onMounted(async () => {
 });
 
 const saveAllLogs = async () => {
-  console.log("save all logs");
   await window.ipcRendererInvoke("save-all-logs");
 };
 
@@ -225,16 +224,12 @@ const deleteAllLogs = async () => {
 const getFirstOrLast = (log) => {
   const index = paginatedLogs.value.findIndex((item) => item.id === log.id);
   if (index === 0 && index === paginatedLogs.value.length - 1) {
-    console.log("both");
     return "both";
   } else if (index === 0) {
-    console.log("first");
     return "first";
   } else if (index === paginatedLogs.value.length - 1) {
-    console.log("last");
     return "last";
   } else {
-    console.log("-");
     return "";
   }
 };
