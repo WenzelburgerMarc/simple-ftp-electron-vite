@@ -16,6 +16,10 @@ const props = defineProps({
   propLog: {
     type: Object,
     required: true
+  },
+firstOrLast: {
+    type: String,
+    required: true
   }
 });
 
@@ -30,7 +34,7 @@ const deleteLog = (id) => {
   <div
     :class="[
                 'w-full grid grid-cols-6 gap-0 hover:bg-red-400 bg-red-300 transition-all duration-300 text-gray-800 cursor-default'
-                ]">
+                ,firstOrLast === 'first' ? 'rounded-t-xl' : '', firstOrLast === 'last' ? 'rounded-b-xl' : '']">
     <div class="col-span-2 p-1  truncate-no-hover">{{ log.type }}
     </div>
     <div class="col-span-3 p-1  truncate-no-hover">{{ log.description }}
