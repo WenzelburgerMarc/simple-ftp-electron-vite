@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Accordion">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/SyncModeLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/SyncModeLog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,15 +119,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="5739000" />
-    </task>
-    <task id="LOCAL-00050" summary="Fix - Sync + Reload Interval + Client Reload">
-      <option name="closed" value="true" />
-      <created>1696836670910</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1696836670910</updated>
+      <workItem from="1697180643061" duration="5858000" />
     </task>
     <task id="LOCAL-00051" summary="Fix - Only Allow to set new Ftp Sync Path if Pause Mode is enabled -&gt; TheFtpExplorer.vue">
       <option name="closed" value="true" />
@@ -514,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697187183586</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="Fix - Accordion">
+      <option name="closed" value="true" />
+      <created>1697187528202</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1697187528202</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

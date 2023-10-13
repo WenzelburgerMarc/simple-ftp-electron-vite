@@ -214,7 +214,7 @@ const toggleLogDetails = (id) => {
       const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
       if (element) {
         if (!log.open) {
-          element.style.maxHeight = (element.scrollHeight + 100) + "px";
+          element.style.maxHeight = (element.scrollHeight) + "px";
           //
         } else {
           element.style.maxHeight = 0 + "px";
