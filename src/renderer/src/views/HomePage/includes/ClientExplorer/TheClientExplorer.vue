@@ -3,9 +3,8 @@ import IconButtonComponent from "../../../../components/form/IconButtonComponent
 import TitleComponent from "../../../../components/form/TitleComponent.vue";
 import PanelComponent from "../../../../components/form/PanelComponent.vue";
 import { onMounted, ref } from "vue";
-import Breadcrumb from "../../../../components/form/Breadcrumb.vue";
-import FileList from "../../../../components/FileList.vue";
-import breadcrumb from "../../../../components/form/Breadcrumb.vue";
+import Breadcrumb from "../../../../components/explorer/Breadcrumb.vue";
+import FileList from "../../../../components/explorer/FileList.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
@@ -265,7 +264,7 @@ const deleteFolder = async (folder) => {
             @goBackFTPPath="handleBack" />
 
           <Breadcrumb
-            :initial-breadcrumb="breadcrumb"
+            :initial-breadcrumb="Breadcrumb"
             :current-dir="currentDir"
             :initial-path-prop="initialPath"
             @change-path="changePath" />

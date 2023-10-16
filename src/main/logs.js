@@ -29,9 +29,6 @@ const addLog = async (log) => {
     logs.push(log);
   }
 
-
-
-
   store.set("logs", logs);
 };
 

@@ -56,5 +56,11 @@ onMounted(async () => {
 });
 
 </script>
-<style>
+<style scoped>
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
 </style>
