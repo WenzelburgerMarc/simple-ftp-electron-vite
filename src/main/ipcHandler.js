@@ -72,16 +72,13 @@ ipcMain.handle("set-auto-start-item-setting", (event, settings) => {
   return app.getLoginItemSettings();
 });
 
-
-
 // Drag N Drop
 ipcMain.handle("copy-file", async (event, sourcePath, destinationPath) => {
   return await copyFile(sourcePath, destinationPath);
 });
 
-
-
 // === File System Handler ===
+// Open a directory in the file explorer
 ipcMain.handle("open-selected-client-directory", async (event, path) => {
   await shell.openPath(path);
 });
@@ -121,17 +118,12 @@ ipcMain.handle("unwatch-client-directory", async () => {
   await unwatchClientDirectory();
 });
 
-
-
-
 // === Sync Handler ===
-
 // Sync Stopped
 ipcMain.handle("sync-progress-end", async (event) => {
   if (mainWindow && !mainWindow.isDestroyed())
     event.sender.send("sync-progress-end");
 });
-
 
 // Sync Paused
 ipcMain.handle("sync-progress-pause", async (event) => {
@@ -158,9 +150,7 @@ ipcMain.handle("sync-progress-stop-loading", async (event) => {
     event.sender.send("sync-progress-stop-loading");
 });
 
-
 // === Auto Reconnect Handler ===
-
 // Disable auto reconnect
 ipcMain.handle("disableAutoReconnectChanged", async (event) => {
   if (mainWindow && !mainWindow.isDestroyed())
@@ -174,7 +164,6 @@ ipcMain.handle("autoReconnectChanged", async (event) => {
 });
 
 // === Log Handler ===
-
 // Add a new log entry to the store
 ipcMain.handle("add-log", async(event, log) => {
   await addLog(log);

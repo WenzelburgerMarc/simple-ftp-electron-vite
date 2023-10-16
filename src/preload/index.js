@@ -1,3 +1,4 @@
+// Desc: Expose main process functionality to the renderer process
 "use strict";
 import { contextBridge, ipcRenderer } from "electron";
 import {
@@ -20,7 +21,6 @@ import {
 } from "./preloadFTP";
 import { online } from "./isOnline";
 import { v4 as uuidv4 } from "uuid";
-// Desc: Expose main process functionality to the renderer process
 
 // Expose the ipcRenderer Invoke Function to the renderer process
 contextBridge.exposeInMainWorld("ipcRendererInvoke", (channel, ...args) => {

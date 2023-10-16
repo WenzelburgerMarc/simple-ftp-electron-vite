@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Log Template for Log - Sync Mode Started
 import IconButtonComponent from "../../form/IconButtonComponent.vue";
 import { ref, onBeforeMount, watch, onMounted } from "vue";
 import { formatSize } from "../../../js/logsModalController";
@@ -70,7 +71,6 @@ const deleteLog = (id) => {
   emits("deleteLog", id);
 };
 
-
 </script>
 
 <template>
@@ -133,13 +133,10 @@ const deleteLog = (id) => {
         />
 
       </div>
-
-
     </div>
 
 
     <div
-
       class="col-span-8 cursor-default bg-gray-200 accordion-content transition-all duration-300 text-gray-800"
       :data-id="log.id">
       <div class="col-span-8 grid grid-cols-4 gap-0 p-1">
@@ -172,7 +169,6 @@ const deleteLog = (id) => {
 </template>
 
 <style scoped>
-
 .accordion-content {
   overflow: hidden;
   max-height: 0;
@@ -191,5 +187,4 @@ const deleteLog = (id) => {
   white-space: normal;
   word-break: break-all;
 }
-
 </style>

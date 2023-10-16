@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Log Template for Log - Delete File
 import { formatSize } from "../../../js/logsModalController";
 import { defineProps, defineEmits, ref, watch, onBeforeMount } from "vue";
 import IconButtonComponent from "../../form/IconButtonComponent.vue";
@@ -67,13 +68,6 @@ const deleteLog = (id) => {
 </template>
 
 <style scoped>
-
-.accordion-content {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease-in-out;
-}
-
 .truncate-no-hover {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -86,5 +80,4 @@ const deleteLog = (id) => {
   white-space: normal;
   word-break: break-all;
 }
-
 </style>

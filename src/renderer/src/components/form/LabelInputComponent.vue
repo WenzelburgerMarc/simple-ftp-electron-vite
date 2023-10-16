@@ -1,3 +1,15 @@
+<script setup>
+  import LabelComponent from "@/components/form/LabelComponent.vue";
+  import InputComponent from "@/components/form/InputComponent.vue";
+
+  const props = defineProps({
+    label: String,
+    type: String,
+    placeholder: String,
+    modelValue: [String, Number]
+  });
+</script>
+
 <template>
   <div class="w-full flex flex-col">
     <LabelComponent :label-text="props.label" />
@@ -9,16 +21,3 @@
     />
   </div>
 </template>
-
-<script setup>
-import LabelComponent from "@/components/form/LabelComponent.vue";
-import InputComponent from "@/components/form/InputComponent.vue";
-
-
-const props = defineProps({
-  label: String,
-  type: String,
-  placeholder: String,
-  modelValue: [String, Number]
-});
-</script>

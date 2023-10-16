@@ -1,10 +1,5 @@
-<template>
-  <div class="absolute text-white text-base left-full ml-3 text-center w-auto p-3 rounded-xl bg-blue-600">
-    {{ props.text }}
-  </div>
-</template>
 <script setup>
-
+// Desc: Sidebar Item Tooltip (when closed) for Sidebar Items on hover
 const props = defineProps({
   text: {
     type: String,
@@ -12,4 +7,9 @@ const props = defineProps({
   }
 });
 </script>
-<style scoped></style>
+
+<template>
+  <div class="absolute text-white text-base left-full ml-3 text-center w-auto p-3 rounded-xl bg-blue-600">
+    {{ props.text }}
+  </div>
+</template>

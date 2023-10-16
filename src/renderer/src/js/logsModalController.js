@@ -1,3 +1,4 @@
+// Desc: Controller for the logs modal
 import { ref } from "vue";
 
 export const isLogsModalVisible = ref(false);

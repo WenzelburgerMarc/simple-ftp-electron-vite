@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Client File Explorer
 import IconButtonComponent from "../../../../components/form/IconButtonComponent.vue";
 import TitleComponent from "../../../../components/form/TitleComponent.vue";
 import PanelComponent from "../../../../components/form/PanelComponent.vue";
@@ -8,7 +9,7 @@ import FileList from "../../../../components/explorer/FileList.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
-import {getSetting} from "../../../../js/manageSettings";
+import { getSetting } from "../../../../js/manageSettings";
 
 const currentDir = ref("");
 const fileList = ref([]);
@@ -184,7 +185,6 @@ const deleteFile = async (file) => {
 
 };
 
-
 const deleteFolder = async (folder) => {
   await window.ipcRendererInvoke("delete-client-directory", currentDir.value + "/" + folder.name)
     .then(response => {
@@ -220,9 +220,7 @@ const deleteFolder = async (folder) => {
     @dragenter.prevent
   >
 
-
     <div class="w-full flex justify-between items-center">
-
 
       <div class="relative">
         <button
@@ -240,7 +238,6 @@ const deleteFolder = async (folder) => {
         </div>
       </div>
 
-
       <icon-button-component
         :icon="['far', 'folder-open']"
         emit-name="openClientFolder"
@@ -249,7 +246,6 @@ const deleteFolder = async (folder) => {
         @click="openSelectedClientDirectory">Open Folder
       </icon-button-component>
     </div>
-
 
     <div class="w-full flex space-x-2 justify-between items-start py-3">
 
@@ -291,7 +287,3 @@ const deleteFolder = async (folder) => {
   </panel-component>
 
 </template>
-
-<style scoped>
-
-</style>

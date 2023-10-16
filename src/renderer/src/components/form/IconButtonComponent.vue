@@ -1,16 +1,5 @@
-<template>
-  <button :class="props.btnClass"
-          @click="$emit(props.emitName)">
-    <font-awesome-icon :icon="props.icon"
-                       :class="props.iconClass" />
-    <slot></slot>
-  </button>
-</template>
-
 <script setup>
-
-
-const props = defineProps({
+  const props = defineProps({
   icon: {
     type: [String, Array],
     required: true
@@ -28,6 +17,13 @@ const props = defineProps({
     default: "click"
   }
 });
-
 </script>
 
+<template>
+  <button :class="props.btnClass"
+          @click="$emit(props.emitName)">
+    <font-awesome-icon :icon="props.icon"
+                       :class="props.iconClass" />
+    <slot></slot>
+  </button>
+</template>

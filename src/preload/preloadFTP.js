@@ -1,3 +1,4 @@
+// Desc: FTP Functionality for the renderer process
 import sftpClient from "ssh2-sftp-client";
 import { ref } from "vue";
 import * as path from "path";
@@ -5,6 +6,7 @@ import * as fs from "fs";
 import { ipcRenderer } from "electron";
 import { v4 as uuidv4 } from "uuid";
 
+// Variables
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
@@ -19,17 +21,23 @@ let progress = 0;
 let intervalId = null;
 let firstRun = true;
 
+// Sync Mode
 export const setSyncMode = (mode) => {
   if (mode !== syncMode.value) firstRun = true;
   syncMode.value = mode;
 };
 export const getSyncMode = () => syncMode.value;
+// Connected
 export const setConnected = (status) => isConnected = status;
 export const getIsConnected = () => isConnected;
+// Files
 export const setFiles = (fileList) => files = fileList;
 export const getFiles = () => files;
+// Current Directory
 export const setCurrentDir = (dir) => currentDir.value = dir;
 export const getCurrentDir = () => currentDir.value;
+// === FTP Methods === \\
+// Connect to the FTP server
 export const connectFTP = async (ftpSettings) => {
   try {
     await sftp.connect({
@@ -44,6 +52,7 @@ export const connectFTP = async (ftpSettings) => {
     throw new Error("Failed to connect to FTP Server");
   }
 };
+// Disconnect from the FTP server
 export const disconnectFTP = async () => {
   try {
     await sftp.end();
@@ -52,6 +61,7 @@ export const disconnectFTP = async () => {
     setConnected(false);
   }
 };
+// List files and directories from the FTP server
 export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   if (!isConnected) {
     return;
@@ -78,6 +88,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
     await ipcRenderer.invoke("add-log", log);
   }
 };
+// Delete a file from the FTP server
 export const deleteFile = async (filePath) => {
   if (!isConnected) {
     return;
@@ -121,6 +132,7 @@ export const deleteFile = async (filePath) => {
 
   }
 };
+// Create a new folder on the FTP server
 export const createNewFolder = async (selectedDirectory) => {
   if (!isConnected) {
     throw new Error("Not connected to FTP server");
@@ -150,6 +162,7 @@ export const createNewFolder = async (selectedDirectory) => {
     throw error;
   }
 };
+// Delete a folder from the FTP server
 export const deleteDirectory = async (directory) => {
   if (!isConnected) {
     throw new Error("Not connected to FTP server");
@@ -181,6 +194,8 @@ export const deleteDirectory = async (directory) => {
     throw error;
   }
 };
+// === Syncing Methods === \\
+// Calculate the size of a directory
 export const calculateDirectorySize = async (isLocal, files) => {
   let size = 0;
 
@@ -216,6 +231,7 @@ export const calculateDirectorySize = async (isLocal, files) => {
   return sizes.reduce((acc, currSize) => acc + currSize, 0);
 
 };
+// Calculate and compare the size of the client and server directories, return progress in %
 export const calculateAndCompareSize = async (mode) => {
 
   if (mode === "upload" || mode === "download") {
@@ -243,6 +259,7 @@ export const calculateAndCompareSize = async (mode) => {
   }
 
 };
+// Start syncing
 export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   if (!isConnected) {
     let log = {
@@ -309,6 +326,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   }, interval);
 
 };
+// Stop syncing
 export const stopSyncing = async () => {
   clearInterval(intervalId);
   await ipcRenderer.invoke("sync-progress-end");
@@ -317,6 +335,7 @@ export const stopSyncing = async () => {
   downloadInProgress.value = false;
 
 };
+// Clear files after mode switch, delete files if syncing was not finished
 export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
   try {
 
@@ -380,6 +399,9 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
   }
 
 };
+
+// === Helper Methods === \\
+// Get files that are on client and not on server
 const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   try {
     const itemNames = fs.readdirSync(clientSyncPath);
@@ -442,6 +464,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
     return [];
   }
 };
+// Delete folders
 const deleteFolders = async (clientSyncPath) => {
 
   foldersToDelete = foldersToDelete.map((folder) => {
@@ -473,6 +496,7 @@ const deleteFolders = async (clientSyncPath) => {
 
 
 };
+// Upload Files
 const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
   try {
     if (!uploadInProgress.value) {
@@ -556,6 +580,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
     await ipcRenderer.invoke("add-log", log);
   }
 };
+// Get files that are on server and not on client
 const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
   try {
     const items = await sftp.list(ftpSyncPath);
@@ -607,6 +632,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
     return [];
   }
 };
+// Download Files
 const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
   try {
     if (!downloadInProgress.value) {

@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Main Sidebar Component
 import SidebarContainer from "./SidebarContainer.vue";
 import { ref, watch } from "vue";
 
@@ -30,12 +31,3 @@ watch(() => toggledSidebar.value, () => {
                       @toggledSidebarEvent="toggledSidebar = !toggledSidebar" />
   </div>
 </template>
-
-<style scoped>
-@media (prefers-reduced-motion: reduce) {
-
-  * {
-    transition: none !important;
-  }
-}
-</style>

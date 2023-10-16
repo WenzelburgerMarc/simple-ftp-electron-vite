@@ -1,4 +1,5 @@
 <script setup>
+// Desc: This is the modal that appears when the user clicks the "Create New Folder" button in the FTP Explorer
 import ModalComponent from "../../../../components/ModalComponent.vue";
 import { defineEmits, defineProps, onMounted, ref, toRefs, watch } from "vue";
 import IconButtonComponent from "../../../../components/form/IconButtonComponent.vue";
@@ -67,6 +68,3 @@ const createFolder = () => {
   </ModalComponent>
 </template>
 
-<style scoped>
-
-</style>

@@ -1,3 +1,4 @@
+// Desc: This file contains the logic for displaying flash messages
 import { ref } from "vue";
 
 export const showFlash = ref(false);

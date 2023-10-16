@@ -1,24 +1,5 @@
-<template>
-  <div class="breadcrumb">
-
-    <template
-      v-for="(segment, index) in breadcrumb"
-      :key="index">
-      <a
-        class="w-full mr-0 hover:underline hover:text-blue-600"
-        :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
-        href="#"
-        @click.prevent="changePath(segment.path)"
-        @mouseover="hover(index)"
-        @mouseout="unhover()">
-        {{ segment.name }}
-      </a>
-    </template>
-  </div>
-</template>
-
-
 <script setup>
+// Desc: Breadcrumb component for the explorers
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 const props = defineProps({
@@ -121,3 +102,22 @@ onMounted(() => {
 
 });
 </script>
+
+<template>
+  <div class="breadcrumb">
+
+    <template
+      v-for="(segment, index) in breadcrumb"
+      :key="index">
+      <a
+        class="w-full mr-0 hover:underline hover:text-blue-600"
+        :class="isInitialSegment(segment.path) ? 'text-gray-800' : 'text-blue-600'"
+        href="#"
+        @click.prevent="changePath(segment.path)"
+        @mouseover="hover(index)"
+        @mouseout="unhover()">
+        {{ segment.name }}
+      </a>
+    </template>
+  </div>
+</template>

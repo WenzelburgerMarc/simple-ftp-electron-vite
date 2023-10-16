@@ -1,8 +1,3 @@
-<template>
-  <h1 :class="computedClass"
-      class="text-gray-800">{{ titleText }}</h1>
-</template>
-
 <script setup>
 import { computed, defineProps } from "vue";
 
@@ -30,3 +25,7 @@ const computedClass = computed(() => {
 });
 </script>
 
+<template>
+  <h1 :class="computedClass"
+      class="text-gray-800">{{ titleText }}</h1>
+</template>

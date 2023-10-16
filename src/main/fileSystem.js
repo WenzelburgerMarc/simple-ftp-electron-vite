@@ -55,7 +55,6 @@ const listLocalFiles = async (dirPath) => {
   }
 };
 
-
 // Function to create a new folder in the specified directory
 const createNewClientFolder = async (selectedDirectory) => {
   const result = await dialog.showSaveDialog({
@@ -143,11 +142,10 @@ const deleteClientDirectory = async (dirPath) => {
   }
 };
 
+// Function to watch changes in a specified directory
 // Variables to store watcher and interval references
 let watcher;
 let intervalId = null;
-
-// Function to watch changes in a specified directory
 const watchClientDirectory = async (directoryPath, event) => {
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
     if (filename && mainWindow && !mainWindow.isDestroyed()) {

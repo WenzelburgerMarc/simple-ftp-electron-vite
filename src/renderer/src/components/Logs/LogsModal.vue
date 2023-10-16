@@ -1,3 +1,153 @@
+<script setup>
+// Desc: Modal for displaying logs
+import { toRefs, defineProps, defineEmits, ref } from "vue";
+import ModalComponent from "@/components/ModalComponent.vue";
+import IconButtonComponent from "../form/IconButtonComponent.vue";
+import TitleComponent from "../form/TitleComponent.vue";
+import { nextTick, onMounted, onUnmounted, computed } from "vue";
+import LabelComponent from "../form/LabelComponent.vue";
+import SyncModeLog from "./templates/SyncModeLog.vue";
+import DeleteFileLog from "./templates/DeleteFileLog.vue";
+import CreateFolderLog from "./templates/CreateFolderLog.vue";
+import SetSyncPathLog from "./templates/SetSyncPathLog.vue";
+import DeleteFolderLog from "./templates/DeleteFolderLog.vue";
+import ErrorLog from "./templates/ErrorLog.vue";
+
+const emits = defineEmits(["update:showModal"]);
+
+const props = defineProps({
+  showModal: Boolean
+});
+
+const { showModal } = toRefs(props);
+
+const closeModal = () => {
+  emits("update:showModal", false);
+};
+
+const logList = ref([]);
+const allowExpand = ref(true);
+
+// Pagination
+const currentPage = ref(1);
+const itemsPerPage = ref(5);
+const paginatedLogs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return logList.value.slice(start, end);
+});
+
+const nextPage = () => {
+  if (currentPage.value * itemsPerPage.value < logList.value.length) {
+    currentPage.value += 1;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value -= 1;
+  }
+};
+
+const isCurrentPageEmpty = () => {
+  if (paginatedLogs.value.length === 0 && currentPage.value > 1) {
+    currentPage.value -= 1;
+  }
+};
+
+
+// Logs
+const updateLogs = (updatedLogs) => {
+  logList.value = updatedLogs.reverse();
+};
+
+onMounted(async () => {
+  let logs = await window.ipcRendererInvoke("get-logs");
+
+  window.ipcRendererOn("log-changed", async () => {
+    logs = await window.ipcRendererInvoke("get-logs");
+    await updateLogs(logs);
+  });
+  logs = await window.ipcRendererInvoke("get-logs");
+
+  await updateLogs(logs);
+
+
+  window.ipcRendererOn("sync-progress-end", async () => {
+    allowExpand.value = true;
+  });
+
+  window.ipcRendererOn("sync-progress-pause", async () => {
+    allowExpand.value = true;
+
+
+  });
+
+  window.ipcRendererOn("sync-progress-start", async () => {
+    allowExpand.value = false;
+  });
+
+
+});
+
+const saveAllLogs = async () => {
+  await window.ipcRendererInvoke("save-all-logs");
+};
+
+const deleteAllLogs = async () => {
+  await window.ipcRendererInvoke("delete-all-logs");
+  const logs = await window.ipcRendererInvoke("get-logs");
+  await updateLogs(logs);
+  isCurrentPageEmpty();
+};
+
+const getFirstOrLast = (log) => {
+  const index = paginatedLogs.value.findIndex((item) => item.id === log.id);
+  if (index === 0 && index === paginatedLogs.value.length - 1) {
+    return "both";
+  } else if (index === 0) {
+    return "first";
+  } else if (index === paginatedLogs.value.length - 1) {
+    return "last";
+  } else {
+    return "";
+  }
+};
+
+const deleteLog = async (id) => {
+
+  await window.ipcRendererInvoke("delete-log", id);
+  const logs = await window.ipcRendererInvoke("get-logs");
+  await updateLogs(logs);
+  isCurrentPageEmpty();
+};
+
+
+onUnmounted(() => {
+  window.ipcRendererOff("log-changed");
+});
+
+const toggleLogDetails = (id) => {
+  if (!allowExpand.value) return;
+  logList.value.forEach(async (log, index) => {
+    if (log.id === id && log.files) {
+      logList.value[index] = { ...log, open: !log.open };
+      await nextTick();
+      const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
+      if (element) {
+        if (!log.open) {
+          element.style.maxHeight = (element.scrollHeight) + "px";
+
+        } else {
+          element.style.maxHeight = 0 + "px";
+
+        }
+      }
+    }
+  });
+};
+</script>
+
 <template>
   <ModalComponent
     :show-modal="showModal"
@@ -74,12 +224,6 @@
           @deleteLog="deleteLog"
           :first-or-last="getFirstOrLast(log)"
         />
-        <!--        <error-log
-                  v-else-if="log.logType === 'Test-Error'"
-                  :class="paginatedLogs[paginatedLogs.length - 1] !== log ? 'border-b border-gray-400' : ''"
-                  :prop-log="log"
-                  :prop-allow-expand="false"
-                  @deleteLog="deleteLog" />-->
       </template>
 
     </div>
@@ -124,176 +268,3 @@
     </div>
   </ModalComponent>
 </template>
-<script setup>
-import { toRefs, defineProps, defineEmits, ref } from "vue";
-import ModalComponent from "@/components/ModalComponent.vue";
-import IconButtonComponent from "../form/IconButtonComponent.vue";
-import TitleComponent from "../form/TitleComponent.vue";
-import { nextTick, onMounted, onUnmounted, computed } from "vue";
-import LabelComponent from "../form/LabelComponent.vue";
-import SyncModeLog from "./templates/SyncModeLog.vue";
-import DeleteFileLog from "./templates/DeleteFileLog.vue";
-import CreateFolderLog from "./templates/CreateFolderLog.vue";
-import SetSyncPathLog from "./templates/SetSyncPathLog.vue";
-import DeleteFolderLog from "./templates/DeleteFolderLog.vue";
-import ErrorLog from "./templates/ErrorLog.vue";
-
-const props = defineProps({
-  showModal: Boolean
-});
-
-const nextPage = () => {
-  if (currentPage.value * itemsPerPage.value < logList.value.length) {
-    currentPage.value += 1;
-  }
-};
-
-const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value -= 1;
-  }
-};
-
-
-const emits = defineEmits(["update:showModal"]);
-
-const { showModal } = toRefs(props);
-
-const closeModal = () => {
-  emits("update:showModal", false);
-};
-
-const currentPage = ref(1);
-const itemsPerPage = ref(5);
-
-const paginatedLogs = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return logList.value.slice(start, end);
-});
-
-
-const logList = ref([]);
-const allowExpand = ref(true);
-
-const updateLogs = (updatedLogs) => {
-  logList.value = updatedLogs.reverse();
-};
-
-onMounted(async () => {
-  let logs = await window.ipcRendererInvoke("get-logs");
-
-  window.ipcRendererOn("log-changed", async () => {
-    logs = await window.ipcRendererInvoke("get-logs");
-    await updateLogs(logs);
-  });
-  logs = await window.ipcRendererInvoke("get-logs");
-
-  await updateLogs(logs);
-
-
-  window.ipcRendererOn("sync-progress-end", async () => {
-    allowExpand.value = true;
-  });
-
-  window.ipcRendererOn("sync-progress-pause", async () => {
-    allowExpand.value = true;
-
-
-  });
-
-  window.ipcRendererOn("sync-progress-start", async () => {
-    allowExpand.value = false;
-  });
-
-
-});
-
-const saveAllLogs = async () => {
-  await window.ipcRendererInvoke("save-all-logs");
-};
-
-const deleteAllLogs = async () => {
-  await window.ipcRendererInvoke("delete-all-logs");
-  const logs = await window.ipcRendererInvoke("get-logs");
-  await updateLogs(logs);
-  isCurrentPageEmpty();
-};
-
-const getFirstOrLast = (log) => {
-  const index = paginatedLogs.value.findIndex((item) => item.id === log.id);
-  if (index === 0 && index === paginatedLogs.value.length - 1) {
-    return "both";
-  } else if (index === 0) {
-    return "first";
-  } else if (index === paginatedLogs.value.length - 1) {
-    return "last";
-  } else {
-    return "";
-  }
-};
-
-const deleteLog = async (id) => {
-
-  await window.ipcRendererInvoke("delete-log", id);
-  const logs = await window.ipcRendererInvoke("get-logs");
-  await updateLogs(logs);
-  isCurrentPageEmpty();
-};
-
-const isCurrentPageEmpty = () => {
-  if (paginatedLogs.value.length === 0 && currentPage.value > 1) {
-    currentPage.value -= 1;
-  }
-};
-
-onUnmounted(() => {
-  window.ipcRendererOff("log-changed");
-});
-
-const toggleLogDetails = (id) => {
-  if (!allowExpand.value) return;
-  logList.value.forEach(async (log, index) => {
-    if (log.id === id && log.files) {
-      logList.value[index] = { ...log, open: !log.open };
-      await nextTick();
-      const element = document.querySelector(`.accordion-content[data-id="${id}"]`);
-      if (element) {
-        if (!log.open) {
-          element.style.maxHeight = (element.scrollHeight) + "px";
-
-        } else {
-          element.style.maxHeight = 0 + "px";
-
-        }
-      }
-    }
-  });
-};
-
-
-</script>
-
-<style scoped>
-
-.accordion-content {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease-in-out;
-}
-
-.truncate-no-hover {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.truncate-no-hover:hover {
-  overflow: visible;
-  text-overflow: clip;
-  white-space: normal;
-  word-break: break-all;
-}
-
-
-</style>

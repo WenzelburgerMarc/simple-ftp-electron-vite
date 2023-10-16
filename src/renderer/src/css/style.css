@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Scrollbar Styles */
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -21,4 +23,12 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-500;
+}
+
+/* Disable Transitions if the user has the browser setting reduced motion set to true*/
+@media (prefers-reduced-motion: reduce) {
+
+  * {
+    transition: none !important;
+  }
 }

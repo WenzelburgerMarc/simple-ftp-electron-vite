@@ -1,21 +1,3 @@
-<template>
-  <div class="flex w-full flex-col items-center justify-center">
-
-    <LabelComponent
-      :label-text="props.labelText"
-      class="mr-auto" />
-
-    <div class="flex w-full flex-col items-center justify-center overflow-hidden rounded-md border border-blue-600">
-      <button
-        class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100"
-        @click="selectDirectory">
-        <font-awesome-icon :icon="['far', 'folder-open']" />
-        {{ selectedPath ? "Selected Path: " + selectedPath : props.btnText }}
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, defineProps, defineEmits, watchEffect } from "vue";
 import LabelComponent from "@/components/form/LabelComponent.vue";
@@ -41,3 +23,20 @@ const selectDirectory = async () => {
   }
 };
 </script>
+
+<template>
+  <div class="flex w-full flex-col items-center justify-center">
+    <LabelComponent
+      :label-text="props.labelText"
+      class="mr-auto" />
+
+    <div class="flex w-full flex-col items-center justify-center overflow-hidden rounded-md border border-blue-600">
+      <button
+        class="w-full truncate text-gray-800 min-h-[42px] hover:bg-blue-100"
+        @click="selectDirectory">
+        <font-awesome-icon :icon="['far', 'folder-open']" />
+        {{ selectedPath ? "Selected Path: " + selectedPath : props.btnText }}
+      </button>
+    </div>
+  </div>
+</template>

@@ -1,10 +1,5 @@
-<template>
-
-  <router-view />
-
-</template>
-
 <script setup>
+// Desc: Root Component - Resets Opened Settings Page on Start, loads Settings and sets the Color Mode
 import { onMounted } from "vue";
 import {loadSettings, getSetting, setSetting, resetSettings} from "./js/manageSettings";
 
@@ -56,11 +51,18 @@ onMounted(async () => {
 });
 
 </script>
+
+<template>
+
+  <router-view />
+
+</template>
+
 <style scoped>
-.notransition {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
+@media (prefers-reduced-motion: reduce) {
+
+  * {
+    transition: none !important;
+  }
 }
 </style>

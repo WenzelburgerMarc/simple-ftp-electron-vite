@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Loader Component
 import { loading } from "@/js/loaderManager.js";
 import { onMounted } from "vue";
 

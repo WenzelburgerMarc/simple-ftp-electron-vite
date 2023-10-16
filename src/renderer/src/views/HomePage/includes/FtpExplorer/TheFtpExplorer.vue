@@ -1,4 +1,5 @@
 <script setup>
+// Desc: FTP File Explorer
 import IconButtonComponent from "../../../../components/form/IconButtonComponent.vue";
 import TitleComponent from "../../../../components/form/TitleComponent.vue";
 import PanelComponent from "../../../../components/form/PanelComponent.vue";

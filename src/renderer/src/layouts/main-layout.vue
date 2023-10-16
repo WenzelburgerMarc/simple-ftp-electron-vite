@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Main Layout For The Whole Applikation
 import TheSidebar from "@/components/SideBar/TheSidebar.vue";
 import Loader from "../components/Loader.vue";
 import SettingsModal from "../components/Settings/SettingsModal.vue";
@@ -73,12 +74,5 @@ const toggleLogsModal = () => {
 
 .main-content-container.translate-blur * {
   pointer-events: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  * {
-    transition: none !important;
-  }
 }
 </style>

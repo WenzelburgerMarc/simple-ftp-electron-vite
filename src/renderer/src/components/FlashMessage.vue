@@ -1,33 +1,5 @@
-<template>
-  <transition
-    enter-active-class="transition ease-out duration-500"
-    leave-active-class="transition ease-in duration-500"
-    enter-from-class="opacity-0 transform translate-x-full"
-    enter-to-class="opacity-100 transform translate-x-0"
-    leave-from-class="opacity-100 transform translate-x-0"
-    leave-to-class="opacity-0 transform translate-x-full">
-    <div
-      v-if="visible"
-      class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden no-blur"
-    >
-      <div class="flex w-3"
-           :class="gradientClasses"></div>
-      <div class="flex-1 p-3">
-        <h1 class="md:text-xl text-gray-600"
-            v-text="flashTitle"></h1>
-        <p class="text-gray-400 text-xs md:text-sm font-light"
-           v-text="flashMessage"></p>
-      </div>
-      <div class="cursor-pointer border-l hover:bg-gray-100 border-gray-100 px-4 flex place-items-center"
-           @click="closeFlash">
-        <p class="text-gray-400 text-xs">CLOSE</p>
-      </div>
-    </div>
-  </transition>
-</template>
-
-
 <script setup>
+// Desc: Flash Message Component
 import { ref, watch, computed, onMounted } from "vue";
 import { showFlash, flashMessage, flashType, hideFlash } from "@/js/flashMessageController.js";
 import { displayFlash } from "../js/flashMessageController";
@@ -87,6 +59,34 @@ onMounted(() => {
 });
 
 </script>
+
+<template>
+  <transition
+    enter-active-class="transition ease-out duration-500"
+    leave-active-class="transition ease-in duration-500"
+    enter-from-class="opacity-0 transform translate-x-full"
+    enter-to-class="opacity-100 transform translate-x-0"
+    leave-from-class="opacity-100 transform translate-x-0"
+    leave-to-class="opacity-0 transform translate-x-full">
+    <div
+      v-if="visible"
+      class="fixed bg-white bottom-5 right-5  rounded-lg shadow-md flex flex-row overflow-hidden no-blur"
+    >
+      <div class="flex w-3"
+           :class="gradientClasses"></div>
+      <div class="flex-1 p-3">
+        <h1 class="md:text-xl text-gray-600"
+            v-text="flashTitle"></h1>
+        <p class="text-gray-400 text-xs md:text-sm font-light"
+           v-text="flashMessage"></p>
+      </div>
+      <div class="cursor-pointer border-l hover:bg-gray-100 border-gray-100 px-4 flex place-items-center"
+           @click="closeFlash">
+        <p class="text-gray-400 text-xs">CLOSE</p>
+      </div>
+    </div>
+  </transition>
+</template>
 
 <style scoped>
 .no-blur {

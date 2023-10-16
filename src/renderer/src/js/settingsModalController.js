@@ -1,3 +1,4 @@
+// Desc: Show and Update the Settings Modal
 import { ref } from "vue";
 
 export const isSettingsModalVisible = ref(false);

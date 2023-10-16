@@ -1,3 +1,4 @@
+// Desc: Renderer process logic for managing FTP connections
 import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
@@ -157,7 +158,6 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
   }
 };
 
-
 export const deleteFile = async (file) => {
   if (!connected.value) {
     return;
@@ -211,7 +211,6 @@ export const deleteDirectory = async (directory) => {
 
     });
 };
-
 
 export const createNewFolder = async (selectedDirectory) => {
   const result = await window.ftp.createNewFolder(selectedDirectory);
