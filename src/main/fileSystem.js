@@ -33,6 +33,7 @@ const listLocalFiles = async (dirPath) => {
           description: error.message
         };
         await ipcRenderer.invoke("add-log", log);
+        await ipcRenderer.invoke("flash-message", error.message, 'Error');
         throw new Error(`Error - List Client Files: ${error.message}`);
       }
     });
@@ -49,6 +50,7 @@ const listLocalFiles = async (dirPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
+    await ipcRenderer.invoke("flash-message", error.message, 'Error');
     throw new Error(`Error - List Client Files: ${error.message}`);
   }
 };
@@ -76,6 +78,7 @@ const createNewClientFolder = async (selectedDirectory) => {
         description: error.message
       };
       await ipcRenderer.invoke("add-log", log);
+      await ipcRenderer.invoke("flash-message", error.message, 'Error');
       throw new Error(`Error - Creating Client Folder: ${error.message}`);
     }
   } else {
@@ -97,6 +100,7 @@ const copyFile = async (sourcePath, destinationPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
+    await ipcRenderer.invoke("flash-message", error.message, 'Error');
     throw new Error(`Error - Copy Client Files: ${error.message}`);
   }
 };
@@ -115,6 +119,7 @@ const deleteClientFile = async (filePath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
+    await ipcRenderer.invoke("flash-message", error.message, 'Error');
     throw new Error(`Error - Delete Client Files: ${error.message}`);
   }
 };
@@ -133,6 +138,7 @@ const deleteClientDirectory = async (dirPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
+    await ipcRenderer.invoke("flash-message", error.message, 'Error');
     throw new Error(`Error - Delete Client Directory: ${error.message}`);
   }
 };

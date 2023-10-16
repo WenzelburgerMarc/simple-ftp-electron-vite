@@ -35,6 +35,11 @@ ipcMain.handle("exit", async () => {
   app.exit();
 });
 
+// send Flash Message
+ipcMain.handle("flash-message", async (event, message, type) => {
+  if (mainWindow && !mainWindow.isDestroyed())
+    event.sender.send("flash-message", message, type);
+});
 
 // Get auto start item setting
 ipcMain.handle("get-auto-start-item-setting", () => {

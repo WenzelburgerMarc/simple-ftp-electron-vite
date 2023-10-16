@@ -28,8 +28,9 @@
 
 
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 import { showFlash, flashMessage, flashType, hideFlash } from "@/js/flashMessageController.js";
+import { displayFlash } from "../js/flashMessageController";
 
 const visible = ref(false);
 
@@ -78,6 +79,12 @@ const gradientClasses = computed(() => {
 const closeFlash = () => {
   visible.value = false;
 };
+
+onMounted(() => {
+  window.ipcRendererOn("flash-message", (message, type) => {
+    displayFlash(message, type);
+  });
+});
 
 </script>
 
