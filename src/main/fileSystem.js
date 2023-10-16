@@ -1,8 +1,9 @@
 // Desc: File system related functions
 import fs from "fs";
 import path from "path";
-import { dialog } from "electron";
+import { dialog, ipcRenderer } from "electron";
 import { mainWindow } from "./window";
+import { v4 as uuidv4 } from "uuid";
 
 // Function to list files from a specified directory
 const listLocalFiles = async (dirPath) => {
@@ -24,6 +25,14 @@ const listLocalFiles = async (dirPath) => {
           size: stats.size
         };
       } catch (error) {
+        let log = {
+          logType: "Error",
+          id: uuidv4(),
+          type: "Error - List Client Files",
+          open: false,
+          description: error.message
+        };
+        await ipcRenderer.invoke("add-log", log);
         throw new Error(`Error - List Client Files: ${error.message}`);
       }
     });
@@ -32,6 +41,14 @@ const listLocalFiles = async (dirPath) => {
     const fileDetails = await Promise.all(fileDetailsPromises);
     return fileDetails.filter(file => file !== null);
   } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - List Client Files",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
     throw new Error(`Error - List Client Files: ${error.message}`);
   }
 };
@@ -51,6 +68,14 @@ const createNewClientFolder = async (selectedDirectory) => {
       }
       return result.filePath;
     } catch (error) {
+      let log = {
+        logType: "Error",
+        id: uuidv4(),
+        type: "Error - Creating Client Folder",
+        open: false,
+        description: error.message
+      };
+      await ipcRenderer.invoke("add-log", log);
       throw new Error(`Error - Creating Client Folder: ${error.message}`);
     }
   } else {
@@ -64,6 +89,14 @@ const copyFile = async (sourcePath, destinationPath) => {
     await fs.promises.copyFile(sourcePath, destinationPath);
     return destinationPath;
   } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Copy Client Files",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
     throw new Error(`Error - Copy Client Files: ${error.message}`);
   }
 };
@@ -74,6 +107,14 @@ const deleteClientFile = async (filePath) => {
     await fs.promises.unlink(filePath);
     return { success: true, message: "File deleted successfully" };
   } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Delete Client Files",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
     throw new Error(`Error - Delete Client Files: ${error.message}`);
   }
 };
@@ -84,6 +125,14 @@ const deleteClientDirectory = async (dirPath) => {
     await fs.promises.rmdir(dirPath);
     return { success: true, message: "Folder deleted successfully" };
   } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Delete Client Directory",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
     throw new Error(`Error - Delete Client Directory: ${error.message}`);
   }
 };
