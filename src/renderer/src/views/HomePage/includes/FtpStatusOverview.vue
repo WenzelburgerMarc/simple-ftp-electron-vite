@@ -64,7 +64,7 @@ import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
 import { connected, currentSyncMode, setIsConnected } from "../../../js/ftpManager";
 import { displayFlash } from "../../../js/flashMessageController";
-import {setSetting, getSetting} from "../../../js/manageSettings";
+import { setSetting, getSetting } from "../../../js/manageSettings";
 
 const online = ref(false);
 
@@ -288,7 +288,6 @@ const connectToFtp = async () => {
     password: await getSetting("ftpPassword")
   };
 
-
   await connect({
     host: ftpCredentials.value.host,
     port: ftpCredentials.value.port,
@@ -297,8 +296,6 @@ const connectToFtp = async () => {
   });
 
   await listFiles();
-
-
 };
 const listFiles = () => {
   emit("listFiles");
