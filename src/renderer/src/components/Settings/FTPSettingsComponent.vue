@@ -41,35 +41,38 @@
     @update:modelValue="updateFtpPassword" />
   <div class="w-full flex justify-start items-center space-x-3 mr-auto">
     <ButtonComponent
-      button-text="Save & Connect"
+      button-text="Connect"
       emit-event="connectFTPSettings"
       @connectFTPSettings="connectFtpSettings" />
     <PlainButtonComponent
       class="text-gray-800 hover:text-black"
-      button-text="Test Connection"
+      button-text="Test"
       emit-event="testFTPSettings"
       @testFTPSettings="testFtpSettings" />
   </div>
 </template>
+
 <script setup>
 import PlainButtonComponent from "../form/PlainButtonComponent.vue";
 import ButtonComponent from "../form/ButtonComponent.vue";
 import LabelInputComponent from "../form/LabelInputComponent.vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
-import { defineEmits, onMounted, ref, watch } from "vue";
-import { displayFlash } from "../../js/flashMessageController";
+import { defineEmits, onMounted, watch } from "vue";
 import { connect } from "../../js/ftpManager";
-import { startLoading, stopLoading } from "@/js/loaderManager.js";
+import {
+  ftpHost,
+  ftpPort,
+  ftpUsername,
+  ftpPassword,
+  loadSettings,
+  saveFtpSettings,
+} from "../../js/manageSettings.js";
 
-const ftpHost = ref("");
-const ftpPort = ref("");
-const ftpUsername = ref("");
-const ftpPassword = ref("");
-
-const props = defineProps(["showModal"]);
+const props = defineProps({
+  showModal: Boolean,
+});
 const emits = defineEmits(["closeModal", "update:showModal", "connectToFTP"]);
-
 
 const updateFtpHost = (newValue) => {
   ftpHost.value = newValue;
@@ -89,24 +92,15 @@ const closeModal = () => {
 };
 
 onMounted(async () => {
-  await loadSettings();
+  await loadSettings(false);
 });
 
 watch(props, async () => {
-  await loadSettings();
+  await loadSettings(false);
 });
-const loadSettings = async () => {
-  startLoading();
-  ftpHost.value = await window.ipcRendererInvoke("get-setting", "ftpHost");
-  ftpPort.value = await window.ipcRendererInvoke("get-setting", "ftpPort");
-  ftpUsername.value = await window.ipcRendererInvoke("get-setting", "ftpUsername");
-  ftpPassword.value = await window.ipcRendererInvoke("get-setting", "ftpPassword");
-  stopLoading();
-};
-
 
 const connectFtpSettings = async () => {
-  await saveSettings();
+  await saveFtpSettings();
   connect({
     host: ftpHost.value,
     port: ftpPort.value,
@@ -129,27 +123,13 @@ const connectFtpSettings = async () => {
 };
 
 const testFtpSettings = async () => {
+  await saveFtpSettings()
   await connect({
     host: ftpHost.value,
     port: ftpPort.value,
     username: ftpUsername.value,
     password: ftpPassword.value
   }, true);
-};
-
-const saveSettings = async () => {
-  try {
-    startLoading();
-    await window.ipcRendererInvoke("set-setting", "ftpHost", ftpHost.value);
-    await window.ipcRendererInvoke("set-setting", "ftpPort", ftpPort.value);
-    await window.ipcRendererInvoke("set-setting", "ftpUsername", ftpUsername.value);
-    await window.ipcRendererInvoke("set-setting", "ftpPassword", ftpPassword.value);
-    stopLoading();
-    displayFlash("Settings Saved", "success");
-  } catch (e) {
-    stopLoading();
-    displayFlash("An Error Occured While Saving Settings", "error");
-  }
 };
 
 </script>

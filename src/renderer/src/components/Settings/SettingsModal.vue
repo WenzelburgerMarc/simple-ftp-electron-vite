@@ -4,7 +4,7 @@
     <settings-setting>
       <!-- General Settings Section -->
       <template #showGeneralSettings>
-        <general-settings-section :show-modal="showModal"
+        <general-settings-component :show-modal="showModal"
                                   @closeModal="closeModal" />
       </template>
 
@@ -21,7 +21,7 @@
 import { toRefs, defineProps, defineEmits } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import SettingsSetting from "@/components/Settings/SettingsSetting.vue";
-import GeneralSettingsSection from "./GeneralSettingsSection.vue";
+import GeneralSettingsComponent from "./GeneralSettingsComponent.vue";
 import FTPSettingsComponent from "./FTPSettingsComponent.vue";
 
 const props = defineProps({

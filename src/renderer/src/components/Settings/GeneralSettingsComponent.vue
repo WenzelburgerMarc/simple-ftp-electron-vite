@@ -57,24 +57,26 @@
 </template>
 
 <script setup>
+import {
+  enableAutoStart,
+  autoReloadFtpInterval,
+  autoSyncInterval,
+  selectedPath,
+  enableAutoReconnect,
+  enableDeletingFilesAfterUpload,
+  loadSettings,
+  saveGeneralSettings,
+  saveSettings
+} from "../../js/manageSettings.js";
+
 import ButtonComponent from "../form/ButtonComponent.vue";
 import SelectPathInputComponent from "../form/SelectPathInputComponent.vue";
 import LabelInputComponent from "../form/LabelInputComponent.vue";
 import CheckboxComponent from "../form/CheckboxComponent.vue";
 import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
-import { onMounted, reactive, ref, watch } from "vue";
-import { displayFlash } from "../../js/flashMessageController";
-import { startLoading, stopLoading } from "@/js/loaderManager.js";
+import { onMounted, watch } from "vue";
 import { disconnect } from "../../js/ftpManager";
-
-let autoSyncInterval = reactive(ref(0));
-let autoReloadFtpInterval = reactive(ref(0));
-const selectedPath = ref("");
-const enableAutoStart = ref(false);
-const enableAutoReconnect = ref(false);
-const enableDeletingFilesAfterUpload = ref(false);
-
 
 const props = defineProps({
   showModal: Boolean
@@ -83,33 +85,35 @@ const emit = defineEmits(["closeModal"]);
 
 const updateEnableAutoStart = (newValue) => {
   enableAutoStart.value = newValue;
-  saveSettings();
+  saveGeneralSettings(false);
 };
 
 const updateEnableDeletingFilesAfterUpload = (newValue) => {
   disconnect(true);
   enableDeletingFilesAfterUpload.value = newValue;
-  saveSettings();
+  saveGeneralSettings(false);
 };
 
 const updateEnableAutoReconnect = (newValue) => {
   enableAutoReconnect.value = newValue;
   window.ipcRendererInvoke("autoReconnectChanged");
-  saveSettings();
+  saveGeneralSettings(false);
 };
 
 const updateSyncInterval = (newValue) => {
   autoSyncInterval.value = newValue;
+  saveGeneralSettings(false);
 };
 
 const updateAutoReloadFtpInterval = (newValue) => {
   autoReloadFtpInterval.value = newValue;
+  saveGeneralSettings(false);
 };
 
 const handleSelectDirectory = async (path) => {
   await disconnect(true);
   selectedPath.value = path;
-  await saveSettings();
+  await saveGeneralSettings(false);
 
 
   let log = {
@@ -143,71 +147,12 @@ onMounted(async () => {
     window.api.setAutoStartItemSetting({ openAtLogin: newValue });
   });
 
-  await loadSettings();
+  await loadSettings(false);
 });
 
 watch(props, async () => {
-  await loadSettings();
+  await loadSettings(false);
 });
-const loadSettings = async () => {
-  startLoading();
-  enableAutoStart.value = await window.ipcRendererInvoke("get-setting", "enableAutoStart");
-  autoReloadFtpInterval.value = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
-  autoSyncInterval.value = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
-  selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
-  enableDeletingFilesAfterUpload.value = await window.ipcRendererInvoke("get-setting", "enableDeletingFilesAfterUpload");
-  stopLoading();
-};
 
-const validateSettings = () => {
-
-  if (isNaN(autoSyncInterval.value) && typeof autoSyncInterval.value !== "number") {
-    displayFlash("Auto-Sync Interval must be numbers", "error");
-    return false;
-  }
-
-  if (isNaN(autoReloadFtpInterval.value) && typeof autoReloadFtpInterval.value !== "number") {
-    displayFlash("Auto-Reload FTP Files Interval must be numbers", "error");
-    return false;
-  }
-
-  return true;
-
-};
-
-const saveSettings = async () => {
-  try {
-    startLoading();
-
-    await window.ipcRendererInvoke("unwatch-client-directory");
-
-    if (!validateSettings()) {
-      stopLoading();
-      return;
-    }
-
-    await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
-    await window.ipcRendererInvoke("set-setting", "autoSyncInterval", autoSyncInterval.value);
-    await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", autoReloadFtpInterval.value);
-    await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
-    await window.ipcRendererInvoke("restart-ftp-reload-interval");
-    await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", enableAutoReconnect.value);
-    await window.ipcRendererInvoke("set-setting", "enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
-    stopLoading();
-    displayFlash("Settings Saved", "success");
-  } catch (error) {
-    stopLoading();
-    displayFlash("An Error Occured While Saving Settings", "error");
-    let log = {
-      logType: "Error",
-      id: window.api.getUUID(),
-      type: "Error - Failed To Save Settings",
-      open: false,
-      description: error.message
-    };
-    window.ipcRendererInvoke("add-log", log);
-  }
-};
 
 </script>

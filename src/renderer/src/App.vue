@@ -5,8 +5,8 @@
 </template>
 
 <script setup>
-
 import { onMounted } from "vue";
+import {loadSettings} from "./js/manageSettings";
 
 window.addEventListener("DOMContentLoaded", () => {
   function getInitialColorMode() {
@@ -31,6 +31,9 @@ onMounted(async () => {
   localStorage.removeItem("showFtpSettings");
 
   try {
+    // Load Settings
+    await loadSettings(false)
+
     let autoReloadFtpInterval = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
     let autoSyncInterval = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
 

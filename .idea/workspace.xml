@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Delete - Displayflash from preloadFTP.js">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Move Frame">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,15 +127,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="3013000" />
-    </task>
-    <task id="LOCAL-00063" summary="Add - Loading Between Mode Switches">
-      <option name="closed" value="true" />
-      <created>1696861202759</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1696861202759</updated>
+      <workItem from="1697440665881" duration="6634000" />
     </task>
     <task id="LOCAL-00064" summary="Fix - Flash Message Order on Connect">
       <option name="closed" value="true" />
@@ -517,7 +513,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697441012443</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="Add - Move Frame">
+      <option name="closed" value="true" />
+      <created>1697443693379</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1697443693379</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +542,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
     <MESSAGE value="Add - Delete client File Log" />
     <MESSAGE value="Fix - Delete File Log, Upload/Download + Cancel Log" />
     <MESSAGE value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
@@ -563,6 +566,7 @@
     <MESSAGE value="Formatting Files" />
     <MESSAGE value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
     <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete - Displayflash from preloadFTP.js" />
+    <MESSAGE value="Add - Move Frame" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Move Frame" />
   </component>
 </project>
