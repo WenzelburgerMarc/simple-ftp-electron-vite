@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - only show save logs btn if there is at least 1">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Log Error in Main fileSystem.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +124,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="17292000" />
-    </task>
-    <task id="LOCAL-00072" summary="Fix - Check if ftp settings are set before re-connecting&#10;Fix - Check if client path, ftp sync path, ftp credentials are set before connecting">
-      <option name="closed" value="true" />
-      <created>1696936783542</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1696936783542</updated>
+      <workItem from="1697440665881" duration="18750000" />
     </task>
     <task id="LOCAL-00073" summary="Fix - Checkbox Color">
       <option name="closed" value="true" />
@@ -518,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697457721415</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="Fix - Log Error in Main fileSystem.js">
+      <option name="closed" value="true" />
+      <created>1697458511231</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1697458511231</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +539,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Removed Unused Log Objects" />
     <MESSAGE value="Cleanup - Log Files&#10;Add - Error Log Vue Component" />
     <MESSAGE value="Add - Error Logs" />
     <MESSAGE value="Fix - Removed old Console Logs" />
@@ -564,6 +563,7 @@
     <MESSAGE value="Fix - Logs" />
     <MESSAGE value="Fix - Move Frame" />
     <MESSAGE value="Fix - only show save logs btn if there is at least 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - only show save logs btn if there is at least 1" />
+    <MESSAGE value="Fix - Log Error in Main fileSystem.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Log Error in Main fileSystem.js" />
   </component>
 </project>

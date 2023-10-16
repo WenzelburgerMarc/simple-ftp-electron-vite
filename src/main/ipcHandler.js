@@ -182,14 +182,14 @@ ipcMain.handle("get-logs", async() => {
 });
 
 // Add a new log entry to the store
-ipcMain.handle("update-log", (event, logId, updatedData) => {
-  updateLog(logId, updatedData);
+ipcMain.handle("update-log", async(event, logId, updatedData) => {
+  await updateLog(logId, updatedData);
   event.sender.send("log-changed");
 });
 
 // Update a specific log in the store using its unique ID
-ipcMain.handle("delete-log", (event, logId) => {
-  deleteLog(logId);
+ipcMain.handle("delete-log", async(event, logId) => {
+  await deleteLog(logId);
   event.sender.send("log-changed");
 });
 
@@ -199,7 +199,7 @@ ipcMain.handle("save-all-logs", async () => {
 });
 
 // Clear all logs from the store
-ipcMain.handle("delete-all-logs", (event) => {
-  clearLogs();
+ipcMain.handle("delete-all-logs", async(event) => {
+  await clearLogs();
   event.sender.send("log-changed");
 });
