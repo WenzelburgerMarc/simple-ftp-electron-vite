@@ -5,7 +5,7 @@ import FtpStatusOverview from "./includes/FtpStatusOverview.vue";
 import TheFtpExplorer from "./includes/FtpExplorer/TheFtpExplorer.vue";
 import { connected, listFilesAndDirectories } from "../../js/ftpManager";
 import TheClientExplorer from "./includes/ClientExplorer/TheClientExplorer.vue";
-import SyncSliderOptions from "./includes/sync-slider-options.vue";
+import SyncSliderOptions from "./includes/Sync-Slider-Options.vue";
 
 </script>
 

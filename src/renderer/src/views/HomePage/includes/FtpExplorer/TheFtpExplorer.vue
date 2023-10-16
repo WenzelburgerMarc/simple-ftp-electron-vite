@@ -19,7 +19,7 @@ import Breadcrumb from "../../../../components/explorer/Breadcrumb.vue";
 import FileList from "../../../../components/explorer/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
-import SetFtpFolderNameModal from "./setFtpFolderNameModal.vue";
+import SetFtpFolderNameModal from "./SetFtpFolderNameModal.vue";
 import {setSetting, getSetting} from "../../../../js/manageSettings";
 
 const currentDir = ref(getCurrentDir());

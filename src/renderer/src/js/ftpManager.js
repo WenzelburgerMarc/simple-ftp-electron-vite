@@ -92,7 +92,9 @@ export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage
   try {
     startLoading();
     let previousConnectionStatus = connected.value;
-
+    if(previousConnectionStatus) {
+      await window.ftp.clearFilesAfterModeSwitch();
+    }
     await window.ftp.disconnectFTP();
     connected.value = window.ftp.getIsConnected();
     if (deleteSyncModeInStore) {
