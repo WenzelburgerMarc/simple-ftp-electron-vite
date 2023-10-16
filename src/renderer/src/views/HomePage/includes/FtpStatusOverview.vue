@@ -152,8 +152,8 @@ onMounted(async () => {
     }
   });
 
-
 });
+
 let progress = 0;
 let intervalID = null;
 let currentProcessingFiles = ref([]);
@@ -206,6 +206,7 @@ const checkFtpProgress = async () => {
         files: files
       };
 
+
       await window.ipcRendererInvoke("add-log", log);
 
     }
@@ -224,6 +225,7 @@ let idAlreadySet = ref(false);
 window.ipcRendererOn("sync-progress-start", async (event, currentFiles, type) => {
 
   if (!idAlreadySet.value) {
+
     logID.value = await window.api.getUUID();
     idAlreadySet.value = true;
   }

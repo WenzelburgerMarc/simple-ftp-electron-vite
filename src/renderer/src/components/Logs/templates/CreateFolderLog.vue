@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, defineEmits, ref, watch, onBeforeMount } from "vue";
-import IconButtonComponent from "../form/IconButtonComponent.vue";
+import IconButtonComponent from "../../form/IconButtonComponent.vue";
 
 const log = ref(null);
 
@@ -37,7 +37,10 @@ const deleteLog = (id) => {
                 ,firstOrLast === 'first' ? 'rounded-t-xl' : '',firstOrLast === 'both' ? 'rounded-xl' : '', firstOrLast === 'last' ? 'rounded-b-xl' : '']">
     <div class="col-span-2 p-1  truncate-no-hover">{{ log.type }}
     </div>
-    <div class="col-span-3 p-1  truncate-no-hover">{{ log.destination }}
+    <div class="col-span-1 p-1  truncate-no-hover">{{ log.name }}
+    </div>
+
+    <div class="col-span-2 p-1  truncate-no-hover">{{ log.destination }}
     </div>
     <div class="col-span-1 p-1 flex justify-end items-center truncate-no-hover">
       <div class="flex justify-end items-center space-x-2">

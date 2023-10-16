@@ -132,12 +132,12 @@ import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
 import { nextTick, onMounted, onUnmounted, computed } from "vue";
 import LabelComponent from "../form/LabelComponent.vue";
-import SyncModeLog from "./SyncModeLog.vue";
-import DeleteFileLog from "./DeleteFileLog.vue";
-import CreateFolderLog from "./CreateFolderLog.vue";
-import SetSyncPathLog from "./SetSyncPathLog.vue";
-import DeleteFolderLog from "./DeleteFolderLog.vue";
-import ErrorLog from "./ErrorLog.vue";
+import SyncModeLog from "./templates/SyncModeLog.vue";
+import DeleteFileLog from "./templates/DeleteFileLog.vue";
+import CreateFolderLog from "./templates/CreateFolderLog.vue";
+import SetSyncPathLog from "./templates/SetSyncPathLog.vue";
+import DeleteFolderLog from "./templates/DeleteFolderLog.vue";
+import ErrorLog from "./templates/ErrorLog.vue";
 
 const props = defineProps({
   showModal: Boolean
@@ -186,7 +186,7 @@ onMounted(async () => {
 
   window.ipcRendererOn("log-changed", async () => {
     logs = await window.ipcRendererInvoke("get-logs");
-    updateLogs(logs);
+    await updateLogs(logs);
   });
   logs = await window.ipcRendererInvoke("get-logs");
 

@@ -1,7 +1,7 @@
 <script setup>
-import IconButtonComponent from "../form/IconButtonComponent.vue";
+import IconButtonComponent from "../../form/IconButtonComponent.vue";
 import { ref, onBeforeMount, watch, onMounted } from "vue";
-import { formatSize } from "../../js/logsModalController";
+import { formatSize } from "../../../js/logsModalController";
 
 const log = ref(null);
 const allowExpand = ref(false);

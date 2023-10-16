@@ -171,16 +171,14 @@ ipcMain.handle("autoReconnectChanged", async (event) => {
 // === Log Handler ===
 
 // Add a new log entry to the store
-ipcMain.handle("add-log", (event, log) => {
-  addLog(log);
+ipcMain.handle("add-log", async(event, log) => {
+  await addLog(log);
   event.sender.send("log-changed");
 });
 
-
-
 // Get all logs from the store
-ipcMain.handle("get-logs", () => {
-  return getLogs();
+ipcMain.handle("get-logs", async() => {
+  return await getLogs();
 });
 
 // Add a new log entry to the store

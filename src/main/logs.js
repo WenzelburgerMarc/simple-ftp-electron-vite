@@ -9,50 +9,56 @@ import fs from "fs";
 const store = new Store();
 
 // Retrieve all logs from the store
-const getLogs = () => {
-  return store.get("logs", []);
+const getLogs = async () => {
+  return await store.get("logs", []);
 };
 
 // Add a new log entry to the store
-const addLog = (log) => {
-  const logs = getLogs();
+const addLog = async (log) => {
+  const logs = await getLogs();
 
-  // Assign a unique ID and timestamp to the log
-  log.id = uuidv4();
   log.timestamp = new Date().getTime();
 
-  logs.push(log);
+  // replace log if it already exists
+  const index = logs.findIndex(l => l.id === log.id);
+  if (index !== -1) {
+    logs[index] = log;
+    store.set("logs", logs);
+    return;
+  }else{
+    logs.push(log);
+  }
+
+
+
+
   store.set("logs", logs);
 };
 
 // Update a specific log in the store using its unique ID
-const updateLog = (logId, updatedData) => {
-  const logs = getLogs();
-  const index = logs.findIndex(log => log.id === logId);
+const updateLog = async (log) => {
+  const logs = await getLogs();
+  const index = logs.findIndex(l => l.id === log.id);
+  logs[index] = log;
 
-  // If the log with the given ID doesn't exist, exit the function
-  if (index === -1) return;
-
-  // Update the log with the new data
-  logs[index] = { ...logs[index], ...updatedData };
   store.set("logs", logs);
 };
 
 // Delete a log from the store using its unique ID
-const deleteLog = (logId) => {
-  const logs = getLogs();
+const deleteLog = async (logId) => {
+  const logs = await getLogs();
   const updatedLogs = logs.filter(log => log.id !== logId);
 
   store.set("logs", updatedLogs);
 };
 
 // Clear all logs from the store
-const clearLogs = () => {
-  store.set("logs", []);
+const clearLogs = async () => {
+  await store.set("logs", []);
 };
 
 // Save all the logs to an external JSON file
-const saveAllLogs = async() => {
+const saveAllLogs = async () => {
   try {
     const logs = await store.get("logs", []);
     const copyLogs = JSON.parse(JSON.stringify(logs));
@@ -87,9 +93,9 @@ const saveAllLogs = async() => {
       open: false,
       description: error.message
     };
-    addLog(log);
+    await addLog(log);
   }
-}
+};
 
 // Export functions for external use
 export {

@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, defineEmits, ref, watch, onBeforeMount } from "vue";
-import IconButtonComponent from "../form/IconButtonComponent.vue";
+import IconButtonComponent from "../../form/IconButtonComponent.vue";
 
 const log = ref(null);
 

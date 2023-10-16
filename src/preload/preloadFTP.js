@@ -289,12 +289,9 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else if (mode === "") {
       setSyncMode("");
-
-      await ipcRenderer.invoke("sync-progress-pause");
       await stopSyncing();
-
       await clearFilesAfterModeSwitch();
-
+      await ipcRenderer.invoke("sync-progress-pause");
       if (!firstRun)
         await ipcRenderer.invoke("sync-progress-stop-loading");
     } else {
