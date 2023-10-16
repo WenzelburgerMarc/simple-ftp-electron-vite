@@ -86,35 +86,33 @@ const emit = defineEmits(["closeModal"]);
 
 const updateEnableAutoStart = (newValue) => {
   enableAutoStart.value = newValue;
-  saveGeneralSettings(false);
+  saveGeneralSettings();
 };
 
 const updateEnableDeletingFilesAfterUpload = (newValue) => {
   disconnect(true);
   enableDeletingFilesAfterUpload.value = newValue;
-  saveGeneralSettings(false);
+  saveGeneralSettings();
 };
 
 const updateEnableAutoReconnect = (newValue) => {
   enableAutoReconnect.value = newValue;
   window.ipcRendererInvoke("autoReconnectChanged");
-  saveGeneralSettings(false);
+  saveGeneralSettings();
 };
 
 const updateSyncInterval = (newValue) => {
   autoSyncInterval.value = newValue;
-  saveGeneralSettings(false);
 };
 
 const updateAutoReloadFtpInterval = (newValue) => {
   autoReloadFtpInterval.value = newValue;
-  saveGeneralSettings(false);
 };
 
 const handleSelectDirectory = async (path) => {
   await disconnect(true);
   selectedPath.value = path;
-  await saveGeneralSettings(false);
+  await saveGeneralSettings();
 
 
   let log = {

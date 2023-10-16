@@ -5,39 +5,31 @@ import * as fs from "fs";
 import { ipcRenderer } from "electron";
 import { v4 as uuidv4 } from "uuid";
 
-let uploadInProgress = ref(false);
-let downloadInProgress = ref(false);
-
 let sftp = new sftpClient();
 let isConnected = false;
 let files = [];
 let syncMode = ref("");
+let currentDir = ref(null);
+let uploadInProgress = ref(false);
+let downloadInProgress = ref(false);
+let foldersToDelete = [];
+let currentFilesToUpload = [];
+let currentDownloadFiles = [];
+let progress = 0;
+let intervalId = null;
+let firstRun = true;
+
 export const setSyncMode = (mode) => {
   if (mode !== syncMode.value) firstRun = true;
-
   syncMode.value = mode;
 };
-
-export const getSyncMode = () => {
-  return syncMode.value;
-};
-
-export const setConnected = (status) => {
-  isConnected = status;
-};
-
-export const setFiles = (fileList) => {
-  files = fileList;
-};
-
-export const getIsConnected = () => {
-  return isConnected;
-};
-
-export const getFiles = () => {
-  return files;
-};
-
+export const getSyncMode = () => syncMode.value;
+export const setConnected = (status) => isConnected = status;
+export const getIsConnected = () => isConnected;
+export const setFiles = (fileList) => files = fileList;
+export const getFiles = () => files;
+export const setCurrentDir = (dir) => currentDir.value = dir;
+export const getCurrentDir = () => currentDir.value;
 export const connectFTP = async (ftpSettings) => {
   try {
     await sftp.connect({
@@ -52,7 +44,6 @@ export const connectFTP = async (ftpSettings) => {
     throw new Error("Failed to connect to FTP Server");
   }
 };
-
 export const disconnectFTP = async () => {
   try {
     await sftp.end();
@@ -61,16 +52,6 @@ export const disconnectFTP = async () => {
     setConnected(false);
   }
 };
-let currentDir = ref(null);
-
-export const setCurrentDir = (dir) => {
-  currentDir.value = dir;
-};
-
-export const getCurrentDir = () => {
-  return currentDir;
-};
-
 export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
   if (!isConnected) {
     return;
@@ -97,7 +78,6 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
     await ipcRenderer.invoke("add-log", log);
   }
 };
-
 export const deleteFile = async (filePath) => {
   if (!isConnected) {
     return;
@@ -141,7 +121,6 @@ export const deleteFile = async (filePath) => {
 
   }
 };
-
 export const createNewFolder = async (selectedDirectory) => {
   if (!isConnected) {
     throw new Error("Not connected to FTP server");
@@ -171,7 +150,6 @@ export const createNewFolder = async (selectedDirectory) => {
     throw error;
   }
 };
-
 export const deleteDirectory = async (directory) => {
   if (!isConnected) {
     throw new Error("Not connected to FTP server");
@@ -203,7 +181,6 @@ export const deleteDirectory = async (directory) => {
     throw error;
   }
 };
-
 export const calculateDirectorySize = async (isLocal, files) => {
   let size = 0;
 
@@ -239,9 +216,6 @@ export const calculateDirectorySize = async (isLocal, files) => {
   return sizes.reduce((acc, currSize) => acc + currSize, 0);
 
 };
-
-
-let progress = 0;
 export const calculateAndCompareSize = async (mode) => {
 
   if (mode === "upload" || mode === "download") {
@@ -269,7 +243,146 @@ export const calculateAndCompareSize = async (mode) => {
   }
 
 };
-let foldersToDelete = [];
+export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
+  if (!isConnected) {
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Start Syncing",
+      open: false,
+      description: "Not Connected to FTP Server"
+    };
+    await ipcRenderer.invoke("add-log", log);
+    return;
+  }
+
+  let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
+
+  interval = parseInt(interval);
+  interval += 250;
+
+  intervalId = setInterval(async () => {
+    if (firstRun) {
+      firstRun = false;
+
+    }
+    const newInterval = parseInt(await ipcRenderer.invoke("get-setting", "autoSyncInterval")) + 250;
+    if (newInterval !== interval) {
+      clearInterval(intervalId);
+      interval = newInterval;
+      await startSyncing(mode, clientSyncPath, ftpSyncPath);
+
+    }
+
+
+    if (mode === "upload") {
+
+      setSyncMode("upload");
+      await uploadFiles(clientSyncPath, ftpSyncPath);
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
+    } else if (mode === "download") {
+
+      setSyncMode("download");
+      await downloadFiles(clientSyncPath, ftpSyncPath);
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
+    } else if (mode === "") {
+      setSyncMode("");
+
+      await ipcRenderer.invoke("sync-progress-pause");
+      await stopSyncing();
+
+      await clearFilesAfterModeSwitch();
+
+      if (!firstRun)
+        await ipcRenderer.invoke("sync-progress-stop-loading");
+    } else {
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Invalid Syncing Mode",
+        open: false,
+        description: "This Sync Mode does not exist."
+      };
+      await ipcRenderer.invoke("add-log", log);
+      await ipcRenderer.invoke("sync-progress-stop-loading");
+    }
+
+  }, interval);
+
+};
+export const stopSyncing = async () => {
+  clearInterval(intervalId);
+  await ipcRenderer.invoke("sync-progress-end");
+
+  uploadInProgress.value = false;
+  downloadInProgress.value = false;
+
+};
+export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
+  try {
+
+    if (deleteOnlyClient || (!deleteOnlyClient && !deleteOnlyServer)) {
+      for (const file of currentFilesToUpload) {
+        try {
+          if (file.type === "f") {
+            await sftp.delete(file.serverPath);
+
+          } else {
+            await sftp.rmdir(file.serverPath, true);
+
+          }
+        } catch (error) {
+          let log = {
+            logType: "Error",
+            id: window.api.getUUID(),
+            type: "Error - Delete Server File On Mode Switch",
+            open: false,
+            description: error.message
+          };
+          await ipcRenderer.invoke("add-log", log);
+        }
+      }
+      currentFilesToUpload = [];
+
+    }
+    if (deleteOnlyServer || (!deleteOnlyClient && !deleteOnlyServer)) {
+      for (const file of currentDownloadFiles) {
+        try {
+          if (file.type === "-" || file.type === "f") {
+            fs.unlinkSync(file.localPath);
+
+          } else {
+            fs.rmdirSync(file.localPath, { recursive: true });
+
+          }
+        } catch (error) {
+          let log = {
+            logType: "Error",
+            id: window.api.getUUID(),
+            type: "Error - Delete Server File On Mode Switch",
+            open: false,
+            description: error.message
+          };
+          await ipcRenderer.invoke("add-log", log);
+        }
+      }
+      currentDownloadFiles = [];
+
+    }
+  } catch (error) {
+    let log = {
+      logType: "Error",
+      id: window.api.getUUID(),
+      type: "Error - Delete Client File On Mode Switch",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
+  }
+
+};
 const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   try {
     const itemNames = fs.readdirSync(clientSyncPath);
@@ -332,7 +445,6 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
     return [];
   }
 };
-
 const deleteFolders = async (clientSyncPath) => {
 
   foldersToDelete = foldersToDelete.map((folder) => {
@@ -364,8 +476,6 @@ const deleteFolders = async (clientSyncPath) => {
 
 
 };
-
-let currentFilesToUpload = [];
 const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
   try {
     if (!uploadInProgress.value) {
@@ -500,9 +610,6 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
     return [];
   }
 };
-
-
-let currentDownloadFiles = [];
 const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
   try {
     if (!downloadInProgress.value) {
@@ -564,149 +671,3 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
     await ipcRenderer.invoke("add-log", log);
   }
 };
-
-let intervalId = null;
-let firstRun = true;
-export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
-  if (!isConnected) {
-    let log = {
-      logType: "Error",
-      id: window.api.getUUID(),
-      type: "Error - Start Syncing",
-      open: false,
-      description: "Not Connected to FTP Server"
-    };
-    await ipcRenderer.invoke("add-log", log);
-    return;
-  }
-
-  let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
-
-  interval = parseInt(interval);
-  interval += 250;
-
-  intervalId = setInterval(async () => {
-    if (firstRun) {
-      firstRun = false;
-
-    }
-    const newInterval = parseInt(await ipcRenderer.invoke("get-setting", "autoSyncInterval")) + 250;
-    if (newInterval !== interval) {
-      clearInterval(intervalId);
-      interval = newInterval;
-      await startSyncing(mode, clientSyncPath, ftpSyncPath);
-
-    }
-
-
-    if (mode === "upload") {
-
-      setSyncMode("upload");
-      await uploadFiles(clientSyncPath, ftpSyncPath);
-      if (!firstRun)
-        await ipcRenderer.invoke("sync-progress-stop-loading");
-    } else if (mode === "download") {
-
-      setSyncMode("download");
-      await downloadFiles(clientSyncPath, ftpSyncPath);
-      if (!firstRun)
-        await ipcRenderer.invoke("sync-progress-stop-loading");
-    } else if (mode === "") {
-      setSyncMode("");
-
-      await ipcRenderer.invoke("sync-progress-pause");
-      await stopSyncing();
-
-      await clearFilesAfterModeSwitch();
-
-      if (!firstRun)
-        await ipcRenderer.invoke("sync-progress-stop-loading");
-    } else {
-      let log = {
-        logType: "Error",
-        id: window.api.getUUID(),
-        type: "Error - Invalid Syncing Mode",
-        open: false,
-        description: "This Sync Mode does not exist."
-      };
-      await ipcRenderer.invoke("add-log", log);
-      await ipcRenderer.invoke("sync-progress-stop-loading");
-    }
-
-  }, interval);
-
-};
-
-
-export const stopSyncing = async () => {
-  clearInterval(intervalId);
-  await ipcRenderer.invoke("sync-progress-end");
-
-  uploadInProgress.value = false;
-  downloadInProgress.value = false;
-
-};
-export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, deleteOnlyServer = false) => {
-  try {
-
-    if (deleteOnlyClient || (!deleteOnlyClient && !deleteOnlyServer)) {
-      for (const file of currentFilesToUpload) {
-        try {
-          if (file.type === "f") {
-            await sftp.delete(file.serverPath);
-
-          } else {
-            await sftp.rmdir(file.serverPath, true);
-
-          }
-        } catch (error) {
-          let log = {
-            logType: "Error",
-            id: window.api.getUUID(),
-            type: "Error - Delete Server File On Mode Switch",
-            open: false,
-            description: error.message
-          };
-          await ipcRenderer.invoke("add-log", log);
-        }
-      }
-      currentFilesToUpload = [];
-
-    }
-    if (deleteOnlyServer || (!deleteOnlyClient && !deleteOnlyServer)) {
-      for (const file of currentDownloadFiles) {
-        try {
-          if (file.type === "-" || file.type === "f") {
-            fs.unlinkSync(file.localPath);
-
-          } else {
-            fs.rmdirSync(file.localPath, { recursive: true });
-
-          }
-        } catch (error) {
-          let log = {
-            logType: "Error",
-            id: window.api.getUUID(),
-            type: "Error - Delete Server File On Mode Switch",
-            open: false,
-            description: error.message
-          };
-          await ipcRenderer.invoke("add-log", log);
-        }
-      }
-      currentDownloadFiles = [];
-
-    }
-  } catch (error) {
-    let log = {
-      logType: "Error",
-      id: window.api.getUUID(),
-      type: "Error - Delete Client File On Mode Switch",
-      open: false,
-      description: error.message
-    };
-    await ipcRenderer.invoke("add-log", log);
-  }
-
-};
-
