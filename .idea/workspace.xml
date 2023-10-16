@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Logs">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Move Frame">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,15 +123,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="15831000" />
-    </task>
-    <task id="LOCAL-00070" summary="Fix - Delete Button Design">
-      <option name="closed" value="true" />
-      <created>1696934719690</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1696934719690</updated>
+      <workItem from="1697440665881" duration="16396000" />
     </task>
     <task id="LOCAL-00071" summary="Fix - Check if ftp settings are set before connecting">
       <option name="closed" value="true" />
@@ -517,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697455985771</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Fix - Move Frame">
+      <option name="closed" value="true" />
+      <created>1697457039283</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1697457039283</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +538,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Pagination Design" />
     <MESSAGE value="Fix - Logs Design" />
     <MESSAGE value="Fix - Removed Unused Log Objects" />
     <MESSAGE value="Cleanup - Log Files&#10;Add - Error Log Vue Component" />
@@ -563,6 +562,7 @@
     <MESSAGE value="Fix - settings manager" />
     <MESSAGE value="Fix - preloadFTP.js" />
     <MESSAGE value="Fix - Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - Logs" />
+    <MESSAGE value="Fix - Move Frame" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Move Frame" />
   </component>
 </project>

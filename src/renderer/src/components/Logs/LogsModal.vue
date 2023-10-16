@@ -107,7 +107,7 @@
       class="absolute bottom-3 right-3"
       :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
-    <div class="w-fit flex flex-col space-y-2">
+    <div class="w-fit flex flex-col space-y-2" v-if="logList.length > 0">
 
       <icon-button-component :icon="['fas', 'fa-download']"
                              :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"
@@ -115,8 +115,7 @@
                              emit-name="saveAllLogs"
                              @saveAllLogs="saveAllLogs"> Save Logs
       </icon-button-component>
-      <icon-button-component v-if="logList.length > 0"
-                             :icon="['fas', 'fa-trash-alt']"
+      <icon-button-component :icon="['fas', 'fa-trash-alt']"
                              :btn-class="'bg-red-300 hover:bg-red-400 p-1 rounded-md text-gray-800'"
                              :icon-class="'text-gray-800'"
                              emit-name="deleteAllLogs"
