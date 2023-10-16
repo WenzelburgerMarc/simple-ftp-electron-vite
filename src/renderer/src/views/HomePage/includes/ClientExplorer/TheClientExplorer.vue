@@ -44,7 +44,6 @@ const handleBack = () => {
   }
 };
 
-
 const changePath = (path) => {
   currentDir.value = path;
 
