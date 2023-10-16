@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Move Frame">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - settings manager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,15 +125,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="6634000" />
-    </task>
-    <task id="LOCAL-00064" summary="Fix - Flash Message Order on Connect">
-      <option name="closed" value="true" />
-      <created>1696922827385</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1696922827385</updated>
+      <workItem from="1697440665881" duration="7475000" />
     </task>
     <task id="LOCAL-00065" summary="Add - Auto Re-Connect disabled Info">
       <option name="closed" value="true" />
@@ -521,7 +511,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697443693379</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="Add - settings manager">
+      <option name="closed" value="true" />
+      <created>1697447344946</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1697447344946</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +540,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Delete client File Log" />
     <MESSAGE value="Fix - Delete File Log, Upload/Download + Cancel Log" />
     <MESSAGE value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
     <MESSAGE value="Add - Delete Folder Log" />
@@ -567,6 +564,7 @@
     <MESSAGE value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
     <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
     <MESSAGE value="Add - Move Frame" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Move Frame" />
+    <MESSAGE value="Add - settings manager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - settings manager" />
   </component>
 </project>

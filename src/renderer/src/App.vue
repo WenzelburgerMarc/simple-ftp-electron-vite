@@ -6,7 +6,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import {loadSettings} from "./js/manageSettings";
+import {loadSettings, getSetting, setSetting, resetSettings} from "./js/manageSettings";
 
 window.addEventListener("DOMContentLoaded", () => {
   function getInitialColorMode() {
@@ -29,6 +29,14 @@ window.addEventListener("DOMContentLoaded", () => {
 onMounted(async () => {
   localStorage.removeItem("showGeneralSettings");
   localStorage.removeItem("showFtpSettings");
+
+
+  let firstStart = await getSetting("firstStart");
+  console.log(firstStart);
+  if(firstStart === null || firstStart === undefined) {
+    await setSetting("firstStart", false);
+    await resetSettings(false);
+  }
 
   try {
     // Load Settings

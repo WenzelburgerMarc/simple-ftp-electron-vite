@@ -29,12 +29,12 @@ export const loadSettings = async (showFlash = true) => {
 export const loadGeneralSettings = async (showFlash = true) => {
   // General Settings
   startLoading();
-  enableAutoStart.value = await window.ipcRendererInvoke("get-setting", "enableAutoStart");
-  autoReloadFtpInterval.value = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
-  autoSyncInterval.value = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
-  selectedPath.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
-  enableDeletingFilesAfterUpload.value = await window.ipcRendererInvoke("get-setting", "enableDeletingFilesAfterUpload");
+  enableAutoStart.value = await getSetting("enableAutoStart");
+  autoReloadFtpInterval.value = await getSetting("autoReloadFtpInterval");
+  autoSyncInterval.value = await getSetting("autoSyncInterval");
+  selectedPath.value = await getSetting("clientSyncPath");
+  enableAutoReconnect.value = await getSetting("enableAutoReconnect");
+  enableDeletingFilesAfterUpload.value = await getSetting("enableDeletingFilesAfterUpload");
 
   if (showFlash) {
     displayFlash("General settings loaded successfully!", "success");
@@ -45,10 +45,10 @@ export const loadGeneralSettings = async (showFlash = true) => {
 export const loadFtpSettings = async (showFlash = true) => {
   startLoading();
   // FTP Settings
-  ftpHost.value = await window.ipcRendererInvoke("get-setting", "ftpHost");
-  ftpPort.value = await window.ipcRendererInvoke("get-setting", "ftpPort");
-  ftpUsername.value = await window.ipcRendererInvoke("get-setting", "ftpUsername");
-  ftpPassword.value = await window.ipcRendererInvoke("get-setting", "ftpPassword");
+  ftpHost.value = await getSetting("ftpHost");
+  ftpPort.value = await getSetting("ftpPort");
+  ftpUsername.value = await getSetting("ftpUsername");
+  ftpPassword.value = await getSetting("ftpPassword");
 
   if (showFlash) {
     displayFlash("FTP settings loaded successfully!", "success");
@@ -78,12 +78,12 @@ export const saveGeneralSettings = async (showFlash = true) => {
   }
 
   // General Settings
-  await window.ipcRendererInvoke("set-setting", "enableAutoStart", enableAutoStart.value);
-  await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", autoReloadFtpInterval.value);
-  await window.ipcRendererInvoke("set-setting", "autoSyncInterval", autoSyncInterval.value);
-  await window.ipcRendererInvoke("set-setting", "clientSyncPath", selectedPath.value);
-  await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", enableAutoReconnect.value);
-  await window.ipcRendererInvoke("set-setting", "enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
+  await setSetting("enableAutoStart", enableAutoStart.value);
+  await setSetting("autoReloadFtpInterval", autoReloadFtpInterval.value);
+  await setSetting("autoSyncInterval", autoSyncInterval.value);
+  await setSetting("clientSyncPath", selectedPath.value);
+  await setSetting("enableAutoReconnect", enableAutoReconnect.value);
+  await setSetting("enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
 
   await window.ipcRendererInvoke("unwatch-client-directory");
 
@@ -112,10 +112,10 @@ const validateGeneralSettings = () => {
 export const saveFtpSettings = async (showFlash = true) => {
   startLoading();
   // FTP Settings
-  await window.ipcRendererInvoke("set-setting", "ftpHost", ftpHost.value);
-  await window.ipcRendererInvoke("set-setting", "ftpPort", ftpPort.value);
-  await window.ipcRendererInvoke("set-setting", "ftpUsername", ftpUsername.value);
-  await window.ipcRendererInvoke("set-setting", "ftpPassword", ftpPassword.value);
+  await setSetting("ftpHost", ftpHost.value);
+  await setSetting("ftpPort", ftpPort.value);
+  await setSetting("ftpUsername", ftpUsername.value);
+  await setSetting("ftpPassword", ftpPassword.value);
 
 
   if (showFlash) {

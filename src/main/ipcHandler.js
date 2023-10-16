@@ -23,6 +23,7 @@ import {
 
 
 const store = new Store();
+//store.delete("firstStart");
 
 // Get all data from the electron store
 ipcMain.handle("get-all-data", () => {
