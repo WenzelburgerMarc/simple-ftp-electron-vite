@@ -25,13 +25,13 @@ const toggleLogsModal = () => {
 
 <template>
   <div class="overflow-hidden">
-    <div class="titlebar fixed top-0 left-0 w-full h-[11px] cursor-move">
+    <div class="titlebar fixed top-0 left-0 w-full bg-gray-300 h-[11px]">
     </div>
     <loader />
     <TheSidebar @settings-clicked="toggleSettingsModal"
                 @logs-clicked="toggleLogsModal" />
 
-    <div class="main-content-container w-[calc(100vw-70px)]  min-h-screen p-5 ml-5">
+    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-5">
       <div class="w-full h-full flex flex-col justify-start items-start">
         <SettingsModal
           :show-modal="isSettingsModalVisible"
@@ -52,7 +52,7 @@ const toggleLogsModal = () => {
 <style scoped>
 .titlebar {
   -webkit-app-region: drag;
-  z-index: 100;
+  z-index: 49;
 }
 
 .main-content-container {
