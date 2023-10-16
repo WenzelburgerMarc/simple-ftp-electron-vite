@@ -25,6 +25,8 @@ const toggleLogsModal = () => {
 
 <template>
   <div class="overflow-hidden">
+    <div class="titlebar fixed top-0 left-0 w-full h-[11px] cursor-move">
+    </div>
     <loader />
     <TheSidebar @settings-clicked="toggleSettingsModal"
                 @logs-clicked="toggleLogsModal" />
@@ -48,6 +50,11 @@ const toggleLogsModal = () => {
 </template>
 
 <style scoped>
+.titlebar {
+  -webkit-app-region: drag;
+  z-index: 100;
+}
+
 .main-content-container {
   overflow-x: hidden !important;
   transform: translateX(70px);

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Delete - Displayflash from preloadFTP.js">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,32 +60,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.laravel-idea.search-composer-json": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "18.18.0",
-    "javascript.nodejs.core.library.typings.version": "18.18.0",
-    "last_opened_file_path": "/Users/wenzelburgermarc/Documents/simple-ftp-electron-vite",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.laravel-idea.search-composer-json&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.18.0&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wenzelburgermarc/Documents/simple-ftp-electron-vite&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/renderer/src/components" />
@@ -120,14 +123,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-    </task>
-    <task id="LOCAL-00062" summary="Fix - Do not Show delete File/Folder Buttons on Sync">
-      <option name="closed" value="true" />
-      <created>1696859578611</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1696859578611</updated>
+      <workItem from="1697440665881" duration="3013000" />
     </task>
     <task id="LOCAL-00063" summary="Add - Loading Between Mode Switches">
       <option name="closed" value="true" />
@@ -513,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697211030116</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="Delete - Displayflash from preloadFTP.js">
+      <option name="closed" value="true" />
+      <created>1697441012442</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1697441012443</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +538,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Cancel Action Log" />
     <MESSAGE value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
     <MESSAGE value="Add - Delete client File Log" />
     <MESSAGE value="Fix - Delete File Log, Upload/Download + Cancel Log" />
@@ -559,6 +562,7 @@
     <MESSAGE value="Fix - Clear New Ftp Folder Input On Popup" />
     <MESSAGE value="Formatting Files" />
     <MESSAGE value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
+    <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete - Displayflash from preloadFTP.js" />
   </component>
 </project>
