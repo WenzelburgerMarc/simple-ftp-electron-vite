@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Formatting Files">
-      <change afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/logs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/isOnline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/isOnline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-    </list>
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,15 +119,7 @@
       <workItem from="1697027403581" duration="6405000" />
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
-      <workItem from="1697180643061" duration="25184000" />
-    </task>
-    <task id="LOCAL-00061" summary="Fix - Label Of enable auto reconnect checkbox">
-      <option name="closed" value="true" />
-      <created>1696856169944</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1696856169944</updated>
+      <workItem from="1697180643061" duration="25252000" />
     </task>
     <task id="LOCAL-00062" summary="Fix - Do not Show delete File/Folder Buttons on Sync">
       <option name="closed" value="true" />
@@ -527,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697205289525</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window">
+      <option name="closed" value="true" />
+      <created>1697211030116</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1697211030116</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +534,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Pagination" />
     <MESSAGE value="Add - Cancel Action Log" />
     <MESSAGE value="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions" />
     <MESSAGE value="Add - Delete client File Log" />
@@ -573,6 +558,7 @@
     <MESSAGE value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
     <MESSAGE value="Fix - Clear New Ftp Folder Input On Popup" />
     <MESSAGE value="Formatting Files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Formatting Files" />
+    <MESSAGE value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
   </component>
 </project>

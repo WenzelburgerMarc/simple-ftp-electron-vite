@@ -3,7 +3,6 @@ import { ref } from "vue";
 import * as path from "path";
 import * as fs from "fs";
 import { ipcRenderer } from "electron";
-import { displayFlash } from "../renderer/src/js/flashMessageController";
 import { v4 as uuidv4 } from "uuid";
 
 let uploadInProgress = ref(false);
@@ -422,7 +421,6 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
               await ipcRenderer.invoke("add-log", log);
             }
 
-            await displayFlash("Files deleted on client after upload", "success");
           }
           await listFilesAndDirectories();
           currentFilesToUpload = [];
