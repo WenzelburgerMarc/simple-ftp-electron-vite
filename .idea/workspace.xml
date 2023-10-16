@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - settings manager">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - settings manager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/sync-slider-options.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,15 +131,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="7475000" />
-    </task>
-    <task id="LOCAL-00065" summary="Add - Auto Re-Connect disabled Info">
-      <option name="closed" value="true" />
-      <created>1696922999111</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1696922999111</updated>
+      <workItem from="1697440665881" duration="8894000" />
     </task>
     <task id="LOCAL-00066" summary="Add - Delete Files/Folders After Upload Setting + Functionality">
       <option name="closed" value="true" />
@@ -519,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697447344946</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="Fix - settings manager">
+      <option name="closed" value="true" />
+      <created>1697448178411</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1697448178411</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,7 +546,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Delete File Log, Upload/Download + Cancel Log" />
     <MESSAGE value="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log" />
     <MESSAGE value="Add - Delete Folder Log" />
     <MESSAGE value="Fix - Pagination Design" />
@@ -565,6 +570,7 @@
     <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
     <MESSAGE value="Add - Move Frame" />
     <MESSAGE value="Add - settings manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - settings manager" />
+    <MESSAGE value="Fix - settings manager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - settings manager" />
   </component>
 </project>

@@ -30,8 +30,8 @@ export const loadGeneralSettings = async (showFlash = true) => {
   // General Settings
   startLoading();
   enableAutoStart.value = await getSetting("enableAutoStart");
-  autoReloadFtpInterval.value = await getSetting("autoReloadFtpInterval");
-  autoSyncInterval.value = await getSetting("autoSyncInterval");
+  autoReloadFtpInterval.value = await getSetting("autoReloadFtpInterval") || 60000;
+  autoSyncInterval.value = await getSetting("autoSyncInterval") || 30000;
   selectedPath.value = await getSetting("clientSyncPath");
   enableAutoReconnect.value = await getSetting("enableAutoReconnect");
   enableDeletingFilesAfterUpload.value = await getSetting("enableDeletingFilesAfterUpload");

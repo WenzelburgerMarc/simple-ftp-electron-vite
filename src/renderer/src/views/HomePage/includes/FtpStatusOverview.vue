@@ -64,6 +64,7 @@ import { connect, disconnect, stopSyncing } from "@/js/ftpManager";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
 import { connected, currentSyncMode, setIsConnected } from "../../../js/ftpManager";
 import { displayFlash } from "../../../js/flashMessageController";
+import {setSetting, getSetting} from "../../../js/manageSettings";
 
 const online = ref(false);
 
@@ -111,17 +112,17 @@ const startAutoReconnect = async () => {
         await displayFlash("Automatically Re-Connected to the Internet!", "info");
       }
 
-      const ftpAutoReconnect = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+      const ftpAutoReconnect = await getSetting("enableAutoReconnect");
 
       if (ftpAutoReconnect && !connected.value && !currentlyReConnecting) {
-        ftpCredentials.value.host = await window.ipcRendererInvoke("get-setting", "ftpHost");
-        ftpCredentials.value.port = await window.ipcRendererInvoke("get-setting", "ftpPort");
-        ftpCredentials.value.user = await window.ipcRendererInvoke("get-setting", "ftpUsername");
-        ftpCredentials.value.password = await window.ipcRendererInvoke("get-setting", "ftpPassword");
+        ftpCredentials.value.host = await getSetting("ftpHost");
+        ftpCredentials.value.port = await getSetting("ftpPort");
+        ftpCredentials.value.user = await getSetting("ftpUsername");
+        ftpCredentials.value.password = await getSetting("ftpPassword");
 
         if (ftpCredentials.value.host === "" || ftpCredentials.value.port === "" || ftpCredentials.value.user === "" || ftpCredentials.value.password === "") {
           await displayFlash("Please set FTP Credentials in Settings!", "error");
-          await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
+          await setSetting("enableAutoReconnect", false);
           await window.ipcRendererInvoke("disableAutoReconnectChanged");
           clearInterval(startIsOnlineInterval);
           return;
@@ -147,7 +148,7 @@ onMounted(async () => {
 
   watch(connected, async (newValue) => {
     if (newValue) {
-      ftpCredentials.value.host = await window.ipcRendererInvoke("get-setting", "ftpHost");
+      ftpCredentials.value.host = await getSetting("ftpHost");
     }
   });
 
@@ -164,7 +165,7 @@ const checkFtpProgress = async () => {
 
     try {
       progress = await window.ftp.calculateAndCompareSize(
-        await window.ipcRendererInvoke("get-setting", "ftp-sync-mode")
+        await getSetting("ftp-sync-mode")
       );
       syncProgress.value = progress;
     } catch (error) {
@@ -190,8 +191,8 @@ const checkFtpProgress = async () => {
         files.push({ path: file.localPath, name: file.name, size: file.size, type: fileType });
         size += file.size;
       }
-      let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
-      let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+      let ftpSyncPath = await getSetting("ftp-sync-directory");
+      let clientSyncPath = await getSetting("clientSyncPath");
 
       let log = {
         logType: "Sync-Progress",
@@ -279,10 +280,10 @@ window.ipcRendererOn("sync-progress-end", async () => {
 
 const connectToFtp = async () => {
   ftpCredentials.value = {
-    host: await window.ipcRendererInvoke("get-setting", "ftpHost"),
-    port: await window.ipcRendererInvoke("get-setting", "ftpPort"),
-    user: await window.ipcRendererInvoke("get-setting", "ftpUsername"),
-    password: await window.ipcRendererInvoke("get-setting", "ftpPassword")
+    host: await getSetting("ftpHost"),
+    port: await getSetting("ftpPort"),
+    user: await getSetting("ftpUsername"),
+    password: await getSetting("ftpPassword")
   };
 
 
@@ -307,9 +308,9 @@ const statusClass = computed(() => {
 
 const disconnectFtp = async () => {
   await stopSyncing();
-  let autoReconnectValue = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+  let autoReconnectValue = await getSetting("enableAutoReconnect");
   if (autoReconnectValue) {
-    await window.ipcRendererInvoke("set-setting", "enableAutoReconnect", false);
+    await setSetting("enableAutoReconnect", false);
     await displayFlash("Auto Re-Connect disabled in Settings!", "info");
   }
 

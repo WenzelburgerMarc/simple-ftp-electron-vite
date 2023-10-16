@@ -19,6 +19,7 @@ import FileList from "../../../../components/FileList.vue";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
 import SetFtpFolderNameModal from "./setFtpFolderNameModal.vue";
+import {setSetting, getSetting} from "../../../../js/manageSettings";
 
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
@@ -82,7 +83,7 @@ let pollingInterval;
 let syncModeInterval = null;
 const currentSyncMode = ref(null);
 onMounted(async () => {
-  currentDir.value = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+  currentDir.value = await getSetting("ftp-sync-directory");
   initialPath.value = await currentDir.value;
   await listFiles();
   watch(getFileList, () => {
@@ -112,7 +113,7 @@ onMounted(async () => {
 });
 
 const startPolling = async () => {
-  let timeout = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
+  let timeout = await getSetting("autoReloadFtpInterval");
   timeout = parseInt(timeout);
   timeout += 250;
   pollingInterval = setInterval(async () => {
@@ -155,7 +156,7 @@ const listFiles = async (showLoader = true) => {
 
 const setFtpSyncDirectory = async () => {
 
-  await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", currentDir.value);
+  await setSetting("ftp-sync-directory", currentDir.value);
   setCurrentDir(currentDir.value);
   initialPath.value = currentDir.value;
 

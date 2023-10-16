@@ -9,6 +9,7 @@ import breadcrumb from "../../../../components/form/Breadcrumb.vue";
 import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
+import {getSetting} from "../../../../js/manageSettings";
 
 const currentDir = ref("");
 const fileList = ref([]);
@@ -79,7 +80,7 @@ const createNewFolderOnClient = async () => {
 
 onMounted(async () => {
 
-  currentDir.value = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
+  currentDir.value = await getSetting("clientSyncPath");
   initialPath.value = await currentDir.value;
 
   window.ipcRendererInvoke("watch-client-directory", initialPath.value);

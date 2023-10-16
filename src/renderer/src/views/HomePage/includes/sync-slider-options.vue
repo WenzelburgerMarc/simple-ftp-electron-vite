@@ -35,12 +35,12 @@
 import IconButtonComponent from "../../../components/form/IconButtonComponent.vue";
 import { ref, computed, onMounted } from "vue";
 import { startSyncing } from "../../../js/ftpManager";
-
+import { setSetting, getSetting } from "../../../js/manageSettings";
 
 const uploadEnabled = ref(false);
 
 onMounted(async () => {
-  let mode = await window.ipcRendererInvoke("get-setting", "ftp-sync-mode");
+  let mode = await getSetting("ftp-sync-mode");
 
   if (mode === "upload") {
     await setSyncUpload();
@@ -54,10 +54,10 @@ onMounted(async () => {
 
 const setSyncUpload = async () => {
   await window.ipcRendererInvoke("sync-progress-start-loading");
-  await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "upload");
+  await setSetting("ftp-sync-mode", "upload");
   uploadEnabled.value = true;
-  let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+  let clientSyncPath = await getSetting("clientSyncPath");
+  let ftpSyncPath = await getSetting("ftp-sync-directory");
 
   await startSyncing("upload", clientSyncPath, ftpSyncPath)
     .catch(error => {
@@ -76,10 +76,10 @@ const setSyncUpload = async () => {
 
 const setSyncDownload = async () => {
   await window.ipcRendererInvoke("sync-progress-start-loading");
-  await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "download");
+  await setSetting("ftp-sync-mode", "download");
   uploadEnabled.value = false;
-  let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-  let ftpSyncPath = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+  let clientSyncPath = await getSetting("clientSyncPath");
+  let ftpSyncPath = await getSetting("ftp-sync-directory");
 
   await startSyncing("download", clientSyncPath, ftpSyncPath)
     .catch(error => {
@@ -98,7 +98,7 @@ const setSyncDownload = async () => {
 
 const setStopSyncingMethod = async () => {
   await window.ipcRendererInvoke("sync-progress-start-loading");
-  await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
+  await setSetting("ftp-sync-mode", "");
   uploadEnabled.value = null;
   await startSyncing("", "", "");
 

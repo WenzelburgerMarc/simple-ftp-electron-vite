@@ -77,6 +77,7 @@ import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, watch } from "vue";
 import { disconnect } from "../../js/ftpManager";
+import {getSetting} from "../../js/manageSettings.js";
 
 const props = defineProps({
   showModal: Boolean
@@ -136,7 +137,7 @@ const closeModal = () => {
 
 onMounted(async () => {
   window.ipcRendererOn("disableAutoReconnectChanged", async () => {
-    enableAutoReconnect.value = await window.ipcRendererInvoke("get-setting", "enableAutoReconnect");
+    enableAutoReconnect.value = await getSetting("enableAutoReconnect");
   });
 
   window.api.getAutoStartItemSetting().then(settings => {

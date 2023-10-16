@@ -1,7 +1,7 @@
 import { reactive, ref } from "vue";
 import { displayFlash } from "./flashMessageController";
 import { startLoading, stopLoading } from "./loaderManager";
-
+import {setSetting, getSetting} from "./manageSettings";
 
 export const connected = ref(false);
 export const fileList = reactive([]);
@@ -33,12 +33,12 @@ export const connect = (ftpSettings, justTest = false) => {
     };
 
     try {
-      let host = await window.ipcRendererInvoke("get-setting", "ftpHost");
-      let port = await window.ipcRendererInvoke("get-setting", "ftpPort");
-      let username = await window.ipcRendererInvoke("get-setting", "ftpUsername");
-      let password = await window.ipcRendererInvoke("get-setting", "ftpPassword");
-      let clientSyncPath = await window.ipcRendererInvoke("get-setting", "clientSyncPath");
-      let ftpSyncDirectory = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory");
+      let host = await getSetting("ftpHost");
+      let port = await getSetting("ftpPort");
+      let username = await getSetting("ftpUsername");
+      let password = await getSetting("ftpPassword");
+      let clientSyncPath = await getSetting("clientSyncPath");
+      let ftpSyncDirectory = await getSetting("ftp-sync-directory");
 
       if (!host || !port || !username || !password) {
         return handleConnectionError("Please set FTP-Connection Settings");
@@ -49,8 +49,8 @@ export const connect = (ftpSettings, justTest = false) => {
       }
 
       if (!ftpSyncDirectory) {
-        await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
-        await window.ipcRendererInvoke("set-setting", "ftp-sync-directory", "/");
+        await setSetting("ftp-sync-mode", "");
+        await setSetting("ftp-sync-directory", "/");
       }
 
       if (window.ftp.getIsConnected()) {
@@ -74,9 +74,9 @@ export const connect = (ftpSettings, justTest = false) => {
       displayFlash("Connected to FTP Server", "success");
       await listFilesAndDirectories();
       await startSyncing(
-        await window.ipcRendererInvoke("get-setting", "ftp-sync-mode"),
-        await window.ipcRendererInvoke("get-setting", "clientSyncPath"),
-        await window.ipcRendererInvoke("get-setting", "ftp-sync-directory")
+        await getSetting("ftp-sync-mode"),
+        await getSetting("clientSyncPath"),
+        await getSetting("ftp-sync-directory")
       );
       stopLoading();
       return resolve(true);
@@ -95,7 +95,7 @@ export const disconnect = async (deleteSyncModeInStore = false, hideFlashMessage
     await window.ftp.disconnectFTP();
     connected.value = window.ftp.getIsConnected();
     if (deleteSyncModeInStore) {
-      await window.ipcRendererInvoke("set-setting", "ftp-sync-mode", "");
+      await setSetting("ftp-sync-mode", "");
     }
     stopLoading();
     if (hideFlashMessage) return;
@@ -130,7 +130,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
   }
 
   if (remoteDir === null) {
-    remoteDir = await window.ipcRendererInvoke("get-setting", "ftp-sync-directory") || "/";
+    remoteDir = await getSetting("ftp-sync-directory") || "/";
   }
 
   try {

@@ -32,7 +32,7 @@ onMounted(async () => {
 
 
   let firstStart = await getSetting("firstStart");
-  console.log(firstStart);
+
   if(firstStart === null || firstStart === undefined) {
     await setSetting("firstStart", false);
     await resetSettings(false);
@@ -42,15 +42,6 @@ onMounted(async () => {
     // Load Settings
     await loadSettings(false)
 
-    let autoReloadFtpInterval = await window.ipcRendererInvoke("get-setting", "autoReloadFtpInterval");
-    let autoSyncInterval = await window.ipcRendererInvoke("get-setting", "autoSyncInterval");
-
-    if (!autoReloadFtpInterval) {
-      await window.ipcRendererInvoke("set-setting", "autoReloadFtpInterval", 60000);
-    }
-    if (!autoSyncInterval) {
-      await window.ipcRendererInvoke("set-setting", "autoSyncInterval", 30000);
-    }
   } catch (error) {
     let log = {
       logType: "Error",
