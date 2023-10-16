@@ -11,15 +11,25 @@ import {
   updateSettingsModalVisibility
 } from "../js/settingsModalController";
 import { isLogsModalVisible, openLogsModal, updateLogsModalVisibility } from "../js/logsModalController";
+import {isExitModalVisible, openExitModal, updateExitModalVisibility} from "../js/exitModalController";
+import ExitModal from "../components/ExitModal.vue";
 
 const toggleSettingsModal = () => {
   updateLogsModalVisibility(false);
+  updateExitModalVisibility(false);
   openSettingsModal();
 };
 
 const toggleLogsModal = () => {
   updateSettingsModalVisibility(false);
+  updateExitModalVisibility(false);
   openLogsModal();
+};
+
+const toggleExitModal = () => {
+  updateSettingsModalVisibility(false);
+  updateLogsModalVisibility(false);
+  openExitModal();
 };
 
 </script>
@@ -30,7 +40,9 @@ const toggleLogsModal = () => {
     </div>
     <loader />
     <TheSidebar @settings-clicked="toggleSettingsModal"
-                @logs-clicked="toggleLogsModal" />
+                @logs-clicked="toggleLogsModal"
+                @exitClicked="toggleExitModal"
+    />
 
     <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-5">
       <div class="w-full h-full flex flex-col justify-start items-start">
@@ -41,7 +53,12 @@ const toggleLogsModal = () => {
         />
         <logs-modal
           :show-modal="isLogsModalVisible"
-          @update:showModal="updateLogsModalVisibility" />
+          @update:showModal="updateLogsModalVisibility"
+        />
+        <exit-modal
+          :show-modal="isExitModalVisible"
+          @update:showModal="updateExitModalVisibility"
+        />
         <slot></slot>
       </div>
 

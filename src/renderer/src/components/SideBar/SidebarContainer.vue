@@ -11,7 +11,7 @@ import { ref, computed } from "vue";
 
 let isOpen = ref(false);
 
-const emit = defineEmits(["toggledSidebarEvent", "settingsClicked", "logsClicked"]);
+const emit = defineEmits(["toggledSidebarEvent", "settingsClicked", "logsClicked", "exitClicked"]);
 
 const router = useRouter();
 
@@ -32,7 +32,7 @@ const arrSidebarItemsBottom = [
     iconClass: "fa-solid fa-right-from-bracket",
     label: "Exit",
     actionEvent: () => {
-      window.ipcRendererInvoke("exit");
+      emit("exitClicked");
       if (isOpen.value)
         toggleSidebar();
     },

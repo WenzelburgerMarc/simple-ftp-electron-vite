@@ -10,6 +10,10 @@ const props = defineProps({
     type: String,
     default: "medium",
     validator: value => ["small", "medium", "large"].indexOf(value) !== -1
+  },
+  textColor: {
+    type: String,
+    default: "text-gray-800"
   }
 });
 

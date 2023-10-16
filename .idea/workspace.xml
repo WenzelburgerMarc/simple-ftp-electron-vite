@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Desc in every important file&#10;Sorted - Tags">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/clientManager.js" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="-">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/exitModalController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -124,15 +130,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="24135000" />
-    </task>
-    <task id="LOCAL-00077" summary="Fix - logs design&#10;Add - Logs Functionality">
-      <option name="closed" value="true" />
-      <created>1697023418015</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1697023418015</updated>
+      <workItem from="1697440665881" duration="26289000" />
     </task>
     <task id="LOCAL-00078" summary="Add - Delete Logs">
       <option name="closed" value="true" />
@@ -518,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697465185564</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="-">
+      <option name="closed" value="true" />
+      <created>1697466237804</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1697466237804</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +545,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Logs Pagination (Go To Prev Site after Deleting Whole Site)" />
     <MESSAGE value="Fix - Error Logs Message Not displaying" />
     <MESSAGE value="Fix - Delete Log" />
     <MESSAGE value="Fix - Accordion" />
@@ -564,6 +569,7 @@
     <MESSAGE value="Fix - error logs" />
     <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
     <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Desc in every important file&#10;Sorted - Tags" />
+    <MESSAGE value="-" />
+    <option name="LAST_COMMIT_MESSAGE" value="-" />
   </component>
 </project>

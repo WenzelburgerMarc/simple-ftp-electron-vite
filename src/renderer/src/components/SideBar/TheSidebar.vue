@@ -5,7 +5,7 @@ import { ref, watch } from "vue";
 
 let toggledSidebar = ref(false);
 
-const emits = defineEmits(["settingsClicked", "logsClicked"]);
+const emits = defineEmits(["settingsClicked", "logsClicked", "exitClicked"]);
 
 const settingsClicked = () => {
   emits("settingsClicked");
@@ -28,6 +28,8 @@ watch(() => toggledSidebar.value, () => {
   <div class="z-30">
     <SidebarContainer @logs-clicked="logsClicked"
                       @settings-clicked="settingsClicked"
-                      @toggledSidebarEvent="toggledSidebar = !toggledSidebar" />
+                      @toggledSidebarEvent="toggledSidebar = !toggledSidebar"
+                      @exitClicked="$emit('exitClicked')"
+    />
   </div>
 </template>

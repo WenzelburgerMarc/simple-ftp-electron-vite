@@ -80,7 +80,7 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
 
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - List Server Files",
       open: false,
       description: error.message
@@ -122,7 +122,7 @@ export const deleteFile = async (filePath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Delete Server File",
       open: false,
       description: error.message
@@ -151,7 +151,7 @@ export const createNewFolder = async (selectedDirectory) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Creating Server Folder",
       open: false,
       description: error.message
@@ -184,7 +184,7 @@ export const deleteDirectory = async (directory) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Delete Server Folder",
       open: false,
       description: error.message
@@ -264,7 +264,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
   if (!isConnected) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Start Syncing",
       open: false,
       description: "Not Connected to FTP Server"
@@ -314,7 +314,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     } else {
       let log = {
         logType: "Error",
-        id: window.api.getUUID(),
+        id: uuidv4(),
         type: "Error - Invalid Syncing Mode",
         open: false,
         description: "This Sync Mode does not exist."
@@ -352,7 +352,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
         } catch (error) {
           let log = {
             logType: "Error",
-            id: window.api.getUUID(),
+            id: uuidv4(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
             description: error.message
@@ -376,7 +376,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
         } catch (error) {
           let log = {
             logType: "Error",
-            id: window.api.getUUID(),
+            id: uuidv4(),
             type: "Error - Delete Server File On Mode Switch",
             open: false,
             description: error.message
@@ -390,7 +390,7 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Delete Client File On Mode Switch",
       open: false,
       description: error.message
@@ -455,7 +455,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Get Files to Upload",
       open: false,
       description: error.message
@@ -513,7 +513,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
           } catch (error) {
             let log = {
               logType: "Error",
-              id: window.api.getUUID(),
+              id: uuidv4(),
               type: "Error - Upload File",
               open: false,
               description: error.message
@@ -544,7 +544,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
             } catch (error) {
               let log = {
                 logType: "Error",
-                id: window.api.getUUID(),
+                id: uuidv4(),
                 type: "Error - Delete Client File After Upload",
                 open: false,
                 description: error.message
@@ -561,7 +561,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
       } catch (error) {
         let log = {
           logType: "Error",
-          id: window.api.getUUID(),
+          id: uuidv4(),
           type: "Error - Upload File",
           open: false,
           description: error.message
@@ -572,7 +572,7 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Upload File",
       open: false,
       description: error.message
@@ -623,7 +623,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Get Files to Download",
       open: false,
       description: error.message
@@ -649,7 +649,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
           } catch (error) {
             let log = {
               logType: "Error",
-              id: window.api.getUUID(),
+              id: uuidv4(),
               type: "Error - Download File",
               open: false,
               description: error.message
@@ -675,7 +675,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       } catch (error) {
         let log = {
           logType: "Error",
-          id: window.api.getUUID(),
+          id: uuidv4(),
           type: "Error - Download File",
           open: false,
           description: error.message
@@ -686,7 +686,7 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
   } catch (error) {
     let log = {
       logType: "Error",
-      id: window.api.getUUID(),
+      id: uuidv4(),
       type: "Error - Download File",
       open: false,
       description: error.message
