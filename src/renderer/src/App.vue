@@ -36,6 +36,7 @@ onMounted(async () => {
   try {
     // Load Settings
     await loadSettings(false)
+    await setSetting("passwordSuccessfullyEntered", false);
 
   } catch (error) {
     let log = {

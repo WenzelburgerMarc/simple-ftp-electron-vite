@@ -35,6 +35,11 @@ ipcMain.handle("exit", async () => {
   app.exit();
 });
 
+// Password on Startup
+ipcMain.handle("passwordEnteredSuccessfully", async (event) => {
+  event.sender.send("passwordEnteredSuccessfully");
+});
+
 // send Flash Message
 ipcMain.handle("flash-message", async (event, message, type) => {
   if (mainWindow && !mainWindow.isDestroyed())

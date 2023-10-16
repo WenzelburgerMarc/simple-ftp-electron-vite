@@ -8,6 +8,7 @@ import { defineEmits, onMounted } from "vue";
 import nightwind from "nightwind/helper";
 import FlashMessage from "@/components/FlashMessage.vue";
 import { ref, computed } from "vue";
+import { getSetting } from "../../js/manageSettings";
 
 let isOpen = ref(false);
 
@@ -15,6 +16,7 @@ const emit = defineEmits(["toggledSidebarEvent", "settingsClicked", "logsClicked
 
 const router = useRouter();
 
+const passwordSuccessfullyEntered = ref(false);
 
 const darkModeOn = ref(document.documentElement.classList.contains("dark"));
 const darkModeIcon = computed(() => darkModeOn.value ? "fa-solid fa-moon" : "fa-solid fa-sun");
@@ -89,13 +91,19 @@ function toggleSidebar() {
   emit("toggledSidebarEvent");
 }
 
-onMounted(() => {
+onMounted(async() => {
   window.addEventListener("click", (event) => {
     if (event.target.closest(".main-content-container")) {
       if (isOpen.value) {
         toggleSidebar();
       }
     }
+  });
+
+  passwordSuccessfullyEntered.value = await getSetting("passwordSuccessfullyEntered");
+
+  window.ipcRendererOn("passwordEnteredSuccessfully", async () => {
+    passwordSuccessfullyEntered.value = true;
   });
 });
 
@@ -136,6 +144,7 @@ function goToHome() {
 
       <sidebar-toggler
         :is-open="isOpen"
+        v-if="passwordSuccessfullyEntered"
         class="absolute left-full m-3"
         @toggleSidebar="toggleSidebar()" />
 
@@ -147,6 +156,7 @@ function goToHome() {
       <sidebar-divider />
       <SidebarItem
         v-for="item in arrSidebarItemsTop"
+        v-show="passwordSuccessfullyEntered"
         :key="item"
         :item="item"
         :is-open="isOpen"

@@ -11,8 +11,13 @@ import {
   updateSettingsModalVisibility
 } from "../js/settingsModalController";
 import { isLogsModalVisible, openLogsModal, updateLogsModalVisibility } from "../js/logsModalController";
-import {isExitModalVisible, openExitModal, updateExitModalVisibility} from "../js/exitModalController";
+import { isExitModalVisible, openExitModal, updateExitModalVisibility } from "../js/exitModalController";
 import ExitModal from "../components/ExitModal.vue";
+import PasswordModal from "../components/PasswordModal.vue";
+import { getSetting } from "../js/manageSettings";
+import { openPasswordModal, isPasswordModalVisible, updatePasswordModalVisibility } from "../js/passwordModalController";
+import { onMounted } from "vue";
+
 
 const toggleSettingsModal = () => {
   updateLogsModalVisibility(false);
@@ -31,6 +36,14 @@ const toggleExitModal = () => {
   updateLogsModalVisibility(false);
   openExitModal();
 };
+
+onMounted(async () => {
+  let passwordRequired = await getSetting("passwordRequiredOnStartup");
+  let setPasswordOnStartup = await getSetting("password");
+  if(passwordRequired && setPasswordOnStartup !== ""){
+    openPasswordModal();
+  }
+});
 
 </script>
 
@@ -58,6 +71,9 @@ const toggleExitModal = () => {
         <exit-modal
           :show-modal="isExitModalVisible"
           @update:showModal="updateExitModalVisibility"
+        />
+        <password-modal :show-modal="isPasswordModalVisible"
+                        @update:showModal="updatePasswordModalVisibility"
         />
         <slot></slot>
       </div>

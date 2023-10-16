@@ -22,6 +22,8 @@ watch(() => toggledSidebar.value, () => {
   mainContentContainer.classList.toggle("translate-blur");
 
 });
+
+
 </script>
 
 <template>

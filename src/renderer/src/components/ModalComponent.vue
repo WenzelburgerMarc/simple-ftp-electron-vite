@@ -18,6 +18,11 @@ const props = defineProps({
   showModal: {
     type: Boolean,
     required: true
+  },
+  overEverything: {
+    type: Boolean,
+    default: false,
+    required: false
   }
 });
 </script>

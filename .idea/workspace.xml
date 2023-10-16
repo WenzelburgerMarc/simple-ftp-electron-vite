@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="-">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/exitModalController.js" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - clear current syncing files on disconnect">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/js/passwordModalController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/main-layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -130,23 +132,7 @@
       <workItem from="1697094463621" duration="23905000" />
       <workItem from="1697180602348" duration="31000" />
       <workItem from="1697180643061" duration="25252000" />
-      <workItem from="1697440665881" duration="26289000" />
-    </task>
-    <task id="LOCAL-00078" summary="Add - Delete Logs">
-      <option name="closed" value="true" />
-      <created>1697025324060</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1697025324060</updated>
-    </task>
-    <task id="LOCAL-00079" summary="Fix - Logs Order">
-      <option name="closed" value="true" />
-      <created>1697025628250</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1697025628250</updated>
+      <workItem from="1697440665881" duration="28592000" />
     </task>
     <task id="LOCAL-00080" summary="Add - Pagination">
       <option name="closed" value="true" />
@@ -524,7 +510,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697466237804</updated>
     </task>
-    <option name="localTasksCounter" value="127" />
+    <task id="LOCAL-00127" summary="Add - Confirm Exit Modal + Clear Files if currently Syncing and exiting&#10;Fix - preloadFTP Logging errors">
+      <option name="closed" value="true" />
+      <created>1697468311475</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1697468311475</updated>
+    </task>
+    <task id="LOCAL-00128" summary="Fix - clear current syncing files on disconnect">
+      <option name="closed" value="true" />
+      <created>1697468579925</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1697468579925</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,8 +547,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Error Logs Message Not displaying" />
-    <MESSAGE value="Fix - Delete Log" />
     <MESSAGE value="Fix - Accordion" />
     <MESSAGE value="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn" />
     <MESSAGE value="Add - Save Logs Functionality" />
@@ -570,6 +570,8 @@
     <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
     <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="-" />
+    <MESSAGE value="Add - Confirm Exit Modal + Clear Files if currently Syncing and exiting&#10;Fix - preloadFTP Logging errors" />
+    <MESSAGE value="Fix - clear current syncing files on disconnect" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - clear current syncing files on disconnect" />
   </component>
 </project>

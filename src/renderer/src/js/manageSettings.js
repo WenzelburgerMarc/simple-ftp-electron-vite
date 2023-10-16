@@ -9,6 +9,8 @@ export const autoSyncInterval = ref(30000);
 export const selectedPath = ref("");
 export const enableAutoReconnect = ref(false);
 export const enableDeletingFilesAfterUpload = ref(false);
+export const passwordRequiredOnStartup = ref(false);
+export const password = ref("");
 
 export const ftpHost = ref("");
 export const ftpPort = ref("");
@@ -36,6 +38,8 @@ export const loadGeneralSettings = async (showFlash = true) => {
   selectedPath.value = await getSetting("clientSyncPath");
   enableAutoReconnect.value = await getSetting("enableAutoReconnect");
   enableDeletingFilesAfterUpload.value = await getSetting("enableDeletingFilesAfterUpload");
+  passwordRequiredOnStartup.value = await getSetting("passwordRequiredOnStartup");
+  password.value = await getSetting("password");
 
   if (showFlash) {
     displayFlash("General settings loaded successfully!", "success");
@@ -85,6 +89,8 @@ export const saveGeneralSettings = async (showFlash = true) => {
   await setSetting("clientSyncPath", selectedPath.value);
   await setSetting("enableAutoReconnect", enableAutoReconnect.value);
   await setSetting("enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
+  await setSetting("passwordRequiredOnStartup", passwordRequiredOnStartup.value);
+  await setSetting("password", password.value);
 
   await window.ipcRendererInvoke("unwatch-client-directory");
 

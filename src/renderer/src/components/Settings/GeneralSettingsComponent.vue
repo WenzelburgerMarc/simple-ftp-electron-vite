@@ -9,7 +9,7 @@ import {
   enableDeletingFilesAfterUpload,
   loadSettings,
   saveGeneralSettings,
-  saveSettings
+  saveSettings, passwordRequiredOnStartup, password
 } from "../../js/manageSettings.js";
 
 import ButtonComponent from "../form/ButtonComponent.vue";
@@ -21,6 +21,7 @@ import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, watch } from "vue";
 import { disconnect } from "../../js/ftpManager";
 import {getSetting} from "../../js/manageSettings.js";
+import InputComponent from "../form/InputComponent.vue";
 
 const props = defineProps({
   showModal: Boolean
@@ -68,6 +69,15 @@ const handleSelectDirectory = async (path) => {
 
   await window.ipcRendererInvoke("add-log", log);
 
+};
+
+const updatePasswordRequiredOnStartup = (newValue) => {
+  passwordRequiredOnStartup.value = newValue;
+  updatePassword("");
+};
+
+const updatePassword = (newValue) => {
+  password.value = newValue;
 };
 
 const closeModal = () => {
@@ -146,6 +156,16 @@ watch(props, async () => {
       :model-value="enableDeletingFilesAfterUpload"
       :label="'Enable deleting Files on Client after Upload'"
       @update:modelValue="updateEnableDeletingFilesAfterUpload" />
+
+    <CheckboxComponent :id="'passwordRequiredOnStartup'"
+                       :model-value="passwordRequiredOnStartup"
+                       :label="'Password required on Startup'"
+                       @update:modelValue="updatePasswordRequiredOnStartup" />
+    <input-component v-if="passwordRequiredOnStartup"
+                     :type="'text'"
+                     :placeholder="'Password'"
+                     :model-value="password"
+                     @update:modelValue="updatePassword" />
 
     <ButtonComponent
       :button-text="'Save'"
