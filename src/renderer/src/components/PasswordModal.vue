@@ -1,6 +1,6 @@
 <script setup>
 // Desc: Modal for displaying password input
-import { toRefs, defineProps, defineEmits, ref } from "vue";
+import { toRefs, defineProps, defineEmits, ref, onMounted } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import TitleComponent from "./form/TitleComponent.vue";
 import PlainButtonComponent from "./form/PlainButtonComponent.vue";
@@ -9,6 +9,10 @@ import { startLoading, stopLoading } from "../js/loaderManager";
 import InputComponent from "./form/InputComponent.vue";
 import { getSetting, setSetting } from "../js/manageSettings";
 import { displayFlash } from "../js/flashMessageController";
+import { updateSettingsModalVisibility } from "../js/settingsModalController";
+import { updateLogsModalVisibility } from "../js/logsModalController";
+import { updateExitModalVisibility } from "../js/exitModalController";
+import { openPasswordModal } from "../js/passwordModalController";
 
 const emits = defineEmits(["update:showModal"]);
 
@@ -23,6 +27,11 @@ const closeModal = () => {
   emits("update:showModal", false);
 };
 
+onMounted( () => {
+  window.ipcRendererOn("resetPasswordEnteredSuccessfully", async () => {
+    updatePassword("");
+  });
+});
 
 const updatePassword = (newValue) => {
   password.value = newValue;

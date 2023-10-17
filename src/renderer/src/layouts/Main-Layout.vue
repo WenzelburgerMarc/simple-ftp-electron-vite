@@ -45,6 +45,13 @@ onMounted(async () => {
   }else{
     await window.ipcRendererInvoke("passwordEnteredSuccessfully");
   }
+
+  window.ipcRendererOn("resetPasswordEnteredSuccessfully", async () => {
+    updateSettingsModalVisibility(false);
+    updateLogsModalVisibility(false);
+    updateExitModalVisibility(false);
+    openPasswordModal();
+  });
 });
 
 </script>
@@ -59,7 +66,7 @@ onMounted(async () => {
                 @exitClicked="toggleExitModal"
     />
 
-    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-5">
+    <div class="main-content-container w-[calc(100vw-70px)] min-h-screen p-5 ml-0">
       <div class="w-full h-full flex flex-col justify-start items-start">
         <SettingsModal
           :show-modal="isSettingsModalVisible"

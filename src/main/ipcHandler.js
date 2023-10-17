@@ -50,6 +50,10 @@ ipcMain.handle("passwordEnteredSuccessfully", async (event) => {
   event.sender.send("passwordEnteredSuccessfully");
 });
 
+ipcMain.handle("resetPasswordEnteredSuccessfully", async (event) => {
+  event.sender.send("resetPasswordEnteredSuccessfully");
+});
+
 // send Flash Message
 ipcMain.handle("flash-message", async (event, message, type) => {
   if (mainWindow && !mainWindow.isDestroyed())

@@ -25,6 +25,7 @@ onMounted(async () => {
   localStorage.removeItem("showGeneralSettings");
   localStorage.removeItem("showFtpSettings");
 
+  await setSetting('passwordSuccessfullyEntered', false)
 
   let firstStart = await getSetting("firstStart");
 

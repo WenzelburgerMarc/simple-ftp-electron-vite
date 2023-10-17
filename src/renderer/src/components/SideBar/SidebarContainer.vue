@@ -91,19 +91,25 @@ function toggleSidebar() {
   emit("toggledSidebarEvent");
 }
 
-onMounted(async() => {
+onMounted(async () => {
   window.addEventListener("click", (event) => {
     if (event.target.closest(".main-content-container")) {
       if (isOpen.value) {
         toggleSidebar();
       }
     }
+
+
   });
 
   passwordSuccessfullyEntered.value = await getSetting("passwordSuccessfullyEntered");
 
   window.ipcRendererOn("passwordEnteredSuccessfully", async () => {
     passwordSuccessfullyEntered.value = true;
+  });
+
+  window.ipcRendererOn("resetPasswordEnteredSuccessfully", async () => {
+    passwordSuccessfullyEntered.value = false;
   });
 });
 
@@ -140,11 +146,10 @@ function goToHome() {
     class="sidebar w-auto fixed top-0 left-0 bg-blue-600 h-screen z-50"
     :class="isOpen ? 'sidebarOpen' : 'sidebarClosed'">
 
-    <div class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
+    <div v-if="passwordSuccessfullyEntered === true" class="sidebar-content transition-all relative flex flex-col items-start justify-start h-full pb-3">
 
       <sidebar-toggler
         :is-open="isOpen"
-        v-if="passwordSuccessfullyEntered"
         class="absolute left-full ml-[0.35rem] mt-4"
         @toggleSidebar="toggleSidebar()" />
 
