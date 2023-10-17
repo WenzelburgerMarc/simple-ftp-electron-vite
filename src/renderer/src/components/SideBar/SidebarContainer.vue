@@ -145,7 +145,7 @@ function goToHome() {
       <sidebar-toggler
         :is-open="isOpen"
         v-if="passwordSuccessfullyEntered"
-        class="absolute left-full m-3"
+        class="absolute left-full ml-[0.35rem] mt-4"
         @toggleSidebar="toggleSidebar()" />
 
       <sidebar-item
