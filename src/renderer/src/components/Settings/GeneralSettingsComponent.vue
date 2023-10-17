@@ -9,7 +9,9 @@ import {
   enableDeletingFilesAfterUpload,
   loadSettings,
   saveGeneralSettings,
-  saveSettings, passwordRequiredOnStartup, password
+  passwordRequiredOnStartup,
+  password,
+  confirmPassword
 } from "../../js/manageSettings.js";
 
 import ButtonComponent from "../form/ButtonComponent.vue";
@@ -20,8 +22,9 @@ import IconButtonComponent from "../form/IconButtonComponent.vue";
 import TitleComponent from "../form/TitleComponent.vue";
 import { onMounted, watch } from "vue";
 import { disconnect } from "../../js/ftpManager";
-import {getSetting} from "../../js/manageSettings.js";
+import { getSetting } from "../../js/manageSettings.js";
 import InputComponent from "../form/InputComponent.vue";
+import LabelComponent from "../form/LabelComponent.vue";
 
 const props = defineProps({
   showModal: Boolean
@@ -74,10 +77,15 @@ const handleSelectDirectory = async (path) => {
 const updatePasswordRequiredOnStartup = (newValue) => {
   passwordRequiredOnStartup.value = newValue;
   updatePassword("");
+  updateConfirmPassword("");
 };
 
 const updatePassword = (newValue) => {
   password.value = newValue;
+};
+
+const updateConfirmPassword = (newValue) => {
+  confirmPassword.value = newValue;
 };
 
 const closeModal = () => {
@@ -161,16 +169,31 @@ watch(props, async () => {
                        :model-value="passwordRequiredOnStartup"
                        :label="'Password required on Startup'"
                        @update:modelValue="updatePasswordRequiredOnStartup" />
-    <input-component v-if="passwordRequiredOnStartup"
-                     :type="'text'"
-                     :placeholder="'Password'"
-                     :model-value="password"
-                     @update:modelValue="updatePassword" />
+    <div class="w-full">
+      <label-component v-if="passwordRequiredOnStartup"
+                       :label-text="'Password'"
+      />
+      <input-component v-if="passwordRequiredOnStartup"
+                       :type="'password'"
+                       :placeholder="'Password'"
+                       :model-value="password"
+                       @update:modelValue="updatePassword" />
+    </div>
+    <div class="w-full">
+      <label-component v-if="passwordRequiredOnStartup"
+                       :label-text="'Confirm Password'"
+      />
+      <input-component v-if="passwordRequiredOnStartup"
+                       :type="'password'"
+                       :placeholder="'Confirm Password'"
+                       :model-value="confirmPassword"
+                       @update:modelValue="updateConfirmPassword" />
+    </div>
 
     <ButtonComponent
       :button-text="'Save'"
       :emit-event="'saveSettings'"
       :class="'mx-auto'"
-      @saveSettings="saveSettings" />
+      @saveSettings="saveGeneralSettings" />
   </div>
 </template>

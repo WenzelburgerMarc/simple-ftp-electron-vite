@@ -65,7 +65,7 @@ const submit = async() => {
 
       <input-component :model-value="password"
                        :label="'Password'"
-                       :type="'text'"
+                       :type="'password'"
                        :placeholder="'Password'"
                        @update:modelValue="updatePassword" />
 

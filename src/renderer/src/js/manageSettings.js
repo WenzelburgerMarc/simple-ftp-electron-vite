@@ -11,6 +11,7 @@ export const enableAutoReconnect = ref(false);
 export const enableDeletingFilesAfterUpload = ref(false);
 export const passwordRequiredOnStartup = ref(false);
 export const password = ref("");
+export const confirmPassword = ref("");
 
 export const ftpHost = ref("");
 export const ftpPort = ref("");
@@ -82,6 +83,15 @@ export const saveGeneralSettings = async (showFlash = true) => {
       return;
   }
 
+
+  if(passwordRequiredOnStartup.value && password.value !== confirmPassword.value) {
+    displayFlash("Passwords do not match!", "error");
+    stopLoading();
+    return;
+  }else{
+    await setSetting("password", password.value);
+  }
+
   // General Settings
   await setSetting("enableAutoStart", enableAutoStart.value);
   await setSetting("autoReloadFtpInterval", autoReloadFtpInterval.value);
@@ -90,7 +100,6 @@ export const saveGeneralSettings = async (showFlash = true) => {
   await setSetting("enableAutoReconnect", enableAutoReconnect.value);
   await setSetting("enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
   await setSetting("passwordRequiredOnStartup", passwordRequiredOnStartup.value);
-  await setSetting("password", password.value);
 
   await window.ipcRendererInvoke("unwatch-client-directory");
 
