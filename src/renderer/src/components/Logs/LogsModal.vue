@@ -157,7 +157,9 @@ const toggleLogDetails = (id) => {
 
         <TitleComponent
           :title-text="'Logs'"
-          :size="'medium'" />
+          :size="'medium'"
+          class="mb-2"
+        />
 
         <IconButtonComponent
           v-if="props.showModal"
@@ -251,7 +253,8 @@ const toggleLogDetails = (id) => {
       class="absolute bottom-3 right-3"
       :label-text="'Page ' + currentPage + ' of ' + Math.max((Math.ceil(logList.length / itemsPerPage)), 1)"
     />
-    <div class="w-fit flex flex-col space-y-2" v-if="logList.length > 0">
+    <div class="w-fit flex flex-col space-y-2"
+         v-if="logList.length > 0">
 
       <icon-button-component :icon="['fas', 'fa-download']"
                              :btn-class="'bg-blue-300 hover:bg-blue-400 p-1 rounded-md text-gray-800'"

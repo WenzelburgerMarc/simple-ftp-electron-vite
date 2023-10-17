@@ -20,7 +20,7 @@ import {
   clearLogs,
   saveAllLogs
 } from "./logs";
-import { exportSettings, importSettings } from "./manageSettings";
+import { exportSettings, importSettings } from "./manageConfig";
 
 
 const store = new Store();

@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Import / Export Settings Functionality">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Lock Software Functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/manageConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,15 +128,7 @@
       <workItem from="1697180643061" duration="25252000" />
       <workItem from="1697440665881" duration="28689000" />
       <workItem from="1697470751103" duration="2000" />
-      <workItem from="1697526362720" duration="11695000" />
-    </task>
-    <task id="LOCAL-00088" summary="Fix - Logs Design">
-      <option name="closed" value="true" />
-      <created>1697114050489</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1697114050490</updated>
+      <workItem from="1697526362720" duration="13050000" />
     </task>
     <task id="LOCAL-00089" summary="Fix - Removed Unused Log Objects">
       <option name="closed" value="true" />
@@ -524,7 +514,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697537374949</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="Add - Lock Software Functionality">
+      <option name="closed" value="true" />
+      <created>1697539399678</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1697539399678</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,7 +543,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window" />
     <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
     <MESSAGE value="Add - Move Frame" />
     <MESSAGE value="Add - settings manager" />
@@ -570,6 +567,7 @@
     <MESSAGE value="Fix - PW Submit" />
     <MESSAGE value="Fix - Sidebar toggle btn position" />
     <MESSAGE value="Add - Import / Export Settings Functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Import / Export Settings Functionality" />
+    <MESSAGE value="Add - Lock Software Functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Lock Software Functionality" />
   </component>
 </project>

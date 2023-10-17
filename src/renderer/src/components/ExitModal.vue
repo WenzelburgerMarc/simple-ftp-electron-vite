@@ -1,12 +1,12 @@
 <script setup>
 // Desc: Modal for displaying confirm exit
-import { toRefs, defineEmits, ref, onMounted } from "vue";
+import { toRefs, defineEmits, ref, onMounted, watch } from "vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import TitleComponent from "./form/TitleComponent.vue";
 import PlainButtonComponent from "./form/PlainButtonComponent.vue";
 import ButtonComponent from "./form/ButtonComponent.vue";
 import { startLoading, stopLoading } from "../js/loaderManager";
-import { getSetting } from "../js/manageSettings";
+import { getSetting, password } from "../js/manageSettings";
 
 const emits = defineEmits(["update:showModal"]);
 
@@ -37,6 +37,16 @@ const lock = async() => {
 
 const lockAvailable = ref(false);
 onMounted(async() => {
+  watch(props, async (newValue) => {
+    if (newValue) {
+
+      if(password.value.toString().length > 0){
+        lockAvailable.value = await getSetting("passwordRequiredOnStartup");
+      }else{
+        lockAvailable.value = false;
+      }
+    }
+  });
   lockAvailable.value = await getSetting("passwordRequiredOnStartup");
 });
 
