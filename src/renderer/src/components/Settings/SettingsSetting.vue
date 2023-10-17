@@ -33,6 +33,7 @@ const setLocalStorage = () => {
   localStorage.setItem("showFtpSettings", showFtpSettings.value);
 };
 
+
 </script>
 
 <template>

@@ -11,7 +11,7 @@ import {
   saveGeneralSettings,
   passwordRequiredOnStartup,
   password,
-  confirmPassword
+  confirmPassword, exportSettings, importSettings
 } from "../../js/manageSettings.js";
 
 import ButtonComponent from "../form/ButtonComponent.vue";
@@ -25,6 +25,7 @@ import { disconnect } from "../../js/ftpManager";
 import { getSetting } from "../../js/manageSettings.js";
 import InputComponent from "../form/InputComponent.vue";
 import LabelComponent from "../form/LabelComponent.vue";
+import PlainButtonComponent from "../form/PlainButtonComponent.vue";
 
 const props = defineProps({
   showModal: Boolean
@@ -105,13 +106,25 @@ onMounted(async () => {
   watch(enableAutoStart, (newValue) => {
     window.api.setAutoStartItemSetting({ openAtLogin: newValue });
   });
-
+  updatePassword(await getSetting("password"));
+  updateConfirmPassword('');
   await loadSettings(false);
 });
 
 watch(props, async () => {
   await loadSettings(false);
 });
+
+const importConfig = async () => {
+  // Select JSON File
+  await importSettings();
+};
+
+const exportConfig = async () => {
+  // Save JSON Files
+  await exportSettings();
+};
+
 </script>
 
 <template>
@@ -208,5 +221,19 @@ watch(props, async () => {
       :emit-event="'saveSettings'"
       :class="'mx-auto'"
       @saveSettings="saveGeneralSettings" />
+
+    <div class="w-full flex justify-end items-center space-x-2">
+      <PlainButtonComponent :button-text="'Import'"
+                            :emit-event="'importSettings'"
+                            @importSettings="importConfig"
+                            class="w-fit px-4 rounded-md text-gray-500"
+      />
+      <PlainButtonComponent :button-text="'Export'"
+                            :emit-event="'exportSettings'"
+                            @exportSettings="exportConfig"
+                            class="w-fit px-4 rounded-md text-gray-500"
+
+      />
+    </div>
   </div>
 </template>

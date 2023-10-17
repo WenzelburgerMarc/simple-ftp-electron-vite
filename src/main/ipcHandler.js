@@ -20,10 +20,20 @@ import {
   clearLogs,
   saveAllLogs
 } from "./logs";
+import { exportSettings, importSettings } from "./manageSettings";
 
 
 const store = new Store();
 //store.delete("firstStart");
+
+// Export / Import Settings
+ipcMain.handle("export-settings", async (event, settings) => {
+  await exportSettings(settings);
+});
+
+ipcMain.handle("import-settings", async () => {
+  return await importSettings();
+});
 
 // Get all data from the electron store
 ipcMain.handle("get-all-data", () => {

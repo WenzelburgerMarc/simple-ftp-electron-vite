@@ -79,16 +79,16 @@ export const saveGeneralSettings = async (showFlash = true) => {
   startLoading();
 
   if (!validateGeneralSettings()) {
-      stopLoading();
-      return;
+    stopLoading();
+    return;
   }
 
 
-  if(passwordRequiredOnStartup.value && password.value !== confirmPassword.value) {
+  if (passwordRequiredOnStartup.value && password.value !== confirmPassword.value) {
     displayFlash("Passwords do not match!", "error");
     stopLoading();
     return;
-  }else{
+  } else {
     await setSetting("password", password.value);
   }
 
@@ -173,7 +173,7 @@ export const resetGeneralSettings = async (showFlash = true) => {
   if (showFlash) {
     displayFlash("General settings reset successfully!", "success");
   }
-  await saveGeneralSettings(false)
+  await saveGeneralSettings(false);
   stopLoading();
 };
 
@@ -188,6 +188,94 @@ export const resetFtpSettings = async (showFlash = true) => {
   if (showFlash) {
     displayFlash("Ftp settings reset successfully!", "success");
   }
-  await saveFtpSettings(false)
+  await saveFtpSettings(false);
   stopLoading();
+};
+
+// Export / Import Settings
+export const exportSettings = async () => {
+  try {
+    await startLoading();
+
+    const settings = await getSettings();
+
+    await window.ipcRendererInvoke("export-settings", settings);
+
+    stopLoading();
+    displayFlash("Settings exported successfully!", "success");
+  } catch (error) {
+    displayFlash("Settings not exported: " + error.message, "error");
+    stopLoading();
+  }
+
+};
+
+const getSettings = async () => {
+  // General Settings
+  const enableAutoStart = await getSetting("enableAutoStart") || false;
+  const autoReloadFtpInterval = await getSetting("autoReloadFtpInterval") || 60000;
+  const autoSyncInterval = await getSetting("autoSyncInterval") || 30000;
+  const selectedPath = await getSetting("clientSyncPath") || "";
+  const enableAutoReconnect = await getSetting("enableAutoReconnect") || false;
+  const enableDeletingFilesAfterUpload = await getSetting("enableDeletingFilesAfterUpload") || false;
+  const passwordRequiredOnStartup = await getSetting("passwordRequiredOnStartup") || false;
+  const password = await getSetting("password") || "";
+
+  // FtP Settings
+  const ftpHost = await getSetting("ftpHost") || "";
+  const ftpPort = await getSetting("ftpPort") || "";
+  const ftpUsername = await getSetting("ftpUsername") || "";
+  const ftpPassword = await getSetting("ftpPassword") || "";
+
+  return {
+    enableAutoStart,
+    autoReloadFtpInterval,
+    autoSyncInterval,
+    selectedPath,
+    enableAutoReconnect,
+    enableDeletingFilesAfterUpload,
+    passwordRequiredOnStartup,
+    password,
+    ftpHost,
+    ftpPort,
+    ftpUsername,
+    ftpPassword
+  };
+
+};
+
+const setSettings = async (settings) => {
+  enableAutoStart.value = settings.enableAutoStart;
+  autoReloadFtpInterval.value = settings.autoReloadFtpInterval;
+  autoSyncInterval.value = settings.autoSyncInterval;
+  selectedPath.value = settings.selectedPath;
+  enableAutoReconnect.value = settings.enableAutoReconnect;
+  enableDeletingFilesAfterUpload.value = settings.enableDeletingFilesAfterUpload;
+  passwordRequiredOnStartup.value = settings.passwordRequiredOnStartup;
+  password.value = settings.password;
+  ftpHost.value = settings.ftpHost;
+  ftpPort.value = settings.ftpPort;
+  ftpUsername.value = settings.ftpUsername;
+  ftpPassword.value = settings.ftpPassword;
+  confirmPassword.value = settings.password;
+}
+export const importSettings = async () => {
+  const backupSettings = await getSettings();
+  try {
+    startLoading();
+    let settings = await window.ipcRendererInvoke("import-settings");
+    if (!settings) {
+      settings = backupSettings;
+    }
+    await setSettings(settings);
+    await saveSettings(false);
+    displayFlash("Settings imported successfully!", "success");
+    stopLoading();
+  } catch (error) {
+    await setSettings(backupSettings);
+    await saveSettings(false)
+    displayFlash("Error importing Settings: " + error.message, "error");
+    stopLoading();
+  }
+
 };
