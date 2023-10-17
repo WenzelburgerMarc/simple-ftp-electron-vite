@@ -52,7 +52,11 @@ const prevPage = () => {
 const isCurrentPageEmpty = () => {
   if (paginatedLogs.value.length === 0 && currentPage.value > 1) {
     currentPage.value -= 1;
+    isCurrentPageEmpty();
+  }else{
+    currentPage.value = 1;
   }
+
 };
 
 
