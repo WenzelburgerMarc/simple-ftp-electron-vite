@@ -78,6 +78,7 @@ const updatePasswordRequiredOnStartup = (newValue) => {
   passwordRequiredOnStartup.value = newValue;
   updatePassword("");
   updateConfirmPassword("");
+  saveGeneralSettings();
 };
 
 const updatePassword = (newValue) => {
