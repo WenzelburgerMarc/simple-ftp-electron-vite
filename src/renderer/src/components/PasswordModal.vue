@@ -13,7 +13,7 @@ import { displayFlash } from "../js/flashMessageController";
 const emits = defineEmits(["update:showModal"]);
 
 const props = defineProps({
-  showModal: Boolean,
+  showModal: Boolean
 });
 
 const { showModal } = toRefs(props);
@@ -28,7 +28,7 @@ const updatePassword = (newValue) => {
   password.value = newValue;
 };
 
-const exit = async() => {
+const exit = async () => {
   await startLoading();
   await window.ftp.clearFilesAfterModeSwitch();
   closeModal();
@@ -36,18 +36,18 @@ const exit = async() => {
   await stopLoading();
 };
 
-const submit = async() => {
+const submit = async () => {
   await startLoading();
   let passwordRequired = await getSetting("passwordRequiredOnStartup");
   let setPasswordOnStartup = await getSetting("password");
-  if(passwordRequired && password.value !== setPasswordOnStartup){
-    await displayFlash("Incorrect Password", "error")
+  if (passwordRequired && password.value !== setPasswordOnStartup) {
+    await displayFlash("Incorrect Password", "error");
     await stopLoading();
     return;
-  }else{
+  } else {
     await setSetting("passwordSuccessfullyEntered", true);
-    await window.ipcRendererInvoke('passwordEnteredSuccessfully');
-    await displayFlash("Password Accepted", "success")
+    await window.ipcRendererInvoke("passwordEnteredSuccessfully");
+    await displayFlash("Password Accepted", "success");
     closeModal();
   }
   await stopLoading();
@@ -67,7 +67,9 @@ const submit = async() => {
                        :label="'Password'"
                        :type="'password'"
                        :placeholder="'Password'"
-                       @update:modelValue="updatePassword" />
+                       @update:modelValue="updatePassword"
+                       @keydown.enter.prevent="submit"
+      />
 
       <div class="w-full flex justify-center items-center space-x-5 my-3">
         <ButtonComponent
