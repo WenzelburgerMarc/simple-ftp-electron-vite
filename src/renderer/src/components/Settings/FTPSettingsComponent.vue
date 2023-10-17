@@ -13,7 +13,7 @@ import {
   ftpUsername,
   ftpPassword,
   loadSettings,
-  saveFtpSettings,
+  saveFtpSettings
 } from "../../js/manageSettings.js";
 
 const props = defineProps({
@@ -102,25 +102,33 @@ const testFtpSettings = async () => {
     type="text"
     placeholder="192.168.1.1 or ftp.example.com"
     :model-value="ftpHost"
-    @update:modelValue="updateFtpHost" />
+    @update:modelValue="updateFtpHost"
+    @keydown.enter.prevent="saveFtpSettings"
+  />
   <LabelInputComponent
     label="Port"
     type="text"
     placeholder="21"
     :model-value="ftpPort"
-    @update:modelValue="updateFtpPort" />
+    @update:modelValue="updateFtpPort"
+    @keydown.enter.prevent="saveFtpSettings"
+  />
   <LabelInputComponent
     label="Username"
     type="text"
     placeholder="john_doe"
     :model-value="ftpUsername"
-    @update:modelValue="updateFtpUsername" />
+    @update:modelValue="updateFtpUsername"
+    @keydown.enter.prevent="saveFtpSettings"
+  />
   <LabelInputComponent
     label="Password"
     type="password"
     placeholder="********"
     :model-value="ftpPassword"
-    @update:modelValue="updateFtpPassword" />
+    @update:modelValue="updateFtpPassword"
+    @keydown.enter.prevent="saveFtpSettings"
+  />
   <div class="w-full flex justify-start items-center space-x-3 mr-auto">
     <ButtonComponent
       button-text="Connect"

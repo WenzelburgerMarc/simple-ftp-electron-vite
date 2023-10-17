@@ -132,43 +132,51 @@ watch(props, async () => {
       :prev-selected-path="selectedPath"
       label-text="Choose Directory to Sync With Server"
       :btn-text="'Select Save Location'"
-      @updateSelectedPath="handleSelectDirectory" />
-
+      @updateSelectedPath="handleSelectDirectory"
+    />
 
     <LabelInputComponent
       :model-value="autoSyncInterval"
       :label="'Auto-Sync Interval in ms'"
       :type="'number'"
       :placeholder="'10000'"
-      @update:modelValue="updateSyncInterval" />
+      @update:modelValue="updateSyncInterval"
+      @keydown.enter.prevent="saveGeneralSettings"
+    />
     <LabelInputComponent
       :model-value="autoReloadFtpInterval"
       :label="'Auto-Reload FTP Files Interval in ms'"
       :type="'number'"
       :placeholder="'60000'"
-      @update:modelValue="updateAutoReloadFtpInterval" />
+      @update:modelValue="updateAutoReloadFtpInterval"
+      @keydown.enter.prevent="saveGeneralSettings"
+    />
 
 
     <CheckboxComponent
       :id="'enableAutoUpload'"
       :model-value="enableAutoStart"
       :label="'Enable Auto-Start'"
-      @update:modelValue="updateEnableAutoStart" />
+      @update:modelValue="updateEnableAutoStart"
+    />
     <CheckboxComponent
       :id="'enableAutoReconnect'"
       :model-value="enableAutoReconnect"
       :label="'Enable Auto-Reconnect on Start-Up & Connection Loss'"
-      @update:modelValue="updateEnableAutoReconnect" />
+      @update:modelValue="updateEnableAutoReconnect"
+    />
     <CheckboxComponent
       :id="'enableDeletingFilesAfterUpload'"
       :model-value="enableDeletingFilesAfterUpload"
       :label="'Enable deleting Files on Client after Upload'"
-      @update:modelValue="updateEnableDeletingFilesAfterUpload" />
+      @update:modelValue="updateEnableDeletingFilesAfterUpload"
+    />
 
     <CheckboxComponent :id="'passwordRequiredOnStartup'"
                        :model-value="passwordRequiredOnStartup"
                        :label="'Password required on Startup'"
-                       @update:modelValue="updatePasswordRequiredOnStartup" />
+                       @update:modelValue="updatePasswordRequiredOnStartup"
+    />
     <div class="w-full">
       <label-component v-if="passwordRequiredOnStartup"
                        :label-text="'Password'"
@@ -177,7 +185,9 @@ watch(props, async () => {
                        :type="'password'"
                        :placeholder="'Password'"
                        :model-value="password"
-                       @update:modelValue="updatePassword" />
+                       @update:modelValue="updatePassword"
+                       @keydown.enter.prevent="saveGeneralSettings"
+      />
     </div>
     <div class="w-full">
       <label-component v-if="passwordRequiredOnStartup"
@@ -187,7 +197,9 @@ watch(props, async () => {
                        :type="'password'"
                        :placeholder="'Confirm Password'"
                        :model-value="confirmPassword"
-                       @update:modelValue="updateConfirmPassword" />
+                       @update:modelValue="updateConfirmPassword"
+                       @keydown.enter.prevent="saveGeneralSettings"
+      />
     </div>
 
     <ButtonComponent

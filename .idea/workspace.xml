@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Confirm PW On Start-up">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Submit PW on Enter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,15 +126,7 @@
       <workItem from="1697180643061" duration="25252000" />
       <workItem from="1697440665881" duration="28689000" />
       <workItem from="1697470751103" duration="2000" />
-      <workItem from="1697526362720" duration="2657000" />
-    </task>
-    <task id="LOCAL-00082" summary="Add - Delete FTP File Log&#10;Fix - LogsModal.vue Design Fix For Delete Actions">
-      <option name="closed" value="true" />
-      <created>1697032675607</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1697032675607</updated>
+      <workItem from="1697526362720" duration="3320000" />
     </task>
     <task id="LOCAL-00083" summary="Add - Delete client File Log">
       <option name="closed" value="true" />
@@ -519,7 +512,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697528553538</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="Add - Submit PW on Enter">
+      <option name="closed" value="true" />
+      <created>1697529086255</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529086255</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,7 +541,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - Save Logs Functionality" />
     <MESSAGE value="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality" />
     <MESSAGE value="Fix - Error Logs" />
     <MESSAGE value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
@@ -565,6 +565,7 @@
     <MESSAGE value="Fix - clear current syncing files on disconnect" />
     <MESSAGE value="Add - PW On Startup" />
     <MESSAGE value="Add - Confirm PW On Start-up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Confirm PW On Start-up" />
+    <MESSAGE value="Add - Submit PW on Enter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Submit PW on Enter" />
   </component>
 </project>
