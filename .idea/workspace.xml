@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Save Settings on Enter">
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Save Settings on checkbox toggle">
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +124,7 @@
       <workItem from="1697180643061" duration="25252000" />
       <workItem from="1697440665881" duration="28689000" />
       <workItem from="1697470751103" duration="2000" />
-      <workItem from="1697526362720" duration="3423000" />
-    </task>
-    <task id="LOCAL-00084" summary="Fix - Delete File Log, Upload/Download + Cancel Log">
-      <option name="closed" value="true" />
-      <created>1697106801116</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1697106801116</updated>
+      <workItem from="1697526362720" duration="3717000" />
     </task>
     <task id="LOCAL-00085" summary="Add - Create Folder Log&#10;Add - Set Sync Path Log&#10;Fix - Delete File Log">
       <option name="closed" value="true" />
@@ -518,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697529706934</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Fix - Save Settings on checkbox toggle">
+      <option name="closed" value="true" />
+      <created>1697529889020</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529889020</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +539,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - Error Logs" />
     <MESSAGE value="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon" />
     <MESSAGE value="Fix - Clear New Ftp Folder Input On Popup" />
     <MESSAGE value="Formatting Files" />
@@ -564,6 +563,7 @@
     <MESSAGE value="Add - Confirm PW On Start-up" />
     <MESSAGE value="Add - Submit PW on Enter" />
     <MESSAGE value="Add - Save Settings on Enter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Save Settings on Enter" />
+    <MESSAGE value="Fix - Save Settings on checkbox toggle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Save Settings on checkbox toggle" />
   </component>
 </project>

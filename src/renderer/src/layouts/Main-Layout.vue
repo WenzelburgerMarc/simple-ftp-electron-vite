@@ -42,6 +42,8 @@ onMounted(async () => {
   let setPasswordOnStartup = await getSetting("password");
   if(passwordRequired && setPasswordOnStartup !== ""){
     openPasswordModal();
+  }else{
+    await window.ipcRendererInvoke("passwordEnteredSuccessfully");
   }
 });
 
