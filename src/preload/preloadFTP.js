@@ -400,6 +400,47 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
 
 };
 
+// Search Methods
+export const getAllFtpFileTypes = async (directory = null) => {
+  try {
+
+    if (directory === null)
+      directory = await ipcRenderer.invoke("get-setting", "ftp-sync-directory");
+
+
+    const items = await sftp.list(directory);
+    let files = [];
+    for (const item of items) {
+      if (item.type === "d") {
+        const subDirectory = path.posix.join(directory, item.name);
+        const subFiles = await getAllFtpFileTypes(subDirectory);
+        files = files.concat(subFiles);
+      } else {
+        files.push(item.name);
+      }
+    }
+
+    files = files.map((file) => {
+      let splitFile = file.split(".");
+      if (splitFile.length > 1) {
+        return splitFile[splitFile.length - 1];
+      }
+    });
+
+    return files;
+  } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Get All FTP File Types",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
+  }
+};
+
+
 // === Helper Methods === \\
 // Get files that are on client and not on server
 const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {

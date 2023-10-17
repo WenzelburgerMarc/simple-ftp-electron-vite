@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Lock Software Functionality">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Lock Software Functionality">
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/manageConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -128,15 +132,7 @@
       <workItem from="1697180643061" duration="25252000" />
       <workItem from="1697440665881" duration="28689000" />
       <workItem from="1697470751103" duration="2000" />
-      <workItem from="1697526362720" duration="13050000" />
-    </task>
-    <task id="LOCAL-00089" summary="Fix - Removed Unused Log Objects">
-      <option name="closed" value="true" />
-      <created>1697115306844</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1697115306844</updated>
+      <workItem from="1697526362720" duration="23701000" />
     </task>
     <task id="LOCAL-00090" summary="Cleanup - Log Files&#10;Add - Error Log Vue Component">
       <option name="closed" value="true" />
@@ -522,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697539399678</updated>
     </task>
-    <option name="localTasksCounter" value="138" />
+    <task id="LOCAL-00138" summary="Fix - Lock Software Functionality">
+      <option name="closed" value="true" />
+      <created>1697540774394</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1697540774394</updated>
+    </task>
+    <option name="localTasksCounter" value="139" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +547,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Delete - Displayflash from preloadFTP.js" />
     <MESSAGE value="Add - Move Frame" />
     <MESSAGE value="Add - settings manager" />
     <MESSAGE value="Fix - settings manager" />
@@ -568,6 +571,7 @@
     <MESSAGE value="Fix - Sidebar toggle btn position" />
     <MESSAGE value="Add - Import / Export Settings Functionality" />
     <MESSAGE value="Add - Lock Software Functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Lock Software Functionality" />
+    <MESSAGE value="Fix - Lock Software Functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Lock Software Functionality" />
   </component>
 </project>

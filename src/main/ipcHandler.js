@@ -10,7 +10,7 @@ import {
   deleteClientDirectory,
   watchClientDirectory,
   unwatchClientDirectory,
-  selectClientDirectory
+  selectClientDirectory, getAllClientFileTypes
 } from "./fileSystem";
 import {
   getLogs,
@@ -80,6 +80,17 @@ ipcMain.handle("set-setting", (event, key, value) => {
 ipcMain.handle("restart-ftp-reload-interval", async (event) => {
   if (mainWindow && !mainWindow.isDestroyed())
     event.sender.send("restart-ftp-reload-interval");
+});
+
+// Updated FTP File List -> needed for getting all file types in the search dropdown
+ipcMain.handle("updated-ftp-file-list" , async (event) => {
+  if (mainWindow && !mainWindow.isDestroyed())
+    event.sender.send("updated-ftp-file-list");
+});
+
+ipcMain.handle("get-all-client-file-types", async () => {
+  const fileTypes = await getAllClientFileTypes();
+  return fileTypes;
 });
 
 // Set auto start item setting

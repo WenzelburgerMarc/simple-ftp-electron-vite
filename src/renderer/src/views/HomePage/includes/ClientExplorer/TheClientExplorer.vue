@@ -10,6 +10,7 @@ import { connected } from "@/js/ftpManager.js";
 import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
 import { getSetting } from "../../../../js/manageSettings";
+import FilterExplorerComponent from "../FilterExplorerComponent.vue";
 
 const currentDir = ref("");
 const fileList = ref([]);
@@ -114,6 +115,20 @@ const listFiles = async () => {
     try {
       fileList.value = await window.ipcRendererInvoke("list-local-files", currentDir.value) || [];
 
+      if (searchByFileTypes.value.length > 0) {
+        fileList.value = fileList.value.filter(file =>
+          searchByFileTypes.value.some(type =>
+            file.name.toLowerCase().endsWith(type.toString().toLowerCase())
+          )
+        );
+      }
+
+      if(searchByText.value !== '') {
+        fileList.value = fileList.value.filter(file =>
+          file.name.toLowerCase().includes(searchByText.value.toLowerCase())
+        );
+      }
+
       fileList.value.sort((a, b) => {
         if (a.type === "d" && b.type !== "d") return -1;
         if (a.type !== "d" && b.type === "d") return 1;
@@ -207,9 +222,27 @@ const deleteFolder = async (folder) => {
     })
     .catch(error => displayFlash(error.message, "error"));
 };
+
+const searchByText = ref('');
+const searchByName = async (name) => {
+  searchByText.value = name;
+};
+
+const searchByFileTypes = ref([]);
+const searchByFileType = async (fileTypes) => {
+  searchByFileTypes.value = fileTypes;
+
+};
 </script>
 
 <template>
+
+  <filter-explorer-component v-if="connected"
+                             mode="client"
+                             @searchByName="searchByName"
+                             @searchByFileType="searchByFileType"
+                             @listFiles="listFiles"
+  />
 
   <panel-component
     v-if="connected"

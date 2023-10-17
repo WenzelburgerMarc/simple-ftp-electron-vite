@@ -16,7 +16,7 @@ import {
   stopSyncing,
   getSyncMode,
   setSyncMode,
-  calculateAndCompareSize, clearFilesAfterModeSwitch
+  calculateAndCompareSize, clearFilesAfterModeSwitch, getAllFtpFileTypes
 
 } from "./preloadFTP";
 import { online } from "./isOnline";
@@ -59,7 +59,8 @@ contextBridge.exposeInMainWorld("ftp", {
   getSyncMode,
   setSyncMode,
   calculateAndCompareSize,
-  clearFilesAfterModeSwitch
+  clearFilesAfterModeSwitch,
+  getAllFtpFileTypes
 });
 
 

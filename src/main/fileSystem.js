@@ -4,6 +4,51 @@ import path from "path";
 import { dialog, ipcRenderer } from "electron";
 import { mainWindow } from "./window";
 import { v4 as uuidv4 } from "uuid";
+import Store from "electron-store";
+import { addLog } from "./logs";
+
+const store = new Store();
+
+// Get All Client File Types
+const getAllClientFileTypes = async (directory = null) => {
+  try {
+    // Setzen Sie den Startverzeichnispfad, wenn keiner angegeben ist.
+    if (directory === null) {
+      directory = store.get("clientSyncPath")
+    }
+
+    const items = fs.readdirSync(directory, { withFileTypes: true });
+    let files = [];
+    for (const item of items) {
+      if (item.isDirectory()) {
+        const subDirectory = path.join(directory, item.name);
+        const subFiles = await getAllClientFileTypes(subDirectory);
+        files = files.concat(subFiles);
+      } else {
+        files.push(item.name);
+      }
+    }
+
+    files = files.map((file) => {
+      let splitFile = file.split(".");
+      if (splitFile.length > 1) {
+        return splitFile[splitFile.length - 1];
+      }
+    });
+
+    return files;
+  } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Get All Client File Types",
+      open: false,
+      description: error.message
+    };
+    await addLog(log)
+    throw new Error(`Error - Get All Client File Types: ${error.message}`);
+  }
+}
 
 // Function to list files from a specified directory
 const listLocalFiles = async (dirPath) => {
@@ -193,5 +238,6 @@ export {
   deleteClientDirectory,
   watchClientDirectory,
   unwatchClientDirectory,
-  selectClientDirectory
+  selectClientDirectory,
+  getAllClientFileTypes
 };

@@ -21,6 +21,7 @@ import { displayFlash } from "../../../../js/flashMessageController";
 import { onBeforeRouteLeave } from "vue-router";
 import SetFtpFolderNameModal from "./SetFtpFolderNameModal.vue";
 import {setSetting, getSetting} from "../../../../js/manageSettings";
+import FilterExplorerComponent from "../FilterExplorerComponent.vue";
 
 const currentDir = ref(getCurrentDir());
 const fileList = ref([]);
@@ -137,11 +138,27 @@ const listFiles = async (showLoader = true) => {
       await listFilesAndDirectories(getCurrentDir(), showLoader);
       fileList.value = getFileList() || [];
 
+      if (searchByFileTypes.value.length > 0) {
+        fileList.value = fileList.value.filter(file =>
+          searchByFileTypes.value.some(type =>
+            file.name.toLowerCase().endsWith(type.toString().toLowerCase())
+          )
+        );
+      }
+
+      if(searchByText.value !== '') {
+        fileList.value = fileList.value.filter(file =>
+          file.name.toLowerCase().includes(searchByText.value.toLowerCase())
+        );
+      }
+
+
       fileList.value.sort((a, b) => {
         if (a.type === "d" && b.type !== "d") return -1;
         if (a.type !== "d" && b.type === "d") return 1;
         return a.name.localeCompare(b.name);
       });
+      window.ipcRendererInvoke("updated-ftp-file-list");
     } catch (error) {
       let log = {
         logType: "Error",
@@ -225,9 +242,26 @@ const createNewFolderOnFtp = async (name) => {
   }
   displayFlash("Error creating folder", "error");
 };
+
+const searchByText = ref('');
+const searchByName = async (name) => {
+  searchByText.value = name;
+};
+
+const searchByFileTypes = ref([]);
+const searchByFileType = async (fileTypes) => {
+  searchByFileTypes.value = fileTypes;
+};
 </script>
 
 <template>
+  <filter-explorer-component v-if="connected"
+                             mode="ftp"
+                             @searchByName="searchByName"
+                             @searchByFileType="searchByFileType"
+                             @listFiles="listFiles"
+
+  />
   <set-ftp-folder-name-modal
     :show-modal="showModal"
     @update:showModal="updateShowModal"

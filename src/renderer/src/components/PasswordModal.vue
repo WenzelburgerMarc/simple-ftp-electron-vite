@@ -9,10 +9,6 @@ import { startLoading, stopLoading } from "../js/loaderManager";
 import InputComponent from "./form/InputComponent.vue";
 import { getSetting, setSetting } from "../js/manageSettings";
 import { displayFlash } from "../js/flashMessageController";
-import { updateSettingsModalVisibility } from "../js/settingsModalController";
-import { updateLogsModalVisibility } from "../js/logsModalController";
-import { updateExitModalVisibility } from "../js/exitModalController";
-import { openPasswordModal } from "../js/passwordModalController";
 
 const emits = defineEmits(["update:showModal"]);
 
