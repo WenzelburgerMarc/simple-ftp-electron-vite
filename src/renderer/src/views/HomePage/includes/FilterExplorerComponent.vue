@@ -1,4 +1,5 @@
 <script setup>
+// Desc: Filter Explorer Component, Filter For FileType And Name in the selected Sync Directories
 import { defineEmits, ref, onMounted, onUnmounted } from "vue";
 import PanelComponent from "../../../components/form/PanelComponent.vue";
 import InputComponent from "../../../components/form/InputComponent.vue";
@@ -76,6 +77,7 @@ onMounted(() => {
   });
 });
 
+// Get All File Types
 const fileTypes = ref([]);
 const getAllFileTypes = async () => {
   try {
@@ -99,7 +101,7 @@ const getAllFileTypes = async () => {
   }
 
 };
-
+// Add or Remove File Type to search
 const toggleToSearchByFileType = (fileType) => {
 
   if (searchFileType.value.includes(fileType)) {
@@ -111,6 +113,7 @@ const toggleToSearchByFileType = (fileType) => {
   searchByFileType();
 };
 
+// Close Dropdown when clicked outside
 function handleDocumentClick(event) {
   const { target } = event;
   const isClickInside = dropdownButton.value.contains(target) || dropdownMenu.value.contains(target);
@@ -120,10 +123,8 @@ function handleDocumentClick(event) {
   }
 }
 
-// Event-Listener hinzufügen
 document.addEventListener('click', handleDocumentClick);
 
-// Event-Listener entfernen, wenn die Komponente zerstört wird, um Speicherlecks zu vermeiden
 onUnmounted(() => {
   document.removeEventListener('click', handleDocumentClick);
 });

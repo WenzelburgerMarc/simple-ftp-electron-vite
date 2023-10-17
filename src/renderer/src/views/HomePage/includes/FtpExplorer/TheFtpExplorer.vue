@@ -138,6 +138,7 @@ const listFiles = async (showLoader = true) => {
       await listFilesAndDirectories(getCurrentDir(), showLoader);
       fileList.value = getFileList() || [];
 
+      // File Type Filtering
       if (searchByFileTypes.value.length > 0) {
         fileList.value = fileList.value.filter(file =>
           searchByFileTypes.value.some(type =>
@@ -146,6 +147,7 @@ const listFiles = async (showLoader = true) => {
         );
       }
 
+      // Text Filtering
       if(searchByText.value !== '') {
         fileList.value = fileList.value.filter(file =>
           file.name.toLowerCase().includes(searchByText.value.toLowerCase())

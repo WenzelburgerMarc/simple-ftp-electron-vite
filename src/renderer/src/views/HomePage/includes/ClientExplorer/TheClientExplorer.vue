@@ -115,6 +115,7 @@ const listFiles = async () => {
     try {
       fileList.value = await window.ipcRendererInvoke("list-local-files", currentDir.value) || [];
 
+      // File Type Filtering
       if (searchByFileTypes.value.length > 0) {
         fileList.value = fileList.value.filter(file =>
           searchByFileTypes.value.some(type =>
@@ -123,6 +124,7 @@ const listFiles = async () => {
         );
       }
 
+      // Text Filtering
       if(searchByText.value !== '') {
         fileList.value = fileList.value.filter(file =>
           file.name.toLowerCase().includes(searchByText.value.toLowerCase())
