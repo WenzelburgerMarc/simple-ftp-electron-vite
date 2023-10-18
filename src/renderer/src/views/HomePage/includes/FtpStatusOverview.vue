@@ -33,10 +33,11 @@ const ftpCredentials = ref({
 // Reconnect to FTP if Internet Connection is available
 let startIsOnlineInterval = null;
 let onlineStatusChanged = false;
-let currentlyReConnecting = false;
+let currentlyReConnecting = ref(false);
 const startAutoReconnect = async () => {
 
-  if (!startIsOnlineInterval && !currentlyReConnecting) {
+
+  if (!startIsOnlineInterval && !currentlyReConnecting.value) {
     startIsOnlineInterval = setInterval(async () => {
       online.value = await window.api.isOnline();
 
@@ -49,14 +50,15 @@ const startAutoReconnect = async () => {
         return;
       }
 
-      if (onlineStatusChanged) {
-        onlineStatusChanged = false;
-        await displayFlash("Automatically Re-Connected to the Internet!", "info");
-      }
-
       const ftpAutoReconnect = await getSetting("enableAutoReconnect");
 
-      if (ftpAutoReconnect && !connected.value && !currentlyReConnecting) {
+      if (ftpAutoReconnect && !connected.value && !currentlyReConnecting.value) {
+
+
+
+        currentlyReConnecting.value = true;
+          await connectToFtp();
+
         ftpCredentials.value.host = await getSetting("ftpHost");
         ftpCredentials.value.port = await getSetting("ftpPort");
         ftpCredentials.value.user = await getSetting("ftpUsername");
@@ -69,18 +71,27 @@ const startAutoReconnect = async () => {
           clearInterval(startIsOnlineInterval);
           return;
         }
-        currentlyReConnecting = true;
-        await connectToFtp();
-        currentlyReConnecting = false;
+
+        if (onlineStatusChanged) {
+          onlineStatusChanged = false;
+          await displayFlash("Automatically Re-Connected to the Internet!", "info");
+
+        }
+
+        currentlyReConnecting.value = false;
+      } else {
+        onlineStatusChanged = false;
       }
-    }, 1000);
+
+
+    }, 2000);
   }
 };
 
 onMounted(async () => {
   window.ipcRendererOn("autoReconnectChanged", async () => {
     startIsOnlineInterval = false;
-    currentlyReConnecting = false;
+    currentlyReConnecting.value = false;
     await startAutoReconnect();
 
   });
@@ -277,11 +288,14 @@ const disconnectFtp = async () => {
           class="w-3 h-3 rounded-full"></div>
         <div class="text-sm w-full flex flex-col justify-center items-start">
           <p
-            v-if="isConnected"
-            class="text-green-500">Connected</p>
+            v-if="!isConnected && currentlyReConnecting"
+            class="text-blue-500">Reconnecting</p>
           <p
-            v-else
-            class="text-red-500">Disconnected</p>
+            v-else-if="isConnected"
+            class="text-green-500">Connected</p>
+
+          <p v-else
+             class="text-red-500">Disconnected</p>
           <p
             v-if="isConnected && ftpCredentials.host"
             class="text-gray-800">Host: {{ ftpCredentials.host }}</p>

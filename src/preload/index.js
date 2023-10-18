@@ -16,7 +16,10 @@ import {
   stopSyncing,
   getSyncMode,
   setSyncMode,
-  calculateAndCompareSize, clearFilesAfterModeSwitch, getAllFtpFileTypes
+  calculateAndCompareSize,
+  clearFilesAfterModeSwitch,
+  getAllFtpFileTypes,
+  checkSftpConnection
 
 } from "./preloadFTP";
 import { online } from "./isOnline";
