@@ -199,10 +199,16 @@ export const exportSettings = async () => {
 
     const settings = await getSettings();
 
-    await window.ipcRendererInvoke("export-settings", settings);
 
+    let set = await window.ipcRendererInvoke("export-settings", settings);
+    console.log('set: ' + set);
+    if(set){
+      displayFlash("Settings exported successfully!", "success");
+    }else{
+      displayFlash("No settings exported!", "info");
+    }
     stopLoading();
-    displayFlash("Settings exported successfully!", "success");
+
   } catch (error) {
     displayFlash("Settings not exported: " + error.message, "error");
     stopLoading();
@@ -266,10 +272,13 @@ export const importSettings = async () => {
     let settings = await window.ipcRendererInvoke("import-settings");
     if (!settings) {
       settings = backupSettings;
+      displayFlash("No settings imported!", "info");
+    }else{
+      displayFlash("Settings imported successfully!", "success");
     }
     await setSettings(settings);
     await saveSettings(false);
-    displayFlash("Settings imported successfully!", "success");
+
     stopLoading();
   } catch (error) {
     await setSettings(backupSettings);

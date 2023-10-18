@@ -237,19 +237,24 @@ window.ipcRendererOn("sync-progress-end", async () => {
 });
 
 const connectToFtp = async () => {
-  ftpCredentials.value = {
-    host: await getSetting("ftpHost"),
-    port: await getSetting("ftpPort"),
-    user: await getSetting("ftpUsername"),
-    password: await getSetting("ftpPassword")
-  };
+  try {
+    ftpCredentials.value = {
+      host: await getSetting("ftpHost"),
+      port: await getSetting("ftpPort"),
+      user: await getSetting("ftpUsername"),
+      password: await getSetting("ftpPassword")
+    };
 
-  await connect({
-    host: ftpCredentials.value.host,
-    port: ftpCredentials.value.port,
-    username: ftpCredentials.value.user,
-    password: ftpCredentials.value.password
-  });
+    await connect({
+      host: ftpCredentials.value.host,
+      port: ftpCredentials.value.port,
+      username: ftpCredentials.value.user,
+      password: ftpCredentials.value.password
+    });
+  }catch (e){
+    /* eslint-disable no-console */
+  }
+
 
   await listFiles();
 };

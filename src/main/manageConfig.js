@@ -5,6 +5,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { addLog } from "./logs";
 
+
 export const exportSettings = async (settings) => {
 
   try {
@@ -22,7 +23,11 @@ export const exportSettings = async (settings) => {
     if (filePath) {
       fs.writeFileSync(filePath, JSON.stringify(settings, null, 2));
       await shell.openPath(filePath);
+      return true;
+    }else{
+      return false;
     }
+
   } catch (error) {
     // If there's an error, log it
     let log = {
@@ -50,6 +55,7 @@ export const importSettings = async () => {
 
     if (filePaths.length > 0) {
       const settings = JSON.parse(fs.readFileSync(filePaths[0], "utf-8"));
+
       return settings;
     } else {
       let log = {

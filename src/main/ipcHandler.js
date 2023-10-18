@@ -24,11 +24,11 @@ import { exportSettings, importSettings } from "./manageConfig";
 
 
 const store = new Store();
-//store.delete("firstStart");
+store.delete("firstStart");
 
 // Export / Import Settings
 ipcMain.handle("export-settings", async (event, settings) => {
-  await exportSettings(settings);
+  return await exportSettings(settings);
 });
 
 ipcMain.handle("import-settings", async () => {
@@ -83,7 +83,7 @@ ipcMain.handle("restart-ftp-reload-interval", async (event) => {
 });
 
 // Updated FTP File List -> needed for getting all file types in the search dropdown
-ipcMain.handle("updated-ftp-file-list" , async (event) => {
+ipcMain.handle("updated-ftp-file-list", async (event) => {
   if (mainWindow && !mainWindow.isDestroyed())
     event.sender.send("updated-ftp-file-list");
 });
@@ -147,7 +147,8 @@ ipcMain.handle("list-local-files", async (event, dirPath) => {
 
 // Function to watch changes in a specified directory
 ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
-  await watchClientDirectory(directoryPath, event);
+  if (directoryPath.toString().length > 0)
+    await watchClientDirectory(directoryPath, event);
 });
 
 // Function to stop watching changes in a specified directory
@@ -202,24 +203,24 @@ ipcMain.handle("autoReconnectChanged", async (event) => {
 
 // === Log Handler ===
 // Add a new log entry to the store
-ipcMain.handle("add-log", async(event, log) => {
+ipcMain.handle("add-log", async (event, log) => {
   await addLog(log);
   event.sender.send("log-changed");
 });
 
 // Get all logs from the store
-ipcMain.handle("get-logs", async() => {
+ipcMain.handle("get-logs", async () => {
   return await getLogs();
 });
 
 // Add a new log entry to the store
-ipcMain.handle("update-log", async(event, logId, updatedData) => {
+ipcMain.handle("update-log", async (event, logId, updatedData) => {
   await updateLog(logId, updatedData);
   event.sender.send("log-changed");
 });
 
 // Update a specific log in the store using its unique ID
-ipcMain.handle("delete-log", async(event, logId) => {
+ipcMain.handle("delete-log", async (event, logId) => {
   await deleteLog(logId);
   event.sender.send("log-changed");
 });
@@ -230,7 +231,7 @@ ipcMain.handle("save-all-logs", async () => {
 });
 
 // Clear all logs from the store
-ipcMain.handle("delete-all-logs", async(event) => {
+ipcMain.handle("delete-all-logs", async (event) => {
   await clearLogs();
   event.sender.send("log-changed");
 });

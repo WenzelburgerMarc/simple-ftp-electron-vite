@@ -191,6 +191,7 @@ const deleteClientDirectory = async (dirPath) => {
 let watcher;
 let intervalId = null;
 const watchClientDirectory = async (directoryPath, event) => {
+  if(directoryPath === null) return;
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
     if (filename && mainWindow && !mainWindow.isDestroyed()) {
       event.sender.send("file-changed", { eventType });

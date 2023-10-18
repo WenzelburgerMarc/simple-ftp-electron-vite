@@ -2,7 +2,6 @@
 import { BrowserWindow, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
 import { join } from "path";
-
 // Define a global variable for the main application window
 export let mainWindow = null;
 
@@ -19,6 +18,7 @@ const createMainWindow = () => {
     minWidth: 1280,
     minHeight: 720,
     show: false,  // Window will not show immediately
+    icon: join(__dirname, "../renderer/assets/icon.png"),
     autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,

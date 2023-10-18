@@ -58,6 +58,7 @@ const updateAutoReloadFtpInterval = (newValue) => {
 };
 
 const handleSelectDirectory = async (path) => {
+  await window.ipcRendererInvoke("watch-client-directory", path);
   await disconnect(true);
   selectedPath.value = path;
   await saveGeneralSettings();

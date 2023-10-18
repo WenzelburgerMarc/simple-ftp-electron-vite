@@ -1,9 +1,9 @@
 {
-  "name": "my-app",
+  "name": "ftp-synchronizer",
   "version": "1.0.0",
-  "description": "An Electron application with Vue",
+  "description": "An application to sync files with ftp server",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "marcwenzelburger.com",
   "homepage": "https://www.electronjs.org",
   "scripts": {
     "format": "prettier --write .",
