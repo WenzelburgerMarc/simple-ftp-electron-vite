@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - icons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/window.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,22 +136,8 @@
       <workItem from="1697612984387" duration="11825000" />
       <workItem from="1697625877158" duration="500000" />
       <workItem from="1697626388847" duration="4183000" />
-    </task>
-    <task id="LOCAL-00101" summary="Fix - Accordion">
-      <option name="closed" value="true" />
-      <created>1697188427675</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1697188427675</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Fix - Accordion">
-      <option name="closed" value="true" />
-      <created>1697189515853</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1697189515853</updated>
+      <workItem from="1697631524009" duration="3991000" />
+      <workItem from="1697639117595" duration="707000" />
     </task>
     <task id="LOCAL-00103" summary="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn">
       <option name="closed" value="true" />
@@ -525,7 +515,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697630022729</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="Fix - icons">
+      <option name="closed" value="true" />
+      <created>1697631539735</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1697631539735</updated>
+    </task>
+    <task id="LOCAL-00151" summary="Fix - icons">
+      <option name="closed" value="true" />
+      <created>1697631797122</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1697631797122</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

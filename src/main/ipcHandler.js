@@ -22,9 +22,17 @@ import {
 } from "./logs";
 import { exportSettings, importSettings } from "./manageConfig";
 
+// Global Error and Promise Handlers
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 
 const store = new Store();
-store.delete("firstStart");
+//store.delete("firstStart");
 
 // Export / Import Settings
 ipcMain.handle("export-settings", async (event, settings) => {

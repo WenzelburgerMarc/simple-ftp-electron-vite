@@ -78,14 +78,17 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
     setFiles(files);
   } catch (error) {
 
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - List Server Files",
-      open: false,
-      description: error.message
-    };
-    await ipcRenderer.invoke("add-log", log);
+    if(isConnected){
+      let log = {
+        logType: "Error",
+        id: uuidv4(),
+        type: "Error - List Server Files",
+        open: false,
+        description: error.message
+      };
+      await ipcRenderer.invoke("add-log", log);
+    }
+
   }
 };
 // Delete a file from the FTP server

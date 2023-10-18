@@ -5,6 +5,7 @@ import PanelComponent from "../../../components/form/PanelComponent.vue";
 import InputComponent from "../../../components/form/InputComponent.vue";
 import LabelComponent from "../../../components/form/LabelComponent.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {connected} from "../../../js/ftpManager";
 
 const emits = defineEmits(["searchByName", "searchByFileType", "listFiles"]);
 
@@ -98,14 +99,19 @@ const getAllFileTypes = async () => {
     fileTypes.value = [...new Set(fileTypes.value)];
 
   } catch (error) {
-    let log = {
-      logType: "Error",
-      id: window.api.getUUID(),
-      type: "Error - Failed To Get All File Types",
-      open: false,
-      description: error.message
-    };
-    window.ipcRendererInvoke("add-log", log);
+    // log nur senden wenn nicht offline
+
+    if(connected.value){
+      let log = {
+        logType: "Error",
+        id: window.api.getUUID(),
+        type: "Error - Failed To Get All File Types",
+        open: false,
+        description: error.message
+      };
+      window.ipcRendererInvoke("add-log", log);
+    }
+
   }
 
 };

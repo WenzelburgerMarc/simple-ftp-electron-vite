@@ -1,6 +1,6 @@
 <script setup>
 // Desc: Breadcrumb component for the explorers
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 const props = defineProps({
   initialBreadcrumb: {
@@ -19,8 +19,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["change-path"]);
-
-const isInitialSegment = reactive(ref(() => false));
 
 const currentDir = computed(() => {
   return props.currentDir;
@@ -68,6 +66,18 @@ const getCurrentPathBreadcrumb = () => {
 
 const initialPath = computed(() => props.initialPathProp);
 
+const isInitialSegment = (path) => {
+  if (!initialPath.value) {
+    return false;
+  }
+
+  if (initialPath.value === path) {
+    return true;
+  }
+  return false;
+};
+
+
 onMounted(() => {
 
 
@@ -87,17 +97,7 @@ onMounted(() => {
     breadcrumb.value = adjustedBreadcrumb;
   });
 
-  isInitialSegment.value = () => {
-    if (!initialPath.value) {
-      return false;
-    }
 
-    if (initialPath.value === currentDir.value) {
-      return true;
-    }
-    return false;
-
-  };
 
 
 });
