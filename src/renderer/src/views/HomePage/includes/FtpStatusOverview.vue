@@ -54,11 +54,6 @@ const startAutoReconnect = async () => {
 
       if (ftpAutoReconnect && !connected.value && !currentlyReConnecting.value) {
 
-
-
-        currentlyReConnecting.value = true;
-          await connectToFtp();
-
         ftpCredentials.value.host = await getSetting("ftpHost");
         ftpCredentials.value.port = await getSetting("ftpPort");
         ftpCredentials.value.user = await getSetting("ftpUsername");
@@ -72,6 +67,11 @@ const startAutoReconnect = async () => {
           return;
         }
 
+
+        currentlyReConnecting.value = true;
+        await connectToFtp();
+
+
         if (onlineStatusChanged) {
           onlineStatusChanged = false;
           await displayFlash("Automatically Re-Connected to the Internet!", "info");
@@ -84,7 +84,7 @@ const startAutoReconnect = async () => {
       }
 
 
-    }, 2000);
+    }, 500);
   }
 };
 
