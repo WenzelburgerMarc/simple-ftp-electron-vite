@@ -654,9 +654,12 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
             shouldDownload = serverMtime > localMtime;
           }
         }
+
+
         if (shouldDownload) {
           filesToDownload.push({ name: item.name, localPath, serverPath, type: item.type, size: item.size });
         }
+
       } else if (item.type === "d") {
         if (!fs.existsSync(localPath)) {
           fs.mkdirSync(localPath, { recursive: true });
