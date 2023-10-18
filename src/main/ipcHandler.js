@@ -93,6 +93,11 @@ ipcMain.handle("get-all-client-file-types", async () => {
   return fileTypes;
 });
 
+ipcMain.handle("remove-file-type", async (event) => {
+  if (mainWindow && !mainWindow.isDestroyed())
+    event.sender.send("remove-file-type");
+});
+
 // Set auto start item setting
 ipcMain.handle("set-auto-start-item-setting", (event, settings) => {
   app.setLoginItemSettings({

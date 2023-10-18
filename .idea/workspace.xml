@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Filter File Type / File Names in selected directories">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Pagination set page to 1 if clear logs">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/logs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/logs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +132,8 @@
       <workItem from="1697180643061" duration="25252000" />
       <workItem from="1697440665881" duration="28689000" />
       <workItem from="1697470751103" duration="2000" />
-      <workItem from="1697526362720" duration="24168000" />
-    </task>
-    <task id="LOCAL-00092" summary="Fix - Removed old Console Logs">
-      <option name="closed" value="true" />
-      <created>1697181560412</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1697181560413</updated>
+      <workItem from="1697526362720" duration="24258000" />
+      <workItem from="1697612984387" duration="5430000" />
     </task>
     <task id="LOCAL-00093" summary="Fix - ESLINT">
       <option name="closed" value="true" />
@@ -518,7 +519,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697552238409</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="Fix - Pagination set page to 1 if clear logs">
+      <option name="closed" value="true" />
+      <created>1697552424818</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1697552424818</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +548,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add - settings manager" />
     <MESSAGE value="Fix - settings manager" />
     <MESSAGE value="Fix - preloadFTP.js" />
     <MESSAGE value="Fix - Logs" />
@@ -564,6 +572,7 @@
     <MESSAGE value="Add - Lock Software Functionality" />
     <MESSAGE value="Fix - Lock Software Functionality" />
     <MESSAGE value="Add - Filter File Type / File Names in selected directories" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Filter File Type / File Names in selected directories" />
+    <MESSAGE value="Fix - Pagination set page to 1 if clear logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Pagination set page to 1 if clear logs" />
   </component>
 </project>

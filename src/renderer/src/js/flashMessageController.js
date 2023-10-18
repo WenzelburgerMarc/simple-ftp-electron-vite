@@ -8,21 +8,26 @@ export const flashType = ref("info");
 const messageQueue = ref([]);
 
 export const displayFlash = (message, type = "info") => {
-  messageQueue.value.push({ message, type });
 
+  const formattedMessage = message
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+
+  messageQueue.value.push({ message: formattedMessage, type });
 
   if (messageQueue.value.length > 1) {
     const nextMessage = messageQueue.value[messageQueue.value.length - 2];
-    if (nextMessage.message === message && nextMessage.type === type) {
+    if (nextMessage.message === formattedMessage && nextMessage.type === type) {
       messageQueue.value.pop();
     }
   }
-
 
   if (!showFlash.value) {
     showNextFlash();
   }
 };
+
 
 export const hideFlash = () => {
   showFlash.value = false;

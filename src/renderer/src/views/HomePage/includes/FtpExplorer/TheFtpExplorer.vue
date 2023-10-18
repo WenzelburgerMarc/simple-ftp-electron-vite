@@ -199,13 +199,13 @@ const setFtpSyncDirectory = async () => {
 const deleteFtpFile = async (file) => {
   const path = currentDir.value + "/" + file.name;
   await deleteFile(path);
-  await listFiles();
+  await window.ipcRendererInvoke('remove-file-type')
 };
 
 const deleteFtpFolder = async (folder) => {
   const path = currentDir.value + "/" + folder.name;
   await deleteDirectory(path);
-  await listFiles();
+  await window.ipcRendererInvoke('remove-file-type')
 };
 
 const createNewFolderOnFtp = async (name) => {

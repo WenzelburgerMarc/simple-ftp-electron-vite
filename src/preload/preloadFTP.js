@@ -407,36 +407,42 @@ export const getAllFtpFileTypes = async (directory = null) => {
     if (directory === null)
       directory = await ipcRenderer.invoke("get-setting", "ftp-sync-directory");
 
+    if (await sftp.exists(directory) !== "d") {
+      throw new Error(`Directory does not exist: ${directory}`);
+    }
+
 
     const items = await sftp.list(directory);
     let files = [];
     for (const item of items) {
       if (item.type === "d") {
-        const subDirectory = path.posix.join(directory, item.name);
-        const subFiles = await getAllFtpFileTypes(subDirectory);
-        files = files.concat(subFiles);
+        let subFilePromises = items.filter(item => item.type === "d")
+          .map(async item => {
+            const subDirectory = path.posix.join(directory, item.name);
+            return getAllFtpFileTypes(subDirectory);
+          });
+        let subFilesArray = await Promise.all(subFilePromises);
+        files = files.concat(...subFilesArray);
       } else {
         files.push(item.name);
       }
     }
 
     files = files.map((file) => {
-      let splitFile = file.split(".");
-      if (splitFile.length > 1) {
-        return splitFile[splitFile.length - 1];
+      if (typeof file === "string") {
+        let splitFile = file.split(".");
+        if (splitFile.length > 1) {
+          return splitFile[splitFile.length - 1];
+        }
       }
     });
 
+
     return files;
   } catch (error) {
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - Get All FTP File Types",
-      open: false,
-      description: error.message
-    };
-    await ipcRenderer.invoke("add-log", log);
+    if (!error.message.includes("No such file") && !error.message.includes("Directory does not exist")) {
+      throw new Error(error.message);
+    }
   }
 };
 

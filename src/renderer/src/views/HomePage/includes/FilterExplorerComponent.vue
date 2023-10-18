@@ -75,6 +75,13 @@ onMounted(() => {
   window.ipcRendererOn("updated-ftp-file-list", async () => {
     await getAllFileTypes(props.mode);
   });
+
+  window.ipcRendererOn("remove-file-type", async () => {
+    fileTypes.value = [];
+    searchFileType.value = [];
+    await getAllFileTypes(props.mode);
+    await searchByFileType();
+  });
 });
 
 // Get All File Types

@@ -19,18 +19,28 @@ const addLog = async (log) => {
 
   log.timestamp = new Date().getTime();
 
-  // replace log if it already exists
   const index = logs.findIndex(l => l.id === log.id);
   if (index !== -1) {
     logs[index] = log;
     store.set("logs", logs);
     return;
-  }else{
-    logs.push(log);
   }
 
+  const latestLog = logs[logs.length - 1];
+  if (latestLog) {
+    const isSameLog = Object.keys(log).every(key => {
+      if (key === 'id') return true;
+      if(key === 'timestamp') return true;
+      return log[key] === latestLog[key];
+    });
+
+    if (isSameLog) return;
+  }
+
+  logs.push(log);
   store.set("logs", logs);
 };
+
 
 // Update a specific log in the store using its unique ID
 const updateLog = async (log) => {

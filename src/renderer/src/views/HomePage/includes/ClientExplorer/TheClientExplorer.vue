@@ -179,6 +179,7 @@ const deleteFile = async (file) => {
       displayFlash("Deleted file", "success");
       await listFiles();
 
+      await window.ipcRendererInvoke('remove-file-type')
 
       let log = {
         logType: "Delete-File",
@@ -207,6 +208,7 @@ const deleteFolder = async (folder) => {
       if (response.success) {
         displayFlash("Deleted folder", "success");
 
+        window.ipcRendererInvoke('remove-file-type')
         let log = {
           logType: "Delete-Folder",
           id: window.api.getUUID(),
