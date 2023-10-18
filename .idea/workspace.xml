@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - icons">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;WenzelburgerMarc&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="3a4c186e-68bf-4941-9b86-7bf54c6c351d" />
+        <option name="url" value="https://github.com/WenzelburgerMarc/simple-ftp-electron-vite.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2W1z7rFp7grPaP6lMKq7IxeAMEz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.laravel-idea.search-composer-json&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.18.0&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wenzelburgermarc/Documents/simple-ftp-electron-vite&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/renderer/assets" />
+      <recent name="$PROJECT_DIR$/src/renderer/src/components/explorer" />
+      <recent name="$PROJECT_DIR$/src/renderer/src/components/Logs/templates" />
+      <recent name="$PROJECT_DIR$/src/renderer/src/components" />
+      <recent name="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="" />
+      <created>1695914709609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695914709609</updated>
+      <workItem from="1695914712808" duration="10129000" />
+      <workItem from="1695925648915" duration="32000" />
+      <workItem from="1695972094112" duration="401000" />
+      <workItem from="1695972503159" duration="20000" />
+      <workItem from="1695972524009" duration="23000" />
+      <workItem from="1695972865888" duration="39000" />
+      <workItem from="1695972906052" duration="64000" />
+      <workItem from="1695972987788" duration="24204000" />
+      <workItem from="1696223824015" duration="31777000" />
+      <workItem from="1696399167063" duration="28341000" />
+      <workItem from="1696487049196" duration="25141000" />
+      <workItem from="1696573033216" duration="29403000" />
+      <workItem from="1696834697569" duration="17561000" />
+      <workItem from="1696922256180" duration="13154000" />
+      <workItem from="1697008735202" duration="103000" />
+      <workItem from="1697008848360" duration="18021000" />
+      <workItem from="1697027403581" duration="6405000" />
+      <workItem from="1697094463621" duration="23905000" />
+      <workItem from="1697180602348" duration="31000" />
+      <workItem from="1697180643061" duration="25252000" />
+      <workItem from="1697440665881" duration="28689000" />
+      <workItem from="1697470751103" duration="2000" />
+      <workItem from="1697526362720" duration="24258000" />
+      <workItem from="1697612984387" duration="11825000" />
+      <workItem from="1697625877158" duration="500000" />
+      <workItem from="1697626388847" duration="4183000" />
+    </task>
+    <task id="LOCAL-00101" summary="Fix - Accordion">
+      <option name="closed" value="true" />
+      <created>1697188427675</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1697188427675</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Fix - Accordion">
+      <option name="closed" value="true" />
+      <created>1697189515853</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1697189515853</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn">
+      <option name="closed" value="true" />
+      <created>1697191178619</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1697191178619</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Add - Save Logs Functionality">
+      <option name="closed" value="true" />
+      <created>1697192442103</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1697192442104</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
+      <option name="closed" value="true" />
+      <created>1697193400562</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1697193400562</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Fix - Error Logs">
+      <option name="closed" value="true" />
+      <created>1697194233792</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1697194233792</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon">
+      <option name="closed" value="true" />
+      <created>1697195876864</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1697195876864</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Fix - Clear New Ftp Folder Input On Popup">
+      <option name="closed" value="true" />
+      <created>1697204271308</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1697204271308</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Formatting Files">
+      <option name="closed" value="true" />
+      <created>1697205289525</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1697205289525</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window">
+      <option name="closed" value="true" />
+      <created>1697211030116</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1697211030116</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Delete - Displayflash from preloadFTP.js">
+      <option name="closed" value="true" />
+      <created>1697441012442</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1697441012443</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Add - Move Frame">
+      <option name="closed" value="true" />
+      <created>1697443693379</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1697443693379</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Add - settings manager">
+      <option name="closed" value="true" />
+      <created>1697447344946</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1697447344946</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Fix - settings manager">
+      <option name="closed" value="true" />
+      <created>1697448178411</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1697448178411</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Fix - settings manager">
+      <option name="closed" value="true" />
+      <created>1697450574883</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1697450574883</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Fix - preloadFTP.js">
+      <option name="closed" value="true" />
+      <created>1697452209302</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1697452209303</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Fix - Logs">
+      <option name="closed" value="true" />
+      <created>1697455228667</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1697455228667</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Fix - Logs">
+      <option name="closed" value="true" />
+      <created>1697455985771</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1697455985771</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Fix - Move Frame">
+      <option name="closed" value="true" />
+      <created>1697457039283</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1697457039283</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Fix - only show save logs btn if there is at least 1">
+      <option name="closed" value="true" />
+      <created>1697457721415</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1697457721415</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Fix - Log Error in Main fileSystem.js">
+      <option name="closed" value="true" />
+      <created>1697458511231</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1697458511231</updated>
+    </task>
+    <task id="LOCAL-00122" summary="Fix - list local files">
+      <option name="closed" value="true" />
+      <created>1697459960243</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1697459960243</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Fix - error logs">
+      <option name="closed" value="true" />
+      <created>1697460116339</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1697460116339</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Fix - error logs + flash message in fileSystem.js">
+      <option name="closed" value="true" />
+      <created>1697460593232</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1697460593232</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Add - Desc in every important file&#10;Sorted - Tags">
+      <option name="closed" value="true" />
+      <created>1697465185564</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1697465185564</updated>
+    </task>
+    <task id="LOCAL-00126" summary="-">
+      <option name="closed" value="true" />
+      <created>1697466237804</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1697466237804</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Add - Confirm Exit Modal + Clear Files if currently Syncing and exiting&#10;Fix - preloadFTP Logging errors">
+      <option name="closed" value="true" />
+      <created>1697468311475</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1697468311475</updated>
+    </task>
+    <task id="LOCAL-00128" summary="Fix - clear current syncing files on disconnect">
+      <option name="closed" value="true" />
+      <created>1697468579925</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1697468579925</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Add - PW On Startup">
+      <option name="closed" value="true" />
+      <created>1697470621604</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1697470621604</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Add - Confirm PW On Start-up">
+      <option name="closed" value="true" />
+      <created>1697528553537</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1697528553538</updated>
+    </task>
+    <task id="LOCAL-00131" summary="Add - Submit PW on Enter">
+      <option name="closed" value="true" />
+      <created>1697529086255</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529086255</updated>
+    </task>
+    <task id="LOCAL-00132" summary="Add - Save Settings on Enter">
+      <option name="closed" value="true" />
+      <created>1697529706933</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529706934</updated>
+    </task>
+    <task id="LOCAL-00133" summary="Fix - Save Settings on checkbox toggle">
+      <option name="closed" value="true" />
+      <created>1697529889020</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529889020</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Fix - PW Submit">
+      <option name="closed" value="true" />
+      <created>1697530131247</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1697530131247</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Fix - Sidebar toggle btn position">
+      <option name="closed" value="true" />
+      <created>1697530583075</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1697530583075</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Add - Import / Export Settings Functionality">
+      <option name="closed" value="true" />
+      <created>1697537374949</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1697537374949</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Add - Lock Software Functionality">
+      <option name="closed" value="true" />
+      <created>1697539399678</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1697539399678</updated>
+    </task>
+    <task id="LOCAL-00138" summary="Fix - Lock Software Functionality">
+      <option name="closed" value="true" />
+      <created>1697540774394</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1697540774394</updated>
+    </task>
+    <task id="LOCAL-00139" summary="Add - Filter File Type / File Names in selected directories">
+      <option name="closed" value="true" />
+      <created>1697551987437</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1697551987437</updated>
+    </task>
+    <task id="LOCAL-00140" summary="Add - Filter File Type / File Names in selected directories">
+      <option name="closed" value="true" />
+      <created>1697552238408</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1697552238409</updated>
+    </task>
+    <task id="LOCAL-00141" summary="Fix - Pagination set page to 1 if clear logs">
+      <option name="closed" value="true" />
+      <created>1697552424818</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1697552424818</updated>
+    </task>
+    <task id="LOCAL-00142" summary="Fix - Flash Message Text Formatting">
+      <option name="closed" value="true" />
+      <created>1697618797540</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1697618797541</updated>
+    </task>
+    <task id="LOCAL-00143" summary="Fix - Comments">
+      <option name="closed" value="true" />
+      <created>1697619203059</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1697619203059</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Fix - Reconnect">
+      <option name="closed" value="true" />
+      <created>1697623699281</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1697623699282</updated>
+    </task>
+    <task id="LOCAL-00145" summary="Fix - Reconnect">
+      <option name="closed" value="true" />
+      <created>1697624523221</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1697624523222</updated>
+    </task>
+    <task id="LOCAL-00146" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1697625415082</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1697625415082</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Fix - Import/Export Settings">
+      <option name="closed" value="true" />
+      <created>1697628798723</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1697628798724</updated>
+    </task>
+    <task id="LOCAL-00148" summary="Fix - Import/Export Settings">
+      <option name="closed" value="true" />
+      <created>1697628816498</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1697628816498</updated>
+    </task>
+    <task id="LOCAL-00149" summary="Fix - icons">
+      <option name="closed" value="true" />
+      <created>1697630022729</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1697630022729</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="Fix - list local files" />
+    <MESSAGE value="Fix - error logs" />
+    <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
+    <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
+    <MESSAGE value="-" />
+    <MESSAGE value="Add - Confirm Exit Modal + Clear Files if currently Syncing and exiting&#10;Fix - preloadFTP Logging errors" />
+    <MESSAGE value="Fix - clear current syncing files on disconnect" />
+    <MESSAGE value="Add - PW On Startup" />
+    <MESSAGE value="Add - Confirm PW On Start-up" />
+    <MESSAGE value="Add - Submit PW on Enter" />
+    <MESSAGE value="Add - Save Settings on Enter" />
+    <MESSAGE value="Fix - Save Settings on checkbox toggle" />
+    <MESSAGE value="Fix - PW Submit" />
+    <MESSAGE value="Fix - Sidebar toggle btn position" />
+    <MESSAGE value="Add - Import / Export Settings Functionality" />
+    <MESSAGE value="Add - Lock Software Functionality" />
+    <MESSAGE value="Fix - Lock Software Functionality" />
+    <MESSAGE value="Add - Filter File Type / File Names in selected directories" />
+    <MESSAGE value="Fix - Pagination set page to 1 if clear logs" />
+    <MESSAGE value="Fix - Flash Message Text Formatting" />
+    <MESSAGE value="Fix - Comments" />
+    <MESSAGE value="Fix - Reconnect" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="Fix - Import/Export Settings" />
+    <MESSAGE value="Fix - icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - icons" />
+  </component>
+</project>
