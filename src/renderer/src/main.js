@@ -1,4 +1,4 @@
-// Note: Main entry point for the renderer process
+// Desc: Main entry point for the renderer process
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";

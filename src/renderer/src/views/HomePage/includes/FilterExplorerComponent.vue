@@ -76,6 +76,7 @@ onMounted(() => {
     await getAllFileTypes(props.mode);
   });
 
+  // Reset File Type Searching on file/folder delete
   window.ipcRendererOn("remove-file-type", async () => {
     fileTypes.value = [];
     searchFileType.value = [];

@@ -12,7 +12,6 @@ const store = new Store();
 // Get All Client File Types
 const getAllClientFileTypes = async (directory = null) => {
   try {
-    // Setzen Sie den Startverzeichnispfad, wenn keiner angegeben ist.
     if (directory === null) {
       directory = store.get("clientSyncPath")
     }

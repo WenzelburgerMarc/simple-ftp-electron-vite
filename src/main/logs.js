@@ -13,7 +13,7 @@ const getLogs = async () => {
   return await store.get("logs", []);
 };
 
-// Add a new log entry to the store
+// Add a new log entry to the store if the log is different from the previous log
 const addLog = async (log) => {
   const logs = await getLogs();
 

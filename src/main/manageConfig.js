@@ -1,3 +1,4 @@
+// Desc: Export and Import Settings Functionality
 import { app, dialog, shell } from "electron";
 import path from "path";
 import fs from "fs";

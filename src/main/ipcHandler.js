@@ -88,11 +88,13 @@ ipcMain.handle("updated-ftp-file-list" , async (event) => {
     event.sender.send("updated-ftp-file-list");
 });
 
+// get client file types
 ipcMain.handle("get-all-client-file-types", async () => {
   const fileTypes = await getAllClientFileTypes();
   return fileTypes;
 });
 
+// Remove File Type Filtering on deleting file/folder
 ipcMain.handle("remove-file-type", async (event) => {
   if (mainWindow && !mainWindow.isDestroyed())
     event.sender.send("remove-file-type");
