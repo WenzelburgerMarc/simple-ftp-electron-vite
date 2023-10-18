@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Import/Export Settings">
       <change afterPath="$PROJECT_DIR$/src/renderer/assets/icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/entitlements.mac.plist" beforeDir="false" />
@@ -143,15 +143,7 @@
       <workItem from="1697526362720" duration="24258000" />
       <workItem from="1697612984387" duration="11825000" />
       <workItem from="1697625877158" duration="500000" />
-      <workItem from="1697626388847" duration="2095000" />
-    </task>
-    <task id="LOCAL-00098" summary="Fix - Accordion">
-      <option name="closed" value="true" />
-      <created>1697187183586</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1697187183586</updated>
+      <workItem from="1697626388847" duration="2408000" />
     </task>
     <task id="LOCAL-00099" summary="Fix - Accordion">
       <option name="closed" value="true" />
@@ -537,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697625415082</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="Fix - Import/Export Settings">
+      <option name="closed" value="true" />
+      <created>1697628798723</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1697628798724</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,7 +558,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - only show save logs btn if there is at least 1" />
     <MESSAGE value="Fix - Log Error in Main fileSystem.js" />
     <MESSAGE value="Fix - list local files" />
     <MESSAGE value="Fix - error logs" />
@@ -583,6 +582,7 @@
     <MESSAGE value="Fix - Comments" />
     <MESSAGE value="Fix - Reconnect" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Fix - Import/Export Settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Import/Export Settings" />
   </component>
 </project>
