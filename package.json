@@ -7,6 +7,10 @@
   "homepage": "https://www.electronjs.org",
   "build": {
     "appId": "com.marcwenzelburger.ftp-synchronizer",
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    },
     "directories": {
       "buildResources": "src/renderer/assets"
     },
@@ -14,7 +18,10 @@
       "icon": "icon.icns"
     },
     "win": {
-      "icon": "icon.ico"
+      "icon": "icon.ico",
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
       "icon": "icon.png"

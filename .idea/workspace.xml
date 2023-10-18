@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - icons">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-builder.yml" beforeDir="false" afterPath="$PROJECT_DIR$/electron-builder.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,15 +131,9 @@
       <workItem from="1697625877158" duration="500000" />
       <workItem from="1697626388847" duration="4183000" />
       <workItem from="1697631524009" duration="3991000" />
-      <workItem from="1697639117595" duration="707000" />
-    </task>
-    <task id="LOCAL-00103" summary="Fix - Logs Design&#10;Add - Delete All Logs&#10;Add - Save All Btn">
-      <option name="closed" value="true" />
-      <created>1697191178619</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1697191178619</updated>
+      <workItem from="1697639117595" duration="1190000" />
+      <workItem from="1697640319022" duration="7000" />
+      <workItem from="1697641298570" duration="1511000" />
     </task>
     <task id="LOCAL-00104" summary="Add - Save Logs Functionality">
       <option name="closed" value="true" />
@@ -531,7 +519,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697631797122</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1697640215963</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1697640215963</updated>
+    </task>
+    <option name="localTasksCounter" value="153" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,9 +570,9 @@
     <MESSAGE value="Fix - Flash Message Text Formatting" />
     <MESSAGE value="Fix - Comments" />
     <MESSAGE value="Fix - Reconnect" />
-    <MESSAGE value="Fix" />
     <MESSAGE value="Fix - Import/Export Settings" />
     <MESSAGE value="Fix - icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - icons" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
   </component>
 </project>
