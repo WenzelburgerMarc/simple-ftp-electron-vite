@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - Import/Export Settings">
-      <change afterPath="$PROJECT_DIR$/src/renderer/assets/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/assets/icon.icns" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/assets/icon.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/entitlements.mac.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icon.icns" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-builder.yml" beforeDir="false" afterPath="$PROJECT_DIR$/electron-builder.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/manageConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/manageConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/window.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,15 +131,7 @@
       <workItem from="1697526362720" duration="24258000" />
       <workItem from="1697612984387" duration="11825000" />
       <workItem from="1697625877158" duration="500000" />
-      <workItem from="1697626388847" duration="2408000" />
-    </task>
-    <task id="LOCAL-00099" summary="Fix - Accordion">
-      <option name="closed" value="true" />
-      <created>1697187528202</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1697187528202</updated>
+      <workItem from="1697626388847" duration="3089000" />
     </task>
     <task id="LOCAL-00100" summary="Fix - Accordion">
       <option name="closed" value="true" />
@@ -537,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697628798724</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="Fix - Import/Export Settings">
+      <option name="closed" value="true" />
+      <created>1697628816498</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1697628816498</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

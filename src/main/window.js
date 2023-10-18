@@ -18,7 +18,6 @@ const createMainWindow = () => {
     minWidth: 1280,
     minHeight: 720,
     show: false,  // Window will not show immediately
-    icon: join(__dirname, "../renderer/assets/icon.png"),
     autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,

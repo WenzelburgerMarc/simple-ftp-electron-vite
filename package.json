@@ -5,6 +5,21 @@
   "main": "./out/main/index.js",
   "author": "marcwenzelburger.com",
   "homepage": "https://www.electronjs.org",
+  "build": {
+    "appId": "com.marcwenzelburger.ftp-synchronizer",
+    "directories": {
+      "buildResources": "src/renderer/assets"
+    },
+    "mac": {
+      "icon": "icon.icns"
+    },
+    "win": {
+      "icon": "icon.ico"
+    },
+    "linux": {
+      "icon": "icon.png"
+    }
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
