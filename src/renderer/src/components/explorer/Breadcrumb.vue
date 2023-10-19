@@ -32,7 +32,7 @@ const breadcrumb = ref(props.initialBreadcrumb);
 const breadcrumbContainerWidth = ref(0);
 
 const changePath = (path) => {
-  emit("change-path", path);
+  emit("change-path", isWindows() ? path : '/'+path);
 };
 
 const hover = (index) => {
@@ -81,17 +81,22 @@ const isInitialSegment = (path) => {
   if (!initialPath.value) {
     return false;
   }
-  if(!props.isClientBreadcrumb) {
+  if(props.isClientBreadcrumb !== true) {
+
     if (initialPath.value === '/'+path) {
+
       return true;
     }
 
   }else{
-    if (initialPath.value === path) {
+    let check = isWindows() ? path : '/'+path;
+    if (initialPath.value === check) {
+      console.log('true');
       return true;
+    }else{
+      console.log('false');
     }
   }
-
 
   return false;
 };

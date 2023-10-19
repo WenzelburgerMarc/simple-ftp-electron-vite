@@ -52,6 +52,7 @@ const getAllClientFileTypes = async (directory = null) => {
 // Function to list files from a specified directory
 const listLocalFiles = async (dirPath) => {
   try {
+    dirPath = path.normalize(dirPath)
     const files = fs.readdirSync(dirPath);
     const fileDetailsPromises = files.map(async file => {
       // Ignore hidden files (those starting with a dot)
@@ -59,7 +60,7 @@ const listLocalFiles = async (dirPath) => {
         return null;
       }
 
-      const filePath = path.join(dirPath, file);
+      const filePath = path.normalize(path.join(dirPath, file));
       try {
         const stats = await fs.promises.stat(filePath);
         return {
