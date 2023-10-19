@@ -14,6 +14,11 @@ const props = defineProps({
   initialPathProp: {
     type: String,
     required: false
+  },
+  isClientBreadcrumb: {
+    type: Boolean,
+    default: false,
+    required: false
   }
 
 });
@@ -42,23 +47,29 @@ const unhover = () => {
   });
 };
 
-const getCurrentPathBreadcrumb = () => {
+const isWindows = () => {
+  return navigator.platform.indexOf("Win") > -1;
+};
+
+const getCurrentPathBreadcrumb = async() => {
   try {
-    const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
+    let splitSymbol = (isWindows() && props.isClientBreadcrumb) ? "\\" : "/";
+    const segments = currentDir.value.split(splitSymbol).filter(segment => segment.trim() !== "");
+
     if (segments.length === 0) {
       segments.push("");
     }
     return segments.map((segment, index) => {
       return {
-        name: "/" + segment,
-        path: "/" + segments.slice(0, index + 1).join("/"),
+        name: segment,
+        path: segments.slice(0, index + 1).join(splitSymbol),
         hover: false
       };
     });
   } catch (e) {
     return {
-      name: "/" + currentDir.value,
-      path: "/" + currentDir.value,
+      name: currentDir.value,
+      path: currentDir.value,
       hover: false
     };
   }
@@ -70,37 +81,39 @@ const isInitialSegment = (path) => {
   if (!initialPath.value) {
     return false;
   }
+  if(!props.isClientBreadcrumb) {
+    if (initialPath.value === '/'+path) {
+      return true;
+    }
 
-  if (initialPath.value === path) {
-    return true;
+  }else{
+    if (initialPath.value === path) {
+      return true;
+    }
   }
+
+
   return false;
 };
 
 
-onMounted(() => {
-
-
-  watch(currentDir, () => {
-    breadcrumb.value = getCurrentPathBreadcrumb();
+onMounted(async () => {
+  watch(currentDir, async () => {
+    breadcrumb.value = await getCurrentPathBreadcrumb();
   });
 
+  breadcrumb.value = await getCurrentPathBreadcrumb();
 
-  breadcrumb.value = getCurrentPathBreadcrumb();
-
-  watch(breadcrumbContainerWidth, () => {
-    const adjustedBreadcrumb = getCurrentPathBreadcrumb();
+  watch(breadcrumbContainerWidth, async () => {
+    const adjustedBreadcrumb = await getCurrentPathBreadcrumb();
     if (breadcrumbContainerWidth.value < 300) {
       const middleIndex = Math.floor(adjustedBreadcrumb.length / 2);
       adjustedBreadcrumb.splice(middleIndex, 0, { name: "...", path: "", hover: false });
     }
     breadcrumb.value = adjustedBreadcrumb;
   });
-
-
-
-
 });
+
 </script>
 
 <template>
@@ -116,7 +129,7 @@ onMounted(() => {
         @click.prevent="changePath(segment.path)"
         @mouseover="hover(index)"
         @mouseout="unhover()">
-        {{ segment.name }}
+        {{ segment.name }}<span>/</span>
       </a>
     </template>
   </div>

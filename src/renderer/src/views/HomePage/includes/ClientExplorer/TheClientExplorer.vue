@@ -18,9 +18,10 @@ const initialPath = ref("");
 const showTooltip = ref(false);
 
 const handleClick = (file) => {
+  let splitSymbol = isWindows() ? "\\" : "/";
   if (file.type === "d" && currentDir.value != null) {
-    if (currentDir.value === "/") {
-      currentDir.value = `/${file.name}`;
+    if (currentDir.value === splitSymbol) {
+      currentDir.value = `${splitSymbol . file.name}`;
     } else {
       currentDir.value = `${currentDir.value}/${file.name}`;
     }
@@ -28,22 +29,28 @@ const handleClick = (file) => {
   }
 };
 
-const handleBack = () => {
-  if (currentDir.value) {
-    const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
+const isWindows = () => {
+  return navigator.platform.indexOf("Win") > -1;
+};
 
-    if (segments.length > 0) {
-      segments.pop();
-      const newPath = "/" + segments.join("/");
-      currentDir.value = newPath;
-      listFiles();
+const handleBack = async() => {
+  let splitSymbol = isWindows() ? "\\" : "/";
+  let paths = await window.ipcRendererInvoke('normalize-path', currentDir.value);
+  const segments = paths.split(splitSymbol);
 
-    } else {
-      displayFlash("You have reached the Root Directory!", "warning");
-      listFiles();
-    }
+  if (segments.length > 1) {
+    // Entfernen des letzten Segments und Neuzusammenbau des Pfades
+    segments.pop();
+    const newPath = segments.join(splitSymbol);
+    currentDir.value = newPath;
+    await listFiles();
+  } else {
+    // Wenn es keine weiteren Segmente gibt, wird eine Warnung angezeigt
+    displayFlash("You have reached the Root Directory!", "warning");
+    await listFiles();
   }
 };
+
 
 const changePath = (path) => {
   currentDir.value = path;
@@ -299,7 +306,9 @@ const searchByFileType = async (fileTypes) => {
             :initial-breadcrumb="Breadcrumb"
             :current-dir="currentDir"
             :initial-path-prop="initialPath"
-            @change-path="changePath" />
+            @change-path="changePath"
+            :isClientBreadcrumb="true"
+          />
         </div>
 
         <icon-button-component

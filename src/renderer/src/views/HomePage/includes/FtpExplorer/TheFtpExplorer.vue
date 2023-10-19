@@ -36,39 +36,41 @@ const updateShowModal = (newValue) => {
   showModal.value = newValue;
 };
 
-const handleClick = (file) => {
+const handleClick = async(file) => {
   if (file.type === "d" && currentDir.value != null) {
     if (currentDir.value === "/") {
       currentDir.value = `/${file.name}`;
     } else {
       currentDir.value = `${currentDir.value}/${file.name}`;
     }
+
     setCurrentDir(currentDir.value);
-    listFiles();
+    await listFiles();
   }
 };
 
-const goToFtpInitialPath = () => {
+const goToFtpInitialPath = async() => {
   currentDir.value = initialPath.value;
+
   setCurrentDir(currentDir.value);
-  listFiles();
+  await listFiles();
 };
 
-const handleBack = () => {
+const handleBack = async() => {
   if (currentDir.value) {
     const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
 
     if (segments.length > 0) {
       segments.pop();
-      const newPath = "/" + segments.join("/");
+      let newPath ='/'+ segments.join("/");
       currentDir.value = newPath;
       setCurrentDir(currentDir.value);
-      listFiles();
+      await listFiles();
 
     } else {
       displayFlash("You have reached the Root Directory!", "warning");
       setCurrentDir(currentDir.value);
-      listFiles();
+      await listFiles();
     }
   }
 };
@@ -175,7 +177,7 @@ const listFiles = async (showLoader = true) => {
 };
 
 const setFtpSyncDirectory = async () => {
-
+  console.log(currentDir.value);
   await setSetting("ftp-sync-directory", currentDir.value);
   setCurrentDir(currentDir.value);
   initialPath.value = currentDir.value;

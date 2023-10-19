@@ -215,13 +215,15 @@ export const calculateDirectorySize = async (isLocal, files) => {
       if (isLocal) {
 
 
-        const filePath = currentFile.localPath;
+        const filePath = await normalizePath(currentFile.localPath);
+
         if (fs.existsSync(filePath)) {
           const stats = await fs.promises.stat(filePath);
           return typeof stats.size === "number" ? stats.size : 0;
         }
       } else {
-        const fileFromFtp = await sftp.stat(currentFile.serverPath);
+
+        const fileFromFtp = await sftp.stat(currentFile.serverPath.replace(/\\/g, "/"));
         return typeof fileFromFtp.size === "number" ? fileFromFtp.size : 0;
       }
     } catch {
@@ -294,6 +296,11 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
     }
 
+    clientSyncPath = await normalizePath(clientSyncPath);
+
+    if (!ftpSyncPath.startsWith("/")) {
+      ftpSyncPath = "/" + ftpSyncPath;
+    }
 
     if (mode === "upload") {
 
@@ -458,8 +465,8 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
     let filesToUpload = [];
 
     for (const itemName of itemNames) {
-      const localPath = path.join(clientSyncPath, itemName);
-      const serverPath = path.join(ftpSyncPath, itemName);
+      const localPath = await normalizePath(path.join(clientSyncPath, itemName));
+      const serverPath = path.join(ftpSyncPath, itemName).replace(/\\/g, "/");;
       const localStats = fs.statSync(localPath);
 
       let shouldUpload = false;
@@ -552,11 +559,16 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
     if (!uploadInProgress.value) {
       uploadInProgress.value = true;
 
+      clientSyncPath = await normalizePath(clientSyncPath);
+      ftpSyncPath = ftpSyncPath.replace(/\\/g, "/");
+
       currentFilesToUpload = await getFilesToUpload(clientSyncPath, ftpSyncPath);
       await ipcRenderer.invoke("sync-progress-start", currentFilesToUpload, "Upload");
 
-      for (const { localPath, serverPath, type } of currentFilesToUpload) {
+      for (let { localPath, serverPath, type } of currentFilesToUpload) {
 
+        localPath = await normalizePath(localPath);
+        serverPath = serverPath.replace(/\\/g, "/");
         if (type === "f") {
           try {
             await sftp.fastPut(localPath, serverPath);
@@ -586,11 +598,11 @@ const uploadFiles = async (clientSyncPath, ftpSyncPath) => {
           if (deleteUploadedFilesOnCLient) {
             for (const file of currentFilesToUpload) {
               if (file.type === "f") {
-                fs.unlinkSync(file.localPath);
+                fs.unlinkSync(await normalizePath(file.localPath));
               }
             }
             try {
-              await deleteFolders(clientSyncPath);
+              await deleteFolders(await normalizePath(clientSyncPath));
             } catch (error) {
               let log = {
                 logType: "Error",
@@ -637,14 +649,14 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
     let filesToDownload = [];
 
     for (const item of items) {
-      const localPath = path.join(clientSyncPath, item.name);
-      const serverPath = path.join(ftpSyncPath, item.name);
+      const localPath = await normalizePath(path.join(clientSyncPath, item.name));
+      const serverPath = path.join(ftpSyncPath, item.name).replace(/\\/g, "/");
       let shouldDownload = false;
 
       if (item.type === "-" || item.type === "f") {
-        shouldDownload = !fs.existsSync(localPath);
+        shouldDownload = !fs.existsSync(await normalizePath(localPath));
         if (!shouldDownload) {
-          const localStats = fs.statSync(localPath);
+          const localStats = fs.statSync(await normalizePath(localPath));
           const localSize = localStats.size;
           const serverSize = item.size;
 
@@ -664,7 +676,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
         }
 
       } else if (item.type === "d") {
-        if (!fs.existsSync(localPath)) {
+        if (!fs.existsSync(await normalizePath(localPath))) {
           fs.mkdirSync(localPath, { recursive: true });
         }
         const subFilesToDownload = await getFilesToDownload(localPath, serverPath);
@@ -694,10 +706,12 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
       currentDownloadFiles = await getFilesToDownload(clientSyncPath, ftpSyncPath);
       await ipcRenderer.invoke("sync-progress-start", currentDownloadFiles, "Download");
 
-      for (const { localPath, serverPath, type } of currentDownloadFiles) {
-
+      for (let { localPath, serverPath, type } of currentDownloadFiles) {
+        serverPath = serverPath.replace(/\\/g, "/");
+        localPath = await normalizePath(localPath);
         if (type === "-" || type === "f") {
           try {
+
             await sftp.fastGet(serverPath, localPath);
           } catch (error) {
             let log = {
@@ -747,3 +761,9 @@ const downloadFiles = async (clientSyncPath, ftpSyncPath) => {
     await ipcRenderer.invoke("add-log", log);
   }
 };
+
+// Normalize Paths
+const normalizePath = async (inputPath) => {
+  if(path === null) return '';
+  return path.normalize(inputPath);
+}

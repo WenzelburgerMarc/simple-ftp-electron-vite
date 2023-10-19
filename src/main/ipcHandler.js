@@ -21,6 +21,7 @@ import {
   saveAllLogs
 } from "./logs";
 import { exportSettings, importSettings } from "./manageConfig";
+import * as path from "path";
 
 // Global Error and Promise Handlers
 process.on('uncaughtException', (error) => {
@@ -162,6 +163,12 @@ ipcMain.handle("watch-client-directory", async (event, directoryPath) => {
 // Function to stop watching changes in a specified directory
 ipcMain.handle("unwatch-client-directory", async () => {
   await unwatchClientDirectory();
+});
+
+// Normalize Path
+ipcMain.handle("normalize-path", async (event, inputPath) => {
+  if(path === null) return '';
+  return path.normalize(inputPath);
 });
 
 // === Sync Handler ===

@@ -36,7 +36,7 @@ export const loadGeneralSettings = async (showFlash = true) => {
   enableAutoStart.value = await getSetting("enableAutoStart");
   autoReloadFtpInterval.value = await getSetting("autoReloadFtpInterval") || 60000;
   autoSyncInterval.value = await getSetting("autoSyncInterval") || 30000;
-  selectedPath.value = await getSetting("clientSyncPath");
+  selectedPath.value = await window.ipcRendererInvoke('normalize-path', await getSetting("clientSyncPath"));
   enableAutoReconnect.value = await getSetting("enableAutoReconnect");
   enableDeletingFilesAfterUpload.value = await getSetting("enableDeletingFilesAfterUpload");
   passwordRequiredOnStartup.value = await getSetting("passwordRequiredOnStartup");
@@ -96,7 +96,7 @@ export const saveGeneralSettings = async (showFlash = true) => {
   await setSetting("enableAutoStart", enableAutoStart.value);
   await setSetting("autoReloadFtpInterval", autoReloadFtpInterval.value);
   await setSetting("autoSyncInterval", autoSyncInterval.value);
-  await setSetting("clientSyncPath", selectedPath.value);
+  await setSetting("clientSyncPath", await window.ipcRendererInvoke('normalize-path', selectedPath.value));
   await setSetting("enableAutoReconnect", enableAutoReconnect.value);
   await setSetting("enableDeletingFilesAfterUpload", enableDeletingFilesAfterUpload.value);
   await setSetting("passwordRequiredOnStartup", passwordRequiredOnStartup.value);
