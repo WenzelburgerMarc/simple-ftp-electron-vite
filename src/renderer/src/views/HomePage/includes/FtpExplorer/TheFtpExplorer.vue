@@ -177,25 +177,31 @@ const listFiles = async (showLoader = true) => {
 };
 
 const setFtpSyncDirectory = async () => {
-  console.log(currentDir.value);
-  await setSetting("ftp-sync-directory", currentDir.value);
-  setCurrentDir(currentDir.value);
-  initialPath.value = currentDir.value;
+
+  if(currentDir.value !== '/'){
+    await setSetting("ftp-sync-directory", currentDir.value);
+    setCurrentDir(currentDir.value);
+    initialPath.value = currentDir.value;
 
 
-  let log = {
-    logType: "Set-Sync-Path",
-    id: window.api.getUUID(),
-    type: "Server Sync Path Set",
-    open: false,
-    totalFiles: 1,
-    destination: currentDir.value + "/",
-    progress: "-"
-  };
+    let log = {
+      logType: "Set-Sync-Path",
+      id: window.api.getUUID(),
+      type: "Server Sync Path Set",
+      open: false,
+      totalFiles: 1,
+      destination: currentDir.value,
+      progress: "-"
+    };
 
-  await window.ipcRendererInvoke("add-log", log);
+    await window.ipcRendererInvoke("add-log", log);
 
-  displayFlash("FTP Sync Directory Set!", "success");
+    displayFlash("FTP Sync Directory Set!", "success");
+  }else{
+    displayFlash("You cannot set the root directory as your sync directory!", "warning");
+  }
+
+
 };
 
 const deleteFtpFile = async (file) => {
