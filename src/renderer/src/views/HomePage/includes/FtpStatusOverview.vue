@@ -146,6 +146,8 @@ const checkFtpProgress = async () => {
       }
       let ftpSyncPath = await getSetting("ftp-sync-directory");
       let clientSyncPath = await getSetting("clientSyncPath");
+      clientSyncPath = await window.ipcRendererInvoke('normalize-path', clientSyncPath)
+
 
       let log = {
         logType: "Sync-Progress",

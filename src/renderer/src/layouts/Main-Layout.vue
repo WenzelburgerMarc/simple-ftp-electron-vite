@@ -58,7 +58,7 @@ onMounted(async () => {
 
 <template>
   <div class="overflow-hidden">
-    <div class="titlebar fixed top-0 left-0 w-full bg-gray-300 h-[11px]">
+    <div class="titlebar fixed top-0 left-0 w-full bg-gray-300 dark:bg-gray-100 h-[11px]">
     </div>
     <loader />
     <TheSidebar @settings-clicked="toggleSettingsModal"
