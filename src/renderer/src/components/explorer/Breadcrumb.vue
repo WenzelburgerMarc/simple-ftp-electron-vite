@@ -37,7 +37,13 @@ const getSeparator = () => {
 
 
 const changePath = (pathStr) => {
-  let normalizedPath = props.isClientBreadcrumb ? window.api.path.normalize(pathStr) : pathStr.replace(new RegExp(`\\${getSeparator()}`, 'g'), '/');
+  let normalizedPath;
+  if (props.isClientBreadcrumb) {
+    normalizedPath = pathStr.startsWith(getSeparator()) ?  window.api.path.normalize(pathStr) : window.api.path.normalize(getSeparator() + pathStr);
+  } else {
+    normalizedPath = pathStr.startsWith('/') ? pathStr : '/' + pathStr;
+  }
+  console.log("Normalized path: " + normalizedPath);
   emit("change-path", normalizedPath);
 };
 
@@ -132,7 +138,7 @@ onMounted(async () => {
         @mouseout="unhover()">
         {{ segment.name }}
       </a>
-      <span v-if="index < breadcrumb.length - 1">{{ getSeparator() }}</span>
+      <span class="text-blue-600" v-if="index < breadcrumb.length - 1">{{ getSeparator() }}</span>
     </template>
   </div>
 </template>
