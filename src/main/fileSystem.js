@@ -9,34 +9,44 @@ import { addLog } from "./logs";
 
 const store = new Store();
 
-// Get All Client File Types
+const getFileExtensions = (directory) => {
+  const items = fs.readdirSync(directory, { withFileTypes: true });
+  let files = [];
+  for (const item of items) {
+    if (!item.isDirectory() && !item.name.startsWith(".")) {
+      files.push(item.name);
+    }
+  }
+  return files.map((file) => {
+    let splitFile = file.split(".");
+    if (splitFile.length > 1) {
+      return splitFile[splitFile.length - 1];
+    }
+  }).filter(extension => extension !== undefined);
+};
+
 const getAllClientFileTypes = async (directory = null) => {
   try {
     if (directory === null) {
-      directory = store.get("clientSyncPath");
+      directory = await store.get("clientSyncPath");
     }
 
+    if(!fs.existsSync(directory)) {
+      return [];
+    }
+
+    let allExtensions = getFileExtensions(directory);
+
     const items = fs.readdirSync(directory, { withFileTypes: true });
-    let files = [];
     for (const item of items) {
       if (item.isDirectory()) {
         const subDirectory = path.join(directory, item.name);
-        const subFiles = await getAllClientFileTypes(subDirectory);
-        files = files.concat(subFiles);
-      } else {
-        if (!item.name.startsWith("."))
-          files.push(item.name);
+        const subExtensions = await getAllClientFileTypes(subDirectory);
+        allExtensions = allExtensions.concat(subExtensions);
       }
     }
 
-    files = files.map((file) => {
-      let splitFile = file.split(".");
-      if (splitFile.length > 1) {
-        return splitFile[splitFile.length - 1];
-      }
-    });
-
-    return files;
+    return allExtensions;
   } catch (error) {
     let log = {
       logType: "Error",
@@ -50,43 +60,46 @@ const getAllClientFileTypes = async (directory = null) => {
   }
 };
 
+// Helper function to get file details
+const getFileDetails = async (filePath) => {
+  try {
+    const stats = await fs.promises.stat(filePath);
+    const file = path.basename(filePath);
+    return {
+      name: file,
+      path: filePath,
+      type: stats.isDirectory() ? "d" : "f",  // Identify if it's a directory or file
+      size: stats.size
+    };
+  } catch (error) {
+    // Handle error as needed
+    throw new Error(`Error - List Client Files: ${error.message}`);
+  }
+};
+
 // Function to list files from a specified directory
 const listLocalFiles = async (dirPath) => {
   try {
     dirPath = path.normalize(dirPath);
     const files = fs.readdirSync(dirPath);
-    const fileDetailsPromises = files.map(async file => {
+    let fileDetails = [];
+    for (const file of files) {
       // Ignore hidden files (those starting with a dot)
       if (file.startsWith(".")) {
-        return null;
+        continue;
       }
 
       const filePath = path.normalize(path.join(dirPath, file));
-      try {
-        const stats = await fs.promises.stat(filePath);
-        return {
-          name: file,
-          path: filePath,
-          type: stats.isDirectory() ? "d" : "f",  // Identify if it's a directory or file
-          size: stats.size
-        };
-      } catch (error) {
-        let log = {
-          logType: "Error",
-          id: uuidv4(),
-          type: "Error - List Client Files",
-          open: false,
-          description: error.message
-        };
-        await ipcRenderer.invoke("add-log", log);
-        await ipcRenderer.invoke("flash-message", error.message, "Error");
-        throw new Error(`Error - List Client Files: ${error.message}`);
-      }
-    });
+      const fileDetail = await getFileDetails(filePath);
+      fileDetails.push(fileDetail);
 
-    // Await all fileDetail promises to resolve, then filter out any null values
-    const fileDetails = await Promise.all(fileDetailsPromises);
-    return fileDetails.filter(file => file !== null);
+      // If it's a directory, recurse into it
+      if (fileDetail.type === "d") {
+        const subDirFileDetails = await listLocalFiles(filePath);
+        fileDetails = fileDetails.concat(subDirFileDetails);
+      }
+    }
+    return fileDetails;
   } catch (error) {
     let log = {
       logType: "Error",
@@ -100,6 +113,7 @@ const listLocalFiles = async (dirPath) => {
     throw new Error(`Error - List Client Files: ${error.message}`);
   }
 };
+
 
 // Function to create a new folder in the specified directory
 const createNewClientFolder = async (selectedDirectory) => {

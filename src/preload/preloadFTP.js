@@ -61,36 +61,77 @@ export const disconnectFTP = async () => {
     setConnected(false);
   }
 };
+
 // List files and directories from the FTP server
-export const listFilesAndDirectories = async (remoteDir = currentDir.value) => {
+export const listFilesAndDirectories = async (remoteDir = currentDir.value, fileTypeFiltering = [], fileNameFiltering='') => {
+  let fileTypeFilter;
+  try {
+    fileTypeFilter = JSON.parse(fileTypeFiltering)
+  }catch (e) {
+    fileTypeFilter = []
+  }
+
+  const allFiles = await recursiveListFiles(remoteDir, fileTypeFilter, fileNameFiltering);
+  setFiles(allFiles);
+};
+
+const recursiveListFiles = async (remoteDir, fileTypeFiltering, fileNameFiltering) => {
   if (!isConnected) {
-    return;
+    return [];
   }
-  if (remoteDir === null) {
-    remoteDir = await ipcRenderer.invoke("get-setting", "ftp-sync-directory") || "/";
-  }
+
   try {
     const fileObjects = await sftp.list(remoteDir);
-    const files = [];
+    let files = [];
+    let subDirectories = [];
+
     for (const file of fileObjects) {
-      files.push(file);
+      const isTypeMatch = (fileTypeFiltering && fileTypeFiltering.length > 0)
+        ? fileTypeFiltering.includes(file.name.split('.').pop())
+        : true;
+
+      const isNameMatch = (fileNameFiltering && fileNameFiltering !== '')
+        ? file.name.toLowerCase().includes(fileNameFiltering.toLowerCase())
+        : true;
+
+      if (isTypeMatch && isNameMatch) {
+        files.push(file);
+      }
+
+      if (file.type === 'd' && (fileTypeFiltering.length > 0 || fileNameFiltering !== '')) {
+        subDirectories.push(`${remoteDir}/${file.name}`);
+      }
     }
-    setFiles(files);
+
+    // Batch process sub directories
+    const subDirFilesArray = await Promise.all(
+      subDirectories.map(subDirPath => recursiveListFiles(subDirPath, fileTypeFiltering, fileNameFiltering))
+    );
+
+    // Flatten and concat arrays
+    files = files.concat(...subDirFilesArray);
+
+    return files;
+
   } catch (error) {
-
-    if(isConnected){
-      let log = {
-        logType: "Error",
-        id: uuidv4(),
-        type: "Error - List Server Files",
-        open: false,
-        description: error.message
-      };
-      await ipcRenderer.invoke("add-log", log);
-    }
-
+    handleRecursiveError(error);
+    return [];
   }
 };
+
+const handleRecursiveError = async (error) => {
+  if(isConnected){
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - List Server Files",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
+  }
+};
+
 // Delete a file from the FTP server
 export const deleteFile = async (filePath) => {
   if (!isConnected) {
@@ -410,53 +451,56 @@ export const clearFilesAfterModeSwitch = async (deleteOnlyClient = false, delete
   }
 
 };
+// Funktion zum Abrufen der Dateierweiterungen aus einem FTP-Verzeichnis
+const getFileExtensionsFromFtp = async (directory) => {
+  const items = await sftp.list(directory);
+  let files = [];
+  for (const item of items) {
+    if (item.type !== "d" && !item.name.startsWith(".")) {
+      files.push(item.name);
+    }
+  }
+  return files.map((file) => {
+    let splitFile = file.split(".");
+    if (splitFile.length > 1) {
+      return splitFile[splitFile.length - 1];
+    }
+  }).filter(extension => extension !== undefined);
+};
 
-// Search Methods
+// Hauptfunktion zur Sammlung aller Dateitypen
 export const getAllFtpFileTypes = async (directory = null) => {
   try {
-
-    if (directory === null)
+    if (directory === null) {
       directory = await ipcRenderer.invoke("get-setting", "ftp-sync-directory");
-
-    if(!directory) return;
+    }
+    if (!directory) return;
 
     if (await sftp.exists(directory) !== "d") {
       throw new Error(`Directory does not exist: ${directory}`);
     }
 
+    let allExtensions = await getFileExtensionsFromFtp(directory);
 
     const items = await sftp.list(directory);
-    let files = [];
     for (const item of items) {
       if (item.type === "d") {
-        let subFilePromises = items.filter(item => item.type === "d")
-          .map(async item => {
-            const subDirectory = formatFtpPath([directory, item.name]);
-            return getAllFtpFileTypes(subDirectory);
-          });
-        let subFilesArray = await Promise.all(subFilePromises);
-        files = files.concat(...subFilesArray);
-      } else {
-        if (!item.name.startsWith("."))
-          files.push(item.name);
+        const subDirectory = formatFtpPath([directory, item.name]);
+        const subExtensions = await getAllFtpFileTypes(subDirectory);
+        allExtensions = allExtensions.concat(subExtensions);
       }
     }
-
-    files = files.map((file) => {
-      if (typeof file === "string") {
-        let splitFile = file.split(".");
-        if (splitFile.length > 1) {
-          return splitFile[splitFile.length - 1];
-        }
-      }
-    });
-
-
-    return files;
+    return allExtensions;
   } catch (error) {
-    if (!error.message.includes("No such file") && !error.message.includes("Directory does not exist")) {
-      throw new Error(error.message);
-    }
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Get All FTP File Types",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
+    throw new Error(`Error - Get All FTP File Types: ${error.message}`);
   }
 };
 

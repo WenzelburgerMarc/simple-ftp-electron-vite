@@ -139,27 +139,12 @@ onBeforeRouteLeave((to, from, next) => {
 });
 
 const listFiles = async (showLoader = true) => {
+
   if (currentDir.value) {
     try {
-      await listFilesAndDirectories(getCurrentDir(), showLoader);
+      await listFilesAndDirectories(getCurrentDir(), showLoader, searchByFileTypes.value, searchByText.value);
+
       fileList.value = getFileList() || [];
-
-      // File Type Filtering
-      if (searchByFileTypes.value.length > 0) {
-        fileList.value = fileList.value.filter(file =>
-          searchByFileTypes.value.some(type =>
-            file.name.toLowerCase().endsWith(type.toString().toLowerCase())
-          )
-        );
-      }
-
-      // Text Filtering
-      if(searchByText.value !== '') {
-        fileList.value = fileList.value.filter(file =>
-          file.name.toLowerCase().includes(searchByText.value.toLowerCase())
-        );
-      }
-
 
       fileList.value.sort((a, b) => {
         if (a.type === "d" && b.type !== "d") return -1;

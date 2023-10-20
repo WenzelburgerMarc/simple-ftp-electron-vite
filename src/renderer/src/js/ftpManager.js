@@ -127,7 +127,7 @@ export const getCurrentSyncMode = () => {
 export const getFileList = () => {
   return fileList.value;
 };
-export const listFilesAndDirectories = async (remoteDir = currentDir.value, showLoader = true) => {
+export const listFilesAndDirectories = async (remoteDir = currentDir.value, showLoader = true, fileTypeFiltering, fileNameFiltering) => {
   if (!connected.value) {
     return;
   }
@@ -140,8 +140,10 @@ export const listFilesAndDirectories = async (remoteDir = currentDir.value, show
     if (showLoader)
       startLoading();
 
-    await window.ftp.listFilesAndDirectories(remoteDir);
-    fileList.value = window.ftp.getFiles();
+     const fileTypes = JSON.stringify(fileTypeFiltering);
+
+    await window.ftp.listFilesAndDirectories(remoteDir, fileTypes, fileNameFiltering);
+    fileList.value = await window.ftp.getFiles();
 
     stopLoading();
 
