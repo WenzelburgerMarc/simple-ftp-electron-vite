@@ -150,8 +150,8 @@ ipcMain.handle("delete-client-directory", async (event, dirPath) => {
 });
 
 // List all files in a specified directory
-ipcMain.handle("list-local-files", async (event, dirPath) => {
-  return await listLocalFiles(dirPath);
+ipcMain.handle("list-local-files", async (event, dirPath, isFiltering = false) => {
+  return await listLocalFiles(dirPath, isFiltering);
 });
 
 // Function to watch changes in a specified directory

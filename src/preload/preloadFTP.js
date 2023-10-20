@@ -20,6 +20,7 @@ let currentDownloadFiles = [];
 let progress = 0;
 let intervalId = null;
 let firstRun = true;
+let isFilteringFtp = ref(false);
 
 // Sync Mode
 export const setSyncMode = (mode) => {
@@ -36,6 +37,9 @@ export const getFiles = () => files;
 // Current Directory
 export const setCurrentDir = (dir) => currentDir.value = dir;
 export const getCurrentDir = () => currentDir.value;
+// isFiltering
+export const getIsFilteringFtp = () => isFilteringFtp.value;
+const setIsFilteringFtp = (isFiltering) => isFilteringFtp.value = isFiltering;
 // === FTP Methods === \\
 // Connect to the FTP server
 export const connectFTP = async (ftpSettings) => {
@@ -94,11 +98,14 @@ const recursiveListFiles = async (remoteDir, fileTypeFiltering, fileNameFilterin
         ? file.name.toLowerCase().includes(fileNameFiltering.toLowerCase())
         : true;
 
-      if (isTypeMatch && isNameMatch) {
+      const isFiltering = fileTypeFiltering.length > 0 || fileNameFiltering !== '';
+      setIsFilteringFtp(isFiltering)
+
+      if (isTypeMatch && isNameMatch && (!isFiltering || (isFiltering && file.type !== 'd'))) {
         files.push(file);
       }
 
-      if (file.type === 'd' && (fileTypeFiltering.length > 0 || fileNameFiltering !== '')) {
+      if (file.type === 'd' && isFiltering) {
         subDirectories.push(`${remoteDir}/${file.name}`);
       }
     }
@@ -114,11 +121,9 @@ const recursiveListFiles = async (remoteDir, fileTypeFiltering, fileNameFilterin
     return files;
 
   } catch (error) {
-
     return [];
   }
 };
-
 
 
 // Delete a file from the FTP server

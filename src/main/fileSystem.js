@@ -78,7 +78,7 @@ const getFileDetails = async (filePath) => {
 };
 
 // Function to list files from a specified directory
-const listLocalFiles = async (dirPath) => {
+const listLocalFiles = async (dirPath, isFiltering = false) => {
   try {
     dirPath = path.normalize(dirPath);
     const files = fs.readdirSync(dirPath);
@@ -94,11 +94,18 @@ const listLocalFiles = async (dirPath) => {
       fileDetails.push(fileDetail);
 
       // If it's a directory, recurse into it
-      if (fileDetail.type === "d") {
-        const subDirFileDetails = await listLocalFiles(filePath);
+      if (fileDetail.type === "d" && isFiltering) {
+        const subDirFileDetails = await listLocalFiles(filePath, isFiltering);
         fileDetails = fileDetails.concat(subDirFileDetails);
       }
     }
+    // Remove directories from fileDetails
+    if(isFiltering){
+      fileDetails = fileDetails.filter((fileDetail) => {
+        return fileDetail.type !== "d";
+      });
+    }
+
     return fileDetails;
   } catch (error) {
     let log = {

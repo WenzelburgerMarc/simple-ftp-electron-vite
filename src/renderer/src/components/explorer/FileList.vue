@@ -7,6 +7,16 @@ const props = defineProps({
   initialFileList: {
     type: Array,
     required: true
+  },
+  isClient : {
+    type: Boolean,
+    default: false,
+    required: false
+  },
+  isClientFiltering : {
+    type: Boolean,
+    default: false,
+    required: false
   }
 });
 
@@ -53,6 +63,19 @@ onMounted(async () => {
       showDeleteButtons.value = true;
     } else {
       showDeleteButtons.value = false;
+    }
+
+    if(showDeleteButtons.value){
+      if(props.isClientFiltering){
+        showDeleteButtons.value = !props.isClientFiltering;
+      }else{
+        let isFiltering = await window.ftp.getIsFilteringFtp();
+
+        showDeleteButtons.value = !isFiltering;
+      }
+
+
+
     }
   }, 250);
 

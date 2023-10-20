@@ -19,21 +19,36 @@ const fileList = ref([]);
 const initialPath = ref("");
 const showTooltip = ref(false);
 
-const handleClick = (file) => {
-  currentDir.value = path.join(currentDir.value, file.name);
-  if (file.type === "d" && currentDir.value != null) listFiles();
+const handleClick = async (file) => {
+  const syncPath = await getSetting("clientSyncPath");
+  const newPath = path.join(currentDir.value, file.name);
+
+  if (file.type === "d" && newPath.startsWith(syncPath) && newPath !== syncPath) {
+    currentDir.value = newPath;
+    await listFiles();
+  } else {
+    displayFlash("Cannot navigate beyond the sync directory!", "warning");
+    // Optionally, you might want to reset currentDir.value to syncPath here
+     currentDir.value = syncPath;
+    await listFiles();
+  }
 };
 
 const handleBack = async() => {
+  const syncPath = await getSetting("clientSyncPath");
   const newPath = path.dirname(currentDir.value);
-  if (newPath !== currentDir.value) {
+
+  if (newPath.startsWith(syncPath) && newPath !== syncPath) {
     currentDir.value = newPath;
     await listFiles();
   } else {
     displayFlash("You have reached the Root Directory!", "warning");
+    // Optionally, you might want to reset currentDir.value to syncPath here
+     currentDir.value = syncPath;
     await listFiles();
   }
 };
+
 
 const changePath = (newPath) => {
 
@@ -103,10 +118,23 @@ const goToClientInitialPath = () => {
   listFiles();
 };
 
+const checkIsFiltering = async() => {
+  if (searchByText.value !== '' || searchByFileTypes.value.length > 0) {
+    filtering.value = true;
+    return true;
+  }
+  filtering.value = false;
+  return false;
+};
+
+const filtering = ref(false);
+
 const listFiles = async () => {
   if (currentDir.value) {
     try {
-      fileList.value = await window.ipcRendererInvoke("list-local-files", currentDir.value) || [];
+      const isFiltering = await checkIsFiltering();
+
+      fileList.value = await window.ipcRendererInvoke("list-local-files", currentDir.value, isFiltering) || [];
 
       // File Type Filtering
       if (searchByFileTypes.value.length > 0) {
@@ -311,6 +339,8 @@ const searchByFileType = async (fileTypes) => {
 
     <FileList
       :initial-file-list="fileList"
+      :is-client="true"
+      :is-client-filtering="filtering"
       @file-clicked="handleClick"
       @delete-file="deleteFile"
       @delete-folder="deleteFolder" />

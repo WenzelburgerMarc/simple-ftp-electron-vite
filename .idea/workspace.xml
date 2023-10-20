@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +142,7 @@
       <workItem from="1697715375081" duration="399000" />
       <workItem from="1697715785338" duration="8209000" />
       <workItem from="1697785827447" duration="4626000" />
-      <workItem from="1697790586911" duration="17972000" />
+      <workItem from="1697790586911" duration="22151000" />
     </task>
     <task id="LOCAL-00105" summary="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
       <option name="closed" value="true" />
