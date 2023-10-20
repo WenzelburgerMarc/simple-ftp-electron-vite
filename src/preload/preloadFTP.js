@@ -114,23 +114,12 @@ const recursiveListFiles = async (remoteDir, fileTypeFiltering, fileNameFilterin
     return files;
 
   } catch (error) {
-    handleRecursiveError(error);
+
     return [];
   }
 };
 
-const handleRecursiveError = async (error) => {
-  if(isConnected){
-    let log = {
-      logType: "Error",
-      id: uuidv4(),
-      type: "Error - List Server Files",
-      open: false,
-      description: error.message
-    };
-    await ipcRenderer.invoke("add-log", log);
-  }
-};
+
 
 // Delete a file from the FTP server
 export const deleteFile = async (filePath) => {

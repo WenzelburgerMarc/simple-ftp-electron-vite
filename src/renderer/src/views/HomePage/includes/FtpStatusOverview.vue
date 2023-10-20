@@ -10,7 +10,10 @@ import { setSetting, getSetting } from "../../../js/manageSettings";
 
 const online = ref(false);
 
-const syncProgress = reactive(ref(0));
+// computed ref
+const syncProgress = ref(0);
+
+
 
 const emit = defineEmits(["listFiles"]);
 
@@ -161,8 +164,8 @@ const checkFtpProgress = async () => {
         files: files
       };
 
-
-      await window.ipcRendererInvoke("add-log", log);
+      if(currentProcessingFiles.value.length > 0)
+        await window.ipcRendererInvoke("add-log", log);
 
     }
 
@@ -282,12 +285,12 @@ const disconnectFtp = async () => {
 </script>
 
 <template>
-  <panel-component class="relative z-0 ftp-status flex flex-col justify-between items-center overflow-hidden">
+  <panel-component class="relative z-10 ftp-status flex flex-col justify-between items-center overflow-hidden">
     <div
       :class="finishedSyncing ? 'bg-green-200' : 'bg-blue-200'"
       :style="{width: syncProgress + '%'}"
-      class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-10"></div>
-    <div class="w-full flex justify-between items-center z-10 pointer-events-auto">
+      class="sync-progress transition-all pointer-events-none absolute h-full left-0 top-0 z-20"></div>
+    <div class="w-full flex justify-between items-center z-30 pointer-events-auto">
       <!--   Ftp Status   -->
       <div class="w-full flex items-center space-x-4">
         <div

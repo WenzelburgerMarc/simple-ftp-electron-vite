@@ -176,7 +176,7 @@ const deleteFile = async (file) => {
       let log = {
         logType: "Delete-File",
         id: window.api.getUUID(),
-        type: "Deleted Server File",
+        type: "Deleted Client File",
         open: false,
         totalSize: file.size,
         destination: filePath + "/",
