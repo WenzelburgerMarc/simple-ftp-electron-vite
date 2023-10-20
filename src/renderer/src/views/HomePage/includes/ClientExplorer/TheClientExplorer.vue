@@ -12,49 +12,31 @@ import { onBeforeRouteLeave } from "vue-router";
 import { getSetting } from "../../../../js/manageSettings";
 import FilterExplorerComponent from "../FilterExplorerComponent.vue";
 
+const path = window.api.path;
+
 const currentDir = ref("");
 const fileList = ref([]);
 const initialPath = ref("");
 const showTooltip = ref(false);
 
 const handleClick = (file) => {
-  let splitSymbol = isWindows() ? "\\" : "/";
-  if (file.type === "d" && currentDir.value != null) {
-    if (currentDir.value === splitSymbol) {
-      currentDir.value = `${splitSymbol . file.name}`;
-    } else {
-      currentDir.value = `${currentDir.value}/${file.name}`;
-    }
-    listFiles();
-  }
-};
-
-const isWindows = () => {
-  return navigator.platform.indexOf("Win") > -1;
+  currentDir.value = path.join(currentDir.value, file.name);
+  if (file.type === "d" && currentDir.value != null) listFiles();
 };
 
 const handleBack = async() => {
-  let splitSymbol = isWindows() ? "\\" : "/";
-  let paths = await window.ipcRendererInvoke('normalize-path', currentDir.value);
-  const segments = paths.split(splitSymbol);
-
-  if (segments.length > 1) {
-    // Entfernen des letzten Segments und Neuzusammenbau des Pfades
-    segments.pop();
-    const newPath = segments.join(splitSymbol);
+  const newPath = path.dirname(currentDir.value);
+  if (newPath !== currentDir.value) {
     currentDir.value = newPath;
     await listFiles();
   } else {
-    // Wenn es keine weiteren Segmente gibt, wird eine Warnung angezeigt
     displayFlash("You have reached the Root Directory!", "warning");
     await listFiles();
   }
 };
 
-
-const changePath = (path) => {
-  currentDir.value = path;
-
+const changePath = (newPath) => {
+  currentDir.value = newPath;
   listFiles();
 };
 
@@ -68,13 +50,15 @@ const createNewFolderOnClient = async () => {
       name = folderName;
     }
 
+    const destinationPath = path.join(currentDir.value, name);
+
     let log = {
       logType: "Create-Folder",
       id: window.api.getUUID(),
       type: "Client Folder Created",
       name: name,
       open: false,
-      destination: currentDir.value + "/"
+      destination: destinationPath
     };
 
     await window.ipcRendererInvoke("add-log", log);
@@ -166,8 +150,7 @@ const onDrop = async (event) => {
 };
 
 const copyFileToCurrentDir = async (sourcePath) => {
-  const basename = (p) => p.split(/[\\/]/).pop();
-  const destinationPath = currentDir.value + "/" + basename(sourcePath);
+  const destinationPath = path.join(currentDir.value, path.basename(sourcePath));
   await window.ipcRendererInvoke("copy-file", sourcePath, destinationPath);
   displayFlash("File copied", "success");
   await listFiles();
@@ -178,7 +161,7 @@ const openSelectedClientDirectory = async () => {
 };
 
 const deleteFile = async (file) => {
-  const filePath = currentDir.value + "/" + file.name;
+  const filePath = path.join(currentDir.value, file.name);
 
   try {
     const response = await window.ipcRendererInvoke("delete-client-file", filePath);
@@ -210,7 +193,8 @@ const deleteFile = async (file) => {
 };
 
 const deleteFolder = async (folder) => {
-  await window.ipcRendererInvoke("delete-client-directory", currentDir.value + "/" + folder.name)
+  const folderPath = path.join(currentDir.value, folder.name);
+  await window.ipcRendererInvoke("delete-client-directory", folderPath)
     .then(response => {
       if (response.success) {
         displayFlash("Deleted folder", "success");

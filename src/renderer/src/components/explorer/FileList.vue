@@ -17,7 +17,7 @@ const currentSyncMode = ref(null);
 const emit = defineEmits(["file-clicked", "delete-file", "delete-folder"]);
 
 const fileList = computed(() => {
-  return props.initialFileList;
+  return props.initialFileList.filter(file => !file.name.startsWith("."));
 });
 
 const handleClick = (file) => {

@@ -1,6 +1,7 @@
 // Desc: Expose main process functionality to the renderer process
 "use strict";
 import { contextBridge, ipcRenderer } from "electron";
+import * as path from "path";
 import {
   connectFTP,
   disconnectFTP,
@@ -69,6 +70,7 @@ contextBridge.exposeInMainWorld("ftp", {
 // Export some extra functions to the renderer process
 contextBridge.exposeInMainWorld("api", {
   baseUrl: process.env.BASE_URL,
+  path: path,
   isOnline: online,
   getUUID: () => uuidv4(),
   selectDirectory: async () => {

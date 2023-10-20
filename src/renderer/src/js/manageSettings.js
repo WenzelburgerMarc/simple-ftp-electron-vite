@@ -221,7 +221,7 @@ const getSettings = async () => {
   const enableAutoStart = await getSetting("enableAutoStart") || false;
   const autoReloadFtpInterval = await getSetting("autoReloadFtpInterval") || 60000;
   const autoSyncInterval = await getSetting("autoSyncInterval") || 30000;
-  const selectedPath = await getSetting("clientSyncPath") || "";
+  const selectedPath = await window.ipcRendererInvoke('normalize-path', await getSetting("clientSyncPath")) || "";
   const enableAutoReconnect = await getSetting("enableAutoReconnect") || false;
   const enableDeletingFilesAfterUpload = await getSetting("enableDeletingFilesAfterUpload") || false;
   const passwordRequiredOnStartup = await getSetting("passwordRequiredOnStartup") || false;

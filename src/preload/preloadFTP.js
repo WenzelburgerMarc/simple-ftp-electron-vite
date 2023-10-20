@@ -278,6 +278,7 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
     return;
   }
 
+
   let interval = await ipcRenderer.invoke("get-setting", "autoSyncInterval");
 
   interval = parseInt(interval);
@@ -296,11 +297,11 @@ export const startSyncing = async (mode, clientSyncPath, ftpSyncPath) => {
 
     }
 
-    clientSyncPath = await normalizePath(clientSyncPath);
-
     if (!ftpSyncPath.startsWith("/")) {
-      ftpSyncPath = "/" + ftpSyncPath;
+      ftpSyncPath = formatFtpPath(["/", ftpSyncPath]);
     }
+
+    clientSyncPath = await normalizePath(clientSyncPath);
 
     if (mode === "upload") {
 
@@ -417,6 +418,8 @@ export const getAllFtpFileTypes = async (directory = null) => {
     if (directory === null)
       directory = await ipcRenderer.invoke("get-setting", "ftp-sync-directory");
 
+    if(!directory) return;
+
     if (await sftp.exists(directory) !== "d") {
       throw new Error(`Directory does not exist: ${directory}`);
     }
@@ -428,13 +431,14 @@ export const getAllFtpFileTypes = async (directory = null) => {
       if (item.type === "d") {
         let subFilePromises = items.filter(item => item.type === "d")
           .map(async item => {
-            const subDirectory = path.posix.join(directory, item.name);
+            const subDirectory = formatFtpPath([directory, item.name]);
             return getAllFtpFileTypes(subDirectory);
           });
         let subFilesArray = await Promise.all(subFilePromises);
         files = files.concat(...subFilesArray);
       } else {
-        files.push(item.name);
+        if (!item.name.startsWith("."))
+          files.push(item.name);
       }
     }
 
@@ -466,7 +470,8 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
 
     for (const itemName of itemNames) {
       const localPath = await normalizePath(path.join(clientSyncPath, itemName));
-      const serverPath = path.join(ftpSyncPath, itemName).replace(/\\/g, "/");;
+      const serverPath = formatFtpPath([ftpSyncPath, itemName]);
+
       const localStats = fs.statSync(localPath);
 
       let shouldUpload = false;
@@ -496,7 +501,7 @@ const getFilesToUpload = async (clientSyncPath, ftpSyncPath) => {
         }
 
 
-        if (shouldUpload) {
+        if (shouldUpload && !itemName.startsWith(".")){
           foldersToDelete.push({ name: itemName, localPath, serverPath, type: "d", size: localStats.size });
           filesToUpload.push({ name: itemName, localPath, serverPath, type: "f", size: localStats.size });
         }
@@ -649,8 +654,8 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
     let filesToDownload = [];
 
     for (const item of items) {
-      const localPath = await normalizePath(path.join(clientSyncPath, item.name));
-      const serverPath = path.join(ftpSyncPath, item.name).replace(/\\/g, "/");
+      const localPath = path.normalize(path.join(clientSyncPath, item.name));
+      const serverPath = formatFtpPath([ftpSyncPath, item.name]);
       let shouldDownload = false;
 
       if (item.type === "-" || item.type === "f") {
@@ -671,7 +676,7 @@ const getFilesToDownload = async (clientSyncPath, ftpSyncPath) => {
         }
 
 
-        if (shouldDownload) {
+        if (shouldDownload && !item.name.startsWith(".")) {
           filesToDownload.push({ name: item.name, localPath, serverPath, type: item.type, size: item.size });
         }
 
@@ -767,3 +772,7 @@ const normalizePath = async (inputPath) => {
   if(path === null) return '';
   return path.normalize(inputPath);
 }
+
+const formatFtpPath = (pathSegments) => {
+  return path.posix.join(...pathSegments);
+};

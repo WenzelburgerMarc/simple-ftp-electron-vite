@@ -13,7 +13,7 @@ const store = new Store();
 const getAllClientFileTypes = async (directory = null) => {
   try {
     if (directory === null) {
-      directory = store.get("clientSyncPath")
+      directory = store.get("clientSyncPath");
     }
 
     const items = fs.readdirSync(directory, { withFileTypes: true });
@@ -24,7 +24,8 @@ const getAllClientFileTypes = async (directory = null) => {
         const subFiles = await getAllClientFileTypes(subDirectory);
         files = files.concat(subFiles);
       } else {
-        files.push(item.name);
+        if (!item.name.startsWith("."))
+          files.push(item.name);
       }
     }
 
@@ -44,15 +45,15 @@ const getAllClientFileTypes = async (directory = null) => {
       open: false,
       description: error.message
     };
-    await addLog(log)
+    await addLog(log);
     throw new Error(`Error - Get All Client File Types: ${error.message}`);
   }
-}
+};
 
 // Function to list files from a specified directory
 const listLocalFiles = async (dirPath) => {
   try {
-    dirPath = path.normalize(dirPath)
+    dirPath = path.normalize(dirPath);
     const files = fs.readdirSync(dirPath);
     const fileDetailsPromises = files.map(async file => {
       // Ignore hidden files (those starting with a dot)
@@ -78,7 +79,7 @@ const listLocalFiles = async (dirPath) => {
           description: error.message
         };
         await ipcRenderer.invoke("add-log", log);
-        await ipcRenderer.invoke("flash-message", error.message, 'Error');
+        await ipcRenderer.invoke("flash-message", error.message, "Error");
         throw new Error(`Error - List Client Files: ${error.message}`);
       }
     });
@@ -95,15 +96,16 @@ const listLocalFiles = async (dirPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
-    await ipcRenderer.invoke("flash-message", error.message, 'Error');
+    await ipcRenderer.invoke("flash-message", error.message, "Error");
     throw new Error(`Error - List Client Files: ${error.message}`);
   }
 };
 
 // Function to create a new folder in the specified directory
 const createNewClientFolder = async (selectedDirectory) => {
+  const normalizedDirectory = path.normalize(selectedDirectory);
   const result = await dialog.showSaveDialog({
-    defaultPath: selectedDirectory,
+    defaultPath: normalizedDirectory,
     properties: ["createDirectory"]
   });
 
@@ -122,7 +124,7 @@ const createNewClientFolder = async (selectedDirectory) => {
         description: error.message
       };
       await ipcRenderer.invoke("add-log", log);
-      await ipcRenderer.invoke("flash-message", error.message, 'Error');
+      await ipcRenderer.invoke("flash-message", error.message, "Error");
       throw new Error(`Error - Creating Client Folder: ${error.message}`);
     }
   } else {
@@ -144,7 +146,7 @@ const copyFile = async (sourcePath, destinationPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
-    await ipcRenderer.invoke("flash-message", error.message, 'Error');
+    await ipcRenderer.invoke("flash-message", error.message, "Error");
     throw new Error(`Error - Copy Client Files: ${error.message}`);
   }
 };
@@ -163,7 +165,7 @@ const deleteClientFile = async (filePath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
-    await ipcRenderer.invoke("flash-message", error.message, 'Error');
+    await ipcRenderer.invoke("flash-message", error.message, "Error");
     throw new Error(`Error - Delete Client Files: ${error.message}`);
   }
 };
@@ -182,7 +184,7 @@ const deleteClientDirectory = async (dirPath) => {
       description: error.message
     };
     await ipcRenderer.invoke("add-log", log);
-    await ipcRenderer.invoke("flash-message", error.message, 'Error');
+    await ipcRenderer.invoke("flash-message", error.message, "Error");
     throw new Error(`Error - Delete Client Directory: ${error.message}`);
   }
 };
@@ -192,8 +194,8 @@ const deleteClientDirectory = async (dirPath) => {
 let watcher;
 let intervalId = null;
 const watchClientDirectory = async (directoryPath, event) => {
-  if(directoryPath === null) return;
-  directoryPath = path.normalize(directoryPath)
+  if (directoryPath === null) return;
+  directoryPath = path.normalize(directoryPath);
   watcher = fs.watch(directoryPath, { recursive: true }, (eventType, filename) => {
     if (filename && mainWindow && !mainWindow.isDestroyed()) {
       event.sender.send("file-changed", { eventType });
@@ -206,7 +208,7 @@ const watchClientDirectory = async (directoryPath, event) => {
     if (mainWindow && !mainWindow.isDestroyed())
       event.sender.send("file-changed", { eventType: "change" });
   }, 1000);
-}
+};
 
 // Function to stop watching changes in the directory
 const unwatchClientDirectory = async () => {
@@ -216,7 +218,7 @@ const unwatchClientDirectory = async () => {
   if (intervalId) {
     clearInterval(intervalId);
   }
-}
+};
 
 // Function to let the user select a client directory
 const selectClientDirectory = async (event) => {
@@ -229,7 +231,7 @@ const selectClientDirectory = async (event) => {
   } else {
     return null;
   }
-}
+};
 
 // Exporting functions for external use
 export {

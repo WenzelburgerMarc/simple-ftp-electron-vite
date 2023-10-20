@@ -32,41 +32,29 @@ const pauseModeEnabled = ref(false);
 
 const showModal = ref(false);
 
+const createPath = (...segments) => {
+  return '/' + segments.join('/').replace(/^\/+/, '');
+};
+
 const updateShowModal = (newValue) => {
   showModal.value = newValue;
 };
-
 const handleClick = async(file) => {
   if (file.type === "d" && currentDir.value != null) {
-    if (currentDir.value === "/") {
-      currentDir.value = `/${file.name}`;
-    } else {
-      currentDir.value = `${currentDir.value}/${file.name}`;
-    }
-
+    currentDir.value = createPath(currentDir.value, file.name);
     setCurrentDir(currentDir.value);
     await listFiles();
   }
 };
 
-const goToFtpInitialPath = async() => {
-  currentDir.value = initialPath.value;
-
-  setCurrentDir(currentDir.value);
-  await listFiles();
-};
-
 const handleBack = async() => {
   if (currentDir.value) {
     const segments = currentDir.value.split("/").filter(segment => segment.trim() !== "");
-
     if (segments.length > 0) {
       segments.pop();
-      let newPath ='/'+ segments.join("/");
-      currentDir.value = newPath;
+      currentDir.value = createPath(...segments);
       setCurrentDir(currentDir.value);
       await listFiles();
-
     } else {
       displayFlash("You have reached the Root Directory!", "warning");
       setCurrentDir(currentDir.value);
@@ -74,11 +62,16 @@ const handleBack = async() => {
     }
   }
 };
+const goToFtpInitialPath = async() => {
+  currentDir.value = initialPath.value;
+
+  setCurrentDir(currentDir.value);
+  await listFiles();
+};
 
 const changePath = (path) => {
-  currentDir.value = path;
+  currentDir.value = createPath(path);
   setCurrentDir(currentDir.value);
-
   listFiles();
 };
 
@@ -205,22 +198,23 @@ const setFtpSyncDirectory = async () => {
 };
 
 const deleteFtpFile = async (file) => {
-  const path = currentDir.value + "/" + file.name;
+  const path = createPath(currentDir.value, file.name);
   await deleteFile(path);
-  await window.ipcRendererInvoke('remove-file-type')
+  await window.ipcRendererInvoke('remove-file-type');
 };
 
 const deleteFtpFolder = async (folder) => {
-  const path = currentDir.value + "/" + folder.name;
+  const path = createPath(currentDir.value, folder.name);
   await deleteDirectory(path);
-  await window.ipcRendererInvoke('remove-file-type')
+  await window.ipcRendererInvoke('remove-file-type');
 };
+
 
 const createNewFolderOnFtp = async (name) => {
   const folderName = name;
 
   if (folderName != null) {
-    const path = currentDir.value + "/" + folderName + "/";
+    const path = createPath(currentDir.value, folderName);
     try {
       await createNewFolder(path);
       displayFlash("Folder created", "success");

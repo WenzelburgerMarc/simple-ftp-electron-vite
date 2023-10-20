@@ -70,7 +70,7 @@ const handleSelectDirectory = async (path) => {
     id: window.api.getUUID(),
     type: "Client Sync Path Set",
     open: false,
-    destination: selectedPath.value + "/"
+    destination: window.api.path.join(selectedPath.value, '/')
   };
 
   await window.ipcRendererInvoke("add-log", log);

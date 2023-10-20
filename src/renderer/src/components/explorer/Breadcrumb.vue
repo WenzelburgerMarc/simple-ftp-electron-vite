@@ -31,8 +31,10 @@ const currentDir = computed(() => {
 const breadcrumb = ref(props.initialBreadcrumb);
 const breadcrumbContainerWidth = ref(0);
 
-const changePath = (path) => {
-  emit("change-path", isWindows() ? path : '/'+path);
+const changePath = (pathStr) => {
+  // Ensure the path starts with a separator
+  const normalizedPath = props.isClientBreadcrumb ? window.api.path.normalize(pathStr) : pathStr;
+  emit("change-path", normalizedPath);
 };
 
 const hover = (index) => {
@@ -47,14 +49,9 @@ const unhover = () => {
   });
 };
 
-const isWindows = () => {
-  return navigator.platform.indexOf("Win") > -1;
-};
-
 const getCurrentPathBreadcrumb = async() => {
   try {
-    let splitSymbol = (isWindows() && props.isClientBreadcrumb) ? "\\" : "/";
-    const segments = currentDir.value.split(splitSymbol).filter(segment => segment.trim() !== "");
+    const segments = currentDir.value.split(window.api.path.sep).filter(segment => segment.trim() !== "");
 
     if (segments.length === 0) {
       segments.push("");
@@ -62,7 +59,7 @@ const getCurrentPathBreadcrumb = async() => {
     return segments.map((segment, index) => {
       return {
         name: segment,
-        path: segments.slice(0, index + 1).join(splitSymbol),
+        path: window.api.path.join(...segments.slice(0, index + 1)),
         hover: false
       };
     });
@@ -75,31 +72,25 @@ const getCurrentPathBreadcrumb = async() => {
   }
 };
 
+
 const initialPath = computed(() => props.initialPathProp);
 
-const isInitialSegment = (path) => {
+const isInitialSegment = (pathStr) => {
   if (!initialPath.value) {
     return false;
   }
-  if(props.isClientBreadcrumb !== true) {
 
-    if (initialPath.value === '/'+path) {
-
-      return true;
-    }
-
-  }else{
-    let check = isWindows() ? path : '/'+path;
-    if (initialPath.value === check) {
-      console.log('true');
-      return true;
-    }else{
-      console.log('false');
-    }
+  if (!pathStr) {
+    return false;
   }
 
-  return false;
+
+
+  // Ensure the path starts with a separator
+  const normalizedPath = window.api.path.normalize(window.api.path.isAbsolute(pathStr) ? pathStr : window.api.path.sep + pathStr);
+  return initialPath.value === normalizedPath;
 };
+
 
 
 onMounted(async () => {
