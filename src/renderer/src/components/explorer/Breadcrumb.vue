@@ -32,19 +32,32 @@ const breadcrumb = ref(props.initialBreadcrumb);
 const breadcrumbContainerWidth = ref(0);
 
 const getSeparator = () => {
-  return props.isClientBreadcrumb ? window.api.path.sep : '/';
+  return props.isClientBreadcrumb === true ? window.api.path.sep : '/';
 };
 
 
+// In der Breadcrumb-Komponente
 const changePath = (pathStr) => {
   let normalizedPath;
-  if (props.isClientBreadcrumb) {
-    normalizedPath = pathStr.startsWith(getSeparator()) ?  window.api.path.normalize(pathStr) : window.api.path.normalize(getSeparator() + pathStr);
+  if (props.isClientBreadcrumb === true) {
+
+    // Ersetzen Sie Backslashes durch Schrägstriche vor der Normalisierung
+    const forwardSlashPath = pathStr.replace(/\\/g, '/');
+    normalizedPath = window.api.path.normalize(forwardSlashPath);
+
   } else {
+
     normalizedPath = pathStr.startsWith('/') ? pathStr : '/' + pathStr;
+
   }
-  console.log("Normalized path: " + normalizedPath);
-  emit("change-path", normalizedPath);
+
+  if(props.isClientBreadcrumb){
+    emit("change-path", normalizedPath, false);
+  }else{
+    emit("change-path", normalizedPath, true);
+  }
+
+
 };
 
 
@@ -99,8 +112,20 @@ const isInitialSegment = (pathStr) => {
 
 
   // Ensure the path starts with a separator
-  const normalizedPath = window.api.path.normalize(window.api.path.isAbsolute(pathStr) ? pathStr : window.api.path.sep + pathStr);
-  return initialPath.value === normalizedPath;
+
+
+
+  if(props.isClientBreadcrumb === false) {
+    if(!pathStr.startsWith('/')){
+      pathStr = '/' + pathStr;
+    }
+    pathStr = pathStr.replace(/\\/g, '/');
+
+    console.log("initialPath.value", initialPath.value);
+    console.log("normalizedPath", pathStr);
+  }
+
+  return initialPath.value === pathStr;
 };
 
 

@@ -33,9 +33,16 @@ const pauseModeEnabled = ref(false);
 const showModal = ref(false);
 
 const createPath = (...segments) => {
+  // Entfernt leere Segmente und führende/trailing Schrägstriche von jedem Segment
+  const cleanedSegments = segments
+    .filter(segment => segment)
+    .map(segment => segment.replace(/^\/+|\/+$/g, ''));
 
-  return '/' + segments.join('/').replace(/^\/+/, '');
+  // Fügt die Segmente zusammen, getrennt durch einen einzelnen Schrägstrich
+  let paths = '/' + cleanedSegments.join('/')
+  return paths;
 };
+
 
 const updateShowModal = (newValue) => {
   showModal.value = newValue;
@@ -70,8 +77,11 @@ const goToFtpInitialPath = async() => {
   await listFiles();
 };
 
-const changePath = (path) => {
+const changePath = (path, isServer =false) => {
   currentDir.value = createPath(path);
+  if(isServer){
+    currentDir.value = currentDir.value.replace(/\\/g, '/'); // window.api.path.posix.normalize(currentDir.value);
+  }
   setCurrentDir(currentDir.value);
   listFiles();
 };

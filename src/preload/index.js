@@ -71,6 +71,7 @@ contextBridge.exposeInMainWorld("ftp", {
 contextBridge.exposeInMainWorld("api", {
   baseUrl: process.env.BASE_URL,
   path: path,
+  os: process.platform,
   isOnline: online,
   getUUID: () => uuidv4(),
   selectDirectory: async () => {
