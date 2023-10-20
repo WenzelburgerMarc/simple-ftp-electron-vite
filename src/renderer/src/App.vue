@@ -59,12 +59,3 @@ onMounted(async () => {
   <router-view />
 
 </template>
-
-<style scoped>
-@media (prefers-reduced-motion: reduce) {
-
-  * {
-    transition: none !important;
-  }
-}
-</style>
