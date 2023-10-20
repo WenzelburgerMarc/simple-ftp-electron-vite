@@ -110,7 +110,7 @@ const isInitialSegment = (pathStr) => {
 
   // Ensure the path starts with a separator
 
-
+  let isWindows = window.api.os === "win32";
 
   if(props.isClientBreadcrumb === false) {
     if(!pathStr.startsWith('/')){
@@ -120,7 +120,7 @@ const isInitialSegment = (pathStr) => {
 
 
   }else{
-    let isWindows = window.api.os.platform === "win32";
+
     if(!isWindows){
       if(!pathStr.startsWith('/')){
         pathStr = '/' + pathStr;
