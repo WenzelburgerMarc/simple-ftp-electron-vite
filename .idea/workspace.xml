@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,8 +69,8 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main2",
     "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "18.18.0",
-    "javascript.nodejs.core.library.typings.version": "18.18.0",
+    "javascript.nodejs.core.library.configured.version": "18.15.0",
+    "javascript.nodejs.core.library.typings.version": "18.15.0",
     "last_opened_file_path": "C:/Users/wenze/Desktop/ftp-main2/simple-ftp-electron-vite",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -87,7 +79,7 @@
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/wenzelburgermarc/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "C:\\Users\\wenze\\AppData\\Local\\Programs\\PhpStorm\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -146,6 +138,7 @@
       <workItem from="1697715375081" duration="399000" />
       <workItem from="1697715785338" duration="8209000" />
       <workItem from="1697785827447" duration="4626000" />
+      <workItem from="1697790586911" duration="1349000" />
     </task>
     <task id="LOCAL-00104" summary="Add - Save Logs Functionality">
       <option name="closed" value="true" />

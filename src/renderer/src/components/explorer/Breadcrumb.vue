@@ -31,11 +31,16 @@ const currentDir = computed(() => {
 const breadcrumb = ref(props.initialBreadcrumb);
 const breadcrumbContainerWidth = ref(0);
 
+const getSeparator = () => {
+  return props.isClientBreadcrumb ? window.api.path.sep : '/';
+};
+
+
 const changePath = (pathStr) => {
-  // Ensure the path starts with a separator
-  const normalizedPath = props.isClientBreadcrumb ? window.api.path.normalize(pathStr) : pathStr;
+  let normalizedPath = props.isClientBreadcrumb ? window.api.path.normalize(pathStr) : pathStr.replace(new RegExp(`\\${getSeparator()}`, 'g'), '/');
   emit("change-path", normalizedPath);
 };
+
 
 const hover = (index) => {
   breadcrumb.value.forEach((segment, i) => {
@@ -51,7 +56,8 @@ const unhover = () => {
 
 const getCurrentPathBreadcrumb = async() => {
   try {
-    const segments = currentDir.value.split(window.api.path.sep).filter(segment => segment.trim() !== "");
+    const segments = currentDir.value.split(getSeparator()).filter(segment => segment.trim() !== "");
+
 
     if (segments.length === 0) {
       segments.push("");
@@ -114,7 +120,6 @@ onMounted(async () => {
 
 <template>
   <div class="breadcrumb">
-
     <template
       v-for="(segment, index) in breadcrumb"
       :key="index">
@@ -125,8 +130,9 @@ onMounted(async () => {
         @click.prevent="changePath(segment.path)"
         @mouseover="hover(index)"
         @mouseout="unhover()">
-        {{ segment.name }}<span>/</span>
+        {{ segment.name }}
       </a>
+      <span v-if="index < breadcrumb.length - 1">{{ getSeparator() }}</span>
     </template>
   </div>
 </template>

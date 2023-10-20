@@ -33,6 +33,7 @@ const pauseModeEnabled = ref(false);
 const showModal = ref(false);
 
 const createPath = (...segments) => {
+
   return '/' + segments.join('/').replace(/^\/+/, '');
 };
 
@@ -234,7 +235,7 @@ const createNewFolderOnFtp = async (name) => {
       type: "Server Folder Created",
       name: name,
       open: false,
-      destination: currentDir.value + "/"
+      destination: currentDir.value
     };
 
     await window.ipcRendererInvoke("add-log", log);
