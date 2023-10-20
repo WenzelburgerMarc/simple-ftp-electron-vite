@@ -35,13 +35,10 @@ const getSeparator = () => {
   return props.isClientBreadcrumb === true ? window.api.path.sep : '/';
 };
 
-
-// In der Breadcrumb-Komponente
 const changePath = (pathStr) => {
   let normalizedPath;
   if (props.isClientBreadcrumb === true) {
 
-    // Ersetzen Sie Backslashes durch Schrägstriche vor der Normalisierung
     const forwardSlashPath = pathStr.replace(/\\/g, '/');
     normalizedPath = window.api.path.normalize(forwardSlashPath);
 
@@ -121,9 +118,18 @@ const isInitialSegment = (pathStr) => {
     }
     pathStr = pathStr.replace(/\\/g, '/');
 
-    console.log("initialPath.value", initialPath.value);
-    console.log("normalizedPath", pathStr);
+
+  }else{
+    let isWindows = window.api.os.platform === "win32";
+    if(!isWindows){
+      if(!pathStr.startsWith('/')){
+        pathStr = '/' + pathStr;
+      }
+    }
+
   }
+
+
 
   return initialPath.value === pathStr;
 };

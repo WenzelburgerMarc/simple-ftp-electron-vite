@@ -36,7 +36,9 @@ const handleBack = async() => {
 };
 
 const changePath = (newPath) => {
-  currentDir.value = newPath;
+
+  let isWindows = window.api.os.platform === "win32";
+  currentDir.value = isWindows ? newPath : '/'+newPath;
   listFiles();
 };
 
