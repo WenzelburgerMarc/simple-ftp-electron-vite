@@ -50,11 +50,19 @@ const handleBack = async() => {
 };
 
 
-const changePath = (newPath) => {
+const changePath = async(newPath) => {
+  const syncPath = await getSetting("clientSyncPath");
+  if(newPath.startsWith(syncPath) && newPath !== syncPath) {
+    let isWindows = window.api.os === "win32";
+    currentDir.value = isWindows ? newPath : '/'+newPath;
+    listFiles();
+  } else {
+    displayFlash("Cannot navigate beyond the sync directory!", "warning");
+    // Optionally, you might want to reset currentDir.value to syncPath here
+     currentDir.value = syncPath;
+    listFiles();
+  }
 
-  let isWindows = window.api.os === "win32";
-  currentDir.value = isWindows ? newPath : '/'+newPath;
-  listFiles();
 };
 
 const createNewFolderOnClient = async () => {
