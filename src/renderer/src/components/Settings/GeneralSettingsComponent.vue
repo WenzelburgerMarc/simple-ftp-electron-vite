@@ -109,7 +109,7 @@ onMounted(async () => {
     window.api.setAutoStartItemSetting({ openAtLogin: newValue });
   });
   updatePassword(await getSetting("password"));
-  updateConfirmPassword('');
+  updateConfirmPassword(await getSetting("password"));
   await loadSettings(false);
 
 });

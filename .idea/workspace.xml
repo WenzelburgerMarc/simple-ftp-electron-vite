@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,23 +141,7 @@
       <workItem from="1697813871979" duration="260000" />
       <workItem from="1698613304923" duration="185000" />
       <workItem from="1698613501683" duration="73000" />
-      <workItem from="1698648343422" duration="2865000" />
-    </task>
-    <task id="LOCAL-00107" summary="Removed - Box Icons&#10;Replaced - Box Icons With Font Awesome Icon">
-      <option name="closed" value="true" />
-      <created>1697195876864</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1697195876864</updated>
-    </task>
-    <task id="LOCAL-00108" summary="Fix - Clear New Ftp Folder Input On Popup">
-      <option name="closed" value="true" />
-      <created>1697204271308</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1697204271308</updated>
+      <workItem from="1698648343422" duration="4966000" />
     </task>
     <task id="LOCAL-00109" summary="Formatting Files">
       <option name="closed" value="true" />
@@ -539,7 +519,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698648877174</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs">
+      <option name="closed" value="true" />
+      <created>1698651336707</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1698651336707</updated>
+    </task>
+    <task id="LOCAL-00157" summary="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs">
+      <option name="closed" value="true" />
+      <created>1698651343476</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1698651343476</updated>
+    </task>
+    <option name="localTasksCounter" value="158" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +556,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - list local files" />
     <MESSAGE value="Fix - error logs" />
     <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
     <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
@@ -585,6 +580,7 @@
     <MESSAGE value="Fix - Import/Export Settings" />
     <MESSAGE value="Fix - icons" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs" />
   </component>
 </project>
