@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - PW on startup&#10;Add - Guide.pdf">
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +88,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/src/renderer/assets" />
       <recent name="$PROJECT_DIR$/src/renderer/src/components/explorer" />
       <recent name="$PROJECT_DIR$/src/renderer/src/components/Logs/templates" />
       <recent name="$PROJECT_DIR$/src/renderer/src/components" />
-      <recent name="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -141,15 +140,7 @@
       <workItem from="1697813871979" duration="260000" />
       <workItem from="1698613304923" duration="185000" />
       <workItem from="1698613501683" duration="73000" />
-      <workItem from="1698648343422" duration="4966000" />
-    </task>
-    <task id="LOCAL-00109" summary="Formatting Files">
-      <option name="closed" value="true" />
-      <created>1697205289525</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1697205289525</updated>
+      <workItem from="1698648343422" duration="5275000" />
     </task>
     <task id="LOCAL-00110" summary="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window">
       <option name="closed" value="true" />
@@ -535,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698651343476</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary="Fix - PW on startup&#10;Add - Guide.pdf">
+      <option name="closed" value="true" />
+      <created>1698659731037</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1698659731037</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +555,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - error logs" />
     <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
     <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
     <MESSAGE value="-" />
@@ -581,6 +579,7 @@
     <MESSAGE value="Fix - icons" />
     <MESSAGE value="Fix" />
     <MESSAGE value="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs" />
+    <MESSAGE value="Fix - PW on startup&#10;Add - Guide.pdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - PW on startup&#10;Add - Guide.pdf" />
   </component>
 </project>

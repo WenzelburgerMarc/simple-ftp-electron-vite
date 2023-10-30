@@ -31,6 +31,11 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
+// Open Guide from resources/guide.pdf
+ipcMain.handle("openGuide", async () => {
+  await shell.openPath(path.join(app.getAppPath(), "resources", "guide.pdf"));
+});
+
 const store = new Store();
 //store.delete("firstStart");
 
