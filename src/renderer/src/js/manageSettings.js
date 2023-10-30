@@ -36,7 +36,12 @@ export const loadGeneralSettings = async (showFlash = true) => {
   enableAutoStart.value = await getSetting("enableAutoStart");
   autoReloadFtpInterval.value = await getSetting("autoReloadFtpInterval") || 60000;
   autoSyncInterval.value = await getSetting("autoSyncInterval") || 30000;
-  selectedPath.value = await window.ipcRendererInvoke('normalize-path', await getSetting("clientSyncPath"));
+  selectedPath.value = await getSetting("clientSyncPath") || "";
+  if(selectedPath.value !== "" && selectedPath.value !== null && selectedPath.value !== undefined && selectedPath.value !== "."){
+    selectedPath.value = await window.ipcRendererInvoke('normalize-path', selectedPath.value);
+  }else{
+    selectedPath.value = "";
+  }
   enableAutoReconnect.value = await getSetting("enableAutoReconnect");
   enableDeletingFilesAfterUpload.value = await getSetting("enableDeletingFilesAfterUpload");
   passwordRequiredOnStartup.value = await getSetting("passwordRequiredOnStartup");
@@ -201,7 +206,6 @@ export const exportSettings = async () => {
 
 
     let set = await window.ipcRendererInvoke("export-settings", settings);
-    console.log('set: ' + set);
     if(set){
       displayFlash("Settings exported successfully!", "success");
     }else{

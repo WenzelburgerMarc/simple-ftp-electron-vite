@@ -14,6 +14,11 @@ export const setIsConnected = (value) => {
   connected.value = value;
 };
 
+function isValidLocalPath(path) {
+  // Check for network path indicators
+  return !(/^\\\\/.test(path) || /^\/\//.test(path) || /^smb:\/\//.test(path));
+}
+
 export const connect = (ftpSettings, justTest = false) => {
   startLoading();
 
@@ -54,6 +59,11 @@ export const connect = (ftpSettings, justTest = false) => {
         await setSetting("ftp-sync-directory", "/");
       }
 
+      if (!isValidLocalPath(clientSyncPath) || clientSyncPath.includes("\\") || clientSyncPath.includes("//") || clientSyncPath.includes("smb://")) {
+        return handleConnectionError("This Application does not support network paths. Please use a local path like C:\\Users\\User\\Documents\\FTP-Sync");
+      }
+
+
       if (window.ftp.getIsConnected()) {
         await window.ftp.disconnectFTP();
         connected.value = false;
@@ -64,6 +74,11 @@ export const connect = (ftpSettings, justTest = false) => {
 
       if (!connected.value) {
         return handleConnectionError("Failed to connect to FTP Server");
+      }
+
+      let ftpRootDirectory = await window.ftp.getRootFtpDirectory();
+      if(ftpRootDirectory === "" || !ftpRootDirectory.startsWith('/') || ftpRootDirectory.startsWith('//') || ftpRootDirectory.startsWith('smb://') || !ftpRootDirectory) {
+        return handleConnectionError("The FTP-Root Directory is not valid. Please check your FTP-Connection Settings");
       }
 
       if (justTest) {
@@ -83,6 +98,7 @@ export const connect = (ftpSettings, justTest = false) => {
       return resolve(true);
     } catch (error) {
       handleConnectionError("Failed to connect to FTP Server due to an error: " + error.message);
+      await disconnect(true, true);
     }
   });
 };

@@ -111,6 +111,7 @@ onMounted(async () => {
   updatePassword(await getSetting("password"));
   updateConfirmPassword('');
   await loadSettings(false);
+
 });
 
 watch(props, async () => {

@@ -20,7 +20,8 @@ import {
   calculateAndCompareSize,
   clearFilesAfterModeSwitch,
   getAllFtpFileTypes,
-  isSearchFiltering, getIsFilteringFtp
+  getIsFilteringFtp,
+  getRootFtpDirectory
 
 } from "./preloadFTP";
 import { online } from "./isOnline";
@@ -65,7 +66,8 @@ contextBridge.exposeInMainWorld("ftp", {
   calculateAndCompareSize,
   clearFilesAfterModeSwitch,
   getAllFtpFileTypes,
-  getIsFilteringFtp
+  getIsFilteringFtp,
+  getRootFtpDirectory
 });
 
 

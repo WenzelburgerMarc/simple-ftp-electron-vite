@@ -498,6 +498,38 @@ export const getAllFtpFileTypes = async (directory = null) => {
   }
 };
 
+export const getRootFtpDirectory = async () => {
+  try {
+    const rootDirectory = await ipcRenderer.invoke("get-setting", "ftp-sync-directory");
+    if (!rootDirectory) return;
+
+    // replace \\ with \ and // with /
+    rootDirectory.replace(/\\\\/g, "\\").replace(/\/\//g, "/");
+
+    if (await sftp.exists(rootDirectory) !== "d") {
+      throw new Error(`Directory does not exist: ${rootDirectory}`);
+    }
+
+    if (rootDirectory.startsWith("/") && !rootDirectory.startsWith("//")) {
+      await ipcRenderer.invoke("set-setting", "ftp-sync-directory", rootDirectory);
+      return rootDirectory;
+    }else{
+      throw new Error(`Root Directory does not start with /: ${rootDirectory}`);
+    }
+
+
+  } catch (error) {
+    let log = {
+      logType: "Error",
+      id: uuidv4(),
+      type: "Error - Get Root FTP Directory",
+      open: false,
+      description: error.message
+    };
+    await ipcRenderer.invoke("add-log", log);
+    throw new Error(`Error - Get Root FTP Directory: ${error.message}`);
+  }
+}
 
 // === Helper Methods === \\
 // Get files that are on client and not on server
