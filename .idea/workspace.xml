@@ -5,101 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix">
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/simple-ftp-electron-vite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/simple-ftp-electron-vite.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/extensions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-builder.yml" beforeDir="false" afterPath="$PROJECT_DIR$/electron-builder.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron.vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron.vite.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/fileSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ipcHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ipcHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/logs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/logs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/manageConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/manageConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/isOnline.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/isOnline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preload/preloadFTP.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/preload/preloadFTP.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/assets/icon.icns" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/icon.icns" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/assets/icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/icon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ExitModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/FlashMessage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/FlashMessage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Loader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/LogsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/CreateFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/CreateFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/DeleteFileLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/DeleteFileLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/DeleteFolderLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/DeleteFolderLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/ErrorLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/ErrorLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/SetSyncPathLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/SetSyncPathLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/SyncModeLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Logs/templates/SyncModeLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/ModalComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/PasswordModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/FTPSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/GeneralSettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/Settings/SettingsSetting.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarDivider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarDivider.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarItemTooltip.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarToggler.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/TheSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/Breadcrumb.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/explorer/FileList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/ButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/CheckboxComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/CheckboxComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/IconButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/InputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/InputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LabelInputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/LinkComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/PanelComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/PanelComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/PlainButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/SelectPathInputComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/form/TitleComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/exitModalController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/exitModalController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/flashMessageController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/ftpManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/loaderManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/logsModalController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/logsModalController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/manageSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/passwordModalController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/passwordModalController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/js/settingsModalController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/js/settingsModalController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/Main-Layout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/ClientExplorer/TheClientExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FilterExplorerComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/SetFtpFolderNameModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/SetFtpFolderNameModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpExplorer/TheFtpExplorer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/FtpStatusOverview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/Sync-Slider-Options.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/views/HomePage/includes/Sync-Slider-Options.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,15 +140,7 @@
       <workItem from="1697813871979" duration="260000" />
       <workItem from="1698613304923" duration="185000" />
       <workItem from="1698613501683" duration="73000" />
-      <workItem from="1698648343422" duration="392000" />
-    </task>
-    <task id="LOCAL-00105" summary="Fix - Save All Logs + Delete All Logs Icon Button&#10;Fix - Save All Logs Functionality">
-      <option name="closed" value="true" />
-      <created>1697193400562</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1697193400562</updated>
+      <workItem from="1698648343422" duration="525000" />
     </task>
     <task id="LOCAL-00106" summary="Fix - Error Logs">
       <option name="closed" value="true" />
@@ -628,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697795316693</updated>
     </task>
-    <option name="localTasksCounter" value="154" />
+    <task id="LOCAL-00154" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1698648778447</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1698648778448</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
