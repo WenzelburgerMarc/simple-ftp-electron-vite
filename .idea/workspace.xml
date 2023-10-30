@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Fix - PW on startup&#10;Add - Guide.pdf">
+    <list default="true" id="38882cbd-a992-49f9-8526-c69929910820" name="Changes" comment="Add - Open Guide From SidebarContainer.vue">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components/SideBar/SidebarContainer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,15 +141,7 @@
       <workItem from="1697813871979" duration="260000" />
       <workItem from="1698613304923" duration="185000" />
       <workItem from="1698613501683" duration="73000" />
-      <workItem from="1698648343422" duration="5275000" />
-    </task>
-    <task id="LOCAL-00110" summary="Refactor - Main Process&#10;Comment - Main Process&#10;&#10;Next: &#10;- Refactor + Comment Renderer + preload&#10;- Add frame to move window">
-      <option name="closed" value="true" />
-      <created>1697211030116</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1697211030116</updated>
+      <workItem from="1698648343422" duration="5732000" />
     </task>
     <task id="LOCAL-00111" summary="Delete - Displayflash from preloadFTP.js">
       <option name="closed" value="true" />
@@ -534,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698659731037</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="Add - Open Guide From SidebarContainer.vue">
+      <option name="closed" value="true" />
+      <created>1698660114313</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1698660114313</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,7 +556,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix - error logs + flash message in fileSystem.js" />
     <MESSAGE value="Add - Desc in every important file&#10;Sorted - Tags" />
     <MESSAGE value="-" />
     <MESSAGE value="Add - Confirm Exit Modal + Clear Files if currently Syncing and exiting&#10;Fix - preloadFTP Logging errors" />
@@ -580,6 +580,7 @@
     <MESSAGE value="Fix" />
     <MESSAGE value="Add - Better Check If Client And Ftp Sync Paths are valid&#10;Removed - Console Logs" />
     <MESSAGE value="Fix - PW on startup&#10;Add - Guide.pdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix - PW on startup&#10;Add - Guide.pdf" />
+    <MESSAGE value="Add - Open Guide From SidebarContainer.vue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add - Open Guide From SidebarContainer.vue" />
   </component>
 </project>

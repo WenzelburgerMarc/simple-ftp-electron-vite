@@ -9,7 +9,7 @@ import nightwind from "nightwind/helper";
 import FlashMessage from "@/components/FlashMessage.vue";
 import { ref, computed } from "vue";
 import { getSetting } from "../../js/manageSettings";
-import '@/assets/guide.pdf'
+
 let isOpen = ref(false);
 
 const emit = defineEmits(["toggledSidebarEvent", "settingsClicked", "logsClicked", "exitClicked"]);
