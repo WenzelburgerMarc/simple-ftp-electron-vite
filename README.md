@@ -1,4 +1,4 @@
-
+# FTP File Synchronizer (one-directional -> intentionally)
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "build:win": "npm run build && electron-builder --win --config --x64",
